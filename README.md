@@ -8,7 +8,8 @@ assets/css/styles.css  design tokens, light/dark theme, layout
 assets/js/main.js      interactions (theme, maps, lightbox, form, live clock)
 assets/img/            photos (WebP) + og.png social preview
 assets/fonts/          self-hosted Geist, Geist Mono, Instrument Serif
-favicon.svg  robots.txt  sitemap.xml
+favicon.svg  robots.txt  sitemap.xml  404.html
+netlify.toml           Netlify settings: security + cache headers, keeps archive/ and README private
 archive/               the previous single-file version of the site, kept as a backup
 ```
 
