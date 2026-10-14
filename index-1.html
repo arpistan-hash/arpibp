@@ -1969,7 +1969,7 @@
       return id;
     }
     function clear() {
-      fig.classList.remove("focus"); fig.style.removeProperty("--c");
+      fig.classList.remove("focus"); fig.style.removeProperty("--c"); if (plane) plane.style.display = "none"; cancelAnimationFrame(raf);
       arcs.forEach(function (a) { a.classList.remove("hot"); a.style.removeProperty("stroke"); a.setAttribute("marker-end", "url(#arr)"); });
       places.forEach(function (p) { p.classList.remove("hot"); p.style.removeProperty("--c"); });
       lis.forEach(function (l) { l.classList.remove("on"); l.removeAttribute("aria-pressed"); l.style.removeProperty("--c"); });
@@ -1986,7 +1986,42 @@
         var a = arcs[m[0]], len = Math.ceil(a.getTotalLength());
         a.style.setProperty("--len", len); a.style.stroke = c; a.setAttribute("marker-end", "url(#" + marker(i) + ")"); a.classList.add("hot");
       }
+      if (m[0] >= 0) { fly(arcs[m[0]], c); jet(); }
       fig.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+    var ac = null;
+    function jet() {
+      try {
+        ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+        if (ac.state === "suspended") ac.resume();
+        var t0 = ac.currentTime, dur = 1.6, n = Math.floor(ac.sampleRate * dur), buf = ac.createBuffer(1, n, ac.sampleRate), d = buf.getChannelData(0);
+        for (var k = 0; k < n; k++) d[k] = Math.random() * 2 - 1;
+        var src = ac.createBufferSource(); src.buffer = buf;
+        var bp = ac.createBiquadFilter(); bp.type = "bandpass"; bp.Q.value = 0.9;
+        bp.frequency.setValueAtTime(350, t0); bp.frequency.exponentialRampToValueAtTime(1800, t0 + 0.8); bp.frequency.exponentialRampToValueAtTime(300, t0 + dur);
+        var g = ac.createGain(); g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(0.35, t0 + 0.7); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+        var lo = ac.createOscillator(); lo.type = "sawtooth"; lo.frequency.setValueAtTime(70, t0); lo.frequency.linearRampToValueAtTime(110, t0 + 0.8); lo.frequency.linearRampToValueAtTime(60, t0 + dur);
+        var lf = ac.createBiquadFilter(); lf.type = "lowpass"; lf.frequency.value = 220;
+        var lg = ac.createGain(); lg.gain.setValueAtTime(0.0001, t0); lg.gain.exponentialRampToValueAtTime(0.18, t0 + 0.7); lg.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+        src.connect(bp); bp.connect(g); g.connect(ac.destination);
+        lo.connect(lf); lf.connect(lg); lg.connect(ac.destination);
+        src.start(t0); lo.start(t0); lo.stop(t0 + dur);
+      } catch (e) {}
+    }
+    var plane = null, raf = 0;
+    function fly(path, c) {
+      var NS = "http://www.w3.org/2000/svg";
+      if (!plane) { plane = document.createElementNS(NS, "text"); plane.setAttribute("font-size", "9"); plane.setAttribute("text-anchor", "middle"); plane.setAttribute("dominant-baseline", "central"); plane.textContent = "\u2708"; svg.appendChild(plane); }
+      cancelAnimationFrame(raf); plane.style.display = ""; plane.style.fill = c;
+      var len = path.getTotalLength(), t0 = null, dur = 900;
+      function step(ts) {
+        if (t0 === null) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur), pt = path.getPointAtLength(len * p), pt2 = path.getPointAtLength(Math.min(len, len * p + 1));
+        var ang = Math.atan2(pt2.y - pt.y, pt2.x - pt.x) * 180 / Math.PI;
+        plane.setAttribute("transform", "translate(" + pt.x + " " + pt.y + ") rotate(" + ang + ")");
+        if (p < 1) raf = requestAnimationFrame(step);
+      }
+      raf = requestAnimationFrame(step);
     }
     lis.forEach(function (li, i) {
       li.setAttribute("data-arc", i); li.setAttribute("role", "button"); li.tabIndex = 0;
