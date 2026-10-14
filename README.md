@@ -1,4 +1,4 @@
-# Arpi · budapesthungry.com
+# Arpi · rpbp.com
 
 A fast, dependency-free static site: plain HTML, CSS and a little vanilla JS. There is no build step, so it deploys as-is on Netlify, GitHub Pages or any static host.
 
@@ -12,19 +12,19 @@ favicon.svg  robots.txt  sitemap.xml
 archive/               the previous single-file version of the site, kept as a backup
 ```
 
-## Putting it on budapesthungry.com (GoDaddy)
+## Putting it on rpbp.com (GoDaddy)
 
 The repo was created from Netlify, so these steps assume Netlify is hosting. Do them in your own Netlify and GoDaddy accounts; never share your passwords with anyone.
 
-1. **Netlify → your site → Domain management → Add a domain** → `budapesthungry.com`. Make the apex domain (`budapesthungry.com`) the *primary* and let `www` redirect to it.
+1. **Netlify → your site → Domain management → Add a domain** → `rpbp.com`. Make the apex domain (`rpbp.com`) the *primary* and let `www` redirect to it.
 2. **Connect the domain in GoDaddy**, using either option:
-   - **A. Use Netlify DNS (easiest, recommended).** Netlify shows four name servers after you choose *Set up Netlify DNS*. In GoDaddy open *My Products → budapesthungry.com → DNS → Nameservers → Change → "I'll use my own nameservers"*, paste Netlify's four, and save.
+   - **A. Use Netlify DNS (easiest, recommended).** Netlify shows four name servers after you choose *Set up Netlify DNS*. In GoDaddy open *My Products → rpbp.com → DNS → Nameservers → Change → "I'll use my own nameservers"*, paste Netlify's four, and save.
    - **B. Keep GoDaddy DNS.** In *DNS → Records*, delete the default parked/"WebsiteBuilder" `A` record for `@`, and any domain forwarding. Then add an `A` record `@` → the load-balancer IP that Netlify shows for your site (currently `75.2.60.5`), and a `CNAME` record `www` → `<your-site-name>.netlify.app`.
 3. Wait for DNS to propagate (usually minutes, at most 24–48 hours). In Netlify click **Verify DNS**, then **HTTPS → Provision certificate**, and enable **Force HTTPS**.
 
 If the site is hosted on GitHub Pages instead: add four `A` records for `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`, a `CNAME` for `www` → `arpistan-hash.github.io`, set the custom domain in the repo's *Settings → Pages*, and tick *Enforce HTTPS*.
 
-`index.html` already points its canonical, `og:url`, and preview image at `https://budapesthungry.com/`, so link previews work once the domain is live.
+`index.html` already points its canonical, `og:url`, and preview image at `https://rpbp.com/`, so link previews work once the domain is live.
 
 ## Everyday edits
 
