@@ -516,6 +516,9 @@
   .chap-art .w { fill: var(--card); }
   .chap-art .g { fill: color-mix(in srgb, var(--chap) 22%, var(--card)); }
   .chap-art .riv { fill: color-mix(in srgb, var(--p2) 40%, var(--card)); }
+  .item { display: flex; align-items: flex-start; gap: 14px; }
+  .item > p { flex: 1; min-width: 0; }
+  .chap-art.item-ico { width: 72px; height: 72px; flex: none; padding: 4px; box-sizing: border-box; border-radius: 12px; }
   .chap-art .ln, .chap-art .ln2, .chap-art .ln3, .chap-art .dash { fill: none; stroke: var(--fg); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
   .chap-art .ln2 { stroke-width: 2; }
   .chap-art .ln3 { stroke-width: 1.6; }
@@ -815,9 +818,15 @@
       <h3>What Hungarians are proud of</h3>
       <p class="chap-hook">Just enjoy it. It's your vacation.</p>
       <p>That being said, get ready. Hungarians will always be very proud to tell you how big Hungary once was, and it's true. They'll tell you about the thousand-year-old history, and that's true too. Of course, most of us had little to do with it.</p>
-      <p>Hungarians will also be very proud of the Rubik's Cube, paprika and pálinka. Surprisingly, even sour cream and cottage cheese are deeply engraved in the Hungarian mind. And it's true that this kind of cottage cheese is only really available in this part of the world.</p>
-      <p>Speaking of food, you must try a Túró Rudi. It's a Hungarian snack that is every generation's favorite when they're little, and some of us never grow out of it, like me. It's sweetened cottage cheese covered in chocolate: refreshing, not too sweet, and very much the core of the Hungarian soul.</p>
-      <p>If you go around any of the markets, stop by the pickle section, especially when it's the actual producer. You'll see gigantic barrels of sauerkraut, pickled cucumbers and peppers, and even baby watermelons. They're harvested when they're only about 2 inches wide and completely green, and then pickled. In one sitting you can eat 5 or 6 whole watermelons.</p>
+      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="c" x="6" y="6" width="12" height="12"/><rect class="s" x="19" y="6" width="12" height="12"/><rect class="w" x="32" y="6" width="12" height="12"/><rect class="s" x="6" y="19" width="12" height="12"/><rect class="w" x="19" y="19" width="12" height="12"/><rect class="c" x="32" y="19" width="12" height="12"/><rect class="w" x="6" y="32" width="12" height="12"/><rect class="c" x="19" y="32" width="12" height="12"/><rect class="s" x="32" y="32" width="12" height="12"/></svg>
+        <p>Hungarians will also be very proud of the Rubik's Cube, paprika and pálinka. Surprisingly, even sour cream and cottage cheese are deeply engraved in the Hungarian mind. And it's true that this kind of cottage cheese is only really available in this part of the world.</p>
+      </div>
+      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="c" x="6" y="14" width="36" height="20" rx="10"/><circle class="w" cx="16" cy="22" r="2.2"/><circle class="w" cx="26" cy="20" r="2.2"/><circle class="w" cx="34" cy="26" r="2.2"/><circle class="w" cx="22" cy="28" r="2.2"/></svg>
+        <p>Speaking of food, you must try a Túró Rudi. It's a Hungarian snack that is every generation's favorite when they're little, and some of us never grow out of it, like me. It's sweetened cottage cheese covered in chocolate: refreshing, not too sweet, and very much the core of the Hungarian soul.</p>
+      </div>
+      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="k2" x="12" y="4" width="24" height="6" rx="2"/><path class="w" d="M12 10 H36 V40 Q36 44 32 44 H16 Q12 44 12 40Z"/><path class="ln3" d="M12 10 H36 V40 Q36 44 32 44 H16 Q12 44 12 40Z"/><ellipse class="c" cx="21" cy="28" rx="3.5" ry="9"/><circle class="c" cx="30" cy="34" r="5"/><path class="ln3" d="M27 31 l6 6"/></svg>
+        <p>If you go around any of the markets, stop by the pickle section, especially when it's the actual producer. You'll see gigantic barrels of sauerkraut, pickled cucumbers and peppers, and even baby watermelons. They're harvested when they're only about 2 inches wide and completely green, and then pickled. In one sitting you can eat 5 or 6 whole watermelons.</p>
+      </div>
       <p>Hungarian cuisine is rather greasy, but don't tell the Hungarians that. Just enjoy it. It's your vacation.</p>
     </div>
     <div class="chapter" id="tip6">
@@ -826,14 +835,28 @@
       <h3>Fooooood</h3>
       <p class="chap-hook">Where the locals actually get them.</p>
       <p>Of course everybody will push lángos, goulash and chicken paprikás on you.</p>
-      <p>Lángos is a round, fried dough. The best way to get it is at a local market. Every local market has its own lángos maker, and it's probably more authentic and better quality than the touristy places.</p>
-      <p>As for goulash, it's hard to say where to get the best one, because it's a dish you make at home, and everybody has their own taste. Surprisingly, Hungarians would be hard pressed to tell you where the best goulash is, because most of us eat it at home.</p>
-      <p>Chicken paprikás is everything that's Hungarian on one plate: a little spicy, lots of paprika, and sour cream too. All together, it totally represents the Hungarian taste.</p>
-      <p>Hungarian salami is also one of the best in the world, objectively. There's winter salami (téliszalámi) and paprika salami, and the best-known brands are Pick and Herz. Ask for just a few slices at the grocery store. It makes a nice little snack with a roll.</p>
+      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><ellipse class="s2" cx="24" cy="28" rx="20" ry="12"/><ellipse class="s" cx="24" cy="25" rx="18" ry="10"/><path class="ln3" d="M12 22 q12 -6 24 0 M14 28 q10 4 20 0"/><circle class="w" cx="20" cy="22" r="2"/><circle class="w" cx="29" cy="26" r="2"/></svg>
+        <p>Lángos is a round, fried dough. The best way to get it is at a local market. Every local market has its own lángos maker, and it's probably more authentic and better quality than the touristy places.</p>
+      </div>
+      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="c" d="M6 22 H42 Q42 40 24 42 Q6 40 6 22Z"/><path class="ln3" d="M16 16 q-3 -5 0 -9 M24 16 q-3 -5 0 -9 M32 16 q-3 -5 0 -9"/><circle class="s" cx="18" cy="28" r="2.5"/><circle class="w" cx="27" cy="31" r="2.5"/></svg>
+        <p>As for goulash, it's hard to say where to get the best one, because it's a dish you make at home, and everybody has their own taste. Surprisingly, Hungarians would be hard pressed to tell you where the best goulash is, because most of us eat it at home.</p>
+      </div>
+      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><ellipse class="w" cx="24" cy="32" rx="20" ry="8"/><ellipse class="ln3" cx="24" cy="32" rx="20" ry="8"/><path class="c" d="M12 30 Q10 16 24 16 Q36 18 34 28 Q28 34 12 30Z"/><path class="w" d="M30 22 q4 -2 6 2 q-2 4 -6 2Z"/></svg>
+        <p>Chicken paprikás is everything that's Hungarian on one plate: a little spicy, lots of paprika, and sour cream too. All together, it totally represents the Hungarian taste.</p>
+      </div>
+      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="k2" d="M4 22 Q4 14 12 14 H34 Q44 14 44 22 Q44 30 34 30 H12 Q4 30 4 22Z"/><circle class="c" cx="14" cy="22" r="2"/><circle class="c" cx="24" cy="20" r="2"/><circle class="c" cx="32" cy="24" r="2"/><circle class="w" cx="12" cy="40" r="6"/><circle class="c" cx="12" cy="40" r="2"/><circle class="w" cx="28" cy="40" r="6"/><circle class="c" cx="28" cy="40" r="2"/></svg>
+        <p>Hungarian salami is also one of the best in the world, objectively. There's winter salami (téliszalámi) and paprika salami, and the best-known brands are Pick and Herz. Ask for just a few slices at the grocery store. It makes a nice little snack with a roll.</p>
+      </div>
       <p>The winter salami even has a noble mold on its skin. I guess we Hungarians are addicted to pickling, molds and noble rot.</p>
-      <p>If you like spicy sausages, Hungary is a great place to get really good ones, more than likely spicier than in the surrounding countries.</p>
-      <p>Hungarian foie gras, from duck or goose liver, is also world famous. Even some French foie gras products actually come from Hungary and are just processed and relabeled in France. Many people are put off by it because the ducks and geese are force-fed to get a large liver. Nevertheless, it's very tender and delicious, in a hot dish or even cold as a pâté.</p>
-      <p>In season, which means summer and fall, Hungary has excellent fruits and vegetables, so go to a market and get whatever is in season. Cherries, sour cherries, plums, apricots, peaches, nectarines, apples and pears are all fantastic and extremely flavorful. In winter, of course, it's mostly imported oranges and tropical fruits.</p>
+      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="ln" d="M8 34 Q8 12 24 14 Q40 16 40 30" style="stroke:var(--chap);stroke-width:9px"/><path class="s" d="M30 8 q3 -4 6 0 q-1 4 -6 0Z"/></svg>
+        <p>If you like spicy sausages, Hungary is a great place to get really good ones, more than likely spicier than in the surrounding countries.</p>
+      </div>
+      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><ellipse class="k2" cx="24" cy="18" rx="18" ry="7"/><path class="s2" d="M6 18 V32 Q6 40 24 40 Q42 40 42 32 V18 Q42 25 24 25 Q6 25 6 18Z"/><path class="ln3" d="M14 32 q10 4 20 0"/></svg>
+        <p>Hungarian foie gras, from duck or goose liver, is also world famous. Even some French foie gras products actually come from Hungary and are just processed and relabeled in France. Many people are put off by it because the ducks and geese are force-fed to get a large liver. Nevertheless, it's very tender and delicious, in a hot dish or even cold as a pâté.</p>
+      </div>
+      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="ln3" d="M14 10 Q18 4 24 6 M32 8 Q28 6 24 6"/><circle class="c" cx="14" cy="32" r="8"/><circle class="c" cx="32" cy="34" r="8"/><path class="ln3" d="M14 24 Q14 14 22 10 M32 26 Q32 16 26 10"/></svg>
+        <p>In season, which means summer and fall, Hungary has excellent fruits and vegetables, so go to a market and get whatever is in season. Cherries, sour cherries, plums, apricots, peaches, nectarines, apples and pears are all fantastic and extremely flavorful. In winter, of course, it's mostly imported oranges and tropical fruits.</p>
+      </div>
     </div>
     <div class="chapter" id="tip7">
       <p class="chap-k">Tip 7</p>
