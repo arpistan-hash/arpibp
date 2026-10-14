@@ -157,15 +157,26 @@
   }, { threshold: 0.4 });
 
   onceVisible($$("[data-count]"), function (el) {
-    var target = parseInt(el.getAttribute("data-count"), 10), suffix = el.getAttribute("data-suffix") || "";
-    if (reduce || !isFinite(target)) { el.textContent = target + suffix; return; }
+    var target = parseInt(el.getAttribute("data-count"), 10), suffix = el.getAttribute("data-suffix") || "", prefix = el.getAttribute("data-prefix") || "";
+    if (reduce || !isFinite(target)) { el.textContent = prefix + target + suffix; return; }
     var t0 = performance.now(), dur = 1400;
     (function step(now) {
       var p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(target * e) + suffix;
+      el.textContent = prefix + Math.round(target * e) + suffix;
       if (p < 1) requestAnimationFrame(step);
     })(t0);
   }, { threshold: 0.6 });
+
+  // ---------------------------------------------------------------------------
+  // Cursor spotlight on the contact tiles and postcards
+  // ---------------------------------------------------------------------------
+  if (finePointer) $$(".tile, .dest").forEach(function (el) {
+    el.addEventListener("pointermove", function (e) {
+      var r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", (e.clientX - r.left) + "px");
+      el.style.setProperty("--my", (e.clientY - r.top) + "px");
+    });
+  });
 
   // ---------------------------------------------------------------------------
   // Clock + day counter
