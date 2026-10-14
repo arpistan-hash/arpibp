@@ -10,7 +10,7 @@
     email: "arpistan@gmail.com",
     tip: "https://revolut.me/arpadqsln"
   };
-  var BORN = "1979-11-27T00:00:00+01:00"; // for the live day counter (Budapest midnight)
+  // Born 27 Nov 1979 in Budapest: the day counter counts Budapest calendar days (see clocks() below).
   var TZ = "Europe/Budapest";
 
   var doc = document;
@@ -23,6 +23,17 @@
     get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
     set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   };
+
+  // Pause / resume every looping animation (WCAG 2.2.2). One-off entrances are left alone.
+  var pauseBtn = $("#mq-pause");
+  if (pauseBtn) pauseBtn.addEventListener("click", function () {
+    var on = pauseBtn.getAttribute("aria-pressed") !== "true";
+    pauseBtn.setAttribute("aria-pressed", on ? "true" : "false");
+    pauseBtn.textContent = on ? "Resume animations" : "Pause animations";
+    doc.getAnimations().forEach(function (a) {
+      if (a.effect && a.effect.getTiming().iterations === Infinity) { if (on) a.pause(); else a.play(); }
+    });
+  });
 
   // One observer helper: call fn(el) the first time el is on screen.
   function onceVisible(els, fn, opts) {
@@ -59,7 +70,11 @@
         r.selectNodeContents($("#mail-text"));
         var s = window.getSelection();
         s.removeAllRanges(); s.addRange(r);
+        var copied = false;
+        try { copied = doc.execCommand("copy"); } catch (e) {}
+        if (copied) { done(); return; }
         btn.textContent = "Selected, press copy";
+        setTimeout(function () { btn.textContent = "Copy address"; }, 2500);
       };
       try { navigator.clipboard.writeText(CONTACT.email).then(done, fallback); } catch (e) { fallback(); }
     });
@@ -87,7 +102,7 @@
     function sync() {
       btn.setAttribute("aria-pressed", isDark() ? "true" : "false");
       var m = $('meta[name="theme-color"]');
-      if (m) m.setAttribute("content", isDark() ? "#08111b" : "#f6f2ea");
+      if (m) m.setAttribute("content", isDark() ? "#07090d" : "#f6f4ef");
     }
     btn.addEventListener("click", function () {
       var next = isDark() ? "light" : "dark";
@@ -121,7 +136,7 @@
 
     var map = {};
     links.forEach(function (a) { map[a.getAttribute("href").slice(1)] = a; });
-    var secs = Object.keys(map).map(function (id) { return doc.getElementById(id); }).filter(Boolean);
+    var secs = Object.keys(map).concat(["top", "hello"]).map(function (id) { return doc.getElementById(id); }).filter(Boolean);
     if ("IntersectionObserver" in window && secs.length) {
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
@@ -151,6 +166,7 @@
   // Scroll reveal, counters, age pins
   // ---------------------------------------------------------------------------
   onceVisible($$(".reveal"), function (el) { el.classList.add("in"); }, { threshold: 0.12 });
+  window.__arpi = 1; // tells the failsafe in <head> that the reveal observer is running
   onceVisible($$(".ag-row"), function (el) {
     var i = $$(".ag-row").indexOf(el);
     setTimeout(function () { el.classList.add("in"); }, reduce ? 0 : 120 * i);
@@ -193,17 +209,18 @@
         if (clockPill) clockPill.classList.toggle("night", h < 7 || h >= 23);
       } catch (e) {}
     }
-    tick(); setInterval(tick, 20000);
+    tick(); setInterval(tick, 1000);
 
     var days = $("#age-days"), ord = $("#age-ord"), hms = $("#age-hms"), stat = $("#stat-days"), statHms = $("#stat-hms");
     if (!days && !stat) return;
-    var born = new Date(BORN).getTime();
+    var wall = new Intl.DateTimeFormat("en-GB", { timeZone: TZ, year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric", hourCycle: "h23" });
     function pad(n) { return (n < 10 ? "0" : "") + n; }
     function day() {
-      var s = Math.floor((Date.now() - born) / 1000);
-      if (s < 0) return;
-      var rem = s % 86400, n = Math.floor(s / 86400) + 1, m = n % 100, d = n % 10;
-      var t = pad(Math.floor(rem / 3600)) + ":" + pad(Math.floor((rem % 3600) / 60)) + ":" + pad(rem % 60);
+      var p = {};
+      wall.formatToParts(new Date()).forEach(function (x) { if (x.type !== "literal") p[x.type] = +x.value; });
+      var n = Math.round((Date.UTC(p.year, p.month - 1, p.day) - Date.UTC(1979, 10, 27)) / 864e5) + 1, m = n % 100, d = n % 10;
+      if (n < 1) return;
+      var t = pad(p.hour) + ":" + pad(p.minute) + ":" + pad(p.second);
       var ordinal = (m >= 11 && m <= 13) ? "th" : d === 1 ? "st" : d === 2 ? "nd" : d === 3 ? "rd" : "th";
       if (days) days.textContent = n.toLocaleString("en-US");
       if (ord) ord.textContent = ordinal;
@@ -258,12 +275,14 @@
   // ---------------------------------------------------------------------------
   // Maps
   // ---------------------------------------------------------------------------
-  var tip = null;
+  var tip = null, bindMapTips = null;
   function showTip(x, y, flag, name) {
     if (!tip) { tip = doc.createElement("div"); tip.className = "maptip"; tip.setAttribute("role", "status"); doc.body.appendChild(tip); }
     tip.textContent = "";
     if (flag) { var f = doc.createElement("span"); f.className = "flag"; f.textContent = flag; tip.appendChild(f); }
     tip.appendChild(doc.createTextNode(name));
+    var host = doc.querySelector("dialog[open]") || doc.body;
+    if (tip.parentNode !== host) host.appendChild(tip);
     tip.style.left = x + "px"; tip.style.top = y + "px"; tip.hidden = false;
   }
   function hideTip() { if (tip) tip.hidden = true; }
@@ -275,14 +294,16 @@
     onceVisible([svg], function () { svg.classList.add("in"); }, { threshold: 0.3 });
     if (reduce) svg.classList.add("in");
 
-    var targets = $$(".country.visited, .pin", svg);
-    targets.forEach(function (t) {
-      function move(e) { showTip(e.clientX, e.clientY, t.getAttribute("data-flag"), t.getAttribute("data-name")); }
-      t.addEventListener("pointerenter", move);
-      t.addEventListener("pointermove", move);
-      t.addEventListener("pointerleave", hideTip);
-      t.addEventListener("click", function (e) { e.stopPropagation(); move(e); });
-    });
+    bindMapTips = function (map) {
+      $$(".country.visited, .pin", map).forEach(function (t) {
+        function move(e) { showTip(e.clientX, e.clientY, t.getAttribute("data-flag"), t.getAttribute("data-name")); }
+        t.addEventListener("pointerenter", move);
+        t.addEventListener("pointermove", move);
+        t.addEventListener("pointerleave", hideTip);
+        t.addEventListener("click", function (e) { e.stopPropagation(); move(e); });
+      });
+    };
+    bindMapTips(svg);
     doc.addEventListener("click", hideTip);
     window.addEventListener("scroll", hideTip, { passive: true });
 
@@ -293,7 +314,11 @@
       function set(on) { $$('[data-name="' + name.replace(/"/g, "") + '"]', svg).forEach(function (n) { n.classList.toggle("hl", on); }); li.classList.toggle("hl", on); }
       li.addEventListener("pointerenter", function () { set(true); });
       li.addEventListener("pointerleave", function () { set(false); });
-      li.addEventListener("click", function () { set(true); setTimeout(function () { set(false); }, 1800); });
+      li.addEventListener("click", function () {
+        var m = $("#places .mapcard"), r = m.getBoundingClientRect();
+        if (r.bottom < 60 || r.top > window.innerHeight - 60) m.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+        set(true); setTimeout(function () { set(false); }, 2600);
+      });
     });
   })();
 
@@ -354,6 +379,7 @@
         var t = $("title", shown); if (t) t.parentNode.removeChild(t);
         shown.classList.add("in", "draw", "done");
         body.textContent = ""; body.appendChild(shown);
+        if (bindMapTips && shown.classList.contains("wm")) bindMapTips(shown);
         title.textContent = b.getAttribute("data-title");
         setZoom(2);
         dlg.showModal();
@@ -363,7 +389,8 @@
     $("#zoom-in").addEventListener("click", function () { setZoom(zoom + 1); });
     $("#zoom-out").addEventListener("click", function () { setZoom(zoom - 1); });
     $("#map-close").addEventListener("click", function () { dlg.close(); });
-    dlg.addEventListener("close", function () { root.style.overflow = ""; body.textContent = ""; shown = null; });
+    body.addEventListener("scroll", hideTip, { passive: true });
+    dlg.addEventListener("close", function () { hideTip(); root.style.overflow = ""; body.textContent = ""; shown = null; });
   })();
 
   // ---------------------------------------------------------------------------
@@ -419,13 +446,13 @@
       if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
       else if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
     });
-    stage.addEventListener("click", function (e) { if (e.target === stage) dlg.close(); });
-
-    var x0 = null;
-    stage.addEventListener("pointerdown", function (e) { x0 = e.clientX; });
+    var x0 = null, dragged = false;
+    stage.addEventListener("click", function (e) { if (e.target === stage && !dragged) dlg.close(); dragged = false; });
+    stage.addEventListener("pointerdown", function (e) { x0 = e.clientX; dragged = false; });
     stage.addEventListener("pointerup", function (e) {
       if (x0 === null) return;
       var dx = e.clientX - x0; x0 = null;
+      dragged = Math.abs(dx) > 5;
       if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
     });
     stage.addEventListener("pointercancel", function () { x0 = null; });
@@ -459,7 +486,7 @@
     var f = $("#gb-form");
     if (!f) return;
     var status = $("#gb-status"), send = $("#gb-send");
-    function say(msg, ok) { status.textContent = msg; status.classList.toggle("ok", !!ok); }
+    function say(msg, ok) { status.textContent = msg; status.classList.toggle("ok", !!ok); status.classList.remove("err"); }
     function whatsappFallback(name, email, msg) {
       var url = "https://wa.me/" + CONTACT.whatsapp.replace(/\D/g, "") + "?text=" +
         encodeURIComponent("Hi Arpi, it's " + name + " (" + email + "):\n" + msg);
@@ -468,13 +495,24 @@
       var a = doc.createElement("a");
       a.href = url; a.target = "_blank"; a.rel = "noopener"; a.textContent = "Send it on WhatsApp instead";
       status.appendChild(a);
-      try { window.open(url, "_blank", "noopener"); } catch (e) {} // some browsers block this after a network call, hence the link
     }
+    f.addEventListener("input", function (ev) { ev.target.removeAttribute("aria-invalid"); ev.target.removeAttribute("aria-describedby"); });
     f.addEventListener("submit", function (ev) {
       ev.preventDefault();
       var name = f.elements.name.value.trim(), email = f.elements.email.value.trim(), msg = f.elements.message.value.trim();
       if (f.elements["bot-field"] && f.elements["bot-field"].value) return; // honeypot
-      if (!name || !msg || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { say("Please fill in your name, a valid email and a message."); return; }
+      var checks = [
+        [f.elements.name, !!name, "Please enter your name."],
+        [f.elements.email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email), "Please enter a valid email address."],
+        [f.elements.message, !!msg, "Please write a message."]
+      ];
+      var bad = checks.filter(function (c) {
+        if (c[1]) { c[0].removeAttribute("aria-invalid"); c[0].removeAttribute("aria-describedby"); }
+        else { c[0].setAttribute("aria-invalid", "true"); c[0].setAttribute("aria-describedby", "gb-status"); }
+        return !c[1];
+      });
+      if (bad.length) { say(bad.map(function (c) { return c[2]; }).join(" ")); status.classList.add("err"); bad[0][0].focus(); return; }
+      f.elements.name.value = name; f.elements.email.value = email; f.elements.message.value = msg;
       send.disabled = true; say("Sending...");
       var body = new URLSearchParams(new FormData(f)).toString();
       fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: body })
