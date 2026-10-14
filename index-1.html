@@ -544,6 +544,18 @@
   .chips li.has-photos::after { content: "\1F4F7"; font-size: 11px; margin-left: 6px; opacity: .8; }
   .chips li[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--accent); }
   .mom-h { margin: 8px 0 0; font-family: var(--font-display); font-size: 20px; }
+  .moves li[data-arc] { cursor: pointer; transition: background .15s; }
+  .moves li[data-arc]:hover { background: color-mix(in srgb, var(--c, var(--accent)) 10%, var(--card)); }
+  .moves li[data-arc]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .moves li.on { background: color-mix(in srgb, var(--c, var(--accent)) 14%, var(--card)); box-shadow: inset 4px 0 0 var(--c, var(--accent)); padding-left: 12px; border-radius: 8px; }
+  .moves li.on .when { color: var(--c, var(--accent)); font-weight: 700; }
+  .atlas.focus .arc { opacity: .18; }
+  .atlas.focus .arc.hot { opacity: 1; stroke-width: 3.2; stroke-dasharray: var(--len) var(--len); stroke-dashoffset: var(--len); animation: arcdraw .9s ease forwards; }
+  .atlas.focus .place .dot { opacity: .35; }
+  .atlas.focus .place.hot .dot { opacity: 1; stroke: var(--c); stroke-width: 2.4; }
+  @keyframes arcdraw { to { stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce) { .atlas.focus .arc.hot { animation: none; stroke-dashoffset: 0; } }
+  .moves-hint { margin: 0; font-size: 14px; color: var(--muted); }
   .chap-art .ln, .chap-art .ln2, .chap-art .ln3, .chap-art .dash { fill: none; stroke: var(--fg); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
   .chap-art .ln2 { stroke-width: 2; }
   .chap-art .ln3 { stroke-width: 1.6; }
@@ -1296,6 +1308,7 @@
       <p>A little after that, I started going to the humane society in Cayman to take a dog out for walks. One day the dog I usually walked wasn't there, and they recommended Toby, who they thought would be a good fit. I took him for a walk and I think I fell in love with him. I asked if I could keep him for a weekend, and that weekend turned out to be the last time he stayed at the shelter. We pretty much sheltered him, and almost adopted him.</p>
       <p class="chap-hook">To be continued...</p>
     </div>
+    <p class="moves-hint">Tap a move to light up its route on the map.</p>
     <figure class="atlas">
     <button class="expand" type="button" data-title="My moves">Expand</button>
     <svg viewBox="0 0 380 194" role="img" aria-labelledby="atlas-t">
@@ -1932,6 +1945,53 @@
       var track = document.createElement("div"); track.className = "pp-track";
       while (c.firstChild) track.appendChild(c.firstChild);
       c.classList.add("pp-wrap"); c.appendChild(track); carousel(c);
+    });
+  })();
+</script>
+<script>
+  (function () {
+    var fig = document.querySelector("figure.atlas"), ol = document.querySelector("ol.moves");
+    if (!fig || !ol) return;
+    var svg = fig.querySelector("svg"), arcs = svg.querySelectorAll(".arc"), places = svg.querySelectorAll("g.place");
+    var lis = ol.querySelectorAll("li");
+    if (arcs.length !== 8 || lis.length !== 10) return;
+    // move index -> arc index (-1: none) and the places it touches (0 Saskatoon, 1 Ottawa, 2 Budapest, 3 Cayman, 4 Halkida)
+    var MAP = [[-1, [2]], [0, [2, 0]], [1, [0, 1]], [2, [1, 2]], [3, [2, 0]], [4, [0, 3]], [5, [3, 2]], [-1, [4]], [6, [2, 3]], [7, [3, 2]]];
+    var COLORS = ["#d6452c", "#0d7a7f", "#7a3fa0", "#2563c9", "#1c8a5e", "#c93a7c", "#b86e00", "#e0457b", "#3a7d00", "#0b6e99"];
+    var defs = svg.querySelector("defs"), base = svg.querySelector("#arr"), cur = -1;
+    function marker(i) {
+      var id = "arr-hot-" + i, m = svg.querySelector("#" + id);
+      if (!m && base && defs) {
+        m = base.cloneNode(true); m.id = id;
+        var p = m.querySelector("path"); if (p) { p.style.fill = COLORS[i]; p.removeAttribute("class"); }
+        defs.appendChild(m);
+      }
+      return id;
+    }
+    function clear() {
+      fig.classList.remove("focus"); fig.style.removeProperty("--c");
+      arcs.forEach(function (a) { a.classList.remove("hot"); a.style.removeProperty("stroke"); a.setAttribute("marker-end", "url(#arr)"); });
+      places.forEach(function (p) { p.classList.remove("hot"); p.style.removeProperty("--c"); });
+      lis.forEach(function (l) { l.classList.remove("on"); l.removeAttribute("aria-pressed"); l.style.removeProperty("--c"); });
+    }
+    function pick(i) {
+      var was = cur; clear(); cur = -1;
+      if (was === i) return;
+      cur = i; var c = COLORS[i], m = MAP[i];
+      lis[i].classList.add("on"); lis[i].setAttribute("aria-pressed", "true"); lis[i].style.setProperty("--c", c);
+      fig.classList.add("focus");
+      places.forEach(function (p) { p.style.setProperty("--c", c); });
+      m[1].forEach(function (k) { if (places[k]) places[k].classList.add("hot"); });
+      if (m[0] >= 0) {
+        var a = arcs[m[0]], len = Math.ceil(a.getTotalLength());
+        a.style.setProperty("--len", len); a.style.stroke = c; a.setAttribute("marker-end", "url(#" + marker(i) + ")"); a.classList.add("hot");
+      }
+      fig.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+    lis.forEach(function (li, i) {
+      li.setAttribute("data-arc", i); li.setAttribute("role", "button"); li.tabIndex = 0;
+      li.addEventListener("click", function () { pick(i); });
+      li.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(i); } });
     });
   })();
 </script>
