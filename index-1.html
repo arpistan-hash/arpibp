@@ -353,6 +353,7 @@
 
   .chapnav { display: flex; gap: 8px; overflow-x: auto; padding: 2px 0 6px; scrollbar-width: thin; }
   .chapnav a { flex: none; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); color: var(--fg); font-size: 13px; text-decoration: none; white-space: nowrap; }
+  .tipgroup { margin: 10px 0 -4px; font-family: var(--font-display); font-weight: 800; font-size: clamp(22px, 6vw, 28px); line-height: 1.15; scroll-margin-top: 12px; }
   .chapter { display: flex; flex-direction: column; gap: 14px; padding-top: 18px; border-top: 2px dashed var(--line); scroll-margin-top: 12px; }
   .chapter p { margin: 0; max-width: 52ch; font-size: 17px; line-height: 1.6; }
   .chapter .chap-k { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--water); }
@@ -772,11 +773,13 @@
 
   <section class="story tips" aria-labelledby="tips-h">
     <h2 id="tips-h">Budapest tips</h2>
-    <p>Not everybody wants to read my whole life story, so here is what I'd tell a friend visiting Budapest.</p>
+    <p>Not everybody wants to read my whole life story, so here is what I'd tell a friend visiting Budapest: how to get around, what to eat and drink, and a bit of history and culture.</p>
+    <nav class="chapnav" aria-label="Budapest tips"><a href="#tips-go">Getting around</a><a href="#tips-eat">Eat and drink</a><a href="#tips-hist">History and culture</a></nav>
+    <h3 class="tipgroup" id="tips-go">Getting around</h3>
     <div class="chapter" id="tip1">
       <p class="chap-k">Tip 1</p>
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><rect class="c" x="30" y="30" width="150" height="46" rx="10"/><rect class="w" x="42" y="38" width="22" height="16" rx="3"/><rect class="w" x="72" y="38" width="22" height="16" rx="3"/><rect class="w" x="102" y="38" width="22" height="16" rx="3"/><rect class="w" x="132" y="38" width="22" height="16" rx="3"/><circle class="k" cx="62" cy="78" r="7"/><circle class="k" cx="150" cy="78" r="7"/><path class="ln2" d="M60 30 L80 14 H150 L170 30"/><circle class="s" cx="262" cy="28" r="14"/></svg>
-      <h3>Getting around</h3>
+      <h3>Taxis, apps and public transit</h3>
       <p class="chap-hook">Skip the taxi. Take public transit.</p>
       <p>Under any circumstances, don't take a taxi. You will get ripped off. Use the Uber or Bolt apps every time.</p>
       <p>Use the public transit instead. It's amazing, even at night: there are night buses every 15 minutes to most directions.</p>
@@ -803,47 +806,9 @@
       <p>It doesn't matter how cold it is outside, because the water is thermal and warm. It's mysterious and amazing, and I recommend trying it.</p>
       <p>You can also drink the thermal water. Just outside the station there's a drinking spot, almost like a water bar, with the thermal water in jugs for less than a dollar. It's really sulfurous, but apparently really good for the stomach.</p>
     </div>
-    <div class="chapter" id="tip4">
-      <p class="chap-k">Tip 4</p>
-      <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><rect class="c" x="60" y="14" width="120" height="48" rx="14"/><path class="c" d="M90 60 L80 78 L112 60Z"/><text x="120" y="48" class="t big inv">!</text><rect class="w" x="196" y="30" width="70" height="34" rx="12"/><path class="ln2" d="M214 47 h34"/><circle class="s" cx="286" cy="24" r="10"/></svg>
-      <h3>Topics to handle with care</h3>
-      <p class="chap-hook">Please don't call us Slavic.</p>
-      <p>There are a few topics you shouldn't bring up, or should at least approach very carefully. First: try not to call Hungarians Slavic. For some reason we take huge pride in being Finno-Ugric. The closest relative of Hungarian is Finnish, even though the two are very far apart too. The rhythm just sounds similar.</p>
-      <p>Under no circumstances call us Slavic, or say things like "Hungary was part of Russia". It never was.</p>
-      <p>And stay away from 20th-century politics in general. You might end up in a sticky situation.</p>
-    </div>
-    <div class="chapter" id="hist">
-      <p class="chap-k">History</p>
-      <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><path class="c" d="M30 82 L60 36 L90 82Z"/><path class="w" d="M52 82 L60 62 L68 82Z"/><path class="dash" d="M100 60 Q150 20 200 50"/><path class="k2" d="M200 50 l-10 -8 M200 50 l-12 6"/><path class="s" d="M224 70 L224 40 L238 52 L252 34 L266 52 L280 40 L280 70Z"/><rect class="s2" x="224" y="70" width="56" height="8"/></svg>
-      <h3>Hungarian history in two minutes</h3>
-      <p class="chap-hook">We lost, lost, lost, and we're still here.</p>
-      <p>Hungarians came from far to the east, nomadic people on horseback who lived in tents and rode towards Europe at astonishing speed. In 896 they made it to the Carpathian Basin. You can see the leaders of the tribes on their horses at Heroes' Square.</p>
-      <p>Under Saint Stephen, Hungary became a Christian country. He was very heavy-handed with the pagans, and Hungary stayed Christian. With all the intermarriages, it became quite an important, integral part of Europe.</p>
-      <p>Then we started to lose wars more and more. First came the Tatars, pretty much the Mongols, Genghis Khan and company. Then came the Turks, who were here for 150 years. You can still see some of the baths they built. After 150 years they left, and for a while we were independent, but all these nations kept going back and forth, fighting each other. We lost, and lost, and lost. We lost pretty much every single battle since the 1500s.</p>
-      <p>That includes the First World War, after which Hungary lost the vast majority of its territory. So pretty much wherever you cross the border out of Hungary today, it used to be part of Hungary.</p>
-      <p>In the Second World War we were again on the wrong side, and lost. Then, to make things a little more exciting, we got 40 years of socialism. As I mentioned, in the 80s it was a very light version, but in the 50s it was a hardcore dictatorship. One of our national holidays is the 1956 revolution against the Russians, when even teenagers without guns fought Russian tanks. That's pretty heroic.</p>
-      <p>In 1989, with the Berlin Wall coming down, Hungary joined the democratic nations again. For some people that was detrimental, though. You have to understand that a lot of people lost the security they had through those years, because it's a dog-eat-dog world now. That's why you see extremely rich and extremely poor Hungarians at the same time.</p>
-      <p>Today Hungary is part of both NATO and the European Union, so it's an integral part of the West again, and thanks to the EU it's back to no borders for the most part. The dream of Hungarians is to one day reach the quality of life of Western Europe.</p>
-    </div>
-    <div class="chapter" id="tip5">
-      <p class="chap-k">Tip 5</p>
-      <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><g transform="translate(40 24)"><rect class="c" x="0" y="0" width="18" height="18"/><rect class="s" x="20" y="0" width="18" height="18"/><rect class="w" x="40" y="0" width="18" height="18"/><rect class="s" x="0" y="20" width="18" height="18"/><rect class="w" x="20" y="20" width="18" height="18"/><rect class="c" x="40" y="20" width="18" height="18"/><rect class="w" x="0" y="40" width="18" height="18"/><rect class="c" x="20" y="40" width="18" height="18"/><rect class="s" x="40" y="40" width="18" height="18"/></g><path class="c" d="M170 44 Q166 20 184 16 Q206 12 212 34 Q214 56 190 70 Q172 74 170 44Z"/><path class="ln2" d="M190 16 Q194 8 204 6"/><path class="w" d="M236 36 H280 V52 Q280 66 258 66 Q236 66 236 52Z"/><path class="ln2" d="M246 30 q-4 -6 0 -12 M260 30 q-4 -6 0 -12"/></svg>
-      <h3>What Hungarians are proud of</h3>
-      <p class="chap-hook">Just enjoy it. It's your vacation.</p>
-      <p>That being said, get ready. Hungarians will always be very proud to tell you how big Hungary once was, and it's true. They'll tell you about the thousand-year-old history, and that's true too. Of course, most of us had little to do with it.</p>
-      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="c" x="6" y="6" width="12" height="12"/><rect class="s" x="19" y="6" width="12" height="12"/><rect class="w" x="32" y="6" width="12" height="12"/><rect class="s" x="6" y="19" width="12" height="12"/><rect class="w" x="19" y="19" width="12" height="12"/><rect class="c" x="32" y="19" width="12" height="12"/><rect class="w" x="6" y="32" width="12" height="12"/><rect class="c" x="19" y="32" width="12" height="12"/><rect class="s" x="32" y="32" width="12" height="12"/></svg>
-        <p>Hungarians will also be very proud of the Rubik's Cube, paprika and pálinka. Surprisingly, even sour cream and cottage cheese are deeply engraved in the Hungarian mind. And it's true that this kind of cottage cheese is only really available in this part of the world.</p>
-      </div>
-      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="c" x="6" y="14" width="36" height="20" rx="10"/><circle class="w" cx="16" cy="22" r="2.2"/><circle class="w" cx="26" cy="20" r="2.2"/><circle class="w" cx="34" cy="26" r="2.2"/><circle class="w" cx="22" cy="28" r="2.2"/></svg>
-        <p>Speaking of food, you must try a Túró Rudi. It's a Hungarian snack that is every generation's favorite when they're little, and some of us never grow out of it, like me. It's sweetened cottage cheese covered in chocolate: refreshing, not too sweet, and very much the core of the Hungarian soul.</p>
-      </div>
-      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="k2" x="12" y="4" width="24" height="6" rx="2"/><path class="w" d="M12 10 H36 V40 Q36 44 32 44 H16 Q12 44 12 40Z"/><path class="ln3" d="M12 10 H36 V40 Q36 44 32 44 H16 Q12 44 12 40Z"/><ellipse class="c" cx="21" cy="28" rx="3.5" ry="9"/><circle class="c" cx="30" cy="34" r="5"/><path class="ln3" d="M27 31 l6 6"/></svg>
-        <p>If you go around any of the markets, stop by the pickle section, especially when it's the actual producer. You'll see gigantic barrels of sauerkraut, pickled cucumbers and peppers, and even baby watermelons. They're harvested when they're only about 2 inches wide and completely green, and then pickled. In one sitting you can eat 5 or 6 whole watermelons.</p>
-      </div>
-      <p>Hungarian cuisine is rather greasy, but don't tell the Hungarians that. Just enjoy it. It's your vacation.</p>
-    </div>
+    <h3 class="tipgroup" id="tips-eat">Eat and drink</h3>
     <div class="chapter" id="tip6">
-      <p class="chap-k">Tip 6</p>
+      <p class="chap-k">Tip 4</p>
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><ellipse class="s2" cx="80" cy="62" rx="46" ry="16"/><ellipse class="s" cx="80" cy="58" rx="40" ry="12"/><path class="ln2" d="M52 56 q28 -8 56 0"/><path class="c" d="M170 44 H250 Q250 74 210 76 Q170 74 170 44Z"/><path class="ln2" d="M186 38 q-4 -8 0 -14 M206 38 q-4 -8 0 -14 M226 38 q-4 -8 0 -14"/><circle class="s" cx="288" cy="24" r="10"/></svg>
       <h3>Fooooood</h3>
       <p class="chap-hook">Where the locals actually get them.</p>
@@ -872,7 +837,7 @@
       </div>
     </div>
     <div class="chapter" id="tip7">
-      <p class="chap-k">Tip 7</p>
+      <p class="chap-k">Tip 5</p>
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><g transform="translate(70 8)"><rect class="k2" x="10" y="0" width="12" height="22"/><path class="k2" d="M10 20 Q-6 32 -6 48 V74 H38 V48 Q38 32 22 20Z"/><rect class="s" x="-1" y="44" width="28" height="18" rx="2"/></g><g transform="translate(190 20)"><path class="w" d="M0 0 H44 Q44 34 22 38 Q0 34 0 0Z"/><path class="s" d="M3 12 H41 Q40 30 22 34 Q4 30 3 12Z"/><path class="ln2" d="M22 38 V62 M8 62 H36"/></g><circle class="s" cx="288" cy="24" r="10"/></svg>
       <h3>Wine, and Tokaji</h3>
       <p class="chap-hook">The exported bottles are not the best of us.</p>
@@ -881,7 +846,7 @@
       <p>It was actually one of the favorite wines of Louis XIV, the Sun King, and of many other aristocrats.</p>
     </div>
     <div class="chapter" id="pal">
-      <p class="chap-k">Tip 8</p>
+      <p class="chap-k">Tip 6</p>
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><g transform="translate(60 10)"><rect class="k2" x="8" y="0" width="10" height="16"/><path class="k2" d="M8 14 Q-2 22 -2 34 V66 H28 V34 Q28 22 18 14Z"/><rect class="s" x="1" y="36" width="24" height="16" rx="2"/></g><g transform="translate(130 24)"><path class="w" d="M0 0 H22 L19 36 H3Z"/><path class="s2" d="M2 14 H20 L19 36 H3Z"/></g><circle class="c" cx="226" cy="58" r="14"/><circle class="s" cx="258" cy="62" r="12"/><path class="ln2" d="M226 44 q4 -8 10 -10 M258 50 q2 -8 8 -10"/></svg>
       <h3>Pálinka and Unicum</h3>
       <p class="chap-hook">Good quality: sip it. Bad quality: shoot it.</p>
@@ -890,7 +855,7 @@
       <p>Another liquor you will be faced with is Unicum. It's pretty much a slightly more bitter Jägermeister. Hungarians love to drink it in combination with beer: a beer, then a shot of Unicum, then a beer, then a shot of Unicum, and you can imagine the result.</p>
     </div>
     <div class="chapter" id="tip9">
-      <p class="chap-k">Tip 9</p>
+      <p class="chap-k">Tip 7</p>
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><path class="c" d="M70 40 H110 Q130 40 130 24 V16 H146 V30 Q146 56 112 56 H70Z"/><rect class="c" x="52" y="34" width="22" height="26" rx="4"/><path class="riv" d="M134 62 Q124 76 134 82 Q144 76 134 62Z"/><path class="w" d="M200 30 H236 L232 78 H204Z"/><path class="riv" d="M202 46 H234 L232 78 H204Z"/><circle class="s" cx="284" cy="24" r="10"/></svg>
       <h3>Drinking water</h3>
       <p class="chap-hook">Straight from the tap.</p>
@@ -905,14 +870,45 @@
       <p>A huge majority of Hungarians believe that drinking very cold drinks will eventually give you a sore throat. So you'll generally notice that people drink their beverages warmer than in the United States, or maybe even in Western Europe.</p>
       <p>It goes so far that when I was little, we even had so-called winter ice cream: a cone filled with just a foam or mousse. It didn't need to be refrigerated, because it wasn't ice cream at all. Everybody, or almost everybody, believes this, and it passes from generation to generation.</p>
     </div>
-    <div class="chapter" id="tip10">
-      <p class="chap-k">Fun fact</p>
-      <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><text x="24" y="68" class="t big">Á</text><text x="76" y="68" class="t big">Ő</text><text x="128" y="68" class="t big">Ű</text><text x="180" y="68" class="t big">Ty</text><text x="240" y="68" class="t big">Gy</text></svg>
-      <h3>The Hungarian language</h3>
-      <p class="chap-hook">Hard to learn, easy to read out loud.</p>
-      <p>The Hungarian alphabet is pretty much the same Latin alphabet, but with a lot of accents. We have four different Os (o, ó, ö, ő) and four different Us (u, ú, ü, ű). A couple of sounds are written as combined letters, like ty, which is almost impossible to pronounce for people from outside.</p>
-      <p>Hungarian is extremely difficult. Once you learn the rules, you're not finished, because most of the grammar comes with exceptions.</p>
-      <p>The one good thing is that Hungarian is a phonetic language. Once you master how each sound sounds, the written word never differs, unlike English and some other languages where the same writing can sound completely different.</p>
+    <h3 class="tipgroup" id="tips-hist">History and culture</h3>
+    <div class="chapter" id="hist">
+      <p class="chap-k">History</p>
+      <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><path class="c" d="M30 82 L60 36 L90 82Z"/><path class="w" d="M52 82 L60 62 L68 82Z"/><path class="dash" d="M100 60 Q150 20 200 50"/><path class="k2" d="M200 50 l-10 -8 M200 50 l-12 6"/><path class="s" d="M224 70 L224 40 L238 52 L252 34 L266 52 L280 40 L280 70Z"/><rect class="s2" x="224" y="70" width="56" height="8"/></svg>
+      <h3>Hungarian history in two minutes</h3>
+      <p class="chap-hook">We lost, lost, lost, and we're still here.</p>
+      <p>Hungarians came from far to the east, nomadic people on horseback who lived in tents and rode towards Europe at astonishing speed. In 896 they made it to the Carpathian Basin. You can see the leaders of the tribes on their horses at Heroes' Square.</p>
+      <p>Under Saint Stephen, Hungary became a Christian country. He was very heavy-handed with the pagans, and Hungary stayed Christian. With all the intermarriages, it became quite an important, integral part of Europe.</p>
+      <p>Then we started to lose wars more and more. First came the Tatars, pretty much the Mongols, Genghis Khan and company. Then came the Turks, who were here for 150 years. You can still see some of the baths they built. After 150 years they left, and for a while we were independent, but all these nations kept going back and forth, fighting each other. We lost, and lost, and lost. We lost pretty much every single battle since the 1500s.</p>
+      <p>That includes the First World War, after which Hungary lost the vast majority of its territory. So pretty much wherever you cross the border out of Hungary today, it used to be part of Hungary.</p>
+      <p>In the Second World War we were again on the wrong side, and lost. Then, to make things a little more exciting, we got 40 years of socialism. As I mentioned, in the 80s it was a very light version, but in the 50s it was a hardcore dictatorship. One of our national holidays is the 1956 revolution against the Russians, when even teenagers without guns fought Russian tanks. That's pretty heroic.</p>
+      <p>In 1989, with the Berlin Wall coming down, Hungary joined the democratic nations again. For some people that was detrimental, though. You have to understand that a lot of people lost the security they had through those years, because it's a dog-eat-dog world now. That's why you see extremely rich and extremely poor Hungarians at the same time.</p>
+      <p>Today Hungary is part of both NATO and the European Union, so it's an integral part of the West again, and thanks to the EU it's back to no borders for the most part. The dream of Hungarians is to one day reach the quality of life of Western Europe.</p>
+    </div>
+    <div class="chapter" id="tip4">
+      <p class="chap-k">Good to know</p>
+      <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><rect class="c" x="60" y="14" width="120" height="48" rx="14"/><path class="c" d="M90 60 L80 78 L112 60Z"/><text x="120" y="48" class="t big inv">!</text><rect class="w" x="196" y="30" width="70" height="34" rx="12"/><path class="ln2" d="M214 47 h34"/><circle class="s" cx="286" cy="24" r="10"/></svg>
+      <h3>Topics to handle with care</h3>
+      <p class="chap-hook">Please don't call us Slavic.</p>
+      <p>There are a few topics you shouldn't bring up, or should at least approach very carefully. First: try not to call Hungarians Slavic. For some reason we take huge pride in being Finno-Ugric. The closest relative of Hungarian is Finnish, even though the two are very far apart too. The rhythm just sounds similar.</p>
+      <p>Under no circumstances call us Slavic, or say things like "Hungary was part of Russia". It never was.</p>
+      <p>And stay away from 20th-century politics in general. You might end up in a sticky situation.</p>
+    </div>
+    <div class="chapter" id="tip5">
+      <p class="chap-k">Culture</p>
+      <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><g transform="translate(40 24)"><rect class="c" x="0" y="0" width="18" height="18"/><rect class="s" x="20" y="0" width="18" height="18"/><rect class="w" x="40" y="0" width="18" height="18"/><rect class="s" x="0" y="20" width="18" height="18"/><rect class="w" x="20" y="20" width="18" height="18"/><rect class="c" x="40" y="20" width="18" height="18"/><rect class="w" x="0" y="40" width="18" height="18"/><rect class="c" x="20" y="40" width="18" height="18"/><rect class="s" x="40" y="40" width="18" height="18"/></g><path class="c" d="M170 44 Q166 20 184 16 Q206 12 212 34 Q214 56 190 70 Q172 74 170 44Z"/><path class="ln2" d="M190 16 Q194 8 204 6"/><path class="w" d="M236 36 H280 V52 Q280 66 258 66 Q236 66 236 52Z"/><path class="ln2" d="M246 30 q-4 -6 0 -12 M260 30 q-4 -6 0 -12"/></svg>
+      <h3>What Hungarians are proud of</h3>
+      <p class="chap-hook">Just enjoy it. It's your vacation.</p>
+      <p>That being said, get ready. Hungarians will always be very proud to tell you how big Hungary once was, and it's true. They'll tell you about the thousand-year-old history, and that's true too. Of course, most of us had little to do with it.</p>
+      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="c" x="6" y="6" width="12" height="12"/><rect class="s" x="19" y="6" width="12" height="12"/><rect class="w" x="32" y="6" width="12" height="12"/><rect class="s" x="6" y="19" width="12" height="12"/><rect class="w" x="19" y="19" width="12" height="12"/><rect class="c" x="32" y="19" width="12" height="12"/><rect class="w" x="6" y="32" width="12" height="12"/><rect class="c" x="19" y="32" width="12" height="12"/><rect class="s" x="32" y="32" width="12" height="12"/></svg>
+        <p>Hungarians will also be very proud of the Rubik's Cube, paprika and pálinka. Surprisingly, even sour cream and cottage cheese are deeply engraved in the Hungarian mind. And it's true that this kind of cottage cheese is only really available in this part of the world.</p>
+      </div>
+      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="c" x="6" y="14" width="36" height="20" rx="10"/><circle class="w" cx="16" cy="22" r="2.2"/><circle class="w" cx="26" cy="20" r="2.2"/><circle class="w" cx="34" cy="26" r="2.2"/><circle class="w" cx="22" cy="28" r="2.2"/></svg>
+        <p>Speaking of food, you must try a Túró Rudi. It's a Hungarian snack that is every generation's favorite when they're little, and some of us never grow out of it, like me. It's sweetened cottage cheese covered in chocolate: refreshing, not too sweet, and very much the core of the Hungarian soul.</p>
+      </div>
+      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="k2" x="12" y="4" width="24" height="6" rx="2"/><path class="w" d="M12 10 H36 V40 Q36 44 32 44 H16 Q12 44 12 40Z"/><path class="ln3" d="M12 10 H36 V40 Q36 44 32 44 H16 Q12 44 12 40Z"/><ellipse class="c" cx="21" cy="28" rx="3.5" ry="9"/><circle class="c" cx="30" cy="34" r="5"/><path class="ln3" d="M27 31 l6 6"/></svg>
+        <p>If you go around any of the markets, stop by the pickle section, especially when it's the actual producer. You'll see gigantic barrels of sauerkraut, pickled cucumbers and peppers, and even baby watermelons. They're harvested when they're only about 2 inches wide and completely green, and then pickled. In one sitting you can eat 5 or 6 whole watermelons.</p>
+      </div>
+      <p>Hungarian cuisine is rather greasy, but don't tell the Hungarians that. Just enjoy it. It's your vacation.</p>
     </div>
     <div class="chapter" id="tip11">
       <p class="chap-k">Fun fact</p>
@@ -946,6 +942,15 @@
         <p>So was the Rubik's Cube.</p>
       </div>
       <p>And at least partially, the hydrogen bomb and the computer were invented by Hungarians as well.</p>
+    </div>
+    <div class="chapter" id="tip10">
+      <p class="chap-k">Fun fact</p>
+      <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><text x="24" y="68" class="t big">Á</text><text x="76" y="68" class="t big">Ő</text><text x="128" y="68" class="t big">Ű</text><text x="180" y="68" class="t big">Ty</text><text x="240" y="68" class="t big">Gy</text></svg>
+      <h3>The Hungarian language</h3>
+      <p class="chap-hook">Hard to learn, easy to read out loud.</p>
+      <p>The Hungarian alphabet is pretty much the same Latin alphabet, but with a lot of accents. We have four different Os (o, ó, ö, ő) and four different Us (u, ú, ü, ű). A couple of sounds are written as combined letters, like ty, which is almost impossible to pronounce for people from outside.</p>
+      <p>Hungarian is extremely difficult. Once you learn the rules, you're not finished, because most of the grammar comes with exceptions.</p>
+      <p>The one good thing is that Hungarian is a phonetic language. Once you master how each sound sounds, the written word never differs, unlike English and some other languages where the same writing can sound completely different.</p>
     </div>
   </section>
 
