@@ -11,7 +11,7 @@ One short file per place, named `hello-<code>.mp3`. Say the greeting once, natur
 | `hello-dk.mp3` | 🇩🇰 Denmark | Hej |
 | `hello-be.mp3` | 🇧🇪 Belgium | Hallo |
 | `hello-nl.mp3` | 🇳🇱 Netherlands | Hoi |
-| `hello-ch.mp3` | 🇨🇭 Switzerland | Grüezi |
+| `hello-ch.mp3` | 🇨🇭 Switzerland | Grüezi, Bonjour, Ciao |
 | `hello-en.mp3` | 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England | Hello |
 | `hello-se.mp3` | 🇸🇪 Sweden | Hej |
 | `hello-pl.mp3` | 🇵🇱 Poland | Cześć |
