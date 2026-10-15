@@ -2608,11 +2608,13 @@
         sec.appendChild(a);
       }
     });
-    var tips = document.querySelectorAll(".tips .chapter");
-    tips.forEach(function (c, i) {
+    var tips = document.querySelectorAll(".tips .chapter"), tn = 0, fn = 0;
+    tips.forEach(function (c) {
       var k = c.querySelector(".chap-k"); if (!k) return;
-      var t = k.textContent.trim(), kind = /^((Tip|Tipp)\s*\d+|\d+\.\s*tipp)$/i.test(t) ? "" : t;
-      k.textContent = (hu ? "Tipp " : "Tip ") + (i + 1) + (kind ? " \u00b7 " + kind : "");
+      var t = k.textContent.trim();
+      if (/^fun fact$/i.test(t)) { fn++; k.textContent = "Fun fact " + fn; }
+      else if (/^(history|culture|good to know)$/i.test(t)) { k.textContent = t; }
+      else { tn++; k.textContent = "Tip " + tn + (/^tip\s*\d+$/i.test(t) ? "" : " \u00b7 " + t); }
     });
     var jl = document.querySelector("ul.jump");
     if (jl) {
