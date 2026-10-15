@@ -9,3 +9,7 @@ Host the HTML files together with the `assets/` folder, side by side. The pages 
 The guest book only stores messages when the page runs inside Claude; elsewhere it falls back to sending a WhatsApp message.
 
 The flag buttons say hello with the visitor's own device voice (the browser's speech synthesis), so there are no sound files to host. If a device has no voice for a language, that flag stays silent.
+
+## Design
+
+"Night Danube": dark-first navy theme with a light option (toggle in the top bar, remembered in the browser), sticky top navigation, chapter cards with scroll reveal, and a single sound toggle for the hello flags and route sounds. Contact details live once at the end of the page; the bottom bar hides when they are in view. Both language files share the same CSS and JS.

@@ -11,6 +11,8 @@
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2718%27 fill=%27%23060b1c%27/%3E%3Ccircle cx=%2744%27 cy=%2720%27 r=%278%27 fill=%27%23ffc94d%27/%3E%3Ctext x=%2712%27 y=%2748%27 font-family=%27sans-serif%27 font-weight=%27800%27 font-size=%2732%27 fill=%27%23ff7a59%27%3EA%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#060b1c">
 <title>Arpi-RP-Arpy-Arpee</title>
 <style>
   /* Layout: one narrow column. Name and Budapest clock on top, three contact rows below, WhatsApp as the primary action. */
@@ -820,6 +822,15 @@
     .chapter[data-n]::after { font-size: 48px; top: 12px; right: 16px; }
     .story h2 { font-size: clamp(28px, 8vw, 38px); }
   }
+
+  /* ===== Final art polish ===== */
+  .chapter .chap-art:not(.item-ico) { background:
+      radial-gradient(120% 90% at 50% 115%, color-mix(in srgb, var(--chap) 34%, transparent), transparent 62%),
+      radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--chap) 22%, transparent) 1px, transparent 1.5px) 0 0 / 14px 14px,
+      color-mix(in srgb, var(--chap) 10%, var(--card)); }
+  .chap-art .g { fill: color-mix(in srgb, var(--chap) 30%, var(--card)); }
+  .chap-art { filter: drop-shadow(0 6px 10px color-mix(in srgb, var(--chap, var(--p1)) 25%, transparent)); }
+  .chap-art.item-ico { filter: none; }
 </style>
 
 <a class="skip" href="#tips-h">Skip to content</a>
