@@ -801,6 +801,25 @@
   .story + .story::before { content: ""; display: block; height: 1px; margin: 0 auto 28px; width: min(320px, 70%); background: linear-gradient(90deg, transparent, var(--p7), transparent); opacity: .6; }
   footer { border-top: 1px solid var(--line); }
   @media (prefers-reduced-motion: reduce) { h1 { animation: none; } .scene .tw { animation: none; opacity: .6; } .chapter:hover { transform: none; } }
+
+  /* ===== Sleek / de-duplicated layer ===== */
+  .theme.snd { font-size: 0; }
+  .theme.snd::before { content: "\1F50A"; font-size: 16px; }
+  .theme.snd[aria-pressed="false"]::before { content: "\1F507"; }
+  .topnav .theme { margin: 0; padding: 0; }
+  .dock { transition: transform .3s ease, opacity .3s; }
+  .dock.away { transform: translateY(130%); opacity: 0; pointer-events: none; }
+  .chapnav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent); padding-right: 24px; margin-inline: -2px; }
+  .chapnav::-webkit-scrollbar { display: none; }
+  .contacts { padding-top: 8px; }
+  @media (max-width: 700px) {
+    main { gap: 30px; }
+    .chapter { padding: 18px 16px 20px; border-radius: 20px; }
+    .chapter .chap-art:not(.item-ico) { height: 84px; }
+    .chapter h3 { font-size: clamp(26px, 7.4vw, 34px); }
+    .chapter[data-n]::after { font-size: 48px; top: 12px; right: 16px; }
+    .story h2 { font-size: clamp(28px, 8vw, 38px); }
+  }
 </style>
 
 <a class="skip" href="#tips-h">Ugrás a tartalomhoz</a>
@@ -957,7 +976,6 @@
     </div>
     <h1>Szia, Arpi vagyok</h1>
     <p class="aka">Más néven <b>Árpád</b> (a hivatalos változat, bár ezt használom a legritkábban, mert gyakorlatilag arra volt fenntartva, amikor anyu mérges volt rám), <b>RP</b>, <b>Arpy</b>, <b>Arpee</b> és <b>AARP</b>. Válaszd ki a kedvencedet.</p>
-    <p class="lede">Budapesten élek. A leggyorsabb elérhetőség a WhatsApp.</p>
   </header>
 
   <section class="welcome" aria-labelledby="welcome-h">
@@ -967,54 +985,6 @@
     <ul class="jump"><li><a href="#tips-h" style="--c:var(--p2)"><strong>Budapest-tippek</strong><span>Közlekedés, étel és ital, történelem és kultúra</span></a></li><li><a href="#story-h" style="--c:var(--p1)"><strong>Az életem története</strong><span>A szocialista Magyarországtól Kanadán és a Kajmán-szigeteken át haza</span></a></li><li><a href="#been-h" style="--c:var(--p4)"><strong>Helyek és Tobi</strong><span>37 hely, egy térkép és egy nagyon jó kutya</span></a></li></ul>
   </section>
 
-  <section class="contacts" aria-labelledby="contact-h">
-    <h2 id="contact-h">Írj nekem</h2>
-
-    <div class="row">
-      <a class="btn primary" id="wa-link" href="https://wa.me/36202239524" target="_blank" rel="noopener">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H10l-4 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><circle class="dotfill" cx="8" cy="10.5" r="1.1"/><circle class="dotfill" cx="12" cy="10.5" r="1.1"/><circle class="dotfill" cx="16" cy="10.5" r="1.1"/></svg><span class="lbl">Üzenet WhatsAppon<small id="wa-text">+36 20 223 9524</small></span>
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
-    </div>
-
-    <div class="row mail" id="email-row">
-      <div style="min-width:0">
-        <div class="label"><svg class="ico sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7.5l9 6 9-6"/></svg>E-mail</div>
-        <div class="addr" id="mail-text">arpistan@gmail.com</div>
-      </div>
-      <div class="mail-actions">
-        <button class="copy" id="copy-btn" type="button">Cím másolása</button>
-        <a class="send" id="mail-link" href="mailto:arpistan@gmail.com">Levelezőprogram megnyitása</a>
-      </div>
-    </div>
-
-    <div class="row">
-      <a class="btn tip" id="tip-link" href="https://revolut.me/arpadqsln" target="_blank" rel="noopener">
-        <svg class="fund-art" viewBox="0 -6 120 78" aria-hidden="true">
-          <ellipse class="shadow" cx="60" cy="68" rx="28" ry="3"/>
-          <rect class="leg" x="39" y="56" width="8" height="11" rx="3.5"/>
-          <rect class="leg" x="73" y="56" width="8" height="11" rx="3.5"/>
-          <ellipse class="shell" cx="60" cy="38" rx="27" ry="24"/>
-          <path class="shine" d="M38 30 Q41 20 50 17"/>
-          <rect class="slot" x="48" y="14" width="24" height="5" rx="2.5"/>
-          <g class="coin"><circle cx="60" cy="0" r="7.5"/><circle class="rim" cx="60" cy="0" r="4.6"/></g>
-          <rect class="lens" x="42" y="30" width="15" height="9" rx="4"/>
-          <rect class="lens" x="63" y="30" width="15" height="9" rx="4"/>
-          <path class="frame" d="M57 33 H63 M42 32 L37 30 M78 32 L83 30"/>
-          <path class="glint" d="M45 32 L48 32 M66 32 L69 32"/>
-          <path class="smile" d="M52 47 Q60 54 68 47"/>
-          <path class="trail" d="M82 24 Q86 10 99 10"/>
-          <path class="plane" d="M98 14 L116 5 L108 19 L105 14 Z"/>
-          <path class="fold" d="M105 14 L116 5"/>
-        </svg>
-        <span class="fund-text">Utazási alap
-          <em class="quip">Minden érme egy újabb útlevélbélyegző.</em>
-          <small id="tip-text">revolut.me/arpadqsln</small>
-        </span>
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
-    </div>
-  </section>
 
   
 
@@ -1314,7 +1284,7 @@
   <section class="story" aria-labelledby="story-h">
     <h2 id="story-h"><svg class="coco" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5"/><circle class="eye" cx="8.6" cy="10" r="1.7"/><circle class="eye" cx="15.2" cy="10" r="1.7"/><circle class="eye" cx="11.9" cy="14.6" r="1.7"/></svg>Eddigi életem (egy kókuszdióhéjban)</h2>
     <p class="daycount">Ma életem <strong id="age-days">17 124</strong><span id="age-ord">.</span> napja <span class="hms" id="age-hms" aria-hidden="true">00:00:00</span></p>
-    <nav class="chapnav" aria-label="Fejezetek"><a href="#tips-go">Tippek: közlekedés</a><a href="#tips-eat">Tippek: étel és ital</a><a href="#tips-hist">Tippek: történelem és kultúra</a><a href="#ch1">1. A szocialista Magyarországon születtem</a><a href="#ch2">2. Vasárnapi ebédek nagymamánál</a><a href="#ch3">3. Apa, a válás és a pesti oldal</a><a href="#ch4">4. A rosszcsont</a><a href="#ch5">5. A vendéglátást a gyakorlatban tanultam</a><a href="#ch6">6. Kanada, első kör: Saskatoon</a><a href="#ch7">7. Ottawa</a><a href="#ch8">8. Vissza Budapestre, aztán a Nobu</a><a href="#ch9">9. Második kör: Kanada, egyedül</a><a href="#ch10">10. A Kajmán-szigetek</a><a href="#ch11">11. COVID Magyarországon</a></nav>
+    <nav class="chapnav" aria-label="Fejezetek"><a href="#ch1">1. A szocialista Magyarországon születtem</a><a href="#ch2">2. Vasárnapi ebédek nagymamánál</a><a href="#ch3">3. Apa, a válás és a pesti oldal</a><a href="#ch4">4. A rosszcsont</a><a href="#ch5">5. A vendéglátást a gyakorlatban tanultam</a><a href="#ch6">6. Kanada, első kör: Saskatoon</a><a href="#ch7">7. Ottawa</a><a href="#ch8">8. Vissza Budapestre, aztán a Nobu</a><a href="#ch9">9. Második kör: Kanada, egyedül</a><a href="#ch10">10. A Kajmán-szigetek</a><a href="#ch11">11. COVID Magyarországon</a></nav>
     <div class="chapter" id="ch1">
       <p class="chap-k">1. fejezet</p>
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><rect class="k2" x="22" y="22" width="84" height="62" rx="2"/><rect class="w" x="30" y="30" width="9" height="7" rx="1"/><rect class="w" x="30" y="42" width="9" height="7" rx="1"/><rect class="w" x="30" y="54" width="9" height="7" rx="1"/><rect class="w" x="30" y="66" width="9" height="7" rx="1"/><rect class="w" x="46" y="30" width="9" height="7" rx="1"/><rect class="w" x="46" y="42" width="9" height="7" rx="1"/><rect class="w" x="46" y="54" width="9" height="7" rx="1"/><rect class="w" x="46" y="66" width="9" height="7" rx="1"/><rect class="w" x="62" y="30" width="9" height="7" rx="1"/><rect class="w" x="62" y="42" width="9" height="7" rx="1"/><rect class="w" x="62" y="54" width="9" height="7" rx="1"/><rect class="w" x="62" y="66" width="9" height="7" rx="1"/><rect class="w" x="78" y="30" width="9" height="7" rx="1"/><rect class="w" x="78" y="42" width="9" height="7" rx="1"/><rect class="w" x="78" y="54" width="9" height="7" rx="1"/><rect class="w" x="78" y="66" width="9" height="7" rx="1"/><rect class="w" x="94" y="30" width="9" height="7" rx="1"/><rect class="w" x="94" y="42" width="9" height="7" rx="1"/><rect class="w" x="94" y="54" width="9" height="7" rx="1"/><rect class="w" x="94" y="66" width="9" height="7" rx="1"/>
@@ -1812,6 +1782,55 @@
     <p class="gb-privacy">A neved és az üzeneted nyilvános. Az e-mail-címedet csak én látom, és kizárólag arra használom, hogy válaszoljak neked; nem adom tovább, és másra sem használom. Ha törölni szeretnéd az üzeneted, csak szólj.</p>
     <ol class="gb-list" id="gb-list" aria-label="Vendégkönyv-üzenetek"></ol>
     <p class="gb-empty" id="gb-empty">A vendégkönyv betöltése...</p>
+  </section>
+
+  <section class="contacts" aria-labelledby="contact-h">
+    <h2 id="contact-h">Írj nekem</h2>
+
+    <div class="row">
+      <a class="btn primary" id="wa-link" href="https://wa.me/36202239524" target="_blank" rel="noopener">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H10l-4 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><circle class="dotfill" cx="8" cy="10.5" r="1.1"/><circle class="dotfill" cx="12" cy="10.5" r="1.1"/><circle class="dotfill" cx="16" cy="10.5" r="1.1"/></svg><span class="lbl">Üzenet WhatsAppon<small id="wa-text">+36 20 223 9524</small></span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <div class="row mail" id="email-row">
+      <div style="min-width:0">
+        <div class="label"><svg class="ico sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7.5l9 6 9-6"/></svg>E-mail</div>
+        <div class="addr" id="mail-text">arpistan@gmail.com</div>
+      </div>
+      <div class="mail-actions">
+        <button class="copy" id="copy-btn" type="button">Cím másolása</button>
+        <a class="send" id="mail-link" href="mailto:arpistan@gmail.com">Levelezőprogram megnyitása</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <a class="btn tip" id="tip-link" href="https://revolut.me/arpadqsln" target="_blank" rel="noopener">
+        <svg class="fund-art" viewBox="0 -6 120 78" aria-hidden="true">
+          <ellipse class="shadow" cx="60" cy="68" rx="28" ry="3"/>
+          <rect class="leg" x="39" y="56" width="8" height="11" rx="3.5"/>
+          <rect class="leg" x="73" y="56" width="8" height="11" rx="3.5"/>
+          <ellipse class="shell" cx="60" cy="38" rx="27" ry="24"/>
+          <path class="shine" d="M38 30 Q41 20 50 17"/>
+          <rect class="slot" x="48" y="14" width="24" height="5" rx="2.5"/>
+          <g class="coin"><circle cx="60" cy="0" r="7.5"/><circle class="rim" cx="60" cy="0" r="4.6"/></g>
+          <rect class="lens" x="42" y="30" width="15" height="9" rx="4"/>
+          <rect class="lens" x="63" y="30" width="15" height="9" rx="4"/>
+          <path class="frame" d="M57 33 H63 M42 32 L37 30 M78 32 L83 30"/>
+          <path class="glint" d="M45 32 L48 32 M66 32 L69 32"/>
+          <path class="smile" d="M52 47 Q60 54 68 47"/>
+          <path class="trail" d="M82 24 Q86 10 99 10"/>
+          <path class="plane" d="M98 14 L116 5 L108 19 L105 14 Z"/>
+          <path class="fold" d="M105 14 L116 5"/>
+        </svg>
+        <span class="fund-text">Utazási alap
+          <em class="quip">Minden érme egy újabb útlevélbélyegző.</em>
+          <small id="tip-text">revolut.me/arpadqsln</small>
+        </span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
   </section>
 
   <section class="story" aria-label="Nyilatkozat">
@@ -2404,6 +2423,18 @@
     var hd = document.querySelector("header .eyebrow"), n = document.querySelectorAll(".regions .chips li").length;
     if (hd && n) { var ul = document.createElement("ul"); ul.className = "heroStats"; var rows = hu ? [[n, "hely"], ["3", "kontinens"], ["1", "nagyon jó kutya"]] : [[n, "places"], ["3", "continents"], ["1", "very good dog"]];
       ul.innerHTML = rows.map(function (r) { return "<li><b>" + r[0] + "</b><span>" + r[1] + "</span></li>"; }).join(""); hd.parentNode.appendChild(ul); }
+  })();
+</script>
+<script>
+  (function () {
+    var nav = document.querySelector(".topnav"), snd = document.querySelector(".sound-toggle");
+    if (nav && snd) {
+      document.querySelectorAll(".sound-toggle").forEach(function (b) { if (b !== snd) b.remove(); });
+      snd.className = "theme snd"; snd.setAttribute("title", (document.documentElement.lang || "").indexOf("hu") === 0 ? "Hang be/ki" : "Sound on/off");
+      nav.insertBefore(snd, nav.lastChild);
+    }
+    var dock = document.querySelector(".dock"), ct = document.querySelector(".contacts");
+    if (dock && ct && "IntersectionObserver" in window) new IntersectionObserver(function (e) { dock.classList.toggle("away", e[0].isIntersecting); }, { threshold: 0.2 }).observe(ct);
   })();
 </script>
 </body>
