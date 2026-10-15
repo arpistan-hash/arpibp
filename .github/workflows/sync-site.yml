@@ -1,0 +1,52 @@
+name: Sync website to main
+
+# When the page or its images/fonts change on this branch, copy them to main
+# (index-1.html becomes index.html), so the live website updates by itself.
+on:
+  push:
+    branches: [ "ccr-55fadb15-0mw2fx" ]
+    paths:
+      - "index-1.html"
+      - "assets/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-site
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out this branch
+        uses: actions/checkout@v4
+        with:
+          path: src
+
+      - name: Check out main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: site
+
+      - name: Copy the page and assets
+        run: |
+          cp src/index-1.html site/index.html
+          mkdir -p site/assets
+          rsync -a --delete src/assets/ site/assets/
+
+      - name: Commit and push to main
+        working-directory: site
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Website already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Sync website from ${GITHUB_REF_NAME} (${GITHUB_SHA::7})"
+          git push origin HEAD:main
