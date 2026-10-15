@@ -2,7 +2,7 @@
 
 A personal page: a friendly guide to Budapest plus a life story.
 
-- `index-1.html`: English page. `index-hu.html`: Hungarian page.
+- `index-1.html`: the page (the website copy is `index.html` on `main`, kept in sync automatically).
 - `assets/img/`: photos as WebP (lazy loaded). `assets/fonts/`: self-hosted fonts (Bricolage Grotesque, Instrument Sans, JetBrains Mono, Newsreader).
 
 Host the HTML files together with the `assets/` folder, side by side. The pages load everything with relative paths, so no build step is needed.
