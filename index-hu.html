@@ -569,6 +569,15 @@
   .chapter p a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
   .ico-col { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: none; }
   .ico-col .yr { font-family: var(--font-mono); font-size: 11.5px; font-weight: 700; letter-spacing: .02em; color: var(--chap); text-align: center; line-height: 1.1; max-width: 72px; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  .readbar { position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 50; background: linear-gradient(90deg, var(--p1), var(--sun), var(--p2)); pointer-events: none; }
+  .totop { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(88px + env(safe-area-inset-bottom, 0px)); z-index: 40; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--card); color: var(--fg); font-size: 20px; box-shadow: 0 6px 14px -6px rgba(14, 27, 38, .4); cursor: pointer; opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity .2s, transform .2s; }
+  .totop.show { opacity: 1; transform: none; pointer-events: auto; }
+  ul.facts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  ul.facts li { font-family: var(--font-mono); font-size: 12px; letter-spacing: .02em; padding: 4px 10px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--chap) 40%, var(--line)); background: color-mix(in srgb, var(--chap) 10%, var(--card)); color: var(--fg); }
+  .item.callout, .chapter p.callout { background: color-mix(in srgb, var(--p1) 10%, var(--card)); border-left: 4px solid var(--p1); border-radius: 10px; padding: 10px 12px; }
+  .chapter p.callout { max-width: none; }
   .chap-art .ln, .chap-art .ln2, .chap-art .ln3, .chap-art .dash { fill: none; stroke: var(--fg); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
   .chap-art .ln2 { stroke-width: 2; }
   .chap-art .ln3 { stroke-width: 1.6; }
@@ -830,7 +839,8 @@
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><rect class="c" x="30" y="30" width="150" height="46" rx="10"/><rect class="w" x="42" y="38" width="22" height="16" rx="3"/><rect class="w" x="72" y="38" width="22" height="16" rx="3"/><rect class="w" x="102" y="38" width="22" height="16" rx="3"/><rect class="w" x="132" y="38" width="22" height="16" rx="3"/><circle class="k" cx="62" cy="78" r="7"/><circle class="k" cx="150" cy="78" r="7"/><path class="ln2" d="M60 30 L80 14 H150 L170 30"/><circle class="s" cx="262" cy="28" r="14"/></svg>
       <h3>Taxi, appok és tömegközlekedés</h3>
       <p class="chap-hook">Ne állíts le taxit az utcán. Rendelj, vagy menj tömegközlekedéssel.</p>
-      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="c" d="M6 30 L10 20 H38 L42 30 V36 H6Z"/><rect class="w" x="14" y="23" width="20" height="6" rx="2"/><circle class="k" cx="14" cy="37" r="4"/><circle class="k" cx="34" cy="37" r="4"/><path class="ln" d="M6 6 L42 42" style="stroke:var(--fg);stroke-width:3px"/><rect class="s" x="19" y="14" width="10" height="5" rx="1"/></svg>
+      <ul class="facts"><li>Uber · Bolt</li><li>BudapestGO app</li><li>Éjszakai busz 15 percenként</li></ul>
+      <div class="item callout"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="c" d="M6 30 L10 20 H38 L42 30 V36 H6Z"/><rect class="w" x="14" y="23" width="20" height="6" rx="2"/><circle class="k" cx="14" cy="37" r="4"/><circle class="k" cx="34" cy="37" r="4"/><path class="ln" d="M6 6 L42 42" style="stroke:var(--fg);stroke-width:3px"/><rect class="s" x="19" y="14" width="10" height="5" rx="1"/></svg>
         <p>Soha ne állíts le taxit az utcán, és ne szállj be ismeretlen taxiba: garantált lehúzás. Inkább appon rendelj fuvart. Az <a href="https://www.uber.com/" target="_blank" rel="noopener">Uber</a> és a <a href="https://bolt.eu/" target="_blank" rel="noopener">Bolt</a> biztonságos, ahogy bármelyik másik megbízható app is.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="c" x="6" y="10" width="36" height="26" rx="6"/><rect class="w" x="10" y="15" width="8" height="8" rx="1"/><rect class="w" x="20" y="15" width="8" height="8" rx="1"/><rect class="w" x="30" y="15" width="8" height="8" rx="1"/><circle class="k" cx="14" cy="38" r="4"/><circle class="k" cx="34" cy="38" r="4"/><path class="ln3" d="M6 28 H42"/></svg>
@@ -849,6 +859,7 @@
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><path class="k2" d="M0 82 L70 34 L120 66 L190 20 L260 82Z"/><circle class="s" cx="264" cy="26" r="14"/><path class="ln2" d="M40 82 V66 M56 82 V62 M72 82 V68"/><path class="c" d="M40 66 L33 76 H47Z M56 62 L48 74 H64Z M72 68 L65 78 H79Z"/><path class="riv" d="M0 90 Q80 82 160 90 T320 90 V100 H0Z"/></svg>
       <h3>Amikor kell egy kis csend</h3>
       <p class="chap-hook">Budapest bulivaros. Pihenj meg tőle egy kicsit.</p>
+      <ul class="facts"><li>Budai-hegyek</li><li>Libegő</li><li>Gyermekvasút</li><li>Barlangok</li></ul>
       <p>Budapest nagy bulizó és ivós város, de néha kell egy kis nyugalom. Nagyon ajánlom a Budai-hegyeket egy fél napos túrára. Vagy menj ki a Városligetbe vagy a Margitszigetre.</p>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="ln3" d="M2 8 H46"/><path class="ln3" d="M24 8 V16"/><path class="c" d="M12 16 H36 V28 H12Z"/><path class="ln3" d="M12 22 H36"/><path class="k2" d="M8 36 L24 28 L40 36 V44 H8Z"/></svg>
         <p>Ha a budai hegyekbe mész, vedd igénybe a <a href="https://bkk.hu/en/travel-information/special-and-heritage-transport-services/chairlift/" target="_blank" rel="noopener">Libegőt</a>, a székes felvonót, amely Budapest legmagasabb pontjára visz fel. Ha tiszta az idő, elbűvölő a kilátás a kis toronyból odafent. Maga a libegőzés irányonként kb. 12-15 perc, és nagyon élvezetes.</p>
@@ -866,6 +877,7 @@
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><rect class="riv" x="50" y="56" width="220" height="30" rx="8"/><path class="ln2" d="M96 50 Q88 38 98 28 Q108 18 98 8 M150 50 Q142 38 152 28 Q162 18 152 8 M204 50 Q196 38 206 28 Q216 18 206 8"/><circle class="s" cx="290" cy="24" r="12"/><path class="ln2" d="M60 66 Q80 58 100 66 T140 66 T180 66 T220 66 T260 66"/></svg>
       <h3>A termálfürdő nyitáskor</h3>
       <p class="chap-hook">Állítsd be az ébresztőt. Később megköszönöd.</p>
+      <ul class="facts"><li>Hétköznap 7-kor nyit</li><li>Városliget</li><li>Meleg termálvíz</li></ul>
       <p>Mindenki elmegy a Városligetbe a <a href="https://www.szechenyibath.hu/" target="_blank" rel="noopener">Széchenyi termálfürdőbe</a>, és neked is ezt ajánlom. A tippem: menj, amint kinyit, hétköznap reggel 7-kor, hétvégén 8-kor. Nézd meg az aktuális nyitvatartást a fürdő oldalán. Még ha fáj is felkelni, annyira megéri. Abban az órában szinte csak helyiek vannak, és belekóstolhatsz abba, milyen volt régen egész nap, a turistainvázió előtt. Ma már nagyon turistás, de kora reggel még megkapod az eredeti élményt.</p>
       <p>Nem számít, milyen hideg van odakint: a víz meleg, száll a gőz, és az egész egy kicsit titokzatos. Próbáld ki.</p>
       <p>A termálvizet meg is ihatod. A metróállomás mellett van egy ivóhely, majdnem olyan, mint egy vízbár, ahol a termálvizet kancsókban adják egy dollárnál kevesebbért. Nagyon kénes, de úgy tudom, nagyon jót tesz a gyomornak.</p>
@@ -876,6 +888,7 @@
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><ellipse class="s2" cx="80" cy="62" rx="46" ry="16"/><ellipse class="s" cx="80" cy="58" rx="40" ry="12"/><path class="ln2" d="M52 56 q28 -8 56 0"/><path class="c" d="M170 44 H250 Q250 74 210 76 Q170 74 170 44Z"/><path class="ln2" d="M186 38 q-4 -8 0 -14 M206 38 q-4 -8 0 -14 M226 38 q-4 -8 0 -14"/><circle class="s" cx="288" cy="24" r="10"/></svg>
       <h3>Kajaaaaa</h3>
       <p class="chap-hook">Ahol a helyiek tényleg kapják őket.</p>
+      <ul class="facts"><li>Lángos</li><li>Gulyás</li><li>Paprikás</li><li>Túrós csusza</li><li>Szalámi</li></ul>
       <p>Persze mindenki a lángost, a gulyást és a csirkepaprikást fogja rád tukmálni.</p>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><ellipse class="s2" cx="24" cy="28" rx="20" ry="12"/><ellipse class="s" cx="24" cy="25" rx="18" ry="10"/><path class="ln3" d="M12 22 q12 -6 24 0 M14 28 q10 4 20 0"/><circle class="w" cx="20" cy="22" r="2"/><circle class="w" cx="29" cy="26" r="2"/></svg>
         <p>A <a href="https://en.wikipedia.org/wiki/L%C3%A1ngos" target="_blank" rel="noopener">lángos</a> kerek, kisütött tészta. A legjobb helyi piacon enni. Minden helyi piacnak megvan a maga lángossütője, és valószínűleg autentikusabb és jobb minőségű, mint a turistás helyeké.</p>
@@ -908,6 +921,7 @@
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><g transform="translate(70 8)"><rect class="k2" x="10" y="0" width="12" height="22"/><path class="k2" d="M10 20 Q-6 32 -6 48 V74 H38 V48 Q38 32 22 20Z"/><rect class="s" x="-1" y="44" width="28" height="18" rx="2"/></g><g transform="translate(190 20)"><path class="w" d="M0 0 H44 Q44 34 22 38 Q0 34 0 0Z"/><path class="s" d="M3 12 H41 Q40 30 22 34 Q4 30 3 12Z"/><path class="ln2" d="M22 38 V62 M8 62 H36"/></g><circle class="s" cx="288" cy="24" r="10"/></svg>
       <h3>A bor és a tokaji</h3>
       <p class="chap-hook">Az exportált palackok nem a legjobbak közülünk.</p>
+      <ul class="facts"><li>Tokaji aszú</li><li>12–13% alkohol</li><li>Desszertbor</li></ul>
       <p>Magyarország borai egyszerűen csodálatosak. Az exportált borok azonban gyakran nem a legjobb képviselői. Úgyhogy amíg itt vagy, próbálj ki néhány minőségi vörösbort.</p>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="w" d="M10 6 H34 Q34 26 22 30 Q10 26 10 6Z"/><path class="s" d="M12 14 H32 Q31 26 22 28 Q13 26 12 14Z"/><path class="ln2" d="M22 30 V42 M12 42 H32"/><circle class="c" cx="40" cy="14" r="4"/><circle class="c" cx="36" cy="21" r="4"/><circle class="c" cx="43" cy="21" r="4"/></svg>
         <p>Mindenekelőtt próbáld ki a <a href="https://en.wikipedia.org/wiki/Tokaji" target="_blank" rel="noopener">tokaji aszút</a>. Nem trükk, hanem igazi magyar termék, fantasztikus minőségben. Desszertbor, amely nem túl édes, csak 12-13% alkoholt tartalmaz, és részben nemesrothadt szőlőből készül, ami sokkal intenzívebbé teszi a cukrokat és az ízeket. Az édessége mellett savas is, így friss, nem ragacsos, és tökéletes desszerthez.</p>
@@ -921,6 +935,7 @@
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><g transform="translate(60 10)"><rect class="k2" x="8" y="0" width="10" height="16"/><path class="k2" d="M8 14 Q-2 22 -2 34 V66 H28 V34 Q28 22 18 14Z"/><rect class="s" x="1" y="36" width="24" height="16" rx="2"/></g><g transform="translate(130 24)"><path class="w" d="M0 0 H22 L19 36 H3Z"/><path class="s2" d="M2 14 H20 L19 36 H3Z"/></g><circle class="c" cx="226" cy="58" r="14"/><circle class="s" cx="258" cy="62" r="12"/><path class="ln2" d="M226 44 q4 -8 10 -10 M258 50 q2 -8 8 -10"/></svg>
       <h3>Pálinka és Unicum</h3>
       <p class="chap-hook">Jó minőségű: kortyolgasd. Rossz minőségű: húzd le.</p>
+      <ul class="facts"><li>Pálinka akár 70%</li><li>Unicum</li><li>Kortyold vagy húzd le</li></ul>
       <p>A <a href="https://en.wikipedia.org/wiki/P%C3%A1linka" target="_blank" rel="noopener">pálinka</a> gyümölcspálinka, és tudnod kell, hogy a nevét az Európai Unió földrajzi árujelzőként védi. Magyarországon kell készülnie, magyar gyümölcsből, és semmi másból. Sok szomszédos nemzetnek megvan a maga változata, de Magyarországon valószínűleg a legnagyobb a gyümölcsök választéka: szőlő, szilva, körte, őszibarack, málna, áfonya, birsalma és még sok más.</p>
       <p>Néhány pálinka akár 70%-os is lehet, de a jó csodálatosan finom ital, úgyhogy ismered a szabályt: a jót kortyolgatod, a rosszat lehúzod.</p>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="k2" x="4" y="22" width="18" height="22" rx="3"/><path class="s" d="M6 26 H20 V32 H6Z"/><path class="w" d="M26 14 H42 V42 Q42 44 40 44 H28 Q26 44 26 42Z"/><path class="s" d="M26 20 H42 V42 Q42 44 40 44 H28 Q26 44 26 42Z"/><path class="w" d="M26 14 q8 -8 16 0"/></svg>
@@ -932,6 +947,7 @@
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><path class="c" d="M70 40 H110 Q130 40 130 24 V16 H146 V30 Q146 56 112 56 H70Z"/><rect class="c" x="52" y="34" width="22" height="26" rx="4"/><path class="riv" d="M134 62 Q124 76 134 82 Q144 76 134 62Z"/><path class="w" d="M200 30 H236 L232 78 H204Z"/><path class="riv" d="M202 46 H234 L232 78 H204Z"/><circle class="s" cx="284" cy="24" r="10"/></svg>
       <h3>Ivóvíz</h3>
       <p class="chap-hook">Egyenesen a csapból.</p>
+      <ul class="facts"><li>A csapvíz biztonságos</li><li>Ásványvíz is</li></ul>
       <p>A víz szinte mindenhol Magyarországon teljesen biztonságosan iható, és különösen Budapesten. Valójában rendkívül jó minőségű csapvíz.</p>
       <p>A magyarok az ásványvizet is szeretik, és észre fogod venni, hogy sokkal ásványosabb az íze, mint egy átlagos szénsavas vagy szénsavmentes víznek.</p>
     </div>
@@ -976,7 +992,7 @@
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><rect class="c" x="60" y="14" width="120" height="48" rx="14"/><path class="c" d="M90 60 L80 78 L112 60Z"/><text x="120" y="48" class="t big inv">!</text><rect class="w" x="196" y="30" width="70" height="34" rx="12"/><path class="ln2" d="M214 47 h34"/><circle class="s" cx="286" cy="24" r="10"/></svg>
       <h3>Óvatosan kezelendő témák</h3>
       <p class="chap-hook">Kérlek, ne nevezz minket szlávnak.</p>
-      <p>Van néhány téma, amit nem érdemes felhozni, vagy legalábbis nagyon óvatosan kell hozzányúlni. Először is: ne nevezd a magyarokat szlávnak. Valamiért hatalmas büszkeséget érzünk amiatt, hogy finnugorok vagyunk. A magyar legközelebbi rokona a finn, bár a kettő egymástól is nagyon távol áll. A ritmusa csak hasonlóan hangzik.</p>
+      <p class="callout">Van néhány téma, amit nem érdemes felhozni, vagy legalábbis nagyon óvatosan kell hozzányúlni. Először is: ne nevezd a magyarokat szlávnak. Valamiért hatalmas büszkeséget érzünk amiatt, hogy finnugorok vagyunk. A magyar legközelebbi rokona a finn, bár a kettő egymástól is nagyon távol áll. A ritmusa csak hasonlóan hangzik.</p>
       <p>Semmi esetre se nevezz minket szlávnak, és ne mondj olyat, hogy „Magyarország Oroszország része volt”. Soha nem volt.</p>
       <p>És általában kerüld a 20. századi politikát. Könnyen kínos helyzetbe kerülhetsz.</p>
     </div>
@@ -2056,6 +2072,21 @@
       li.addEventListener("click", function () { pick(i); });
       li.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(i); } });
     });
+  })();
+</script>
+<script>
+  (function () {
+    var bar = document.createElement("div"); bar.className = "readbar"; bar.setAttribute("aria-hidden", "true"); document.body.appendChild(bar);
+    var top = document.createElement("button"); top.type = "button"; top.className = "totop"; top.textContent = "\u2191";
+    top.setAttribute("aria-label", document.documentElement.lang.indexOf("hu") === 0 ? "Vissza a tetej\u00e9re" : "Back to top");
+    top.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+    document.body.appendChild(top);
+    function upd() {
+      var h = document.documentElement, max = h.scrollHeight - h.clientHeight, y = window.pageYOffset || h.scrollTop;
+      bar.style.width = (max > 0 ? Math.min(100, y / max * 100) : 0) + "%";
+      top.classList.toggle("show", y > 1200);
+    }
+    window.addEventListener("scroll", upd, { passive: true }); window.addEventListener("resize", upd); upd();
   })();
 </script>
 </body>
