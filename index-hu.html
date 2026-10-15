@@ -566,6 +566,7 @@
   .atlas.focus .arc.hot { stroke-width: 6.5; filter: drop-shadow(0 0 3px var(--c, currentColor)) drop-shadow(0 0 8px var(--c, currentColor)) drop-shadow(0 0 14px var(--c, currentColor)); animation: arcdraw .9s ease forwards, arcglow 1.6s ease-in-out .9s infinite; }
   @keyframes arcglow { 0%, 100% { filter: drop-shadow(0 0 3px var(--c, currentColor)) drop-shadow(0 0 8px var(--c, currentColor)) drop-shadow(0 0 12px var(--c, currentColor)); } 50% { filter: drop-shadow(0 0 6px var(--c, currentColor)) drop-shadow(0 0 16px var(--c, currentColor)) drop-shadow(0 0 26px var(--c, currentColor)); } }
   @media (prefers-reduced-motion: reduce) { .atlas.focus .arc.hot { animation: none; } }
+  .chapter p a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
   .chap-art .ln, .chap-art .ln2, .chap-art .ln3, .chap-art .dash { fill: none; stroke: var(--fg); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
   .chap-art .ln2 { stroke-width: 2; }
   .chap-art .ln3 { stroke-width: 1.6; }
@@ -828,7 +829,7 @@
       <h3>Taxi, appok és tömegközlekedés</h3>
       <p class="chap-hook">Ne állíts le taxit az utcán. Rendelj, vagy menj tömegközlekedéssel.</p>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="c" d="M6 30 L10 20 H38 L42 30 V36 H6Z"/><rect class="w" x="14" y="23" width="20" height="6" rx="2"/><circle class="k" cx="14" cy="37" r="4"/><circle class="k" cx="34" cy="37" r="4"/><path class="ln" d="M6 6 L42 42" style="stroke:var(--fg);stroke-width:3px"/><rect class="s" x="19" y="14" width="10" height="5" rx="1"/></svg>
-        <p>Soha ne állíts le taxit az utcán, és ne szállj be ismeretlen taxiba: garantált lehúzás. Inkább appon rendelj fuvart. Az Uber és a Bolt biztonságos, ahogy bármelyik másik megbízható app is.</p>
+        <p>Soha ne állíts le taxit az utcán, és ne szállj be ismeretlen taxiba: garantált lehúzás. Inkább appon rendelj fuvart. Az <a href="https://www.uber.com/" target="_blank" rel="noopener">Uber</a> és a <a href="https://bolt.eu/" target="_blank" rel="noopener">Bolt</a> biztonságos, ahogy bármelyik másik megbízható app is.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="c" x="6" y="10" width="36" height="26" rx="6"/><rect class="w" x="10" y="15" width="8" height="8" rx="1"/><rect class="w" x="20" y="15" width="8" height="8" rx="1"/><rect class="w" x="30" y="15" width="8" height="8" rx="1"/><circle class="k" cx="14" cy="38" r="4"/><circle class="k" cx="34" cy="38" r="4"/><path class="ln3" d="M6 28 H42"/></svg>
         <p>A tömegközlekedés fantasztikus, még éjjel is: az éjszakai buszok a legtöbb irányba 15 percenként járnak.</p>
@@ -837,7 +838,7 @@
         <p>Szerezz bérletet, legyen három napos vagy akármilyen hosszú, ami a tartózkodásodhoz illik. Így nem kell minden átszállásnál új jegyet venned buszról villamosra, metróra. És ha elfelejted érvényesíteni a jegyet, az ellenőrök örömmel megbírságolnak, kb. 80 dollárra.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="k2" x="14" y="4" width="20" height="40" rx="5"/><rect class="w" x="17" y="10" width="14" height="24" rx="2"/><path class="c" d="M19 16 H29 M19 21 H27 M19 26 H29"/><circle class="s" cx="24" cy="39" r="2"/></svg>
-        <p>A legegyszerűbb a BudapestGO appban venni, amiben menetrend, térkép és útvonaltervező is van.</p>
+        <p>A legegyszerűbb a <a href="https://bkk.hu/en/tickets-and-passes/budapestgo" target="_blank" rel="noopener">BudapestGO appban</a> venni, amiben menetrend, térkép és útvonaltervező is van.</p>
       </div>
       <p>Gyalog is nagyon biztonságos a város. Hidegben csak vigyél kabátot.</p>
     </div>
@@ -848,14 +849,14 @@
       <p class="chap-hook">Budapest bulivaros. Pihenj meg tőle egy kicsit.</p>
       <p>Budapest nagy bulizó és ivós város, de néha kell egy kis nyugalom. Nagyon ajánlom a Budai-hegyeket egy fél napos túrára. Vagy menj ki a Városligetbe vagy a Margitszigetre.</p>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="ln3" d="M2 8 H46"/><path class="ln3" d="M24 8 V16"/><path class="c" d="M12 16 H36 V28 H12Z"/><path class="ln3" d="M12 22 H36"/><path class="k2" d="M8 36 L24 28 L40 36 V44 H8Z"/></svg>
-        <p>Ha a budai hegyekbe mész, vedd igénybe a Libegőt, a székes felvonót, amely Budapest legmagasabb pontjára visz fel. Ha tiszta az idő, elbűvölő a kilátás a kis toronyból odafent. A libegőzés maga csak úgy öt perc, de nagyon élvezetes.</p>
+        <p>Ha a budai hegyekbe mész, vedd igénybe a <a href="https://bkk.hu/en/travel-information/special-and-heritage-transport-services/chairlift/" target="_blank" rel="noopener">Libegőt</a>, a székes felvonót, amely Budapest legmagasabb pontjára visz fel. Ha tiszta az idő, elbűvölő a kilátás a kis toronyból odafent. A libegőzés maga csak úgy öt perc, de nagyon élvezetes.</p>
       </div>
       <p>Ha érdekel a túrázás vagy a zöld helyek, <a href="https://wa.me/36202239524">írj nekem WhatsAppon</a> és elárulok még pár tippet. Itt van kettő a kezdéshez.</p>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="c" x="6" y="14" width="26" height="20" rx="4"/><rect class="w" x="10" y="18" width="7" height="7" rx="1"/><rect class="w" x="20" y="18" width="7" height="7" rx="1"/><rect class="s" x="32" y="20" width="10" height="14" rx="2"/><circle class="k" cx="14" cy="37" r="4"/><circle class="k" cx="36" cy="37" r="4"/><path class="ln3" d="M34 14 q4 -6 8 -2"/></svg>
-        <p>Nagyon ajánlom a Gyermekvasutat, egy kis erdei vonatot, amelyet többnyire gyerekek és tinik működtetnek. Csak a mozdonyvezető és néhány további dolgozó felnőtt. Nincs messze a belvárostól, talán 45 perc-egy óra.</p>
+        <p>Nagyon ajánlom a <a href="https://en.wikipedia.org/wiki/Budapest_Children%27s_Railway" target="_blank" rel="noopener">Gyermekvasutat</a>, egy kis erdei vonatot, amelyet többnyire gyerekek és tinik működtetnek. Csak a mozdonyvezető és néhány további dolgozó felnőtt. Nincs messze a belvárostól, talán 45 perc-egy óra.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="k2" d="M4 42 V16 Q24 2 44 16 V42Z"/><path class="w" d="M12 42 V28 Q24 18 36 28 V42Z"/><path class="w" d="M12 8 l3 10 l3 -10Z M26 6 l2 8 l3 -8Z M34 10 l2 6 l2 -6Z" style="fill:var(--card)"/></svg>
-        <p>Néhány barlang is van, mindössze 30 percre a belvárostól, ahová különleges felszerelés nélkül be lehet menni, vezetővel, aki körbevezet. A kedvencem a Pálvölgyi-cseppkőbarlang. Útközben álljatok meg a legcsodálatosabb cukrászdánál, a Daubnernél, a Szépvölgyi úton, a Kolosy tér közelében.</p>
+        <p>Néhány barlang is van, mindössze 30 percre a belvárostól, ahová különleges felszerelés nélkül be lehet menni, vezetővel, aki körbevezet. A kedvencem a <a href="https://www.dunaipoly.hu/en/places/interpretation-sites/pal-volgyi-cave" target="_blank" rel="noopener">Pálvölgyi-cseppkőbarlang</a>. Útközben álljatok meg a legcsodálatosabb cukrászdánál, a <a href="https://www.google.com/maps/search/?api=1&query=Daubner+Cukr%C3%A1szda+Szépvölgyi+út+Budapest" target="_blank" rel="noopener">Daubnernél</a>, a Szépvölgyi úton, a Kolosy tér közelében.</p>
       </div>
     </div>
     <div class="chapter" id="tip3">
@@ -863,7 +864,7 @@
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><rect class="riv" x="50" y="56" width="220" height="30" rx="8"/><path class="ln2" d="M96 50 Q88 38 98 28 Q108 18 98 8 M150 50 Q142 38 152 28 Q162 18 152 8 M204 50 Q196 38 206 28 Q216 18 206 8"/><circle class="s" cx="290" cy="24" r="12"/><path class="ln2" d="M60 66 Q80 58 100 66 T140 66 T180 66 T220 66 T260 66"/></svg>
       <h3>A termálfürdő hajnali 6-kor</h3>
       <p class="chap-hook">Állítsd be az ébresztőt. Később megköszönöd.</p>
-      <p>Mindenki elmegy a Városligetbe a Széchenyi termálfürdőbe, és neked is ezt ajánlom. A tippem: menj reggel 6-ra, nyitáskor. Még ha fáj is felkelni, annyira megéri. Abban az órában szinte csak helyiek vannak, és belekóstolhatsz abba, milyen volt régen egész nap, a turistainvázió előtt. Ma már nagyon turistás, de hajnali 6-kor még megkapod az eredeti élményt.</p>
+      <p>Mindenki elmegy a Városligetbe a <a href="https://www.szechenyibath.hu/" target="_blank" rel="noopener">Széchenyi termálfürdőbe</a>, és neked is ezt ajánlom. A tippem: menj reggel 6-ra, nyitáskor. Még ha fáj is felkelni, annyira megéri. Abban az órában szinte csak helyiek vannak, és belekóstolhatsz abba, milyen volt régen egész nap, a turistainvázió előtt. Ma már nagyon turistás, de hajnali 6-kor még megkapod az eredeti élményt.</p>
       <p>Nem számít, milyen hideg van odakint: a víz meleg, száll a gőz, és az egész egy kicsit titokzatos. Próbáld ki.</p>
       <p>A termálvizet meg is ihatod. A metróállomás mellett van egy ivóhely, majdnem olyan, mint egy vízbár, ahol a termálvizet kancsókban adják egy dollárnál kevesebbért. Nagyon kénes, de úgy tudom, nagyon jót tesz a gyomornak.</p>
     </div>
@@ -875,7 +876,7 @@
       <p class="chap-hook">Ahol a helyiek tényleg kapják őket.</p>
       <p>Persze mindenki a lángost, a gulyást és a csirkepaprikást fogja rád tukmálni.</p>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><ellipse class="s2" cx="24" cy="28" rx="20" ry="12"/><ellipse class="s" cx="24" cy="25" rx="18" ry="10"/><path class="ln3" d="M12 22 q12 -6 24 0 M14 28 q10 4 20 0"/><circle class="w" cx="20" cy="22" r="2"/><circle class="w" cx="29" cy="26" r="2"/></svg>
-        <p>A lángos kerek, kisütött tészta. A legjobb helyi piacon enni. Minden helyi piacnak megvan a maga lángossütője, és valószínűleg autentikusabb és jobb minőségű, mint a turistás helyeké.</p>
+        <p>A <a href="https://en.wikipedia.org/wiki/L%C3%A1ngos" target="_blank" rel="noopener">lángos</a> kerek, kisütött tészta. A legjobb helyi piacon enni. Minden helyi piacnak megvan a maga lángossütője, és valószínűleg autentikusabb és jobb minőségű, mint a turistás helyeké.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="c" d="M6 22 H42 Q42 40 24 42 Q6 40 6 22Z"/><path class="ln3" d="M16 16 q-3 -5 0 -9 M24 16 q-3 -5 0 -9 M32 16 q-3 -5 0 -9"/><circle class="s" cx="18" cy="28" r="2.5"/><circle class="w" cx="27" cy="31" r="2.5"/></svg>
         <p>A gulyásnál sok sikert „a legjobb” megtalálásához. Ezt otthon főzik, mindenki a maga módján, és a legtöbb magyar nehezen tudna erre éttermet mondani.</p>
@@ -907,7 +908,7 @@
       <p class="chap-hook">Az exportált palackok nem a legjobbak közülünk.</p>
       <p>Magyarország borai egyszerűen csodálatosak. Az exportált borok azonban gyakran nem a legjobb képviselői. Úgyhogy amíg itt vagy, próbálj ki néhány minőségi vörösbort.</p>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="w" d="M10 6 H34 Q34 26 22 30 Q10 26 10 6Z"/><path class="s" d="M12 14 H32 Q31 26 22 28 Q13 26 12 14Z"/><path class="ln2" d="M22 30 V42 M12 42 H32"/><circle class="c" cx="40" cy="14" r="4"/><circle class="c" cx="36" cy="21" r="4"/><circle class="c" cx="43" cy="21" r="4"/></svg>
-        <p>Mindenekelőtt próbáld ki a tokaji aszút. Nem trükk, hanem igazi magyar termék, fantasztikus minőségben. Desszertbor, amely nem túl édes, csak 12-13% alkoholt tartalmaz, és részben nemesrothadt szőlőből készül, ami sokkal intenzívebbé teszi a cukrokat és az ízeket. Az édessége mellett savas is, így friss, nem ragacsos, és tökéletes desszerthez.</p>
+        <p>Mindenekelőtt próbáld ki a <a href="https://en.wikipedia.org/wiki/Tokaji" target="_blank" rel="noopener">tokaji aszút</a>. Nem trükk, hanem igazi magyar termék, fantasztikus minőségben. Desszertbor, amely nem túl édes, csak 12-13% alkoholt tartalmaz, és részben nemesrothadt szőlőből készül, ami sokkal intenzívebbé teszi a cukrokat és az ízeket. Az édessége mellett savas is, így friss, nem ragacsos, és tökéletes desszerthez.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="s" d="M6 36 L6 16 L16 26 L24 10 L32 26 L42 16 V36Z"/><rect class="s2" x="6" y="36" width="36" height="6"/><circle class="c" cx="24" cy="30" r="3"/></svg>
         <p>XIV. Lajos, a Napkirály és sok más arisztokrata kedvenc bora volt. Állítólag ő nevezte „a királyok borának, a borok királyának”.</p>
@@ -918,10 +919,10 @@
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><g transform="translate(60 10)"><rect class="k2" x="8" y="0" width="10" height="16"/><path class="k2" d="M8 14 Q-2 22 -2 34 V66 H28 V34 Q28 22 18 14Z"/><rect class="s" x="1" y="36" width="24" height="16" rx="2"/></g><g transform="translate(130 24)"><path class="w" d="M0 0 H22 L19 36 H3Z"/><path class="s2" d="M2 14 H20 L19 36 H3Z"/></g><circle class="c" cx="226" cy="58" r="14"/><circle class="s" cx="258" cy="62" r="12"/><path class="ln2" d="M226 44 q4 -8 10 -10 M258 50 q2 -8 8 -10"/></svg>
       <h3>Pálinka és Unicum</h3>
       <p class="chap-hook">Jó minőségű: kortyolgasd. Rossz minőségű: húzd le.</p>
-      <p>A pálinka gyümölcspálinka, és tudnod kell, hogy a nevét az Európai Unió földrajzi árujelzőként védi. Magyarországon kell készülnie, magyar gyümölcsből, és semmi másból. Sok szomszédos nemzetnek megvan a maga változata, de Magyarországon valószínűleg a legnagyobb a gyümölcsök választéka: szőlő, szilva, körte, őszibarack, málna, áfonya, birsalma és még sok más.</p>
+      <p>A <a href="https://en.wikipedia.org/wiki/P%C3%A1linka" target="_blank" rel="noopener">pálinka</a> gyümölcspálinka, és tudnod kell, hogy a nevét az Európai Unió földrajzi árujelzőként védi. Magyarországon kell készülnie, magyar gyümölcsből, és semmi másból. Sok szomszédos nemzetnek megvan a maga változata, de Magyarországon valószínűleg a legnagyobb a gyümölcsök választéka: szőlő, szilva, körte, őszibarack, málna, áfonya, birsalma és még sok más.</p>
       <p>Néhány pálinka akár 70%-os is lehet, de a jó csodálatosan finom ital, úgyhogy ismered a szabályt: a jót kortyolgatod, a rosszat lehúzod.</p>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="k2" x="4" y="22" width="18" height="22" rx="3"/><path class="s" d="M6 26 H20 V32 H6Z"/><path class="w" d="M26 14 H42 V42 Q42 44 40 44 H28 Q26 44 26 42Z"/><path class="s" d="M26 20 H42 V42 Q42 44 40 44 H28 Q26 44 26 42Z"/><path class="w" d="M26 14 q8 -8 16 0"/></svg>
-        <p>Egy másik ital, amivel biztosan találkozol, az Unicum. Gyakorlatilag egy kicsit keserűbb Jägermeister. A magyarok sörrel kombinálva szeretik inni: egy sör, aztán egy feles Unicum, aztán egy sör, aztán egy feles Unicum, és el tudod képzelni az eredményt.</p>
+        <p>Egy másik ital, amivel biztosan találkozol, az <a href="https://en.wikipedia.org/wiki/Unicum" target="_blank" rel="noopener">Unicum</a>. Gyakorlatilag egy kicsit keserűbb Jägermeister. A magyarok sörrel kombinálva szeretik inni: egy sör, aztán egy feles Unicum, aztán egy sör, aztán egy feles Unicum, és el tudod képzelni az eredményt.</p>
       </div>
     </div>
     <div class="chapter" id="tip9">
@@ -946,7 +947,7 @@
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><path class="c" d="M30 82 L60 36 L90 82Z"/><path class="w" d="M52 82 L60 62 L68 82Z"/><path class="dash" d="M100 60 Q150 20 200 50"/><path class="k2" d="M200 50 l-10 -8 M200 50 l-12 6"/><path class="s" d="M224 70 L224 40 L238 52 L252 34 L266 52 L280 40 L280 70Z"/><rect class="s2" x="224" y="70" width="56" height="8"/></svg>
       <h3>A magyar történelem két percben</h3>
       <p class="chap-hook">Vesztettünk, vesztettünk, vesztettünk, és még mindig itt vagyunk.</p>
-      <p>A magyarok messze keletről jöttek, nomád népként, lóháton, sátrakban élve, elképesztő sebességgel lovagoltak Európa felé. 896-ban elérték a Kárpát-medencét. A törzsek vezéreit lóháton láthatod a Hősök terén.</p>
+      <p>A magyarok messze keletről jöttek, nomád népként, lóháton, sátrakban élve, elképesztő sebességgel lovagoltak Európa felé. 896-ban elérték a Kárpát-medencét. A törzsek vezéreit lóháton láthatod a <a href="https://en.wikipedia.org/wiki/Heroes%27_Square_(Budapest)" target="_blank" rel="noopener">Hősök terén</a>.</p>
       <p>Szent István alatt Magyarország keresztény ország lett. Nagyon kemény kezű volt a pogányokkal, és Magyarország keresztény maradt. A sok házasság révén meglehetősen fontos, szerves része lett Európának.</p>
       <p>Aztán egyre több háborút kezdtünk elveszíteni. Először jöttek a tatárok, gyakorlatilag a mongolok, Dzsingisz kán és társasága. Aztán jöttek a törökök, akik 150 évig voltak itt. Még ma is láthatsz néhányat az általuk épített fürdők közül. 150 év után elmentek, és egy ideig függetlenek voltunk, de ezek a nemzetek folyton ide-oda hullámoztak, és harcoltak egymással. Vesztettünk, és vesztettünk, és vesztettünk. Gyakorlatilag minden csatát elvesztettünk az 1500-as évek óta.</p>
       <p>Ebbe beletartozik az első világháború is, amely után Magyarország elvesztette területének túlnyomó részét. Úgyhogy gyakorlatilag bárhol is lépsz ki ma Magyarországról, ott régen Magyarország volt.</p>
@@ -973,7 +974,7 @@
         <p>A magyarok nagyon büszkék a Rubik-kockára, a paprikára és a pálinkára is. Meglepő módon még a tejföl és a túró is mélyen belevésődött a magyar tudatba. És igaz, hogy ez a fajta túró tényleg csak a világnak ezen a részén kapható.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="c" x="6" y="14" width="36" height="20" rx="10"/><circle class="w" cx="16" cy="22" r="2.2"/><circle class="w" cx="26" cy="20" r="2.2"/><circle class="w" cx="34" cy="26" r="2.2"/><circle class="w" cx="22" cy="28" r="2.2"/></svg>
-        <p>Ha már ételről van szó, mindenképp próbálj ki egy Túró Rudit. Magyar nasi, minden nemzedék kedvence kisgyerekkorában, és páran soha nem nőjük ki, mint én. Csokoládéba mártott édes túró: frissítő, nem túl édes, és nagyon is a magyar lélek magja.</p>
+        <p>Ha már ételről van szó, mindenképp próbálj ki egy <a href="https://en.wikipedia.org/wiki/T%C3%BAr%C3%B3_Rudi" target="_blank" rel="noopener">Túró Rudit</a>. Magyar nasi, minden nemzedék kedvence kisgyerekkorában, és páran soha nem nőjük ki, mint én. Csokoládéba mártott édes túró: frissítő, nem túl édes, és nagyon is a magyar lélek magja.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="k2" x="12" y="4" width="24" height="6" rx="2"/><path class="w" d="M12 10 H36 V40 Q36 44 32 44 H16 Q12 44 12 40Z"/><path class="ln3" d="M12 10 H36 V40 Q36 44 32 44 H16 Q12 44 12 40Z"/><ellipse class="c" cx="21" cy="28" rx="3.5" ry="9"/><circle class="c" cx="30" cy="34" r="5"/><path class="ln3" d="M27 31 l6 6"/></svg>
         <p>Ha bármelyik piacra elmész, ugorj be a savanyúság részlegre, főleg ha igazi termelő árusít. Óriási hordókat fogsz látni savanyú káposztával, kovászos uborkával és paprikával, sőt, még apró görögdinnyével is. Akkor szedik le, amikor még csak kb. 5 centisek és teljesen zöldek, aztán eltesznek. Egy ültő helyedben 5-6 egész dinnyét megehetsz.</p>
