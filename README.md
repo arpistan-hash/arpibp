@@ -13,3 +13,7 @@ The flag buttons say hello with the visitor's own device voice (the browser's sp
 ## Design
 
 "Night Danube": dark-first navy theme with a light option (toggle in the top bar, remembered in the browser), sticky top navigation, chapter cards with scroll reveal, and a single sound toggle for the hello flags and route sounds. Contact details live once at the end of the page; the bottom bar hides when they are in view. Both language files share the same CSS and JS.
+
+## Guest book on the website
+
+Visitors post through Netlify Forms (the form is named `guestbook`). The messages are shown by the function in `netlify/functions/guestbook.js`, which needs one setting in Netlify: Site configuration > Environment variables > `NETLIFY_AUTH_TOKEN` (a personal access token from User settings > Applications). Without it, posting still works and messages appear in Netlify under Forms, but the page can't list them. Emails are never shown.

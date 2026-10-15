@@ -8,6 +8,7 @@ on:
     paths:
       - "index-1.html"
       - "assets/**"
+      - "netlify/**"
   workflow_dispatch:
 
 permissions:
@@ -37,6 +38,7 @@ jobs:
           cp src/index-1.html site/index.html
           mkdir -p site/assets
           rsync -a --delete src/assets/ site/assets/
+          if [ -d src/netlify ]; then mkdir -p site/netlify && rsync -a --delete src/netlify/ site/netlify/; fi
 
       - name: Commit and push to main
         working-directory: site
