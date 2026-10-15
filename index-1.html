@@ -624,6 +624,9 @@
   .welcome h2 { letter-spacing: -0.02em; }
   ::selection { background: var(--sun); color: #1a1300; }
   .chapter > .chap-hook + p.nodrop::first-letter { float: none; font: inherit; padding: 0; color: inherit; }
+  .disclaimer { margin: 0; padding: 12px 14px; border: 1px dashed var(--line); border-radius: 12px; background: color-mix(in srgb, var(--card) 70%, var(--bg)); font-family: var(--font-body); font-size: 13.5px; line-height: 1.55; color: var(--muted); max-width: 62ch; }
+  .disclaimer strong { color: var(--fg); }
+  .story > p.disclaimer { font-family: var(--font-body); font-size: 13.5px; line-height: 1.55; color: var(--muted); }
 </style>
 
 <main>
@@ -847,6 +850,7 @@
   <section class="story tips" aria-labelledby="tips-h">
     <h2 id="tips-h">Budapest tips</h2>
     <p>Not everybody wants to read my whole life story, so here is what I'd tell a friend visiting Budapest: how to get around, what to eat and drink, and a bit of history and culture.</p>
+    <p class="disclaimer"><strong>Friendly note:</strong> these are my own opinions and recommendations, not professional advice. Please check opening hours, prices and conditions before you go.</p>
     <nav class="chapnav" aria-label="Budapest tips"><a href="#tips-go">Getting around</a><a href="#tips-eat">Eat and drink</a><a href="#tips-hist">History and culture</a></nav>
     <h3 class="tipgroup" id="tips-go">Getting around</h3>
     <div class="chapter" id="tip1">
@@ -875,7 +879,7 @@
       <h3>When you need some silence</h3>
       <p class="chap-hook">Budapest is a party town. Take a break from it.</p>
       <ul class="facts"><li>Buda Hills</li><li>Libegő chair lift</li><li>Children's Railway</li><li>Caves</li></ul>
-      <p>Budapest is a major partying and drinking city, but sometimes you need a little quiet. I highly recommend the Buda Hills for a half-day hike. Or just go to City Park or Margaret Island.</p>
+      <p>Budapest is a major partying and drinking city, but sometimes you need a little quiet. I highly recommend the <a href="https://en.wikipedia.org/wiki/Buda_Hills" target="_blank" rel="noopener">Buda Hills</a> for a half-day hike. Or just go to <a href="https://en.wikipedia.org/wiki/City_Park_(Budapest)" target="_blank" rel="noopener">City Park</a> or <a href="https://en.wikipedia.org/wiki/Margaret_Island" target="_blank" rel="noopener">Margaret Island</a>.</p>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="ln3" d="M2 8 H46"/><path class="ln3" d="M24 8 V16"/><path class="c" d="M12 16 H36 V28 H12Z"/><path class="ln3" d="M12 22 H36"/><path class="k2" d="M8 36 L24 28 L40 36 V44 H8Z"/></svg>
         <p>If you're going into the hills around Buda, take the <a href="https://bkk.hu/en/travel-information/special-and-heritage-transport-services/chairlift/" target="_blank" rel="noopener">Libegő</a>, the chair lift that carries you up to the highest point of Budapest. If the sky is clear, the view from the little tower up there is mesmerizing. The ride itself takes about 12 to 15 minutes each way, and it's really enjoyable.</p>
       </div>
@@ -904,13 +908,13 @@
       <p class="chap-hook">Yes, really. Take a train out of town.</p>
       <ul class="facts"><li>Train every 30 min</li><li>About an hour</li><li>Bikes to rent</li><li>Slovakia by bike</li></ul>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="c" x="8" y="6" width="32" height="30" rx="8"/><rect class="w" x="13" y="12" width="22" height="12" rx="3"/><circle class="s" cx="16" cy="30" r="2.5"/><circle class="s" cx="32" cy="30" r="2.5"/><path class="ln3" d="M14 42 L10 46 M34 42 L38 46 M12 40 H36"/></svg>
-        <p>Here is a Budapest recommendation that says: leave Budapest. Every 30 minutes, a really good, clean and comfortable train runs to <a href="https://en.wikipedia.org/wiki/Esztergom" target="_blank" rel="noopener">Esztergom</a>, a beautiful town on the Danube Bend, about an hour away.</p>
+        <p>Here is a Budapest recommendation that says: leave Budapest. Every 30 minutes, a really good, clean and comfortable train runs to <a href="https://en.wikipedia.org/wiki/Esztergom" target="_blank" rel="noopener">Esztergom</a>, a beautiful town on the <a href="https://en.wikipedia.org/wiki/Danube_Bend" target="_blank" rel="noopener">Danube Bend</a>, about an hour away.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><circle class="ln2" cx="12" cy="32" r="9" style="fill:none;stroke:var(--fg);stroke-width:2.5px"/><circle class="ln2" cx="36" cy="32" r="9" style="fill:none;stroke:var(--fg);stroke-width:2.5px"/><path class="ln2" d="M12 32 L20 18 H30 L36 32 M20 18 L24 32 H12 M30 18 L28 12 H34" style="fill:none;stroke:var(--chap);stroke-width:3px"/></svg>
         <p>Go for a morning that turns into an afternoon. You can rent bicycles and electric bikes for very cheap. Visit the <a href="https://en.wikipedia.org/wiki/Esztergom_Basilica" target="_blank" rel="noopener">Basilica</a> and the downtown core, then get on a bike.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="w" d="M10 12 H32 V40 Q32 43 29 43 H13 Q10 43 10 40Z"/><path class="s" d="M12 20 H30 V40 Q30 41 29 41 H13 Q12 41 12 40Z"/><path class="w" d="M10 12 q4 -8 11 -4 q7 -4 11 4"/><path class="ln2" d="M32 18 H38 Q42 18 42 24 V30 Q42 36 36 36 H32" style="fill:none;stroke:var(--fg);stroke-width:3px"/></svg>
-        <p>And the best part: you can bike over to Slovakia and have a beer or lunch over there, looking back at the Basilica. Two countries before lunch, and the only thing that crossed a border was you.</p>
+        <p>And the best part: you can bike over to <a href="https://en.wikipedia.org/wiki/%C5%A0t%C3%BArovo" target="_blank" rel="noopener">Slovakia</a> and have a beer or lunch over there, looking back at the Basilica. Two countries before lunch, and the only thing that crossed a border was you.</p>
       </div>
     </div>
     <h3 class="tipgroup" id="tips-eat">Eat and drink</h3>
@@ -925,13 +929,13 @@
         <p><a href="https://en.wikipedia.org/wiki/L%C3%A1ngos" target="_blank" rel="noopener">Lángos</a> is a round, fried dough. The best way to get it is at a local market. Every local market has its own lángos maker, and it's probably more authentic and better quality than the touristy places.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="c" d="M6 22 H42 Q42 40 24 42 Q6 40 6 22Z"/><path class="ln3" d="M16 16 q-3 -5 0 -9 M24 16 q-3 -5 0 -9 M32 16 q-3 -5 0 -9"/><circle class="s" cx="18" cy="28" r="2.5"/><circle class="w" cx="27" cy="31" r="2.5"/></svg>
-        <p>As for goulash, good luck finding “the best one”. It's a dish people make at home, everybody makes it their own way, and most Hungarians would be hard pressed to name a restaurant for it.</p>
+        <p>As for <a href="https://en.wikipedia.org/wiki/Goulash" target="_blank" rel="noopener">goulash</a>, good luck finding “the best one”. It's a dish people make at home, everybody makes it their own way, and most Hungarians would be hard pressed to name a restaurant for it.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><ellipse class="w" cx="24" cy="32" rx="20" ry="8"/><ellipse class="ln3" cx="24" cy="32" rx="20" ry="8"/><path class="c" d="M12 30 Q10 16 24 16 Q36 18 34 28 Q28 34 12 30Z"/><path class="w" d="M30 22 q4 -2 6 2 q-2 4 -6 2Z"/></svg>
-        <p>Chicken paprikás is everything that's Hungarian on one plate: a little spicy, lots of paprika, and sour cream too. All together, it totally represents the Hungarian taste.</p>
+        <p><a href="https://en.wikipedia.org/wiki/Chicken_paprikash" target="_blank" rel="noopener">Chicken paprikás</a> is everything that's Hungarian on one plate: a little spicy, lots of paprika, and sour cream too. All together, it totally represents the Hungarian taste.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="c" d="M6 24 H42 Q42 40 24 42 Q6 40 6 24Z"/><path class="ln2" d="M10 22 q6 -8 12 0 q6 -8 12 0 M14 18 q5 -6 10 0 q5 -6 10 0"/><rect class="w" x="14" y="12" width="20" height="6" rx="3"/><path class="s" d="M16 14 h6 M26 14 h6"/></svg>
-        <p>Túró, the cottage cheese, is everywhere in Hungarian cooking, sweet, salty and everything in between. A dish I highly recommend in the winter is túrós csusza: pasta with cottage cheese, sour cream and crispy pork belly on top. It's fantastic.</p>
+        <p>Túró, the cottage cheese, is everywhere in Hungarian cooking, sweet, salty and everything in between. A dish I highly recommend in the winter is <a href="https://en.wikipedia.org/wiki/T%C3%BAr%C3%B3s_csusza" target="_blank" rel="noopener">túrós csusza</a>: pasta with cottage cheese, sour cream and crispy pork belly on top. It's fantastic.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="k2" d="M4 22 Q4 14 12 14 H34 Q44 14 44 22 Q44 30 34 30 H12 Q4 30 4 22Z"/><circle class="c" cx="14" cy="22" r="2"/><circle class="c" cx="24" cy="20" r="2"/><circle class="c" cx="32" cy="24" r="2"/><circle class="w" cx="12" cy="40" r="6"/><circle class="c" cx="12" cy="40" r="2"/><circle class="w" cx="28" cy="40" r="6"/><circle class="c" cx="28" cy="40" r="2"/></svg>
         <p>Hungarian salami is also one of the best in the world, objectively. There's winter salami (téliszalámi) and paprika salami, and the best-known brands are Pick and Herz. Ask for just a few slices at the grocery store. It makes a nice little snack with a roll.</p>
@@ -941,7 +945,7 @@
         <p>If you like spicy sausages, Hungary is a great place to get really good ones, more than likely spicier than in the surrounding countries.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><ellipse class="k2" cx="24" cy="18" rx="18" ry="7"/><path class="s2" d="M6 18 V32 Q6 40 24 40 Q42 40 42 32 V18 Q42 25 24 25 Q6 25 6 18Z"/><path class="ln3" d="M14 32 q10 4 20 0"/></svg>
-        <p>Hungarian foie gras, from duck or goose liver, is also world famous. Even some French foie gras products actually come from Hungary and are just processed and relabeled in France. Many people are put off by it because the ducks and geese are force-fed to get a large liver. Nevertheless, it's very tender and delicious, in a hot dish or even cold as a pâté.</p>
+        <p>Hungarian <a href="https://en.wikipedia.org/wiki/Foie_gras" target="_blank" rel="noopener">foie gras</a>, from duck or goose liver, is also world famous. Even some French foie gras products actually come from Hungary and are just processed and relabeled in France. Many people are put off by it because the ducks and geese are force-fed to get a large liver. Nevertheless, it's very tender and delicious, in a hot dish or even cold as a pâté.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="ln3" d="M14 10 Q18 4 24 6 M32 8 Q28 6 24 6"/><circle class="c" cx="14" cy="32" r="8"/><circle class="c" cx="32" cy="34" r="8"/><path class="ln3" d="M14 24 Q14 14 22 10 M32 26 Q32 16 26 10"/></svg>
         <p>In season, which means summer and fall, Hungary has excellent fruits and vegetables, so go to a market and get whatever is in season. Cherries, sour cherries, plums, apricots, peaches, nectarines, apples and pears are all fantastic and extremely flavorful. In winter, of course, it's mostly imported oranges and tropical fruits.</p>
@@ -1000,7 +1004,7 @@
         <p>Hungarians came from far to the east, nomadic people on horseback who lived in tents and rode towards Europe at astonishing speed. In 896 they made it to the Carpathian Basin. You can see the leaders of the tribes on their horses at <a href="https://en.wikipedia.org/wiki/Heroes%27_Square_(Budapest)" target="_blank" rel="noopener">Heroes' Square</a>.</p>
       </div>
       <div class="item"><div class="ico-col"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="s" d="M6 36 L6 16 L16 26 L24 10 L32 26 L42 16 V36Z"/><rect class="s2" x="6" y="36" width="36" height="6"/><circle class="c" cx="24" cy="28" r="3"/><circle class="c" cx="12" cy="30" r="2"/><circle class="c" cx="36" cy="30" r="2"/><path class="ln3" d="M24 4 V10 M21 7 H27"/></svg><span class="yr">1000</span></div>
-        <p>Under Saint Stephen, Hungary became a Christian country. He was very heavy-handed with the pagans, and Hungary stayed Christian. With all the intermarriages, it became quite an important, integral part of Europe.</p>
+        <p>Under <a href="https://en.wikipedia.org/wiki/Stephen_I_of_Hungary" target="_blank" rel="noopener">Saint Stephen</a>, Hungary became a Christian country. He was very heavy-handed with the pagans, and Hungary stayed Christian. With all the intermarriages, it became quite an important, integral part of Europe.</p>
       </div>
       <div class="item"><div class="ico-col"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="c" d="M30 8 A16 16 0 1 0 30 40 A20 20 0 0 1 30 8Z"/><polygon class="s" points="36,16 37.8,20.2 42,20.8 38.7,23.5 39.6,28 36,25.3 32.4,28 33.3,23.5 30,20.8 34.2,20.2"/></svg><span class="yr">1241–1699</span></div>
         <p>Then we started to lose wars more and more. First came the Tatars, pretty much the Mongols, Genghis Khan and company. Then came the Turks, who were here for 150 years. You can still see some of the baths they built. After 150 years they left, and for a while we were independent, but all these nations kept going back and forth, fighting each other. We lost, and lost, and lost. We lost pretty much every single battle since the 1500s.</p>
@@ -1009,7 +1013,7 @@
         <p>That includes the First World War, after which Hungary lost the vast majority of its territory. So pretty much wherever you cross the border out of Hungary today, it used to be part of Hungary.</p>
       </div>
       <div class="item"><div class="ico-col"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="k2" x="4" y="30" width="30" height="10" rx="3"/><rect class="k2" x="12" y="24" width="14" height="8" rx="2"/><path class="ln" d="M26 28 H42" style="stroke:var(--fg);stroke-width:3px"/><circle class="k" cx="10" cy="41" r="3"/><circle class="k" cx="28" cy="41" r="3"/><polygon class="c" points="34,4 36.7,10.3 43,11.2 38.05,15.25 39.4,22 34,17.95 28.6,22 29.95,15.25 25,11.2 31.3,10.3"/></svg><span class="yr">1939–89</span></div>
-        <p>In the Second World War we were again on the wrong side, and lost. Then, to make things a little more exciting, we got 40 years of socialism. By the '80s it was a very light version (more on that in my story below), but in the '50s it was a hardcore dictatorship. One of our national holidays is the 1956 revolution against the Russians, when even teenagers without guns fought Russian tanks. That's pretty heroic.</p>
+        <p>In the Second World War we were again on the wrong side, and lost. Then, to make things a little more exciting, we got 40 years of socialism. By the '80s it was a very light version (more on that in my story below), but in the '50s it was a hardcore dictatorship. One of our national holidays is the <a href="https://en.wikipedia.org/wiki/Hungarian_Revolution_of_1956" target="_blank" rel="noopener">1956 revolution</a> against the Russians, when even teenagers without guns fought Russian tanks. That's pretty heroic.</p>
       </div>
       <div class="item"><div class="ico-col"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="k2" x="4" y="8" width="14" height="8"/><rect class="k2" x="20" y="8" width="14" height="8"/><rect class="k2" x="36" y="8" width="8" height="8"/><rect class="k2" x="4" y="18" width="8" height="8"/><rect class="k2" x="14" y="18" width="14" height="8"/><rect class="k2" x="30" y="18" width="14" height="8"/><path class="c" d="M10 30 L18 40 L12 42Z M26 30 L32 44 L22 42Z M38 30 L44 40 L36 42Z"/></svg><span class="yr">1989</span></div>
         <p>In 1989, with the Berlin Wall coming down, Hungary joined the democratic nations again. For some people that was detrimental, though. You have to understand that a lot of people lost the security they had through those years, because it's a dog-eat-dog world now. That's why you see extremely rich and extremely poor Hungarians at the same time.</p>
@@ -1023,7 +1027,7 @@
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><rect class="c" x="60" y="14" width="120" height="48" rx="14"/><path class="c" d="M90 60 L80 78 L112 60Z"/><text x="120" y="48" class="t big inv">!</text><rect class="w" x="196" y="30" width="70" height="34" rx="12"/><path class="ln2" d="M214 47 h34"/><circle class="s" cx="286" cy="24" r="10"/></svg>
       <h3>Topics to handle with care</h3>
       <p class="chap-hook">Please don't call us Slavic.</p>
-      <p class="callout">There are a few topics you shouldn't bring up, or should at least approach very carefully. First: try not to call Hungarians Slavic. For some reason we take huge pride in being Finno-Ugric. The closest relative of Hungarian is Finnish, even though the two are very far apart too. The rhythm just sounds similar.</p>
+      <p class="callout">There are a few topics you shouldn't bring up, or should at least approach very carefully. First: try not to call Hungarians Slavic. For some reason we take huge pride in being <a href="https://en.wikipedia.org/wiki/Finno-Ugric_languages" target="_blank" rel="noopener">Finno-Ugric</a>. The closest relative of Hungarian is Finnish, even though the two are very far apart too. The rhythm just sounds similar.</p>
       <p>Under no circumstances call us Slavic, or say things like "Hungary was part of Russia". It never was.</p>
       <p>And stay away from 20th-century politics in general. You might end up in a sticky situation.</p>
     </div>
@@ -1067,13 +1071,13 @@
       <p class="chap-hook">Many Nobel Prizes, few won at home.</p>
       <p>We are very proud of our Nobel Prizes: probably one of the highest counts per capita in the world. Almost none of them were won in Hungary, though. The experiments needed money that the country didn't have, and these geniuses were more accepted outside of Hungary.</p>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="c" d="M12 28 Q10 12 26 10 Q40 10 38 26 Q34 42 20 42 Q12 40 12 28Z"/><path class="ln3" d="M26 10 Q28 4 34 4"/><text x="17" y="31" class="t sm inv" style="font-size:13px">C</text></svg>
-        <p>Vitamin C, first isolated from Hungarian paprika, is one of the Nobel-winning discoveries.</p>
+        <p><a href="https://en.wikipedia.org/wiki/Albert_Szent-Gy%C3%B6rgyi" target="_blank" rel="noopener">Vitamin C</a>, first isolated from Hungarian paprika, is one of the Nobel-winning discoveries.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><g transform="rotate(40 24 24)"><rect class="c" x="2" y="19" width="36" height="9" rx="4"/><path class="k" d="M38 19 L46 23.5 L38 28Z"/><rect class="s" x="8" y="19" width="5" height="9"/></g></svg>
-        <p>The ballpoint pen was invented by a Hungarian.</p>
+        <p>The <a href="https://en.wikipedia.org/wiki/L%C3%A1szl%C3%B3_B%C3%ADr%C3%B3" target="_blank" rel="noopener">ballpoint pen</a> was invented by a Hungarian.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="c" x="6" y="6" width="12" height="12"/><rect class="s" x="19" y="6" width="12" height="12"/><rect class="w" x="32" y="6" width="12" height="12"/><rect class="s" x="6" y="19" width="12" height="12"/><rect class="w" x="19" y="19" width="12" height="12"/><rect class="c" x="32" y="19" width="12" height="12"/><rect class="w" x="6" y="32" width="12" height="12"/><rect class="c" x="19" y="32" width="12" height="12"/><rect class="s" x="32" y="32" width="12" height="12"/></svg>
-        <p>So was the Rubik's Cube.</p>
+        <p>So was the <a href="https://en.wikipedia.org/wiki/Rubik%27s_Cube" target="_blank" rel="noopener">Rubik's Cube</a>.</p>
       </div>
       <p>And at least partially, the hydrogen bomb and the computer were invented by Hungarians as well.</p>
     </div>
@@ -1631,6 +1635,10 @@
     </form>
     <ol class="gb-list" id="gb-list" aria-label="Guest book messages"></ol>
     <p class="gb-empty" id="gb-empty">Loading the guest book...</p>
+  </section>
+
+  <section class="story" aria-label="Disclaimer">
+    <p class="disclaimer"><strong>Disclaimer.</strong> This is my own private page. Everything on it is my personal opinion and has nothing to do with any employer, past or present. The recommendations are just friendly suggestions, not guarantees or professional advice, so please check details like opening hours, prices, timetables and safety before you go. Links lead to outside sites that I don't control.</p>
   </section>
 
   <footer>Budapest · Europe/Budapest time zone</footer>

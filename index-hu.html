@@ -624,6 +624,9 @@
   .welcome h2 { letter-spacing: -0.02em; }
   ::selection { background: var(--sun); color: #1a1300; }
   .chapter > .chap-hook + p.nodrop::first-letter { float: none; font: inherit; padding: 0; color: inherit; }
+  .disclaimer { margin: 0; padding: 12px 14px; border: 1px dashed var(--line); border-radius: 12px; background: color-mix(in srgb, var(--card) 70%, var(--bg)); font-family: var(--font-body); font-size: 13.5px; line-height: 1.55; color: var(--muted); max-width: 62ch; }
+  .disclaimer strong { color: var(--fg); }
+  .story > p.disclaimer { font-family: var(--font-body); font-size: 13.5px; line-height: 1.55; color: var(--muted); }
 </style>
 
 <main>
@@ -847,6 +850,7 @@
   <section class="story tips" aria-labelledby="tips-h">
     <h2 id="tips-h">Budapest-tippek</h2>
     <p>Nem mindenki akarja végigolvasni az egész élettörténetemet, ezért itt van, amit egy Budapestre látogató barátomnak mondanék: hogyan közlekedj, mit egyél és igyál, és egy kis történelem és kultúra.</p>
+    <p class="disclaimer"><strong>Baráti megjegyzés:</strong> ezek a saját véleményeim és ajánlásaim, nem szakmai tanácsok. Indulás előtt nézd meg a nyitvatartást, az árakat és a feltételeket.</p>
     <nav class="chapnav" aria-label="Budapest-tippek"><a href="#tips-go">Közlekedés</a><a href="#tips-eat">Étel és ital</a><a href="#tips-hist">Történelem és kultúra</a></nav>
     <h3 class="tipgroup" id="tips-go">Közlekedés</h3>
     <div class="chapter" id="tip1">
@@ -875,7 +879,7 @@
       <h3>Amikor kell egy kis csend</h3>
       <p class="chap-hook">Budapest bulivaros. Pihenj meg tőle egy kicsit.</p>
       <ul class="facts"><li>Budai-hegyek</li><li>Libegő</li><li>Gyermekvasút</li><li>Barlangok</li></ul>
-      <p>Budapest nagy bulizó és ivós város, de néha kell egy kis nyugalom. Nagyon ajánlom a Budai-hegyeket egy fél napos túrára. Vagy menj ki a Városligetbe vagy a Margitszigetre.</p>
+      <p>Budapest nagy bulizó és ivós város, de néha kell egy kis nyugalom. Nagyon ajánlom a <a href="https://en.wikipedia.org/wiki/Buda_Hills" target="_blank" rel="noopener">Budai-hegyeket</a> egy fél napos túrára. Vagy menj ki a <a href="https://en.wikipedia.org/wiki/City_Park_(Budapest)" target="_blank" rel="noopener">Városligetbe</a> vagy a <a href="https://en.wikipedia.org/wiki/Margaret_Island" target="_blank" rel="noopener">Margitszigetre</a>.</p>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="ln3" d="M2 8 H46"/><path class="ln3" d="M24 8 V16"/><path class="c" d="M12 16 H36 V28 H12Z"/><path class="ln3" d="M12 22 H36"/><path class="k2" d="M8 36 L24 28 L40 36 V44 H8Z"/></svg>
         <p>Ha a budai hegyekbe mész, vedd igénybe a <a href="https://bkk.hu/en/travel-information/special-and-heritage-transport-services/chairlift/" target="_blank" rel="noopener">Libegőt</a>, a székes felvonót, amely Budapest legmagasabb pontjára visz fel. Ha tiszta az idő, elbűvölő a kilátás a kis toronyból odafent. Maga a libegőzés irányonként kb. 12-15 perc, és nagyon élvezetes.</p>
       </div>
@@ -904,13 +908,13 @@
       <p class="chap-hook">Tényleg. Szállj vonatra, és menj ki a városból.</p>
       <ul class="facts"><li>Vonat félóránként</li><li>Kb. egy óra</li><li>Bicikli bérelhető</li><li>Szlovákia biciklivel</li></ul>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="c" x="8" y="6" width="32" height="30" rx="8"/><rect class="w" x="13" y="12" width="22" height="12" rx="3"/><circle class="s" cx="16" cy="30" r="2.5"/><circle class="s" cx="32" cy="30" r="2.5"/><path class="ln3" d="M14 42 L10 46 M34 42 L38 46 M12 40 H36"/></svg>
-        <p>Itt egy budapesti ajánlás, ami azt mondja: hagyd el Budapestet. Félóránként indul egy igazán jó, tiszta és kényelmes vonat <a href="https://en.wikipedia.org/wiki/Esztergom" target="_blank" rel="noopener">Esztergomba</a>, a Dunakanyar gyönyörű városába, kb. egy órára innen.</p>
+        <p>Itt egy budapesti ajánlás, ami azt mondja: hagyd el Budapestet. Félóránként indul egy igazán jó, tiszta és kényelmes vonat <a href="https://en.wikipedia.org/wiki/Esztergom" target="_blank" rel="noopener">Esztergomba</a>, a <a href="https://en.wikipedia.org/wiki/Danube_Bend" target="_blank" rel="noopener">Dunakanyar</a> gyönyörű városába, kb. egy órára innen.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><circle class="ln2" cx="12" cy="32" r="9" style="fill:none;stroke:var(--fg);stroke-width:2.5px"/><circle class="ln2" cx="36" cy="32" r="9" style="fill:none;stroke:var(--fg);stroke-width:2.5px"/><path class="ln2" d="M12 32 L20 18 H30 L36 32 M20 18 L24 32 H12 M30 18 L28 12 H34" style="fill:none;stroke:var(--chap);stroke-width:3px"/></svg>
         <p>Menj egy délelőttre, amiből délután lesz. Biciklit és elektromos biciklit is bérelhetsz nagyon olcsón. Nézd meg a <a href="https://en.wikipedia.org/wiki/Esztergom_Basilica" target="_blank" rel="noopener">Bazilikát</a> és a belvárost, aztán pattanj biciklire.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="w" d="M10 12 H32 V40 Q32 43 29 43 H13 Q10 43 10 40Z"/><path class="s" d="M12 20 H30 V40 Q30 41 29 41 H13 Q12 41 12 40Z"/><path class="w" d="M10 12 q4 -8 11 -4 q7 -4 11 4"/><path class="ln2" d="M32 18 H38 Q42 18 42 24 V30 Q42 36 36 36 H32" style="fill:none;stroke:var(--fg);stroke-width:3px"/></svg>
-        <p>És a legjobb: átbiciklizhetsz Szlovákiába, és megihatsz egy sört vagy megebédelhetsz ott, visszanézve a Bazilikára. Két ország ebéd előtt, és csak te léptél át a határon.</p>
+        <p>És a legjobb: átbiciklizhetsz <a href="https://en.wikipedia.org/wiki/%C5%A0t%C3%BArovo" target="_blank" rel="noopener">Szlovákiába</a>, és megihatsz egy sört vagy megebédelhetsz ott, visszanézve a Bazilikára. Két ország ebéd előtt, és csak te léptél át a határon.</p>
       </div>
     </div>
     <h3 class="tipgroup" id="tips-eat">Étel és ital</h3>
@@ -925,13 +929,13 @@
         <p>A <a href="https://en.wikipedia.org/wiki/L%C3%A1ngos" target="_blank" rel="noopener">lángos</a> kerek, kisütött tészta. A legjobb helyi piacon enni. Minden helyi piacnak megvan a maga lángossütője, és valószínűleg autentikusabb és jobb minőségű, mint a turistás helyeké.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="c" d="M6 22 H42 Q42 40 24 42 Q6 40 6 22Z"/><path class="ln3" d="M16 16 q-3 -5 0 -9 M24 16 q-3 -5 0 -9 M32 16 q-3 -5 0 -9"/><circle class="s" cx="18" cy="28" r="2.5"/><circle class="w" cx="27" cy="31" r="2.5"/></svg>
-        <p>A gulyásnál sok sikert „a legjobb” megtalálásához. Ezt otthon főzik, mindenki a maga módján, és a legtöbb magyar nehezen tudna erre éttermet mondani.</p>
+        <p>A <a href="https://en.wikipedia.org/wiki/Goulash" target="_blank" rel="noopener">gulyásnál</a> sok sikert „a legjobb” megtalálásához. Ezt otthon főzik, mindenki a maga módján, és a legtöbb magyar nehezen tudna erre éttermet mondani.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><ellipse class="w" cx="24" cy="32" rx="20" ry="8"/><ellipse class="ln3" cx="24" cy="32" rx="20" ry="8"/><path class="c" d="M12 30 Q10 16 24 16 Q36 18 34 28 Q28 34 12 30Z"/><path class="w" d="M30 22 q4 -2 6 2 q-2 4 -6 2Z"/></svg>
-        <p>A csirkepaprikás egy tányérban minden, ami magyar: egy kicsit csípős, sok paprika, és tejföl is. Együtt tökéletesen képviseli a magyar ízvilágot.</p>
+        <p>A <a href="https://en.wikipedia.org/wiki/Chicken_paprikash" target="_blank" rel="noopener">csirkepaprikás</a> egy tányérban minden, ami magyar: egy kicsit csípős, sok paprika, és tejföl is. Együtt tökéletesen képviseli a magyar ízvilágot.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="c" d="M6 24 H42 Q42 40 24 42 Q6 40 6 24Z"/><path class="ln2" d="M10 22 q6 -8 12 0 q6 -8 12 0 M14 18 q5 -6 10 0 q5 -6 10 0"/><rect class="w" x="14" y="12" width="20" height="6" rx="3"/><path class="s" d="M16 14 h6 M26 14 h6"/></svg>
-        <p>A túró mindenütt jelen van a magyar konyhában, édesen, sósan és mindenféle átmenettel. Télen nagyon ajánlok egy ételt, a túrós csuszát: tészta túróval, tejföllel és ropogós szalonnával a tetején. Fantasztikus.</p>
+        <p>A túró mindenütt jelen van a magyar konyhában, édesen, sósan és mindenféle átmenettel. Télen nagyon ajánlok egy ételt, a <a href="https://en.wikipedia.org/wiki/T%C3%BAr%C3%B3s_csusza" target="_blank" rel="noopener">túrós csuszát</a>: tészta túróval, tejföllel és ropogós szalonnával a tetején. Fantasztikus.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="k2" d="M4 22 Q4 14 12 14 H34 Q44 14 44 22 Q44 30 34 30 H12 Q4 30 4 22Z"/><circle class="c" cx="14" cy="22" r="2"/><circle class="c" cx="24" cy="20" r="2"/><circle class="c" cx="32" cy="24" r="2"/><circle class="w" cx="12" cy="40" r="6"/><circle class="c" cx="12" cy="40" r="2"/><circle class="w" cx="28" cy="40" r="6"/><circle class="c" cx="28" cy="40" r="2"/></svg>
         <p>A magyar szalámi is objektíve a világ egyik legjobbja. Van téliszalámi és paprikás szalámi, a legismertebb márkák a Pick és a Herz. Kérj a boltban csak pár szeletet. Egy zsemlével remek kis nasi.</p>
@@ -941,7 +945,7 @@
         <p>Ha szereted a csípős kolbászt, Magyarország remek hely igazán jó kolbászokhoz, amelyek valószínűleg csípősebbek, mint a környező országokban.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><ellipse class="k2" cx="24" cy="18" rx="18" ry="7"/><path class="s2" d="M6 18 V32 Q6 40 24 40 Q42 40 42 32 V18 Q42 25 24 25 Q6 25 6 18Z"/><path class="ln3" d="M14 32 q10 4 20 0"/></svg>
-        <p>A magyar libamáj- és kacsamájkészítmények is világhírűek. Néhány francia libamáj termék valójában Magyarországról származik, és csak Franciaországban dolgozzák fel és címkézik át. Sokakat elriaszt, mert a kacsákat és libákat tömik, hogy nagy májuk legyen. Ennek ellenére nagyon puha és finom, akár meleg ételként, akár hidegen, pástétomként.</p>
+        <p>A magyar <a href="https://en.wikipedia.org/wiki/Foie_gras" target="_blank" rel="noopener">libamáj- és kacsamájkészítmények</a> is világhírűek. Néhány francia libamáj termék valójában Magyarországról származik, és csak Franciaországban dolgozzák fel és címkézik át. Sokakat elriaszt, mert a kacsákat és libákat tömik, hogy nagy májuk legyen. Ennek ellenére nagyon puha és finom, akár meleg ételként, akár hidegen, pástétomként.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="ln3" d="M14 10 Q18 4 24 6 M32 8 Q28 6 24 6"/><circle class="c" cx="14" cy="32" r="8"/><circle class="c" cx="32" cy="34" r="8"/><path class="ln3" d="M14 24 Q14 14 22 10 M32 26 Q32 16 26 10"/></svg>
         <p>Szezonban, vagyis nyáron és ősszel, Magyarországon kiváló a gyümölcs és a zöldség, úgyhogy menj a piacra, és vedd, ami éppen szezonális. Cseresznye, meggy, szilva, sárgabarack, őszibarack, nektarin, alma és körte: mind fantasztikus és rendkívül aromás. Télen persze főleg importált narancs és egzotikus gyümölcs van.</p>
@@ -1000,7 +1004,7 @@
         <p>A magyarok messze keletről jöttek, nomád népként, lóháton, sátrakban élve, elképesztő sebességgel lovagoltak Európa felé. 896-ban elérték a Kárpát-medencét. A törzsek vezéreit lóháton láthatod a <a href="https://en.wikipedia.org/wiki/Heroes%27_Square_(Budapest)" target="_blank" rel="noopener">Hősök terén</a>.</p>
       </div>
       <div class="item"><div class="ico-col"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="s" d="M6 36 L6 16 L16 26 L24 10 L32 26 L42 16 V36Z"/><rect class="s2" x="6" y="36" width="36" height="6"/><circle class="c" cx="24" cy="28" r="3"/><circle class="c" cx="12" cy="30" r="2"/><circle class="c" cx="36" cy="30" r="2"/><path class="ln3" d="M24 4 V10 M21 7 H27"/></svg><span class="yr">1000</span></div>
-        <p>Szent István alatt Magyarország keresztény ország lett. Nagyon kemény kezű volt a pogányokkal, és Magyarország keresztény maradt. A sok házasság révén meglehetősen fontos, szerves része lett Európának.</p>
+        <p><a href="https://en.wikipedia.org/wiki/Stephen_I_of_Hungary" target="_blank" rel="noopener">Szent István</a> alatt Magyarország keresztény ország lett. Nagyon kemény kezű volt a pogányokkal, és Magyarország keresztény maradt. A sok házasság révén meglehetősen fontos, szerves része lett Európának.</p>
       </div>
       <div class="item"><div class="ico-col"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="c" d="M30 8 A16 16 0 1 0 30 40 A20 20 0 0 1 30 8Z"/><polygon class="s" points="36,16 37.8,20.2 42,20.8 38.7,23.5 39.6,28 36,25.3 32.4,28 33.3,23.5 30,20.8 34.2,20.2"/></svg><span class="yr">1241–1699</span></div>
         <p>Aztán egyre több háborút kezdtünk elveszíteni. Először jöttek a tatárok, gyakorlatilag a mongolok, Dzsingisz kán és társasága. Aztán jöttek a törökök, akik 150 évig voltak itt. Még ma is láthatsz néhányat az általuk épített fürdők közül. 150 év után elmentek, és egy ideig függetlenek voltunk, de ezek a nemzetek folyton ide-oda hullámoztak, és harcoltak egymással. Vesztettünk, és vesztettünk, és vesztettünk. Gyakorlatilag minden csatát elvesztettünk az 1500-as évek óta.</p>
@@ -1009,7 +1013,7 @@
         <p>Ebbe beletartozik az első világháború is, amely után Magyarország elvesztette területének túlnyomó részét. Úgyhogy gyakorlatilag bárhol is lépsz ki ma Magyarországról, ott régen Magyarország volt.</p>
       </div>
       <div class="item"><div class="ico-col"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="k2" x="4" y="30" width="30" height="10" rx="3"/><rect class="k2" x="12" y="24" width="14" height="8" rx="2"/><path class="ln" d="M26 28 H42" style="stroke:var(--fg);stroke-width:3px"/><circle class="k" cx="10" cy="41" r="3"/><circle class="k" cx="28" cy="41" r="3"/><polygon class="c" points="34,4 36.7,10.3 43,11.2 38.05,15.25 39.4,22 34,17.95 28.6,22 29.95,15.25 25,11.2 31.3,10.3"/></svg><span class="yr">1939–89</span></div>
-        <p>A második világháborúban megint a rossz oldalon álltunk, és megint vesztettünk. Aztán, hogy egy kicsit izgalmasabb legyen a dolog, kaptunk 40 évet szocializmusból. A 80-as évekre ez nagyon enyhe változat lett (erről bővebben lent a történetemben), de az 50-es években kőkemény diktatúra volt. Egyik nemzeti ünnepünk az 1956-os forradalom az oroszok ellen, amikor még fegyvertelen tinédzserek is orosz tankok ellen harcoltak. Ez elég hősies.</p>
+        <p>A második világháborúban megint a rossz oldalon álltunk, és megint vesztettünk. Aztán, hogy egy kicsit izgalmasabb legyen a dolog, kaptunk 40 évet szocializmusból. A 80-as évekre ez nagyon enyhe változat lett (erről bővebben lent a történetemben), de az 50-es években kőkemény diktatúra volt. Egyik nemzeti ünnepünk az <a href="https://en.wikipedia.org/wiki/Hungarian_Revolution_of_1956" target="_blank" rel="noopener">1956-os forradalom</a> az oroszok ellen, amikor még fegyvertelen tinédzserek is orosz tankok ellen harcoltak. Ez elég hősies.</p>
       </div>
       <div class="item"><div class="ico-col"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="k2" x="4" y="8" width="14" height="8"/><rect class="k2" x="20" y="8" width="14" height="8"/><rect class="k2" x="36" y="8" width="8" height="8"/><rect class="k2" x="4" y="18" width="8" height="8"/><rect class="k2" x="14" y="18" width="14" height="8"/><rect class="k2" x="30" y="18" width="14" height="8"/><path class="c" d="M10 30 L18 40 L12 42Z M26 30 L32 44 L22 42Z M38 30 L44 40 L36 42Z"/></svg><span class="yr">1989</span></div>
         <p>1989-ben, a berlini fal leomlásával Magyarország ismét a demokratikus nemzetekhez csatlakozott. Néhány embernek ez azonban hátrányos volt. Meg kell érteni, hogy sokan elvesztették azt a biztonságot, amit azokban az években megszoktak, mert most farkastörvények uralkodnak. Ezért látsz egyszerre nagyon gazdag és nagyon szegény magyarokat.</p>
@@ -1023,7 +1027,7 @@
       <svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><rect class="c" x="60" y="14" width="120" height="48" rx="14"/><path class="c" d="M90 60 L80 78 L112 60Z"/><text x="120" y="48" class="t big inv">!</text><rect class="w" x="196" y="30" width="70" height="34" rx="12"/><path class="ln2" d="M214 47 h34"/><circle class="s" cx="286" cy="24" r="10"/></svg>
       <h3>Óvatosan kezelendő témák</h3>
       <p class="chap-hook">Kérlek, ne nevezz minket szlávnak.</p>
-      <p class="callout">Van néhány téma, amit nem érdemes felhozni, vagy legalábbis nagyon óvatosan kell hozzányúlni. Először is: ne nevezd a magyarokat szlávnak. Valamiért hatalmas büszkeséget érzünk amiatt, hogy finnugorok vagyunk. A magyar legközelebbi rokona a finn, bár a kettő egymástól is nagyon távol áll. A ritmusa csak hasonlóan hangzik.</p>
+      <p class="callout">Van néhány téma, amit nem érdemes felhozni, vagy legalábbis nagyon óvatosan kell hozzányúlni. Először is: ne nevezd a magyarokat szlávnak. Valamiért hatalmas büszkeséget érzünk amiatt, hogy <a href="https://en.wikipedia.org/wiki/Finno-Ugric_languages" target="_blank" rel="noopener">finnugorok</a> vagyunk. A magyar legközelebbi rokona a finn, bár a kettő egymástól is nagyon távol áll. A ritmusa csak hasonlóan hangzik.</p>
       <p>Semmi esetre se nevezz minket szlávnak, és ne mondj olyat, hogy „Magyarország Oroszország része volt”. Soha nem volt.</p>
       <p>És általában kerüld a 20. századi politikát. Könnyen kínos helyzetbe kerülhetsz.</p>
     </div>
@@ -1067,13 +1071,13 @@
       <p class="chap-hook">Sok Nobel-díj, kevés otthon nyert.</p>
       <p>Nagyon büszkék vagyunk a Nobel-díjainkra: egy főre vetítve valószínűleg a világ egyik legtöbbje. Ezek közül azonban szinte egyet sem Magyarországon értek el. A kísérletekhez olyan pénz kellett, amije az országnak nem volt, és ezek a zsenik Magyarországon kívül jobban elfogadottak voltak.</p>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="c" d="M12 28 Q10 12 26 10 Q40 10 38 26 Q34 42 20 42 Q12 40 12 28Z"/><path class="ln3" d="M26 10 Q28 4 34 4"/><text x="17" y="31" class="t sm inv" style="font-size:13px">C</text></svg>
-        <p>A C-vitamin, amelyet először magyar paprikából izoláltak, az egyik Nobel-díjas felfedezés.</p>
+        <p>A <a href="https://en.wikipedia.org/wiki/Albert_Szent-Gy%C3%B6rgyi" target="_blank" rel="noopener">C-vitamin</a>, amelyet először magyar paprikából izoláltak, az egyik Nobel-díjas felfedezés.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><g transform="rotate(40 24 24)"><rect class="c" x="2" y="19" width="36" height="9" rx="4"/><path class="k" d="M38 19 L46 23.5 L38 28Z"/><rect class="s" x="8" y="19" width="5" height="9"/></g></svg>
-        <p>A golyóstollat egy magyar találta fel.</p>
+        <p>A <a href="https://en.wikipedia.org/wiki/L%C3%A1szl%C3%B3_B%C3%ADr%C3%B3" target="_blank" rel="noopener">golyóstollat</a> egy magyar találta fel.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="c" x="6" y="6" width="12" height="12"/><rect class="s" x="19" y="6" width="12" height="12"/><rect class="w" x="32" y="6" width="12" height="12"/><rect class="s" x="6" y="19" width="12" height="12"/><rect class="w" x="19" y="19" width="12" height="12"/><rect class="c" x="32" y="19" width="12" height="12"/><rect class="w" x="6" y="32" width="12" height="12"/><rect class="c" x="19" y="32" width="12" height="12"/><rect class="s" x="32" y="32" width="12" height="12"/></svg>
-        <p>A Rubik-kockát is.</p>
+        <p>A <a href="https://en.wikipedia.org/wiki/Rubik%27s_Cube" target="_blank" rel="noopener">Rubik-kockát</a> is.</p>
       </div>
       <p>És legalább részben a hidrogénbombát és a számítógépet is magyarok találták fel.</p>
     </div>
@@ -1631,6 +1635,10 @@
     </form>
     <ol class="gb-list" id="gb-list" aria-label="Vendégkönyv-üzenetek"></ol>
     <p class="gb-empty" id="gb-empty">A vendégkönyv betöltése...</p>
+  </section>
+
+  <section class="story" aria-label="Nyilatkozat">
+    <p class="disclaimer"><strong>Nyilatkozat.</strong> Ez a saját, magánjellegű oldalam. Minden rajta lévő tartalom a személyes véleményem, és semmi köze egyetlen munkáltatómhoz sem, sem a jelenlegihez, sem a korábbiakhoz. Az ajánlások csak baráti javaslatok, nem garanciák vagy szakmai tanácsok, ezért indulás előtt ellenőrizd a részleteket, például a nyitvatartást, az árakat, a menetrendeket és a biztonságot. A linkek külső oldalakra vezetnek, amelyeket nem én kezelek.</p>
   </section>
 
   <footer>Budapest · Európa/Budapest időzóna</footer>
