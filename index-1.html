@@ -1127,17 +1127,17 @@
     <h2 id="welcome-h">Welcome! <span lang="hu">Üdvözöllek!</span></h2>
     <p class="thanks">Thanks for stopping by! I'm truly grateful you took a look. For me, that's mission accomplished: we've made a connection.</p>
     <p class="promise">A friendly guide to Budapest, plus the story of the life behind it.</p>
-    <ul class="jump"><li><a href="#tips-h" style="--c:var(--p2)"><strong>Budapest tips</strong><span>Getting around, food and drink, history and culture</span></a></li><li><a href="#story-h" style="--c:var(--p1)"><strong>My story</strong><span>From socialist Hungary to Canada, the Cayman Islands and back</span></a></li><li><a href="#been-h" style="--c:var(--p4)"><strong>Countries and Tobi</strong><span>37 countries, one map and one very good dog</span></a></li></ul>
+    <ul class="jump"><li><a href="#tips-h" style="--c:var(--p2)"><strong>Budapest tips and facts</strong><span>Getting around, food and drink, history and culture</span></a></li><li><a href="#story-h" style="--c:var(--p1)"><strong>My story</strong><span>From socialist Hungary to Canada, the Cayman Islands and back</span></a></li><li><a href="#been-h" style="--c:var(--p4)"><strong>Countries and Tobi</strong><span>37 countries, one map and one very good dog</span></a></li></ul>
   </section>
 
 
   
 
   <section class="story tips" aria-labelledby="tips-h">
-    <h2 id="tips-h">Budapest tips</h2>
+    <h2 id="tips-h">Budapest tips and facts</h2>
     <p>Not everybody wants to read my whole life story, so here is what I'd tell a friend visiting Budapest: how to get around, what to eat and drink, and a bit of history and culture.</p>
     <p class="disclaimer"><strong>Friendly note:</strong> these are my own opinions and recommendations, not professional advice. Please check opening hours, prices and conditions before you go.</p>
-    <nav class="chapnav" aria-label="Budapest tips"><a href="#tips-go">Getting around</a><a href="#tips-eat">Eat and drink</a><a href="#tips-hist">History and culture</a></nav>
+    <nav class="chapnav" aria-label="Budapest tips and facts"><a href="#tips-go">Getting around</a><a href="#tips-eat">Eat and drink</a><a href="#tips-hist">History and culture</a></nav>
     <h3 class="tipgroup" id="tips-go">Getting around</h3>
     <div class="chapter" id="tip1">
       <p class="chap-k">Tip 1</p>
@@ -2541,7 +2541,7 @@
     var nav = document.createElement("nav"); nav.className = "topnav"; nav.setAttribute("aria-label", hu ? "Fő navigáció" : "Main navigation");
     var brand = document.createElement("a"); brand.className = "brand"; brand.href = "#"; brand.textContent = "Arpi"; brand.addEventListener("click", function (e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); });
     var wrap = document.createElement("div"); wrap.className = "links";
-    var items = hu ? [["tips-h","Tippek"],["about-h","Rólam"],["story-h","Történetem"],["been-h","Helyek"],["gb-h","Vendégkönyv"]] : [["tips-h","Tips"],["about-h","About me"],["story-h","My story"],["been-h","Countries"],["gb-h","Guest book"]];
+    var items = hu ? [["tips-h","Tippek"],["about-h","Rólam"],["story-h","Történetem"],["been-h","Helyek"],["gb-h","Vendégkönyv"]] : [["tips-h","Tips & facts"],["about-h","About me"],["story-h","My story"],["been-h","Countries"],["gb-h","Guest book"]];
     var links = [];
     items.forEach(function (it) { var el = document.getElementById(it[0]); if (!el) return; var a = document.createElement("a"); a.href = "#" + it[0]; a.textContent = it[1]; wrap.appendChild(a); links.push([a, el]); });
     var tg = document.createElement("button"); tg.type = "button"; tg.className = "theme"; tg.setAttribute("aria-label", hu ? "Világos / sötét téma" : "Light / dark theme");
@@ -2596,7 +2596,7 @@
 <script>
   (function () {
     var hu = (document.documentElement.lang || "").indexOf("hu") === 0;
-    var SEC = [["tips-h", hu ? "Tippek" : "Tips"], ["about-h", hu ? "Rólam" : "About me"], ["story-h", hu ? "Történetem" : "My story"], ["been-h", hu ? "Országok" : "Countries"], ["gb-h", hu ? "Vendégkönyv" : "Guest book"]];
+    var SEC = [["tips-h", hu ? "Tippek" : "Tips and facts"], ["about-h", hu ? "Rólam" : "About me"], ["story-h", hu ? "Történetem" : "My story"], ["been-h", hu ? "Országok" : "Countries"], ["gb-h", hu ? "Vendégkönyv" : "Guest book"]];
     SEC.forEach(function (s, i) {
       var h = document.getElementById(s[0]); if (!h) return;
       var n = document.createElement("span"); n.className = "sec-n"; n.setAttribute("aria-hidden", "true"); n.textContent = (i < 9 ? "0" : "") + (i + 1);
