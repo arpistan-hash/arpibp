@@ -963,6 +963,8 @@
   .nextlink b { font-family: var(--font-display); font-size: 20px; margin-right: auto; }
   .nextlink i { font-style: normal; font-size: 22px; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--p7); color: #1b1f3b; border: 2px solid var(--ink); }
   .nextlink:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--shade); }
+
+  .vh { display: inline-block; margin: 0 .18em 0 0; font-size: 1.05em; line-height: 1; vertical-align: -.05em; font-style: normal; }
 </style>
 
 <a class="skip" href="#tips-h">Ugrás a tartalomhoz</a>
@@ -2621,6 +2623,40 @@
       jl.insertBefore(li, jl.children[1] || null);
       Array.prototype.forEach.call(jl.querySelectorAll("li"), function (l, i) { var s = l.querySelector("strong"); if (s) s.insertAdjacentHTML("afterbegin", '<em class="jn">0' + (i + 1) + '</em>'); });
     }
+  })();
+</script>
+<script>
+  (function () {
+    var hu = (document.documentElement.lang || "").indexOf("hu") === 0;
+    var EN = [["\\b(?:taxis?|cabs?)\\b", "\ud83d\ude95"], ["\\b(?:night )?buses\\b|\\bbus\\b", "\ud83d\ude8c"], ["\\btrams?\\b", "\ud83d\ude8b"], ["\\bmetro\\b|\\bsubway\\b", "\ud83d\ude87"], ["\\bchair ?lift\\b|\\bLibeg\u0151\\b", "\ud83d\udea0"], ["\\brailway\\b", "\ud83d\ude82"], ["\\btrains?\\b", "\ud83d\ude86"], ["\\bbikes?\\b|\\bbicycles?\\b|\\bBubi\\b", "\ud83d\udeb2"], ["\\be-scooters?\\b|\\bscooters?\\b", "\ud83d\udef4"], ["\\bferry\\b|\\bboat\\b", "\u26f4\ufe0f"], ["\\bplanes?\\b|\\bflights?\\b", "\u2708\ufe0f"], ["\\brickshaw\\b", "\ud83d\udefa"], ["\\bpolice cars?\\b", "\ud83d\ude93"], ["\\bcars?\\b", "\ud83d\ude97"]];
+    var HU = [["taxi", "\ud83d\ude95"], ["busz", "\ud83d\ude8c"], ["villamos", "\ud83d\ude8b"], ["metr\u00f3", "\ud83d\ude87"], ["libeg\u0151", "\ud83d\udea0"], ["vas\u00fat", "\ud83d\ude82"], ["vonat", "\ud83d\ude86"], ["bicikl|ker\u00e9kp\u00e1r|Bubi", "\ud83d\udeb2"], ["roller", "\ud83d\udef4"], ["haj\u00f3|komp", "\u26f4\ufe0f"], ["rep\u00fcl\u0151", "\u2708\ufe0f"], ["rikse", "\ud83d\udefa"], ["rend\u0151rau", "\ud83d\ude93"], ["aut\u00f3", "\ud83d\ude97"]];
+    var RULES = (hu ? HU : EN).map(function (r) { return [new RegExp(hu ? "(" + r[0] + ")[a-z\u00e1\u00e9\u00ed\u00f3\u00f6\u0151\u00fa\u00fc\u0171]*" : r[0], "gi"), r[1]]; });
+    var skip = { SCRIPT: 1, STYLE: 1, SVG: 1, svg: 1, H3: 1, H2: 1, BUTTON: 1 };
+    function ok(n) { for (var e = n.parentNode; e && e !== document.body; e = e.parentNode) { if (skip[e.tagName] || (e.classList && (e.classList.contains("vh") || e.classList.contains("pp-ic") || e.classList.contains("chap-k") || e.classList.contains("moves")))) return false; } return true; }
+    document.querySelectorAll(".chapter p, .chapter li, .item p").forEach(function (p) {
+      var w = document.createTreeWalker(p, NodeFilter.SHOW_TEXT), nodes = [], n;
+      while ((n = w.nextNode())) if (ok(n) && n.nodeValue.trim()) nodes.push(n);
+      var first = true;
+      nodes.forEach(function (t) {
+        var txt = t.nodeValue, hits = [];
+        RULES.forEach(function (r) { r[0].lastIndex = 0; var m; while ((m = r[0].exec(txt))) hits.push([m.index, m[0].length, r[1]]); });
+        if (!hits.length) { first = false; return; }
+        hits.sort(function (a, b) { return a[0] - b[0]; });
+        var out = [], pos = 0, any = false;
+        hits.forEach(function (h) {
+          if (h[0] < pos) return;
+          if (first && p.tagName === "P" && !txt.slice(0, h[0]).trim()) return;
+          if (p.classList.contains("chap-hook")) return;
+          out.push(document.createTextNode(txt.slice(pos, h[0])));
+          var s = document.createElement("span"); s.className = "vh"; s.setAttribute("aria-hidden", "true"); s.textContent = h[2]; out.push(s);
+          pos = h[0]; any = true;
+        });
+        first = false;
+        if (!any) return;
+        out.push(document.createTextNode(txt.slice(pos)));
+        var par = t.parentNode; out.forEach(function (x) { par.insertBefore(x, t); }); par.removeChild(t);
+      });
+    });
   })();
 </script>
 </body>
