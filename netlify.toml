@@ -1,0 +1,7 @@
+# Netlify settings: plain static site, no build step.
+[build]
+  publish = "."
+  command = ""
+
+[functions]
+  directory = "netlify/functions"

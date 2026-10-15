@@ -9,6 +9,7 @@ on:
       - "index-1.html"
       - "assets/**"
       - "netlify/**"
+      - "netlify.toml"
   workflow_dispatch:
 
 permissions:
@@ -36,6 +37,7 @@ jobs:
       - name: Copy the page and assets
         run: |
           cp src/index-1.html site/index.html
+          cp src/netlify.toml site/netlify.toml
           mkdir -p site/assets
           rsync -a --delete src/assets/ site/assets/
           if [ -d src/netlify ]; then mkdir -p site/netlify && rsync -a --delete src/netlify/ site/netlify/; fi
