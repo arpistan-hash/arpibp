@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Arpi Budapestről">
+<meta property="og:description" content="Baráti útikalauz Budapesthez, és a történet, ami mögötte áll.">
+<meta name="twitter:card" content="summary">
 <meta name="description" content="Arpi Budapestről: Budapest-tippek, élettörténet három kontinensen, utazások és Tobi, a kutya.">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -648,6 +652,22 @@
 @font-face { font-family: "Newsreader"; font-style: normal; font-weight: 500; font-display: swap; src: url("assets/fonts/newsreader-latin-ext-500-normal.woff2") format("woff2"); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
 @font-face { font-family: "Newsreader"; font-style: italic; font-weight: 500; font-display: swap; src: url("assets/fonts/newsreader-latin-500-italic.woff2") format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
 @font-face { font-family: "Newsreader"; font-style: italic; font-weight: 500; font-display: swap; src: url("assets/fonts/newsreader-latin-ext-500-italic.woff2") format("woff2"); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+  .promise { font-family: var(--font-display); font-weight: 800; font-size: clamp(20px, 5.6vw, 24px); line-height: 1.2; letter-spacing: -0.01em; margin: 4px 0 0; max-width: 28ch; }
+  .jump { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .jump a { display: block; padding: 12px 14px; border: 1px solid var(--line); border-left: 5px solid var(--c, var(--accent)); border-radius: 12px; background: var(--card); color: var(--fg); text-decoration: none; transition: transform .12s, box-shadow .12s; }
+  .jump a:hover, .jump a:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 0 var(--line); }
+  .jump strong { display: block; font-family: var(--font-display); font-size: 18px; }
+  .jump span { display: block; font-size: 14px; color: color-mix(in srgb, var(--fg) 72%, var(--bg)); margin-top: 2px; }
+  .disclaimer, .hello-hint, .moves-hint, .gb-privacy { color: color-mix(in srgb, var(--fg) 72%, var(--bg)); }
+  .gb-privacy { margin: 0; font-size: 13.5px; line-height: 1.55; max-width: 62ch; }
+  .sound-toggle { margin-left: 8px; font: inherit; font-size: 12.5px; font-weight: 700; padding: 2px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--fg); cursor: pointer; }
+  .toc { display: none; }
+  @media (min-width: 1100px) {
+    .toc { display: block; position: fixed; top: 110px; left: max(16px, calc((100vw - 620px) / 2 - 230px)); width: 190px; font-size: 14px; }
+    .toc strong { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: color-mix(in srgb, var(--fg) 65%, var(--bg)); margin-bottom: 8px; }
+    .toc a { display: block; padding: 5px 0 5px 12px; border-left: 3px solid var(--line); color: color-mix(in srgb, var(--fg) 80%, var(--bg)); text-decoration: none; }
+    .toc a.on { border-left-color: var(--accent); color: var(--fg); font-weight: 700; }
+  }
 </style>
 
 <main>
@@ -809,6 +829,8 @@
   <section class="welcome" aria-labelledby="welcome-h">
     <h2 id="welcome-h">Isten hozott! Üdvözöllek!</h2>
     <p class="thanks">Köszi, hogy benéztél. Őszintén hálás vagyok, hogy megnézted. Nekem ez már maga a küldetés teljesítése: kapcsolat jött létre.</p>
+    <p class="promise">Baráti útikalauz Budapesthez, és a történet, ami mögötte áll.</p>
+    <ul class="jump"><li><a href="#tips-h" style="--c:var(--p2)"><strong>Budapest-tippek</strong><span>Közlekedés, étel és ital, történelem és kultúra</span></a></li><li><a href="#story-h" style="--c:var(--p1)"><strong>Az életem története</strong><span>A szocialista Magyarországtól Kanadán és a Kajmán-szigeteken át haza</span></a></li><li><a href="#been-h" style="--c:var(--p4)"><strong>Helyek és Tobi</strong><span>37 hely, egy térkép és egy nagyon jó kutya</span></a></li></ul>
   </section>
 
   <section class="contacts" aria-labelledby="contact-h">
@@ -972,7 +994,7 @@
         <p>Ha szereted a csípős kolbászt, Magyarország remek hely igazán jó kolbászokhoz, amelyek valószínűleg csípősebbek, mint a környező országokban.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><ellipse class="k2" cx="24" cy="18" rx="18" ry="7"/><path class="s2" d="M6 18 V32 Q6 40 24 40 Q42 40 42 32 V18 Q42 25 24 25 Q6 25 6 18Z"/><path class="ln3" d="M14 32 q10 4 20 0"/></svg>
-        <p>A magyar <a href="https://en.wikipedia.org/wiki/Foie_gras" target="_blank" rel="noopener">libamáj- és kacsamájkészítmények</a> is világhírűek. Néhány francia libamáj termék valójában Magyarországról származik, és csak Franciaországban dolgozzák fel és címkézik át. Sokakat elriaszt, mert a kacsákat és libákat tömik, hogy nagy májuk legyen. Ennek ellenére nagyon puha és finom, akár meleg ételként, akár hidegen, pástétomként.</p>
+        <p>A magyar <a href="https://en.wikipedia.org/wiki/Foie_gras" target="_blank" rel="noopener">libamáj- és kacsamájkészítmények</a> is világhírűek. Magyarország a világ egyik legnagyobb termelője, és jókora részét Franciaországban dolgozzák fel. Sokakat elriaszt, mert a kacsákat és libákat tömik, hogy nagy májuk legyen. Ennek ellenére nagyon puha és finom, akár meleg ételként, akár hidegen, pástétomként.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="ln3" d="M14 10 Q18 4 24 6 M32 8 Q28 6 24 6"/><circle class="c" cx="14" cy="32" r="8"/><circle class="c" cx="32" cy="34" r="8"/><path class="ln3" d="M14 24 Q14 14 22 10 M32 26 Q32 16 26 10"/></svg>
         <p>Szezonban, vagyis nyáron és ősszel, Magyarországon kiváló a gyümölcs és a zöldség, úgyhogy menj a piacra, és vedd, ami éppen szezonális. Cseresznye, meggy, szilva, sárgabarack, őszibarack, nektarin, alma és körte: mind fantasztikus és rendkívül aromás. Télen persze főleg importált narancs és egzotikus gyümölcs van.</p>
@@ -1394,7 +1416,7 @@
 <text x="12" y="112" class="t sm">HAVANNA</text></svg>
       <p class="chap-hook">Kuba: rum, szivar és időutazás.</p>
       <p>Kuba valami egészen más volt, és abszolút fantasztikus. Egy másik világ, tényleg olyan, mintha visszautaznál az időben, és annyira szerettem, hogy kb. háromszor visszamentem. Nagyon örülök, hogy anyu is velem tartott az egyik úton, és nagyon vidám emlékeket szereztünk.</p>
-      <p>Havannában riksás körútra mentünk, és a sofőr nagyon örült, hogy beleegyeztünk. De anyu és én akkoriban is nagyon túlsúlyosak voltunk, és ahogy a szegény fickó tekert, elszakadt a lánc. Hívniuk kellett egy másik fickót, hogy megjavítsa. Hihetetlenül zavarban voltunk.</p>
+      <p>Havannában riksás körútra mentünk, és a sofőr nagyon örült, hogy beleegyeztünk. De kettőnk együtt túl sok volt egy szegény riksásnak, és ahogy tekert, elszakadt a lánc. Hívniuk kellett egy másik fickót, hogy megjavítsa. Hihetetlenül zavarban voltunk.</p>
       <p>És mindig észrevettem, hogy meglepően sok egyedülálló férfit érdekel nagyon a kubai kultúra és Havanna építészete... kacsint, kacsint.</p>
       <p>Nem minden ment simán, mégis. Az első éjszakán egy lány megkínált egy sörrel, és bekábítottak. Az utolsó, amire emlékszem, hogy két lány próbál bejutni a lakásunkba, és a háziasszony kiabálja: „no, no, no chicas!” Aztán arra ébredtem, hogy az egész falat összehánytam. Soha nem voltam ennyire zavarban. Elmagyarázták, hogy valami gyógyszert tettek az italomba, és igazából nagyon kedvesek voltak: 10 dollárért az egész probléma megoldódott. Kitakarították a falat, és még a pólómat is kivasalták. A végén nem történt semmi, és az egyik kedvenc vicces történetemmé vált.</p>
     </div>
@@ -1660,6 +1682,7 @@
       <button type="submit" class="gb-send" id="gb-send">Aláírom a vendégkönyvet</button>
       <p class="gb-status" id="gb-status" role="status" aria-live="polite"></p>
     </form>
+    <p class="gb-privacy">A neved és az üzeneted nyilvános. Az e-mail-címedet csak én látom, és kizárólag arra használom, hogy válaszoljak neked; nem adom tovább, és másra sem használom. Ha törölni szeretnéd az üzeneted, csak szólj.</p>
     <ol class="gb-list" id="gb-list" aria-label="Vendégkönyv-üzenetek"></ol>
     <p class="gb-empty" id="gb-empty">A vendégkönyv betöltése...</p>
   </section>
@@ -1985,6 +2008,7 @@
   (function () {
         var cur = null;
     function say(li) {
+      if (window.__sound === false) return;
       var code = li.getAttribute("data-hello");
       try { if (cur) { cur.audio.pause(); cur.li.classList.remove("saying"); } } catch (e) {}
       var a = new Audio("audio/hello-" + code + ".mp3");
@@ -2100,6 +2124,7 @@
     }
     var ac = null;
     function jet() {
+      if (window.__sound === false) return;
       try {
         ac = ac || new (window.AudioContext || window.webkitAudioContext)();
         if (ac.state === "suspended") ac.resume();
@@ -2170,6 +2195,39 @@
         try { navigator.clipboard.writeText(code).then(done, function () {}); } catch (e) {}
       });
     });
+  })();
+</script>
+<script>
+  (function () {
+    var hu = (document.documentElement.lang || "").indexOf("hu") === 0, KEY = "arpi-sound";
+    try { if (localStorage.getItem(KEY) === "off") window.__sound = false; } catch (e) {}
+    var btns = [];
+    function label(b) { b.textContent = window.__sound === false ? (hu ? "\uD83D\uDD07 Hang ki" : "\uD83D\uDD07 Sound off") : (hu ? "\uD83D\uDD0A Hang be" : "\uD83D\uDD0A Sound on"); b.setAttribute("aria-pressed", window.__sound === false ? "false" : "true"); }
+    document.querySelectorAll(".hello-hint, .moves-hint").forEach(function (p) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "sound-toggle"; label(b); btns.push(b); p.appendChild(b);
+      b.addEventListener("click", function () {
+        window.__sound = window.__sound === false ? true : false;
+        try { localStorage.setItem(KEY, window.__sound === false ? "off" : "on"); } catch (e) {}
+        btns.forEach(label);
+      });
+    });
+    // desktop table of contents
+    var items = hu ? [["tips-go","Közlekedés"],["tips-eat","Étel és ital"],["tips-hist","Történelem és kultúra"],["about-h","Rólam"],["story-h","Élettörténet"],["been-h","Ahol jártam"],["gb-h","Vendégkönyv"]]
+                   : [["tips-go","Getting around"],["tips-eat","Eat and drink"],["tips-hist","History and culture"],["about-h","About me"],["story-h","My story"],["been-h","Places I've been"],["gb-h","Guest book"]];
+    var toc = document.createElement("nav"); toc.className = "toc"; toc.setAttribute("aria-label", hu ? "Tartalom" : "Contents");
+    var st = document.createElement("strong"); st.textContent = hu ? "Tartalom" : "Contents"; toc.appendChild(st);
+    var links = [];
+    items.forEach(function (it) {
+      var el = document.getElementById(it[0]); if (!el) return;
+      var a = document.createElement("a"); a.href = "#" + it[0]; a.textContent = it[1]; toc.appendChild(a); links.push([a, el]);
+    });
+    document.body.appendChild(toc);
+    function mark() {
+      var y = window.innerHeight * 0.35, cur = null;
+      links.forEach(function (p) { if (p[1].getBoundingClientRect().top <= y) cur = p[0]; });
+      links.forEach(function (p) { p[0].classList.toggle("on", p[0] === cur); });
+    }
+    window.addEventListener("scroll", mark, { passive: true }); mark();
   })();
 </script>
 </body>
