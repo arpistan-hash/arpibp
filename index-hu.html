@@ -2005,15 +2005,26 @@
 <script>
   (function () {
         var cur = null;
+    var SPEECH = {hu:[["hu-HU","Szia"]],pt:[["pt-PT","Olá"]],fr:[["fr-FR","Bonjour"]],de:[["de-DE","Hallo"]],dk:[["da-DK","Hej"]],be:[["nl-BE","Hallo"]],nl:[["nl-NL","Hoi"]],ch:[["de-CH","Grüezi","de-DE"],["fr-CH","Bonjour","fr-FR"],["it-CH","Ciao","it-IT"]],en:[["en-GB","Hello"]],se:[["sv-SE","Hej"]],pl:[["pl-PL","Cześć"]],cz:[["cs-CZ","Ahoj"]],sk:[["sk-SK","Ahoj"]],at:[["de-AT","Servus","de-DE"]],si:[["sl-SI","Živjo"]],hr:[["hr-HR","Bok"]],ba:[["bs-BA","Zdravo","hr-HR"]],rs:[["sr-RS","Zdravo","hr-HR"]],ro:[["ro-RO","Salut"]],bg:[["bg-BG","Здравей"]],it:[["it-IT","Ciao"]],gr:[["el-GR","Γεια σου"]],tr:[["tr-TR","Merhaba"]],ae:[["ar-AE","مرحبا","ar-SA"]],qa:[["ar-QA","السلام عليكم","ar-SA"]],il:[["he-IL","שלום"]],np:[["ne-NP","नमस्ते","hi-IN"]],cn:[["zh-CN","你好"]],jp:[["ja-JP","こんにちは"]],tw:[["zh-TW","你好"]],ph:[["fil-PH","Kumusta","tl-PH"]],ca:[["en-CA","Hello","en-US"],["fr-CA","Bonjour","fr-FR"]],us:[["en-US","Hello"]],mx:[["es-MX","Hola"]],pa:[["es-PA","Hola","es-MX"]],cu:[["es-CU","Hola","es-MX"]],ky:[["en-GB","Hello"]]};
+    if (window.speechSynthesis && window.speechSynthesis.getVoices) { window.speechSynthesis.getVoices(); }
     function say(li) {
       if (window.__sound === false) return;
-      var code = li.getAttribute("data-hello");
-      try { if (cur) { cur.audio.pause(); cur.li.classList.remove("saying"); } } catch (e) {}
-      var a = new Audio("audio/hello-" + code + ".mp3");
-      cur = { audio: a, li: li };
-      li.classList.add("saying");
-      a.onended = function () { li.classList.remove("saying"); };
-      var p = a.play(); if (p && p.catch) p.catch(function () { li.classList.remove("saying"); });
+      var syn = window.speechSynthesis; if (!syn || typeof SpeechSynthesisUtterance === "undefined") return;
+      var code = li.getAttribute("data-hello"), parts = SPEECH[code]; if (!parts) return;
+      try { syn.cancel(); if (cur) cur.classList.remove("saying"); } catch (e) {}
+      var voices = syn.getVoices ? syn.getVoices() : [], queue = [];
+      parts.forEach(function (p) {
+        var primary = p[0].split("-")[0].toLowerCase(), alt = (p[2] || p[0]).split("-")[0].toLowerCase();
+        var v = voices.filter(function (x) { return x.lang && x.lang.replace("_", "-").toLowerCase() === p[0].toLowerCase(); })[0]
+          || voices.filter(function (x) { return x.lang && x.lang.toLowerCase().indexOf(primary) === 0; })[0]
+          || voices.filter(function (x) { return x.lang && x.lang.toLowerCase().indexOf(alt) === 0; })[0];
+        if (!v) return;
+        var u = new SpeechSynthesisUtterance(p[1]); try { u.voice = v; } catch (e) {} u.lang = v.lang; u.rate = 0.92; queue.push(u);
+      });
+      if (!queue.length) return;
+      cur = li; li.classList.add("saying");
+      queue[queue.length - 1].onend = queue[queue.length - 1].onerror = function () { li.classList.remove("saying"); };
+      queue.forEach(function (u) { syn.speak(u); });
     }
     document.querySelectorAll(".chips li[data-hello]").forEach(function (li) {
       li.addEventListener("click", function () { say(li); });
