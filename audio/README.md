@@ -42,4 +42,4 @@ One short file per place, named `hello-<code>.mp3`. Say the greeting once, natur
 | `hello-cu.mp3` | 🇨🇺 Cuba | Hola |
 | `hello-ky.mp3` | 🇰🇾 Cayman Islands | Hello |
 
-After replacing files in this folder, run `python3 tools/embed-audio.py` to put them into `index-1.html` and `index-hu.html`.
+The page loads these files directly from this folder, so replacing a file is all it takes.
