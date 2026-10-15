@@ -954,6 +954,15 @@
   .pp-ic { float: right; width: 54px; height: 54px; margin: 2px 0 8px 14px; display: grid; place-items: center; font-size: 30px; line-height: 1; border-radius: 16px; border: 2.5px solid var(--ink); background: color-mix(in srgb, var(--chap, var(--p7)) 38%, var(--card)); box-shadow: 3px 3px 0 var(--shade); transform: rotate(3deg); shape-outside: margin-box; }
   .chapter p:nth-of-type(even) .pp-ic { transform: rotate(-3deg); }
   @media (min-width: 700px) { .pp-ic { width: 62px; height: 62px; font-size: 34px; } }
+
+  /* ===== Section sequence: numbers, next links ===== */
+  .sec-n { display: inline-block; vertical-align: middle; margin-right: 10px; padding: 3px 9px; font-family: var(--font-mono); font-size: .42em; font-weight: 700; letter-spacing: .08em; color: var(--ink); background: var(--p7); border: 2px solid var(--ink); border-radius: 8px; box-shadow: 2px 2px 0 var(--shade); transform: translateY(-.35em) rotate(-3deg); }
+  .jn { font-style: normal; font-family: var(--font-mono); font-size: 12px; font-weight: 700; margin-right: 8px; padding: 1px 6px; border: 2px solid var(--ink); border-radius: 6px; background: var(--card); vertical-align: 2px; }
+  .nextlink { display: flex; align-items: center; gap: 10px; margin: 30px 0 0; padding: 14px 18px; text-decoration: none; color: var(--fg); background: var(--card); border: 2.5px solid var(--ink); border-radius: 18px; box-shadow: 5px 5px 0 var(--shade); transition: transform .15s, box-shadow .15s; }
+  .nextlink small { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .nextlink b { font-family: var(--font-display); font-size: 20px; margin-right: auto; }
+  .nextlink i { font-style: normal; font-size: 22px; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--p7); color: #1b1f3b; border: 2px solid var(--ink); }
+  .nextlink:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--shade); }
 </style>
 
 <a class="skip" href="#tips-h">Skip to content</a>
@@ -2530,7 +2539,7 @@
     var nav = document.createElement("nav"); nav.className = "topnav"; nav.setAttribute("aria-label", hu ? "Fő navigáció" : "Main navigation");
     var brand = document.createElement("a"); brand.className = "brand"; brand.href = "#"; brand.textContent = "Arpi"; brand.addEventListener("click", function (e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); });
     var wrap = document.createElement("div"); wrap.className = "links";
-    var items = hu ? [["tips-h","Tippek"],["story-h","Történetem"],["been-h","Helyek"],["gb-h","Vendégkönyv"]] : [["tips-h","Tips"],["story-h","My story"],["been-h","Countries"],["gb-h","Guest book"]];
+    var items = hu ? [["tips-h","Tippek"],["about-h","Rólam"],["story-h","Történetem"],["been-h","Helyek"],["gb-h","Vendégkönyv"]] : [["tips-h","Tips"],["about-h","About me"],["story-h","My story"],["been-h","Countries"],["gb-h","Guest book"]];
     var links = [];
     items.forEach(function (it) { var el = document.getElementById(it[0]); if (!el) return; var a = document.createElement("a"); a.href = "#" + it[0]; a.textContent = it[1]; wrap.appendChild(a); links.push([a, el]); });
     var tg = document.createElement("button"); tg.type = "button"; tg.className = "theme"; tg.setAttribute("aria-label", hu ? "Világos / sötét téma" : "Light / dark theme");
@@ -2580,6 +2589,38 @@
       var ps = c.querySelectorAll(":scope > p:not(.chap-k):not(.chap-hook)");
       M[id].forEach(function (e, i) { var p = ps[i]; if (!p) return; var s = document.createElement("span"); s.className = "pp-ic"; s.setAttribute("aria-hidden", "true"); s.textContent = e; p.insertBefore(s, p.firstChild); });
     });
+  })();
+</script>
+<script>
+  (function () {
+    var hu = (document.documentElement.lang || "").indexOf("hu") === 0;
+    var SEC = [["tips-h", hu ? "Tippek" : "Tips"], ["about-h", hu ? "Rólam" : "About me"], ["story-h", hu ? "Történetem" : "My story"], ["been-h", hu ? "Országok" : "Countries"], ["gb-h", hu ? "Vendégkönyv" : "Guest book"]];
+    SEC.forEach(function (s, i) {
+      var h = document.getElementById(s[0]); if (!h) return;
+      var n = document.createElement("span"); n.className = "sec-n"; n.setAttribute("aria-hidden", "true"); n.textContent = (i < 9 ? "0" : "") + (i + 1);
+      h.insertBefore(n, h.firstChild);
+      var nx = SEC[i + 1], sec = h.closest("section");
+      if (nx && sec && document.getElementById(nx[0])) {
+        var a = document.createElement("a"); a.className = "nextlink"; a.href = "#" + nx[0];
+        a.innerHTML = '<small>' + (hu ? "Következő" : "Next") + '</small><b></b><i aria-hidden="true">\u2193</i>'; a.querySelector("b").textContent = nx[1];
+        sec.appendChild(a);
+      }
+    });
+    var tips = document.querySelectorAll(".tips .chapter");
+    tips.forEach(function (c, i) {
+      var k = c.querySelector(".chap-k"); if (!k) return;
+      var t = k.textContent.trim(), kind = /^((Tip|Tipp)\s*\d+|\d+\.\s*tipp)$/i.test(t) ? "" : t;
+      k.textContent = (hu ? "Tipp " : "Tip ") + (i + 1) + (kind ? " \u00b7 " + kind : "");
+    });
+    var jl = document.querySelector("ul.jump");
+    if (jl) {
+      var li = document.createElement("li");
+      li.innerHTML = '<a href="#about-h" style="--c:var(--p3)"><strong></strong><span></span></a>';
+      li.querySelector("strong").textContent = hu ? "Rólam" : "About me";
+      li.querySelector("span").textContent = hu ? "Hány éves vagyok? Attól függ, melyik testrészemről van szó." : "How old am I? It depends on the body part.";
+      jl.insertBefore(li, jl.children[1] || null);
+      Array.prototype.forEach.call(jl.querySelectorAll("li"), function (l, i) { var s = l.querySelector("strong"); if (s) s.insertAdjacentHTML("afterbegin", '<em class="jn">0' + (i + 1) + '</em>'); });
+    }
   })();
 </script>
 </body>
