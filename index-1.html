@@ -767,6 +767,40 @@
   .js .reveal.in { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) { .js .reveal { opacity: 1; transform: none; transition: none; } .eyebrow .dot { animation: none; } }
   @media print { .js .reveal { opacity: 1 !important; transform: none !important; } .topnav, .dock, .readbar, .totop { display: none !important; } }
+
+  /* ===== Polish layer ===== */
+  ::selection { background: color-mix(in srgb, var(--p7) 70%, transparent); color: #101830; }
+  :focus-visible { outline: 3px solid var(--p2); outline-offset: 3px; border-radius: 6px; }
+  html { scrollbar-color: color-mix(in srgb, var(--fg) 30%, transparent) transparent; }
+  @media (min-width: 900px) { main { max-width: 740px; } .chapter { padding: 28px 30px 30px; } .chapter .chap-hook { max-width: 44ch; } body { font-size: 18.5px; } }
+  .chapnav { display: flex; flex-wrap: wrap; gap: 8px; overflow: visible; }
+  .chapnav a { white-space: nowrap; }
+  h1 { background-size: 200% 100%; animation: sheen 9s ease-in-out infinite alternate; }
+  @keyframes sheen { from { background-position: 0% 0; } to { background-position: 100% 0; } }
+  .scene { position: relative; }
+  .scene .tw { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #fff; opacity: .25; animation: tw 3.2s ease-in-out infinite; pointer-events: none; }
+  @keyframes tw { 0%, 100% { opacity: .15; transform: scale(.7); } 50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 8px #fff; } }
+  .heroStats { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 4px; padding: 0; list-style: none; }
+  .heroStats li { display: flex; flex-direction: column; padding: 10px 16px; border-radius: 16px; border: 1px solid var(--line); background: color-mix(in srgb, var(--card) 80%, transparent); min-width: 92px; }
+  .heroStats b { font-family: var(--font-display); font-size: 28px; line-height: 1; letter-spacing: -.02em; background: linear-gradient(100deg, var(--p7), var(--p1)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .heroStats span { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 5px; }
+  .chapter { position: relative; }
+  .chapter[data-n]::after { content: attr(data-n); position: absolute; top: 14px; right: 20px; font-family: var(--font-display); font-weight: 800; font-size: 64px; line-height: 1; letter-spacing: -.04em; color: var(--chap); opacity: .16; pointer-events: none; }
+  .chapter .chap-k { position: relative; z-index: 1; }
+  @media (hover: hover) {
+    .chapter, .jump a, .heroStats li { transition: transform .25s ease, box-shadow .25s ease, border-color .25s; }
+    .chapter:hover { transform: translateY(-3px); box-shadow: 0 40px 70px -40px color-mix(in srgb, var(--chap) 85%, transparent); }
+    .jump a:hover { transform: translateY(-2px); }
+    .photo img { transition: transform .35s ease; } .photo:hover img { transform: scale(1.025); }
+  }
+  .jump li:nth-child(2).reveal { transition-delay: .08s; } .jump li:nth-child(3).reveal { transition-delay: .16s; }
+  .tipgroup::before { content: "\2726"; font-style: normal; color: var(--p7); font-size: .7em; }
+  .chips li, .chapnav a, .tags li { transition: transform .15s; }
+  button:active, a.btn:active, .dock a:active { transform: translateY(1px) scale(.98); }
+  .story + .story { position: relative; }
+  .story + .story::before { content: ""; display: block; height: 1px; margin: 0 auto 28px; width: min(320px, 70%); background: linear-gradient(90deg, transparent, var(--p7), transparent); opacity: .6; }
+  footer { border-top: 1px solid var(--line); }
+  @media (prefers-reduced-motion: reduce) { h1 { animation: none; } .scene .tw { animation: none; opacity: .6; } .chapter:hover { transform: none; } }
 </style>
 
 <a class="skip" href="#tips-h">Skip to content</a>
@@ -2359,6 +2393,17 @@
       var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }); }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
       els.forEach(function (e) { io.observe(e); });
     } else { els.forEach(function (e) { e.classList.add("in"); }); }
+  })();
+</script>
+<script>
+  (function () {
+    var hu = (document.documentElement.lang || "").indexOf("hu") === 0;
+    document.querySelectorAll(".chapter[id^=ch]").forEach(function (c) { var n = c.id.replace("ch", ""); if (/^\d+$/.test(n)) c.setAttribute("data-n", n.length < 2 ? "0" + n : n); });
+    var sc = document.querySelector(".scene");
+    if (sc) for (var i = 0; i < 16; i++) { var d = document.createElement("i"); d.className = "tw"; d.style.left = (4 + Math.random() * 92) + "%"; d.style.top = (3 + Math.random() * 38) + "%"; d.style.animationDelay = (Math.random() * 3.2).toFixed(2) + "s"; d.style.animationDuration = (2.4 + Math.random() * 2.4).toFixed(2) + "s"; sc.appendChild(d); }
+    var hd = document.querySelector("header .eyebrow"), n = document.querySelectorAll(".regions .chips li").length;
+    if (hd && n) { var ul = document.createElement("ul"); ul.className = "heroStats"; var rows = hu ? [[n, "hely"], ["3", "kontinens"], ["1", "nagyon jó kutya"]] : [[n, "places"], ["3", "continents"], ["1", "very good dog"]];
+      ul.innerHTML = rows.map(function (r) { return "<li><b>" + r[0] + "</b><span>" + r[1] + "</span></li>"; }).join(""); hd.parentNode.appendChild(ul); }
   })();
 </script>
 </body>
