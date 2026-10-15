@@ -627,6 +627,8 @@
   .disclaimer { margin: 0; padding: 12px 14px; border: 1px dashed var(--line); border-radius: 12px; background: color-mix(in srgb, var(--card) 70%, var(--bg)); font-family: var(--font-body); font-size: 13.5px; line-height: 1.55; color: var(--muted); max-width: 62ch; }
   .disclaimer strong { color: var(--fg); }
   .story > p.disclaimer { font-family: var(--font-body); font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+  .promo { display: inline-flex; align-items: center; gap: 8px; margin: 2px 0; padding: 4px 6px 4px 12px; border: 1px dashed var(--p7); border-radius: 999px; background: color-mix(in srgb, var(--sun) 28%, var(--card)); font-family: var(--font-mono); font-size: 15px; font-weight: 700; letter-spacing: .08em; color: var(--fg); }
+  .promo button { font: inherit; font-family: var(--font-body); font-size: 12.5px; letter-spacing: 0; font-weight: 700; padding: 4px 10px; border-radius: 999px; border: 0; background: var(--fg); color: var(--bg); cursor: pointer; }
 </style>
 
 <main>
@@ -875,7 +877,7 @@
         <p>Rövid utakra ott a <a href="https://bkk.hu/en/travel-information/bubi/" target="_blank" rel="noopener">MOL Bubi</a>, a BKK által üzemeltetett városi kerékpármegosztó, amelynek épp most indult az új generációja. A látogatók használat alapján fizethetnek. Ha van legalább 30 napos BudapestGO-bérleted, kedvezményt kapsz a havi Bubi-bérletből, és havonta tíz ingyenes utat a klasszikus biciklikre.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><circle cx="11" cy="36" r="6" style="fill:none;stroke:var(--fg);stroke-width:2.5px"/><circle cx="38" cy="36" r="6" style="fill:none;stroke:var(--fg);stroke-width:2.5px"/><path d="M11 36 H32 L36 10 H42 M32 36 L38 36" style="fill:none;stroke:var(--chap);stroke-width:3.5px;stroke-linecap:round;stroke-linejoin:round"/><circle class="s" cx="24" cy="30" r="2.5"/></svg>
-        <p>Mindenhol ott vannak a <a href="https://www.li.me/" target="_blank" rel="noopener">Lime</a> elektromos rolleri is. Legutóbb a feloldás kb. 250 forint volt, plusz percenként 50 forint, és az appban olcsóbb bérletek vannak a „Lime-bérlet" menüben. Egy bökkenő: a belváros egyes kerületeiben rollerrel lehet közlekedni, de a bérlést nem lehet befejezni, ezért előbb nézd meg az app parkolótérképét. A <a href="https://ridedott.com/" target="_blank" rel="noopener">Dott</a> a másik roller-app, amit a városban látni fogsz. Az appban a térképen megmutatja a helyi árat, és néhány városban percbérletet is kínál, ezért vásárlás előtt vesd össze a Dottot és a Limet. Az árak változnak, ezért indulás előtt nézd meg az appokban.</p>
+        <p>Mindenhol ott vannak a <a href="https://www.li.me/" target="_blank" rel="noopener">Lime</a> elektromos rolleri is. Legutóbb a feloldás kb. 250 forint volt, plusz percenként 50 forint, és az appban olcsóbb bérletek vannak a „Lime-bérlet" menüben. Egy bökkenő: a belváros egyes kerületeiben rollerrel lehet közlekedni, de a bérlést nem lehet befejezni, ezért előbb nézd meg az app parkolótérképét. A <a href="https://ridedott.com/" target="_blank" rel="noopener">Dott</a> a másik roller-app, amit a városban látni fogsz. Az appban a térképen megmutatja a helyi árat, és néhány városban percbérletet is kínál, ezért vásárlás előtt vesd össze a Dottot és a Limet. Új vagy a Dottnál? Add meg az appban a kódomat: <span class="promo">0TEW4YM <button type="button" data-code="0TEW4YM">Másolás</button></span>, és kapsz egy ingyenes 20 perces utat, a feloldással együtt. Én is kapok egy ingyenes utat, szóval fair csere. Az árak változnak, ezért indulás előtt nézd meg az appokban.</p>
       </div>
       <p>Gyalog is nagyon biztonságos a város. Hidegben csak vigyél kabátot.</p>
     </div>
@@ -2138,6 +2140,17 @@
   (function () {
     document.querySelectorAll(".chapter > .chap-hook + p").forEach(function (p) {
       if (/^I\s/.test(p.textContent.trim())) p.classList.add("nodrop");
+    });
+  })();
+</script>
+<script>
+  (function () {
+    var hu = (document.documentElement.lang || "").indexOf("hu") === 0;
+    document.querySelectorAll(".promo button").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var code = b.getAttribute("data-code"), done = function () { b.textContent = hu ? "Másolva" : "Copied"; setTimeout(function () { b.textContent = hu ? "Másolás" : "Copy"; }, 1600); };
+        try { navigator.clipboard.writeText(code).then(done, function () {}); } catch (e) {}
+      });
     });
   })();
 </script>

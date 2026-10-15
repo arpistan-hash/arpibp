@@ -627,6 +627,8 @@
   .disclaimer { margin: 0; padding: 12px 14px; border: 1px dashed var(--line); border-radius: 12px; background: color-mix(in srgb, var(--card) 70%, var(--bg)); font-family: var(--font-body); font-size: 13.5px; line-height: 1.55; color: var(--muted); max-width: 62ch; }
   .disclaimer strong { color: var(--fg); }
   .story > p.disclaimer { font-family: var(--font-body); font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+  .promo { display: inline-flex; align-items: center; gap: 8px; margin: 2px 0; padding: 4px 6px 4px 12px; border: 1px dashed var(--p7); border-radius: 999px; background: color-mix(in srgb, var(--sun) 28%, var(--card)); font-family: var(--font-mono); font-size: 15px; font-weight: 700; letter-spacing: .08em; color: var(--fg); }
+  .promo button { font: inherit; font-family: var(--font-body); font-size: 12.5px; letter-spacing: 0; font-weight: 700; padding: 4px 10px; border-radius: 999px; border: 0; background: var(--fg); color: var(--bg); cursor: pointer; }
 </style>
 
 <main>
@@ -875,7 +877,7 @@
         <p>For short hops there is <a href="https://bkk.hu/en/travel-information/bubi/" target="_blank" rel="noopener">MOL Bubi</a>, the city's bike-share run by BKK, which just launched a new generation. Visitors can pay as they go. If you have a BudapestGO pass of at least 30 days, you get a discount on the monthly Bubi pass and ten free classic-bike rides a month.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><circle cx="11" cy="36" r="6" style="fill:none;stroke:var(--fg);stroke-width:2.5px"/><circle cx="38" cy="36" r="6" style="fill:none;stroke:var(--fg);stroke-width:2.5px"/><path d="M11 36 H32 L36 10 H42 M32 36 L38 36" style="fill:none;stroke:var(--chap);stroke-width:3.5px;stroke-linecap:round;stroke-linejoin:round"/><circle class="s" cx="24" cy="30" r="2.5"/></svg>
-        <p><a href="https://www.li.me/" target="_blank" rel="noopener">Lime</a> e-scooters are everywhere too. At last check, unlocking cost about 250 HUF plus 50 HUF per minute, and the app has cheaper passes under "Lime-bérlet". One catch: in some central districts you can ride a scooter but can't end the ride, so check the parking map in the app first. <a href="https://ridedott.com/" target="_blank" rel="noopener">Dott</a> is the other scooter app you will see around town. It shows the local price on the map in the app, and it offers minute passes in some cities, so compare Dott and Lime before you ride. Prices change, so look in the apps before you go.</p>
+        <p><a href="https://www.li.me/" target="_blank" rel="noopener">Lime</a> e-scooters are everywhere too. At last check, unlocking cost about 250 HUF plus 50 HUF per minute, and the app has cheaper passes under "Lime-bérlet". One catch: in some central districts you can ride a scooter but can't end the ride, so check the parking map in the app first. <a href="https://ridedott.com/" target="_blank" rel="noopener">Dott</a> is the other scooter app you will see around town. It shows the local price on the map in the app, and it offers minute passes in some cities, so compare Dott and Lime before you ride. New to Dott? Enter my code <span class="promo">0TEW4YM <button type="button" data-code="0TEW4YM">Copy</button></span> in the app for a free 20-minute ride, unlock included. I get a free ride too, so it is a fair trade. Prices change, so look in the apps before you go.</p>
       </div>
       <p>Walking around is very safe too. Just bring a jacket when it's cold.</p>
     </div>
@@ -2138,6 +2140,17 @@
   (function () {
     document.querySelectorAll(".chapter > .chap-hook + p").forEach(function (p) {
       if (/^I\s/.test(p.textContent.trim())) p.classList.add("nodrop");
+    });
+  })();
+</script>
+<script>
+  (function () {
+    var hu = (document.documentElement.lang || "").indexOf("hu") === 0;
+    document.querySelectorAll(".promo button").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var code = b.getAttribute("data-code"), done = function () { b.textContent = hu ? "Másolva" : "Copied"; setTimeout(function () { b.textContent = hu ? "Másolás" : "Copy"; }, 1600); };
+        try { navigator.clipboard.writeText(code).then(done, function () {}); } catch (e) {}
+      });
     });
   })();
 </script>
