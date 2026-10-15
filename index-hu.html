@@ -668,6 +668,8 @@
     .toc a { display: block; padding: 5px 0 5px 12px; border-left: 3px solid var(--line); color: color-mix(in srgb, var(--fg) 80%, var(--bg)); text-decoration: none; }
     .toc a.on { border-left-color: var(--accent); color: var(--fg); font-weight: 700; }
   }
+  a.quiet-link { color: inherit; text-decoration: none; cursor: pointer; }
+  a.quiet-link:hover, a.quiet-link:focus-visible { text-decoration: underline dotted; text-underline-offset: 3px; }
 </style>
 
 <main>
@@ -882,13 +884,7 @@
     </div>
   </section>
 
-  <section class="contacts" aria-labelledby="more-h">
-    <h2 id="more-h">Ahol dolgozom</h2>
-    <a class="link-row" href="https://maps.app.goo.gl/mcFgjsCJNQC4KP1T6" target="_blank" rel="noopener">
-      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.2-6-10a6 6 0 1 1 12 0c0 4.8-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg><span class="lbl">My workplace<small>Itt dolgozom. Értékelj a Google-ön</small></span>
-      <span class="arrow" aria-hidden="true">→</span>
-    </a>
-  </section>
+  
 
   <section class="story tips" aria-labelledby="tips-h">
     <h2 id="tips-h">Budapest-tippek</h2>
@@ -1180,7 +1176,7 @@
       <p class="between">Mindenhol ott vagyok.</p>
     </figure>
     <p>Igyekszem olyan kedves lenni az emberekkel, amennyire csak tudok. Hiszek a karmában, és nincs benne semmi misztikus: légy kedves az emberekkel, és hajlamos visszatérni hozzád. Ha nem, egyszer valaki nem fogja tovább tűrni.</p>
-    <p>A vendéglátásban dolgozom, mégis egy kicsit magányos farkas vagyok. Sok időt töltök egyedül, és sokat utazom egyedül. Régen sokat utaztam anyuval is. Most itt van Tobi, a kutyám. 2024-ben kezdtem el nevelni a Kajmán-szigeteken, és májusban, közvetlenül a Magyarországra költözés előtt hivatalosan is örökbe fogadtam. Nem hagyhattam ott, így velem jött Budapestre.</p>
+    <p>A <a class="quiet-link" href="https://maps.app.goo.gl/mcFgjsCJNQC4KP1T6" target="_blank" rel="noopener">vendéglátásban</a> dolgozom, mégis egy kicsit magányos farkas vagyok. Sok időt töltök egyedül, és sokat utazom egyedül. Régen sokat utaztam anyuval is. Most itt van Tobi, a kutyám. 2024-ben kezdtem el nevelni a Kajmán-szigeteken, és májusban, közvetlenül a Magyarországra költözés előtt hivatalosan is örökbe fogadtam. Nem hagyhattam ott, így velem jött Budapestre.</p>
   </section>
 
   <section class="story" aria-labelledby="story-h">
