@@ -556,6 +556,16 @@
   @keyframes arcdraw { to { stroke-dashoffset: 0; } }
   @media (prefers-reduced-motion: reduce) { .atlas.focus .arc.hot { animation: none; stroke-dashoffset: 0; } }
   .moves-hint { margin: 0; font-size: 14px; color: var(--muted); }
+  .moves-wrap { display: flex; flex-direction: column; gap: 8px; }
+  .moves-wrap > figure.atlas { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 6; margin: 0; padding: 6px 0 8px; background: var(--bg); box-shadow: 0 8px 10px -8px rgba(14, 27, 38, .35); }
+  .moves-wrap > figure.atlas svg { display: block; width: 100%; max-height: 36vh; }
+  .moves-wrap .moves li { padding: 6px 0; gap: 10px; font-size: 15px; line-height: 1.35; }
+  .moves-wrap .moves li.on { padding-left: 10px; }
+  .moves-wrap .moves .when { font-size: 12px; }
+  .atlas.focus .arc { opacity: .12; }
+  .atlas.focus .arc.hot { stroke-width: 5; filter: drop-shadow(0 0 3px var(--c, currentColor)) drop-shadow(0 0 7px var(--c, currentColor)); animation: arcdraw .9s ease forwards, arcglow 1.6s ease-in-out .9s infinite; }
+  @keyframes arcglow { 0%, 100% { filter: drop-shadow(0 0 3px var(--c, currentColor)) drop-shadow(0 0 6px var(--c, currentColor)); } 50% { filter: drop-shadow(0 0 5px var(--c, currentColor)) drop-shadow(0 0 12px var(--c, currentColor)); } }
+  @media (prefers-reduced-motion: reduce) { .atlas.focus .arc.hot { animation: none; } }
   .chap-art .ln, .chap-art .ln2, .chap-art .ln3, .chap-art .dash { fill: none; stroke: var(--fg); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
   .chap-art .ln2 { stroke-width: 2; }
   .chap-art .ln3 { stroke-width: 1.6; }
@@ -1309,6 +1319,7 @@
       <p class="chap-hook">Folytatjuk...</p>
     </div>
     <p class="moves-hint">Koppints egy költözésre, és a térképen kiemelkedik az útvonala.</p>
+    <div class="moves-wrap">
     <figure class="atlas">
     <button class="expand" type="button" data-title="A költözéseim">Nagyítás</button>
     <svg viewBox="0 0 380 194" role="img" aria-labelledby="atlas-t">
@@ -1336,6 +1347,7 @@
       <li><span class="when">2022</span><span><span class="flag" aria-hidden="true">🇰🇾</span>Vissza a Kajmán-szigetekre</span></li>
       <li><span class="when">2026</span><span><span class="flag" aria-hidden="true">🇭🇺</span>Budapest</span></li>
     </ol>
+    </div>
   </section>
 
   <section class="story" aria-labelledby="been-h">
@@ -1979,7 +1991,7 @@
       if (was === i) return;
       cur = i; var c = COLORS[i], m = MAP[i];
       lis[i].classList.add("on"); lis[i].setAttribute("aria-pressed", "true"); lis[i].style.setProperty("--c", c);
-      fig.classList.add("focus");
+      fig.classList.add("focus"); fig.style.setProperty("--c", c);
       places.forEach(function (p) { p.style.setProperty("--c", c); });
       m[1].forEach(function (k) { if (places[k]) places[k].classList.add("hot"); });
       if (m[0] >= 0) {
@@ -1987,7 +1999,6 @@
         a.style.setProperty("--len", len); a.style.stroke = c; a.setAttribute("marker-end", "url(#" + marker(i) + ")"); a.classList.add("hot");
       }
       if (m[0] >= 0) { fly(arcs[m[0]], c); jet(); }
-      fig.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
     var ac = null;
     function jet() {
@@ -2011,7 +2022,7 @@
     var plane = null, raf = 0;
     function fly(path, c) {
       var NS = "http://www.w3.org/2000/svg";
-      if (!plane) { plane = document.createElementNS(NS, "text"); plane.setAttribute("font-size", "9"); plane.setAttribute("text-anchor", "middle"); plane.setAttribute("dominant-baseline", "central"); plane.textContent = "\u2708"; svg.appendChild(plane); }
+      if (!plane) { plane = document.createElementNS(NS, "text"); plane.setAttribute("font-size", "13"); plane.style.stroke = "#fff"; plane.style.strokeWidth = "0.6px"; plane.style.paintOrder = "stroke"; plane.style.filter = "drop-shadow(0 0 2px rgba(0,0,0,.45))"; plane.setAttribute("text-anchor", "middle"); plane.setAttribute("dominant-baseline", "central"); plane.textContent = "\u2708"; svg.appendChild(plane); }
       cancelAnimationFrame(raf); plane.style.display = ""; plane.style.fill = c;
       var len = path.getTotalLength(), t0 = null, dur = 900;
       function step(ts) {
