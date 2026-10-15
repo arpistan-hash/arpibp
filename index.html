@@ -1943,14 +1943,16 @@
       <h2 id="gb-h">Guest book</h2>
     </div>
     <p>Sign it and leave me a message. Your name and message are visible to everyone. Your email stays private: only I can see it.</p>
-    <form class="gb-form" id="gb-form" novalidate>
+    <form class="gb-form" id="gb-form" name="guestbook" method="post" action="/" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+      <input type="hidden" name="form-name" value="guestbook">
+      <p class="gb-hp" hidden><label>Do not fill this in: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
       <label>Your name<input id="gb-name" name="name" maxlength="60" autocomplete="name" required></label>
-      <label>Your email<input id="gb-email" name="email" type="email" maxlength="120" autocomplete="email" required></label>
+      <label>Your email (optional)<input id="gb-email" name="email" type="email" maxlength="120" autocomplete="email"></label>
       <label>Your message<textarea id="gb-msg" name="msg" maxlength="600" rows="4" required></textarea></label>
       <button type="submit" class="gb-send" id="gb-send">Sign the guest book</button>
       <p class="gb-status" id="gb-status" role="status" aria-live="polite"></p>
     </form>
-    <p class="gb-privacy">Your name and message are public. Your email is visible only to me and is used only to reply to you; I won't share it or use it for anything else. To have a message removed, just ask me.</p>
+    <p class="gb-privacy">Your name and message are public. Your email is optional, visible only to me, and used only to reply to you; I won't share it or use it for anything else. To have a message removed, just ask me.</p>
     <ol class="gb-list" id="gb-list" aria-label="Guest book messages"></ol>
     <p class="gb-empty" id="gb-empty">Loading the guest book...</p>
   </section>
@@ -2260,8 +2262,15 @@
   // Guest book: public name + message, private email (owner-only).
   (function () {
     var form = document.getElementById("gb-form"), list = document.getElementById("gb-list"), empty = document.getElementById("gb-empty"), status = document.getElementById("gb-status"), send = document.getElementById("gb-send");
-    var WA = "36202239524", db = null, uid = null, owner = false, canWrite = true, entries = [], emails = {};
-    function fallback() { canWrite = false; send.textContent = "Send it to me on WhatsApp"; }
+    var WA = "36202239524", db = null, uid = null, owner = false, canWrite = true, entries = [], emails = {}, siteState = "idle";
+    function loadSite() {
+      if (siteState !== "idle") return; siteState = "loading";
+      fetch("/.netlify/functions/guestbook", { headers: { accept: "application/json" } })
+        .then(function (r) { if (!r.ok) throw new Error("bad"); return r.json(); })
+        .then(function (d) { entries = ((d && d.entries) || []).map(function (x, i) { return { id: "s" + i, name: String(x.name || "").slice(0, 60), msg: String(x.msg || "").slice(0, 600), ts: x.ts }; }); siteState = "ready"; render(); })
+        .catch(function () { siteState = "ready"; render(); });
+    }
+    function fallback() { canWrite = false; if (!db) loadSite(); }
     function fmt(ts) { try { return new Date(ts).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }); } catch (e) { return ""; } }
     function render() {
       list.textContent = "";
@@ -2280,15 +2289,31 @@
         list.appendChild(li);
       });
       empty.hidden = entries.length > 0;
-      if (!entries.length) empty.textContent = db ? "No signatures yet. Be the first!" : "Messages show up here when you open this page signed in to Claude.";
+      if (!entries.length) empty.textContent = (db || siteState === "ready") ? "No messages yet. Be the first to sign!" : "Loading the guest book...";
     }
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
-      var name = form.name.value.trim(), email = form.email.value.trim(), msg = form.msg.value.trim();
-      if (!name || !msg || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { status.textContent = "Please fill in your name, a valid email and a message."; return; }
-      if (!db || !uid || !canWrite) {
-        window.open("https://wa.me/" + WA + "?text=" + encodeURIComponent("Guest book from " + name + " (" + email + "):\n" + msg), "_blank", "noopener");
-        status.textContent = "Opening WhatsApp. Thanks!"; return;
+      var name = form.name.value.trim(), email = form.email.value.trim(), msg = form.msg.value.trim(), viaDb = !!(db && uid && canWrite), okMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!name || !msg || (email ? !okMail : viaDb)) { status.textContent = viaDb ? "Please fill in your name, a valid email and a message." : "Please fill in your name and a message (a valid email is optional)."; return; }
+      if (!viaDb) {
+        if (form["bot-field"] && form["bot-field"].value) return;
+        var last = 0; try { last = +localStorage.getItem("gb-last") || 0; } catch (e) {}
+        if (Date.now() - last < 30000) { status.textContent = "Thanks! Please wait a few seconds before sending another message."; return; }
+        send.disabled = true; status.textContent = "Signing...";
+        var body = new URLSearchParams({ "form-name": "guestbook", name: name, email: email, msg: msg, "bot-field": "" }).toString();
+        fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: body })
+          .then(function (r) {
+            if (!r.ok) throw new Error("bad");
+            try { localStorage.setItem("gb-last", String(Date.now())); } catch (e) {}
+            entries.unshift({ id: "me" + Date.now(), name: name, msg: msg, ts: Date.now() }); render();
+            status.textContent = "Thank you for signing, " + name + "!"; form.msg.value = "";
+          })
+          .catch(function () {
+            window.open("https://wa.me/" + WA + "?text=" + encodeURIComponent("Guest book from " + name + (email ? " (" + email + ")" : "") + ":\n" + msg), "_blank", "noopener");
+            status.textContent = "That didn't go through, so I opened WhatsApp for you instead.";
+          })
+          .then(function () { send.disabled = false; });
+        return;
       }
       send.disabled = true; status.textContent = "Signing...";
       var ts = Date.now();
