@@ -670,8 +670,11 @@
   }
   a.quiet-link { color: inherit; text-decoration: none; cursor: pointer; }
   a.quiet-link:hover, a.quiet-link:focus-visible { text-decoration: underline dotted; text-underline-offset: 3px; }
+  .skip { position: absolute; left: 8px; top: -60px; z-index: 100; padding: 8px 14px; border-radius: 8px; background: var(--fg); color: var(--bg); font-weight: 700; text-decoration: none; }
+  .skip:focus { top: 8px; }
 </style>
 
+<a class="skip" href="#tips-h">Ugrás a tartalomhoz</a>
 <main>
   <figure class="scene">
     <svg viewBox="0 0 600 420" role="img" aria-labelledby="scene-t">
