@@ -562,9 +562,9 @@
   .moves-wrap .moves li { padding: 6px 0; gap: 10px; font-size: 15px; line-height: 1.35; }
   .moves-wrap .moves li.on { padding-left: 10px; }
   .moves-wrap .moves .when { font-size: 12px; }
-  .atlas.focus .arc { opacity: .12; }
-  .atlas.focus .arc.hot { stroke-width: 5; filter: drop-shadow(0 0 3px var(--c, currentColor)) drop-shadow(0 0 7px var(--c, currentColor)); animation: arcdraw .9s ease forwards, arcglow 1.6s ease-in-out .9s infinite; }
-  @keyframes arcglow { 0%, 100% { filter: drop-shadow(0 0 3px var(--c, currentColor)) drop-shadow(0 0 6px var(--c, currentColor)); } 50% { filter: drop-shadow(0 0 5px var(--c, currentColor)) drop-shadow(0 0 12px var(--c, currentColor)); } }
+  .atlas.focus .arc { opacity: .07; }
+  .atlas.focus .arc.hot { stroke-width: 6.5; filter: drop-shadow(0 0 3px var(--c, currentColor)) drop-shadow(0 0 8px var(--c, currentColor)) drop-shadow(0 0 14px var(--c, currentColor)); animation: arcdraw .9s ease forwards, arcglow 1.6s ease-in-out .9s infinite; }
+  @keyframes arcglow { 0%, 100% { filter: drop-shadow(0 0 3px var(--c, currentColor)) drop-shadow(0 0 8px var(--c, currentColor)) drop-shadow(0 0 12px var(--c, currentColor)); } 50% { filter: drop-shadow(0 0 6px var(--c, currentColor)) drop-shadow(0 0 16px var(--c, currentColor)) drop-shadow(0 0 26px var(--c, currentColor)); } }
   @media (prefers-reduced-motion: reduce) { .atlas.focus .arc.hot { animation: none; } }
   .chap-art .ln, .chap-art .ln2, .chap-art .ln3, .chap-art .dash { fill: none; stroke: var(--fg); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
   .chap-art .ln2 { stroke-width: 2; }
@@ -2022,7 +2022,7 @@
     var plane = null, raf = 0;
     function fly(path, c) {
       var NS = "http://www.w3.org/2000/svg";
-      if (!plane) { plane = document.createElementNS(NS, "text"); plane.setAttribute("font-size", "13"); plane.style.stroke = "#fff"; plane.style.strokeWidth = "0.6px"; plane.style.paintOrder = "stroke"; plane.style.filter = "drop-shadow(0 0 2px rgba(0,0,0,.45))"; plane.setAttribute("text-anchor", "middle"); plane.setAttribute("dominant-baseline", "central"); plane.textContent = "\u2708"; svg.appendChild(plane); }
+      if (!plane) { plane = document.createElementNS(NS, "text"); plane.setAttribute("font-size", "17"); plane.style.stroke = "#fff"; plane.style.strokeWidth = "0.6px"; plane.style.paintOrder = "stroke"; plane.style.filter = "drop-shadow(0 0 2px rgba(0,0,0,.45))"; plane.setAttribute("text-anchor", "middle"); plane.setAttribute("dominant-baseline", "central"); plane.textContent = "\u2708"; svg.appendChild(plane); }
       cancelAnimationFrame(raf); plane.style.display = ""; plane.style.fill = c;
       var len = path.getTotalLength(), t0 = null, dur = 900;
       function step(ts) {
