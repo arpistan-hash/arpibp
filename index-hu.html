@@ -10,7 +10,7 @@
 <title>Arpi-RP-Arpy-Arpee</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Instrument+Sans:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Instrument+Sans:wght@400;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
 <style>
   /* Layout: one narrow column. Name and Budapest clock on top, three contact rows below, WhatsApp as the primary action. */
   :root {
@@ -609,6 +609,21 @@
   .gb-list .mail { font-family: var(--font-mono); font-size: 12px; color: var(--p2); margin-top: 6px; overflow-wrap: anywhere; }
   .gb-list .del { margin-top: 6px; font: inherit; font-size: 12px; background: none; border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; color: var(--muted); cursor: pointer; }
   .gb-empty { margin: 0; color: var(--muted); font-style: italic; }
+
+  /* Editorial layer: a serif reading face, pull-quote hooks, drop caps and calmer spacing */
+  :root { --font-serif: "Newsreader", Georgia, "Times New Roman", serif; }
+  .chapter p, .story > p, .welcome p { font-family: var(--font-serif); font-size: 19px; line-height: 1.7; letter-spacing: 0.002em; color: color-mix(in srgb, var(--fg) 92%, var(--bg)); max-width: 60ch; }
+  .chapter p.chap-k { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; }
+  .chapter .chap-hook { font-family: var(--font-serif); font-style: italic; font-size: clamp(21px, 5.6vw, 25px); line-height: 1.32; color: color-mix(in srgb, var(--chap) 78%, var(--fg)); max-width: 30ch; position: relative; padding-left: 0; }
+  .chapter .chap-hook::before { content: "\201C"; font-family: var(--font-display); font-style: normal; font-weight: 800; font-size: 2.4em; line-height: 0; position: relative; top: .32em; margin-right: .08em; opacity: .55; }
+  .chapter h3 { font-size: clamp(27px, 7.4vw, 34px); line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; }
+  .chapter { gap: 16px; padding-block: 26px; }
+  .chapter > .chap-hook + p::first-letter { font-family: var(--font-display); font-weight: 800; float: left; font-size: 3.5em; line-height: .84; padding: .05em .1em 0 0; color: var(--chap); }
+  .chapter .item > p, .chapter .item.callout > p { font-size: 18px; line-height: 1.62; }
+  .chapter figcaption, .photo figcaption { font-family: var(--font-serif); font-style: italic; font-size: 15px; letter-spacing: 0; }
+  .welcome h2 { letter-spacing: -0.02em; }
+  ::selection { background: var(--sun); color: #1a1300; }
+  .chapter > .chap-hook + p.nodrop::first-letter { float: none; font: inherit; padding: 0; color: inherit; }
 </style>
 
 <main>
@@ -2087,6 +2102,13 @@
       top.classList.toggle("show", y > 1200);
     }
     window.addEventListener("scroll", upd, { passive: true }); window.addEventListener("resize", upd); upd();
+  })();
+</script>
+<script>
+  (function () {
+    document.querySelectorAll(".chapter > .chap-hook + p").forEach(function (p) {
+      if (/^I\s/.test(p.textContent.trim())) p.classList.add("nodrop");
+    });
   })();
 </script>
 </body>
