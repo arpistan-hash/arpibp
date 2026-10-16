@@ -18,7 +18,16 @@
         '<button type="button" data-say="Please come over 🙋">🙋 Please come over</button>' +
         '<button type="button" data-say="Another round, please 🍻">🍻 Another round</button>' +
         '<button type="button" data-say="Some water, please 💧">💧 Water</button>' +
-        '<button type="button" data-say="The bill, please 🧾">🧾 The bill</button>' +
+        '<button type="button" data-bill aria-expanded="false">🧾 The bill</button>' +
+      '</div>' +
+      '<div class="tbl-pay" hidden>' +
+        '<p>How would you like to pay?</p>' +
+        '<div class="opts">' +
+          '<button type="button" data-pay="card">💳 Card</button>' +
+          '<button type="button" data-pay="room">🏨 Charge to my room</button>' +
+          '<button type="button" data-pay="cash">💵 Cash</button>' +
+        '</div>' +
+        '<div class="room" hidden><label><span>Room number</span><input name="room" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="e.g. 214"></label><button type="button" class="room-ok">Add</button></div>' +
       '</div>' +
       '<div class="tbl-menu" hidden></div>' +
       '<label class="tbl-note"><span>Anything else? Just write it</span><textarea name="msg" maxlength="600" rows="2" placeholder="Two more glasses of the Tokaji, please!"></textarea></label>' +
@@ -74,7 +83,24 @@
     }
     if (fromUrl || saved) table.value = fromUrl || saved;
 
-    form.querySelectorAll(".tbl-quick button").forEach(function (b) {
+    function say(t) { msg.value = msg.value.trim() ? msg.value.trim() + "\n" + t : t; }
+    // The bill: card, charge to room (with room number) or cash.
+    var pay = form.querySelector(".tbl-pay"), billBtn = form.querySelector("[data-bill]"), roomBox = pay.querySelector(".room"), room = pay.querySelector("[name=room]");
+    billBtn.addEventListener("click", function () {
+      pay.hidden = !pay.hidden; billBtn.setAttribute("aria-expanded", String(!pay.hidden)); roomBox.hidden = true;
+    });
+    function billDone(t) { say(t); pay.hidden = true; roomBox.hidden = true; billBtn.setAttribute("aria-expanded", "false"); msg.focus(); }
+    pay.querySelectorAll("[data-pay]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var k = b.getAttribute("data-pay");
+        if (k === "room") { roomBox.hidden = false; room.focus(); return; }
+        billDone(k === "card" ? "🧾 The bill, please. Paying by card 💳" : "🧾 The bill, please. Paying cash 💵");
+      });
+    });
+    function roomDone() { var r = room.value.trim(); if (!r) { room.focus(); return; } billDone("🧾 The bill, please. Charge it to room " + r + " 🏨"); room.value = ""; }
+    pay.querySelector(".room-ok").addEventListener("click", roomDone);
+    room.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); roomDone(); } });
+    form.querySelectorAll(".tbl-quick button[data-say]").forEach(function (b) {
       b.addEventListener("click", function () {
         var t = b.getAttribute("data-say") || b.textContent.trim();
         msg.value = msg.value.trim() ? msg.value.trim() + "\n" + t : t;
