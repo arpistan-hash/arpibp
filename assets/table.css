@@ -115,3 +115,15 @@
 
 .confetti { position: fixed; z-index: 90; pointer-events: none; font-size: 26px; animation: tbl-confetti 1.6s cubic-bezier(.2, .7, .3, 1) forwards; }
 @keyframes tbl-confetti { 0% { transform: translate(0, 0) rotate(0); opacity: 1; } 100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); opacity: 0; } }
+
+/* The bill: how would you like to pay? */
+.tbl-pay { padding: 14px; border: 2px solid var(--ink, #1b1f3b); border-radius: 16px; background: color-mix(in srgb, #2f6fed 10%, var(--card, #fff)); display: flex; flex-direction: column; gap: 10px; }
+.tbl-pay p { margin: 0; font-weight: 800; }
+.tbl-pay .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.tbl-pay button { font: inherit; font-weight: 700; font-size: 17px; padding: 10px 14px; border: 2px solid var(--ink, #1b1f3b); border-radius: 14px; background: var(--card, #fff); color: var(--ink, #1b1f3b); cursor: pointer; box-shadow: 2px 2px 0 var(--ink, #1b1f3b); }
+.tbl-pay .room { display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap; }
+.tbl-pay .room[hidden] { display: none; }
+.tbl-pay .room label { display: flex; flex-direction: column; gap: 4px; font-weight: 700; flex: 1; min-width: 140px; }
+.tbl-pay .room input { font: inherit; font-size: 18px; padding: 10px 12px; border: 2px solid var(--ink, #1b1f3b); border-radius: 12px; background: var(--card, #fff); color: var(--ink, #1b1f3b); }
+.tbl-pay .room-ok { background: var(--p7, #f5a623); }
+.tbl-pay[hidden] { display: none; }
