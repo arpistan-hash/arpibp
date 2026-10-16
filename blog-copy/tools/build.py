@@ -309,7 +309,7 @@ home = head(SITE_TITLE, SITE_DESC, 0) + f"""<main id="main">
   <a class="live" href="table.html">
     <span class="live-dot" aria-hidden="true"></span>
     <b>LIVE SERVER</b>
-    <span><span class="long">At one of my tables? </span>Order here</span>
+    <span><span class="long">At one of my tables? </span><span class="short">At my table? </span>Order here</span>
     <span class="arrow" aria-hidden="true">&rarr;</span>
   </a>
 
