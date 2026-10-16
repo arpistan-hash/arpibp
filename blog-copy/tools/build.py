@@ -428,7 +428,7 @@ for f in ("table.html", "tables-qr.html", "inbox.html", "inbox-sw.js", "inbox.we
 # The order pad follows the light/dark choice saved on the blog, not only the phone's setting.
 tp = OUT / "table.html"
 tp.write_text(tp.read_text(encoding="utf-8").replace("</head>", THEME_JS + "\n</head>", 1), encoding="utf-8")
-for f in ("table.js", "table.css", "menu.js"):
+for f in ("table.js", "table.css", "menu.js", "inbox.js", "inbox.css"):
     shutil.copy(ROOT / "assets" / f, OUT / "assets" / f)
 with open(OUT / "assets" / "table.css", "a", encoding="utf-8") as fh:
     fh.write("\n/* blog copy: no text smaller than 16px */\n.tbl-kicker { font-size: 16px; }\n"
