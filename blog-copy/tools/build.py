@@ -266,6 +266,19 @@ def head(title, desc, depth, theme_color="#fff3dc", body_style="", extra_head=""
 """
 
 
+def reach(title, cls=""):
+    """Contact band (WhatsApp, travel fund, email), repeated down every page so nobody has to scroll for it."""
+    digits = re.sub(r"\D", "", WHATSAPP)
+    return f"""<aside class="reach{' ' + cls if cls else ''}" aria-label="Contact and travel fund">
+  <p class="reach-t">{title}</p>
+  <div class="links">
+    <a class="btn primary" href="https://wa.me/{digits}" target="_blank" rel="noopener">{ICON_WA} WhatsApp</a>
+    <a class="btn" href="{TRAVEL_FUND}" target="_blank" rel="noopener">{ICON_FUND} Arpi + Tobi travel fund</a>
+    <a class="btn" href="mailto:{EMAIL}">{ICON_MAIL} Email</a>
+  </div>
+</aside>"""
+
+
 def foot(depth, extra_js=""):
     up = "../" * depth
     digits = re.sub(r"\D", "", WHATSAPP)
@@ -317,6 +330,8 @@ home = head(SITE_TITLE, SITE_DESC, 0) + f"""<main id="main">
     <span class="arrow" aria-hidden="true">&rarr;</span>
   </a>
 
+  {reach("Say hi, or chip in for Tobi's and my next trip")}
+
   <ul class="doors">
     <li style="--chap:var(--m-calm);--tint:var(--m-calm-bg)"><a href="#tips">
       <svg viewBox="0 0 120 90" aria-hidden="true"><rect x="8" y="58" width="104" height="22" rx="4" style="fill:var(--m-joy);stroke:var(--ink);stroke-width:3px"/><rect x="48" y="30" width="24" height="28" style="fill:var(--m-joy);stroke:var(--ink);stroke-width:3px"/><path d="M48 30 Q60 6 72 30Z" style="fill:var(--m-excited);stroke:var(--ink);stroke-width:3px"/><path d="M20 58 V40 L26 30 L32 40 V58 M88 58 V40 L94 30 L100 40 V58" style="fill:var(--m-joy);stroke:var(--ink);stroke-width:3px"/><path d="M0 84 H120" style="stroke:var(--m-calm);stroke-width:6px"/></svg>
@@ -337,6 +352,8 @@ home = head(SITE_TITLE, SITE_DESC, 0) + f"""<main id="main">
     </ul>
   </section>
 
+  {reach("Questions about Budapest? Message me")}
+
   <section id="story" aria-labelledby="story-h">
     <div class="sec-h"><h2 id="story-h">My life in a (coco)nutshell</h2><span class="meta">{sum(p["topic"] != "tips" for p in posts)} posts</span></div>
     <ul class="grid">
@@ -351,6 +368,8 @@ home = head(SITE_TITLE, SITE_DESC, 0) + f"""<main id="main">
       {"".join(f"<p>{p}</p>" for p in about_ps)}
     </div>
   </section>
+
+  {reach("Every coin buys Tobi and me one more passport stamp")}
 
   <section class="guestbook" id="guestbook" aria-labelledby="gb-h">
     <div class="sec-h"><h2 id="gb-h">Guest book</h2></div>
@@ -394,6 +413,7 @@ for i, p in enumerate(posts):
     <h1>{p['title']}</h1>
     {f'<p class="sub">{p["hook"]}</p>' if p['hook'] else ''}
     <div class="byline"><span class="ava">{AVATAR}</span><span><b>{NAME}</b><span class="meta">{p['mins']} min read · {MOOD_WORD[MOODS.get(p['id'], 'joy')]}</span></span></div>
+    {reach("Questions? Message me", "slim")}
   </div>
   <div class="cover"><div class="frame">{p['art']}</div></div>
   <div class="wrap">
@@ -405,6 +425,7 @@ for i, p in enumerate(posts):
       <p>Enjoyed this? Leave me a note.</p>
       <a class="btn primary" href="../index.html#guestbook">Sign the guest book</a>
     </div>
+    {reach("Liked it? Say hi, or chip in for Tobi's and my next trip")}
     {pager}
   </div>
 </article>
