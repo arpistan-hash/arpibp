@@ -980,6 +980,16 @@
   .music .chapter:nth-of-type(4n+2) { --chap: var(--p2); } .music .chapter:nth-of-type(4n+3) { --chap: var(--p1); } .music .chapter:nth-of-type(4n+4) { --chap: var(--p7); }
   .tunes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 18px; }
   @media (min-width: 640px) { .tunes { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 639px) {
+    .tunes { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; padding: 22px 4px 18px; margin: 0 -4px; scrollbar-width: none; }
+    .tunes::-webkit-scrollbar { display: none; }
+    .tune { flex: 0 0 86%; scroll-snap-align: center; }
+    .tunes-hint { display: flex; }
+  }
+  .tunes-hint { display: none; align-items: center; gap: 8px; margin: -6px 0 0; font-size: 15px; font-weight: 700; color: var(--muted); }
+  .tunes-dots { display: flex; gap: 6px; margin-left: auto; }
+  .tunes-dots i { width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--ink); background: transparent; transition: background .2s; }
+  .tunes-dots i.on { background: var(--ink); }
   .tune { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 18px 18px 16px; border: 2.5px solid var(--ink); border-radius: 22px; background: color-mix(in srgb, var(--c) 18%, var(--card)); box-shadow: 6px 6px 0 var(--shade); transition: transform .18s ease, box-shadow .18s ease; }
   .tune:nth-child(odd) { transform: rotate(-.6deg); } .tune:nth-child(even) { transform: rotate(.6deg); }
   .tune:hover { transform: translate(-2px, -3px) rotate(0); box-shadow: 9px 9px 0 var(--shade); }
@@ -1040,6 +1050,27 @@
   /* ===== Confetti (guest book and table messages) ===== */
   .confetti { position: fixed; z-index: 90; pointer-events: none; font-size: 26px; will-change: transform, opacity; animation: confetti 1.6s cubic-bezier(.2, .7, .3, 1) forwards; }
   @keyframes confetti { 0% { transform: translate(0, 0) rotate(0); opacity: 1; } 100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); opacity: 0; } }
+
+  /* ===== Story mode: tracker, read marks, next chapter ===== */
+  .story-track { display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; border: 2.5px solid var(--ink); border-radius: 20px; background: color-mix(in srgb, var(--p2) 14%, var(--card)); box-shadow: 5px 5px 0 var(--shade); }
+  .story-track p { margin: 0; }
+  .st-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .st-l { font-family: var(--font-mono); font-size: 13.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+  .st-n { font-family: var(--font-display); font-weight: 800; font-size: 26px; line-height: 1; }
+  .st-dots { display: grid; grid-template-columns: repeat(auto-fill, minmax(34px, 1fr)); gap: 6px; }
+  .st-dot { display: grid; place-items: center; height: 34px; border-radius: 10px; border: 2px solid var(--ink); background: var(--card); color: var(--fg); font-family: var(--font-display); font-weight: 800; font-size: 15px; text-decoration: none; transition: transform .15s ease, background .3s ease; }
+  .st-dot:hover { transform: translateY(-2px) rotate(-4deg); }
+  .st-dot.on { background: var(--p7); color: #1b1f3b; box-shadow: 2px 2px 0 var(--shade); }
+  .st-msg { font-size: 16px; font-weight: 600; }
+  .chapnav a.is-read::after { content: " \2713"; font-weight: 800; }
+  .chapter.is-read > .chap-k::after { content: "  \2713 read"; }
+  .next-ch { display: flex; align-items: center; gap: 12px; margin-top: 22px; padding: 12px 16px; text-decoration: none; color: var(--fg); background: var(--card); border: 2.5px solid var(--ink); border-radius: 16px; box-shadow: 4px 4px 0 var(--shade); transition: transform .15s ease, box-shadow .15s ease; }
+  .next-ch:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--shade); }
+  .next-ch small { flex: none; font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .next-ch b { flex: 1; min-width: 0; font-family: var(--font-display); font-weight: 800; font-size: 18px; line-height: 1.2; }
+  .next-ch i { flex: none; font-style: normal; font-weight: 800; font-size: 22px; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: var(--p7); color: #1b1f3b; border: 2px solid var(--ink); }
+  .chapter.folded > .next-ch { display: none; }
+  @media (max-width: 480px) { .next-ch small { display: none; } }
 </style>
 </head>
 <body>
@@ -1526,6 +1557,7 @@
         <a class="listen" href="https://www.youtube.com/results?search_query=Bartok+Concerto+for+Orchestra+Interrupted+Intermezzo" target="_blank" rel="noopener">▶ Listen</a>
       </li>
     </ul>
+    <p class="tunes-hint" aria-hidden="true"><span>Swipe for more →</span><span class="tunes-dots"></span></p>
 
     <h3 class="tipgroup" id="music-facts">Fun facts</h3>
     <div class="chapter" id="music1">
@@ -2867,33 +2899,139 @@
 </script>
 <!-- Updated automatically from the ccr-55fadb15-0mw2fx branch -->
 <script>
-  // Easier reading: long cards show their start, with a "Keep reading" button for the rest.
+  // Easier reading: long cards show a short teaser with a "Keep reading" button. Story chapters get
+  // reading times, a "chapters read" tracker and a "Next chapter" button, so the story reads like a series.
   (function () {
-    var hu = (document.documentElement.lang || "").indexOf("hu") === 0;
-    var MORE = hu ? "Tovább olvasom ↓" : "Keep reading ↓", LESS = hu ? "Összecsukom ↑" : "Fold it back ↑";
-    var cards = [];
-    function fold(c, b) { c.classList.add("folded"); b.textContent = MORE; b.setAttribute("aria-expanded", "false"); }
-    function unfold(c, b) { c.classList.remove("folded"); c.classList.add("unfolding"); b.textContent = LESS; b.setAttribute("aria-expanded", "true"); setTimeout(function () { c.classList.remove("unfolding"); }, 500); }
+    var hu = (document.documentElement.lang || "").indexOf("hu") === 0, KEY = "arpi-read";
+    var LESS = hu ? "Összecsukom ↑" : "Fold it back ↑";
+    var cards = [], chapters = [], read = {};
+    try { read = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) {}
+    function mins(c) { var w = (c.textContent || "").trim().split(/\s+/).length; return Math.max(1, Math.round(w / 220)); }
+    function label(c) {
+      var m = mins(c) + " min";
+      if (c.__ch) return (hu ? "📖 Olvasd el a " + c.__ch.n + ". fejezetet · " : "📖 Read chapter " + c.__ch.n + " · ") + m + " ↓";
+      return (hu ? "Tovább olvasom · " : "Keep reading · ") + m + " ↓";
+    }
+    function fold(c, b) { c.classList.add("folded"); b.textContent = label(c); b.setAttribute("aria-expanded", "false"); }
+    function unfold(c, b) {
+      c.classList.remove("folded"); c.classList.add("unfolding"); b.textContent = LESS; b.setAttribute("aria-expanded", "true");
+      setTimeout(function () { c.classList.remove("unfolding"); }, 500);
+      if (c.__ch) markRead(c.id);
+    }
+    function teaserHeight(c, fallback) {
+      // End the teaser after the first real paragraph, so every chapter opens with art, title, hook and one paragraph.
+      var first = c.querySelector(":scope > p:not(.chap-k):not(.chap-hook), :scope > .item");
+      if (!first) return fallback;
+      var h = first.offsetTop + Math.min(first.offsetHeight, 200) + 96;
+      return Math.round(Math.max(380, Math.min(fallback, h)));
+    }
+
+    // ---- "Chapters read" tracker ----
+    var tracker = null;
+    function markRead(id) {
+      if (read[id]) return; read[id] = 1;
+      try { localStorage.setItem(KEY, JSON.stringify(read)); } catch (e) {}
+      paint(true);
+    }
+    function paint(fresh) {
+      if (!tracker) return;
+      var n = 0;
+      chapters.forEach(function (c) {
+        var done = !!read[c.el.id]; if (done) n++;
+        c.dot.classList.toggle("on", done);
+        c.el.classList.toggle("is-read", done);
+        if (c.chip) c.chip.classList.toggle("is-read", done);
+      });
+      var all = n === chapters.length;
+      tracker.querySelector(".st-n").textContent = n + " / " + chapters.length;
+      tracker.querySelector(".st-msg").textContent = all
+        ? (hu ? "Mindet elolvastad! Most már jobban ismersz, mint a szomszédaim. 🎉" : "You read them all! You now know me better than my neighbors do. 🎉")
+        : n ? (hu ? "Szép! Folytasd ott, ahol abbahagytad." : "Nice! Pick up where you left off.")
+        : (hu ? "Koppints egy fejezetre, és kezdd el. Kicsi falatok." : "Tap a chapter to start. They're bite-sized.");
+      if (fresh && all && window.arpiConfetti) { var r = tracker.getBoundingClientRect(); window.arpiConfetti(r.left + r.width / 2, Math.max(80, r.top)); }
+    }
+    function buildTracker() {
+      var story = document.getElementById("story-h"); if (!story) return;
+      var sec = story.closest("section"); if (!sec) return;
+      sec.querySelectorAll(".chapter[id^=ch]").forEach(function (el) {
+        var n = el.id.replace("ch", ""); if (!/^\d+$/.test(n)) return;
+        var h = el.querySelector("h3");
+        el.__ch = { n: n };
+        chapters.push({ el: el, n: n, title: h ? h.textContent.trim() : "", chip: sec.querySelector('.chapnav a[href="#' + el.id + '"]') });
+      });
+      if (!chapters.length) return;
+      tracker = document.createElement("div"); tracker.className = "story-track";
+      tracker.innerHTML = '<p class="st-top"><span class="st-l">' + (hu ? "Elolvasott fejezetek" : "Chapters read") + '</span><b class="st-n"></b></p><div class="st-dots"></div><p class="st-msg" aria-live="polite"></p>';
+      var dots = tracker.querySelector(".st-dots");
+      chapters.forEach(function (c) {
+        var a = document.createElement("a"); a.href = "#" + c.el.id; a.className = "st-dot"; a.title = c.n + ". " + c.title;
+        a.setAttribute("aria-label", (hu ? "Fejezet " : "Chapter ") + c.n + ": " + c.title);
+        a.textContent = c.n; dots.appendChild(a); c.dot = a;
+      });
+      var nav = sec.querySelector(".chapnav");
+      if (nav) nav.insertAdjacentElement("afterend", tracker); else story.insertAdjacentElement("afterend", tracker);
+    }
+
     function setup() {
-      var limit = Math.max(900, window.innerHeight * 1.3), keep = Math.round(Math.max(560, Math.min(780, window.innerHeight * 0.95)));
+      buildTracker();
+      var keep = Math.round(Math.max(560, Math.min(780, window.innerHeight * 0.95)));
       document.querySelectorAll(".story .chapter").forEach(function (c) {
-        if (c.querySelector(":scope > .more") || c.scrollHeight < limit) return;
+        if (c.querySelector(":scope > .more")) return;
+        var isCh = !!c.__ch;
+        if (c.scrollHeight < 760) return;
         var b = document.createElement("button"); b.type = "button"; b.className = "more";
         b.addEventListener("click", function () {
           if (c.classList.contains("folded")) unfold(c, b);
           else { fold(c, b); var top = c.getBoundingClientRect().top; if (top < 0) window.scrollBy({ top: top - 90, behavior: "instant" }); }
         });
-        c.style.setProperty("--fold", keep + "px"); c.appendChild(b); fold(c, b); cards.push([c, b]);
+        c.style.setProperty("--fold", teaserHeight(c, keep) + "px"); c.appendChild(b); fold(c, b); cards.push([c, b]);
       });
+      // "Next chapter" at the end of each opened chapter.
+      chapters.forEach(function (c, i) {
+        var nx = chapters[i + 1]; if (!nx) return;
+        var a = document.createElement("a"); a.className = "next-ch"; a.href = "#" + nx.el.id;
+        a.innerHTML = '<small>' + (hu ? "Következő fejezet" : "Next chapter") + '</small><b></b><i aria-hidden="true">→</i>';
+        a.querySelector("b").textContent = nx.n + ". " + nx.title;
+        a.addEventListener("click", function (e) {
+          e.preventDefault();
+          var p = cards.filter(function (x) { return x[0] === nx.el; })[0];
+          if (p && p[0].classList.contains("folded")) unfold(p[0], p[1]); else markRead(nx.el.id);
+          window.scrollTo({ top: nx.el.getBoundingClientRect().top + window.scrollY - 80, behavior: "smooth" });
+          if (history.replaceState) history.replaceState(null, "", "#" + nx.el.id);
+        });
+        var more = c.el.querySelector(":scope > .more");
+        c.el.insertBefore(a, more || null);
+      });
+      // A short chapter that never folds counts as read once it has been on screen.
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting && !x.target.classList.contains("folded")) { markRead(x.target.id); io.unobserve(x.target); } }); }, { threshold: 0.6 });
+        chapters.forEach(function (c) { if (!c.el.querySelector(":scope > .more")) io.observe(c.el); });
+      }
+      paint(false);
     }
     function reveal() {
       var id = decodeURIComponent((location.hash || "").slice(1)); if (!id) return;
       var t = document.getElementById(id); if (!t) return;
-      cards.forEach(function (p) { if (p[0] !== t && p[0].contains(t) && p[0].classList.contains("folded")) { unfold(p[0], p[1]); t.scrollIntoView(); } });
+      cards.forEach(function (p) {
+        if (p[0].contains(t) && p[0].classList.contains("folded") && (p[0] !== t || p[0].__ch)) { unfold(p[0], p[1]); t.scrollIntoView(); }
+      });
     }
     function go() { setup(); reveal(); }
     if (document.readyState === "complete") go(); else window.addEventListener("load", go);
     window.addEventListener("hashchange", reveal);
+  })();
+
+  // Swipe dots for the "You already know these" cards on phones.
+  (function () {
+    var ul = document.querySelector(".tunes"), dots = document.querySelector(".tunes-dots"); if (!ul || !dots) return;
+    var items = ul.querySelectorAll(".tune");
+    items.forEach(function () { dots.appendChild(document.createElement("i")); });
+    function mark() {
+      var mid = ul.getBoundingClientRect().left + ul.clientWidth / 2, best = 0, bd = 1e9;
+      items.forEach(function (it, i) { var r = it.getBoundingClientRect(), d = Math.abs(r.left + r.width / 2 - mid); if (d < bd) { bd = d; best = i; } });
+      dots.querySelectorAll("i").forEach(function (d, i) { d.classList.toggle("on", i === best); });
+    }
+    ul.addEventListener("scroll", mark, { passive: true }); mark();
   })();
 
   // A little confetti when someone signs the guest book.
