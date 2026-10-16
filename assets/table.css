@@ -127,3 +127,13 @@
 .tbl-pay .room input { font: inherit; font-size: 18px; padding: 10px 12px; border: 2px solid var(--ink, #1b1f3b); border-radius: 12px; background: var(--card, #fff); color: var(--ink, #1b1f3b); }
 .tbl-pay .room-ok { background: var(--p7, #f5a623); }
 .tbl-pay[hidden] { display: none; }
+
+/* Dark mode: step numbers and the selected tab were dark on near-black; make them sunny */
+@media (prefers-color-scheme: dark) {
+  .tbl-page .tbl-num span b, .tbl-page .tbl-step span b, .tbl-page .tbl-tabs .tab[aria-selected="true"] { background: #ffc94d; color: #1b1f3b; border-color: #ffc94d; }
+}
+/* A comfortable tap target for the WhatsApp fallback */
+.tbl-wa { display: inline-flex; align-items: center; min-height: 44px; padding: 0 6px; }
+
+/* Anything marked hidden stays hidden (the allergy panel was showing before its button was tapped) */
+.tbl-form [hidden] { display: none !important; }
