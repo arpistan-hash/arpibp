@@ -125,9 +125,73 @@ for code, inner in re.findall(r'<div data-place="(\w+)">(.*?)</div>', store, re.
         galleries += (f'<h3><span aria-hidden="true">{flags.get(code, "")}</span> {html.escape(names.get(code, code))}</h3>'
                       f'<div class="photos">{inner.strip()}</div>')
 lede = text(re.search(r'<p class="lede">(.*?)</p>', been, re.S).group(1))
-chips = "".join(f'<h3>{t}</h3><ul class="chips">{re.sub(r" role=\"button\" tabindex=\"0\"", "", c)}</ul>' for t, c in regions)
-countries_body = (f"<p>Here is where I've been: {lede[0].lower() + lede[1:]} Here they all are, grouped by region, with my photos further down.</p>"
-                  f'<figure class="world">{world}</figure>{chips}<h3 class="gal-h">Photos from the road</h3>{galleries}')
+# The moves map with its flight arcs (from "My moves, on the map"), and the flag list where a tap
+# says hello and opens that country's photos. Both reuse the main page's scripts.
+moves_html = re.search(r'<div class="moves-wrap">(.*?)</ol>\s*</div>', body, re.S).group(1) + "</ol>"
+moves_html = re.sub(r'<button class="expand"[^>]*>.*?</button>', "", moves_html)
+chips = "".join(f'<h3>{t}</h3><ul class="chips">{c}</ul>' for t, c in regions)
+store_html = store.replace('src="assets/', 'src="../assets/')
+countries_body = (
+    f"<p>Here is where I've been: {lede[0].lower() + lede[1:]}</p>"
+    '<h3>My moves</h3><p class="map-hint">Tap a move to see its flight on the map.</p>'
+    f'<div class="moves-wrap">{moves_html}</div>'
+    '<h3>Every country, with a flag</h3><p class="map-hint">Tap a flag to hear hello. A camera means I have photos from there, and they open right below.</p>'
+    f'<div class="regions">{chips}</div><div class="place-panel" id="place-panel" hidden></div>{store_html}'
+)
+scripts = re.findall(r"<script>.*?</script>", SRC[SRC.find("<body"):], re.S)
+MAP_JS = (
+    '<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>\n'
+    '<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>\n'
+    '<script src="https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.9/datamaps.world.min.js"></script>\n'
+    + "\n".join(sc for sc in scripts if any(k in sc for k in (
+        "Swaps the hand-drawn coastlines", "var SPEECH =", 'getElementById("place-store")', 'querySelector("ol.moves")')))
+)
+# Style for the map, the moves list, the flags and the photo panel, taken from the main page.
+css_main = "".join(re.findall(r"<style>(.*?)</style>", SRC[:SRC.find("<body")], re.S))
+css_main = re.sub(r"/\*.*?\*/", "", css_main, flags=re.S)
+KEEP = re.compile(r"atlas|\.arc\b|\.place\b|g\.place|\.moves|\.pill|\.callout|\.leader|arrowhead|\.chips|\.place-|\.pp-|\.regions|\.city|\.dot\b|\.ring\b|\.visit|\.carousel|\.focus|\.hot\b|\.saying|has-photos|\.star\b|\.when\b")
+
+
+def pick_rules(css):
+    out, i = [], 0
+    while i < len(css):
+        j = css.find("{", i)
+        if j < 0:
+            break
+        sel = css[i:j].strip()
+        if sel.startswith("@"):
+            depth, k = 1, j + 1
+            while depth and k < len(css):
+                depth += {"{": 1, "}": -1}.get(css[k], 0); k += 1
+            inner = pick_rules(css[j + 1:k - 1])
+            if inner and (sel.startswith("@media") or sel.startswith("@supports")):
+                out.append(sel + " {\n" + inner + "\n}")
+            elif sel.startswith("@keyframes") and any(n in css_main for n in ()):
+                pass
+            i = k
+            continue
+        k = css.find("}", j)
+        if KEEP.search(sel) and "body" not in sel:
+            out.append(sel + " { " + css[j + 1:k].strip() + " }")
+        i = k + 1
+    return "\n".join(out)
+
+
+kf = "\n".join(m.group(0) for m in re.finditer(r"@keyframes\s+[\w-]+\s*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}", css_main))
+(OUT / "assets").mkdir(parents=True, exist_ok=True)
+(OUT / "assets" / "map.css").write_text(
+    "/* Map, moves list, flags and photo panel: copied from the main page by tools/build.py. Do not edit by hand. */\n"
+    ":root { --sea: #cfe6f7; --land: #f0d9a8; --gold: #f5a623; --edge: #1b1f3b; --r: 20px; }\n"
+    "@media (prefers-color-scheme: dark) { :root:not([data-theme=\"light\"]) { --sea: #0b1a36; --land: #1d3a63; --gold: #ffc94d; --edge: #000; } }\n"
+    ":root[data-theme=\"dark\"] { --sea: #0b1a36; --land: #1d3a63; --gold: #ffc94d; --edge: #000; }\n"
+    + pick_rules(css_main) + "\n" + kf + "\n"
+    "/* blog copy: bigger letters, nothing under 16px */\n"
+    ".prose .moves .when { font-size: 16px; } .prose .moves li, .prose .moves li span { font-size: 19px; }\n"
+    ".prose .regions h3 { font: 700 16px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; margin: 1.4em 0 .6em; }\n"
+    ".prose .chips li { font-size: 18px; } .prose .place-panel button, .prose .pp-nav span, .prose .place-panel small { font-size: 16px; }\n"
+    ".prose .place-panel h4 { font-size: 24px; margin: 0; } .prose .map-hint { font-size: 19px; color: var(--muted); }\n"
+    ".prose .moves { padding-left: 0; } .prose .moves li { margin: 0; }\n"
+    ".prose .moves-wrap > figure.atlas { position: sticky; top: 70px; z-index: 5; margin: 0 0 12px; }\n", encoding="utf-8")
 
 mom_start = been.find('<h3 class="mom-h">')
 mom_p = re.search(r"<p>(.*?)</p>", been[mom_start:], re.S).group(1)
@@ -146,7 +210,7 @@ ART = {
     "tobi": '<svg class="chap-art" viewBox="160 278 280 124" aria-hidden="true"><rect class="g" x="160" y="388" width="280" height="14"/>' + dog + '<circle class="s" cx="400" cy="300" r="10"/><g class="c"><path d="M340 330 c-6-8-20-4-16 6 l16 14 16-14 c4-10-10-14-16-6z"/></g></svg>',
 }
 for key, title, hook, body_html in (
-    ("countries", "37 countries, one map", "Three continents, a lot of hellos.", countries_body),
+    ("countries", "My moves and 37 countries", "Three continents, a lot of flights and a lot of hellos.", countries_body),
     ("mom", "Traveling with my mom", "She keeps all the pictures.", mom_body),
     ("tobi", "Meet Tobi, my very good dog", "From the Cayman Islands to Budapest, with a passport full of stamps.", tobi_body),
 ):
@@ -164,7 +228,7 @@ ICON_MAIL = ('<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke
              '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7.5l9 6 9-6"/></svg>')
 
 
-def head(title, desc, depth, theme_color="#fff3dc", body_style=""):
+def head(title, desc, depth, theme_color="#fff3dc", body_style="", extra_head=""):
     up = "../" * depth
     body_attr = f' class="tinted" style="{body_style}"' if body_style else ""
     return f"""<!doctype html>
@@ -182,7 +246,7 @@ def head(title, desc, depth, theme_color="#fff3dc", body_style=""):
 <script>try{{var t=localStorage.getItem("blog-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}</script>
 <link rel="stylesheet" href="{up}assets/fonts.css">
 <link rel="stylesheet" href="{up}assets/blog.css">
-</head>
+{extra_head}</head>
 <body{body_attr}>
 <a class="skip" href="#main">Skip to content</a>
 <header class="bar"><div class="in">
@@ -198,7 +262,7 @@ def head(title, desc, depth, theme_color="#fff3dc", body_style=""):
 """
 
 
-def foot(depth):
+def foot(depth, extra_js=""):
     up = "../" * depth
     digits = re.sub(r"\D", "", WHATSAPP)
     return f"""<footer class="foot"><div class="in">
@@ -210,7 +274,7 @@ def foot(depth):
   <small>This is my own private blog. Everything on it is my personal opinion and has nothing to do with any employer, past or present. Recommendations are friendly suggestions, not professional advice, so please check opening hours, prices, timetables and safety before you go.</small>
 </div></footer>
 <script src="{up}assets/blog.js"></script>
-</body>
+{extra_js}</body>
 </html>
 """
 
@@ -317,7 +381,7 @@ for i, p in enumerate(posts):
     if next_p:
         pager += f'<a class="next" href="{next_p["slug"]}.html"><small>Next &rarr;</small><b>{next_p["title"]}</b></a>'
     pager += "</nav>"
-    page = head(f'{p["title_txt"]} · {SITE_TITLE}', text(p["hook"]) or SITE_DESC, 1, body_style=mood_style(p)) + f"""<main id="main">
+    page = head(f'{p["title_txt"]} · {SITE_TITLE}', text(p["hook"]) or SITE_DESC, 1, body_style=mood_style(p), extra_head='<link rel="stylesheet" href="../assets/map.css">\n' if p["id"] == "countries" else "") + f"""<main id="main">
 <article>
   <div class="wrap post-head">
     <a class="tag" href="../index.html#{p['topic']}">{html.escape(p['topic_name'] if p['topic_name'] == p['group'] else p['topic_name'] + ' · ' + p['group'])}</a>
@@ -339,7 +403,7 @@ for i, p in enumerate(posts):
   </div>
 </article>
 </main>
-""" + foot(1)
+""" + foot(1, MAP_JS if p["id"] == "countries" else "")
     (OUT / "posts" / f'{p["slug"]}.html').write_text(page, encoding="utf-8")
 
 # ---------- assets: fonts and only the photos the posts use ----------
