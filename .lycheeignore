@@ -1,5 +1,6 @@
-# These sites block automated checkers (403/406) even though the links work in a browser.
+# These sites block or redirect automated checkers (302/403/406) even though the links work in a browser.
 ^https://maps\.app\.goo\.gl/
 ^https://www\.google\.com/maps/
 ^https://www\.li\.me/
 ^https://www\.uber\.com/
+^https://www\.youtube\.com/results
