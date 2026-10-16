@@ -1120,6 +1120,11 @@
     .live .go { grid-column: 2; grid-row: 1 / 3; }
   }
   @media (prefers-reduced-motion: reduce) { .live, .live-dot { animation: none; } .live, .live .go { transition: none; } }
+
+  /* One picture per kind of vehicle */
+  .item > .item-body { flex: 1; min-width: 0; }
+  .chapter .item > .item-body > p { font-size: 18px; line-height: 1.62; margin: 0 0 .8em; }
+  .chapter .item > .item-body > p:last-child { margin-bottom: 0; }
 </style>
 </head>
 <body>
@@ -1323,13 +1328,11 @@
         <p>Never flag down a taxi on the street, and never hop into an unknown cab: it's a guaranteed rip-off. Order your ride through an app instead. <a href="https://www.uber.com/" target="_blank" rel="noopener">Uber</a> and <a href="https://bolt.eu/" target="_blank" rel="noopener">Bolt</a> are safe, and so is any other trusted app.</p>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="c" x="6" y="10" width="36" height="26" rx="6"/><rect class="w" x="10" y="15" width="8" height="8" rx="1"/><rect class="w" x="20" y="15" width="8" height="8" rx="1"/><rect class="w" x="30" y="15" width="8" height="8" rx="1"/><circle class="k" cx="14" cy="38" r="4"/><circle class="k" cx="34" cy="38" r="4"/><path class="ln3" d="M6 28 H42"/></svg>
-        <p>Public transit is amazing, even at night: night buses run every 15 minutes in most directions.</p>
-      </div>
-      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="s" d="M6 14 H42 V21 Q38 24 42 27 V34 H6 V27 Q10 24 6 21Z"/><path class="ln3" d="M30 14 V34" style="stroke-dasharray:3 3"/><path class="ln3" d="M12 20 H24 M12 26 H20"/></svg>
-        <p>I recommend getting a pass, either a three-day one or whatever length suits your stay. That way you don't have to buy a new ticket every time you hop from bus to tram to metro. And if you forget to validate a ticket, the inspectors will happily fine you 25,000 HUF or more (check the <a href="https://bkk.hu/en/tickets-and-passes/information-about-penalty-fares/general-information/" target="_blank" rel="noopener">BKK penalty fare page</a> for current amounts).</p>
-      </div>
-      <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><rect class="k2" x="14" y="4" width="20" height="40" rx="5"/><rect class="w" x="17" y="10" width="14" height="24" rx="2"/><path class="c" d="M19 16 H29 M19 21 H27 M19 26 H29"/><circle class="s" cx="24" cy="39" r="2"/></svg>
-        <p>The easiest way to buy one is the <a href="https://bkk.hu/en/tickets-and-passes/budapestgo" target="_blank" rel="noopener">BudapestGO app</a>, which also has schedules, maps and a trip planner.</p>
+        <div class="item-body">
+          <p>Public transit is amazing, even at night: night buses run every 15 minutes in most directions.</p>
+          <p>I recommend getting a pass, either a three-day one or whatever length suits your stay. That way you don't have to buy a new ticket every time you hop from bus to tram to metro. And if you forget to validate a ticket, the inspectors will happily fine you 25,000 HUF or more (check the <a href="https://bkk.hu/en/tickets-and-passes/information-about-penalty-fares/general-information/" target="_blank" rel="noopener">BKK penalty fare page</a> for current amounts).</p>
+          <p>The easiest way to buy one is the <a href="https://bkk.hu/en/tickets-and-passes/budapestgo" target="_blank" rel="noopener">BudapestGO app</a>, which also has schedules, maps and a trip planner.</p>
+        </div>
       </div>
       <div class="item"><svg class="chap-art item-ico" viewBox="0 0 48 48" aria-hidden="true"><circle cx="12" cy="32" r="9" style="fill:none;stroke:var(--fg);stroke-width:2.5px"/><circle cx="36" cy="32" r="9" style="fill:none;stroke:var(--fg);stroke-width:2.5px"/><path d="M12 32 L20 18 H30 L36 32 M20 18 L24 32 H12 M30 18 L28 12 H34" style="fill:none;stroke:var(--chap);stroke-width:3px;stroke-linecap:round;stroke-linejoin:round"/></svg>
         <p>For short hops there is <a href="https://bkk.hu/en/travel-information/bubi/" target="_blank" rel="noopener">MOL Bubi</a>, the city's bike-share run by BKK, which has just launched a new generation of bikes. Visitors can pay as they go. If you hold a BudapestGO pass valid for at least 30 days, you get a discount on the monthly Bubi pass and ten free rides a month on classic bikes.</p>
@@ -2854,7 +2857,10 @@
     var RULES = (hu ? HU : EN).map(function (r) { return [new RegExp(hu ? "(" + r[0] + ")[a-z\u00e1\u00e9\u00ed\u00f3\u00f6\u0151\u00fa\u00fc\u0171]*" : r[0], "gi"), r[1]]; });
     var skip = { SCRIPT: 1, STYLE: 1, SVG: 1, svg: 1, H3: 1, H2: 1, BUTTON: 1 };
     function ok(n) { for (var e = n.parentNode; e && e !== document.body; e = e.parentNode) { if (skip[e.tagName] || (e.classList && (e.classList.contains("vh") || e.classList.contains("pp-ic") || e.classList.contains("chap-k") || e.classList.contains("moves")))) return false; } return true; }
+    var seenBy = {};
     document.querySelectorAll(".chapter p, .chapter li, .item p").forEach(function (p) {
+      if (p.closest(".facts")) return;
+      var ch = p.closest(".chapter"), key = ch ? ch.id : "_", seen = seenBy[key] || (seenBy[key] = {});
       var w = document.createTreeWalker(p, NodeFilter.SHOW_TEXT), nodes = [], n;
       while ((n = w.nextNode())) if (ok(n) && n.nodeValue.trim()) nodes.push(n);
       var first = true;
@@ -2868,6 +2874,8 @@
           if (h[0] < pos) return;
           if (first && p.tagName === "P" && !txt.slice(0, h[0]).trim()) return;
           if (p.classList.contains("chap-hook")) return;
+          if (seen[h[2]]) return;
+          seen[h[2]] = true;
           out.push(document.createTextNode(txt.slice(pos, h[0])));
           var s = document.createElement("span"); s.className = "vh"; s.setAttribute("aria-hidden", "true"); s.textContent = h[2]; out.push(s);
           pos = h[0]; any = true;
