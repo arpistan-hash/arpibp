@@ -295,7 +295,7 @@ body.tinted .bar { background: color-mix(in srgb, var(--tint) 92%, transparent);
 .doors a:hover { transform: translate(-3px, -3px); box-shadow: 11px 11px 0 var(--shade); }
 .doors svg { width: 120px; height: 90px; }
 .doors b { font-family: var(--font-display); font-weight: 800; font-size: clamp(28px, 4vw, 36px); line-height: 1.08; letter-spacing: -.02em; }
-.doors span { font-size: 19px; color: var(--muted); }
+.doors span { font-size: 19px; color: color-mix(in srgb, var(--fg) 80%, transparent); }
 #tips, #story { scroll-margin-top: 80px; }
 .live b { white-space: nowrap; }
 .live .short { display: none; }
