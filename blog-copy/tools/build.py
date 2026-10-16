@@ -22,6 +22,7 @@ SITE_DESC = "Friendly Budapest tips and the story of a life across three contine
 WHATSAPP = "+36 20 223 9524"
 EMAIL = "arpistan@gmail.com"
 MAIN_SITE = "https://budapesthungry.com"
+TRAVEL_FUND = "https://revolut.me/arpadqsln"
 
 # Each post gets the color of the feeling it should give (see assets/blog.css, "mood colors"):
 # joy = yellow, excited = saturated red-orange, love = warm pink-red,
@@ -225,6 +226,8 @@ for key, title, hook, body_html in (
 
 ICON_WA = ('<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
            '<path d="M4 5h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H10l-4 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg>')
+ICON_FUND = ('<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
+             '<circle cx="12" cy="12" r="9"/><path d="M14.5 9.5c-.5-1-1.5-1.5-2.5-1.5-1.5 0-2.5.8-2.5 2s1 1.6 2.5 2 2.5.8 2.5 2-1 2-2.5 2c-1 0-2-.5-2.5-1.5M12 6.5v1.5M12 16v1.5"/></svg>')
 ICON_MAIL = ('<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
              '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7.5l9 6 9-6"/></svg>')
 
@@ -270,6 +273,7 @@ def foot(depth, extra_js=""):
   <div class="links">
     <a class="btn primary" href="https://wa.me/{digits}" target="_blank" rel="noopener">{ICON_WA} WhatsApp</a>
     <a class="btn" href="mailto:{EMAIL}">{ICON_MAIL} {EMAIL}</a>
+    <a class="btn" href="{TRAVEL_FUND}" target="_blank" rel="noopener">{ICON_FUND} Arpi + Tobi travel fund</a>
     <a class="btn" href="{MAIN_SITE}" target="_blank" rel="noopener">My main site</a>
   </div>
   <small>This is my own private blog. Everything on it is my personal opinion and has nothing to do with any employer, past or present. Recommendations are friendly suggestions, not professional advice, so please check opening hours, prices, timetables and safety before you go.</small>
