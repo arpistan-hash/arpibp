@@ -9,6 +9,7 @@
   const POLL_MS = 4000;
   const RETRY_MS = 8000;
   const REPEAT_MS = 6000;
+  const TIMEOUT_MS = 10000; // a stuck request must never stop the inbox
   const $ = (id) => document.getElementById(id);
 
   const store = {
@@ -51,12 +52,18 @@
   }
 
   // ---------- network ----------
+  const call = (url, opts = {}) => {
+    const stop = new AbortController(); // (AbortSignal.timeout is missing on older iPhones)
+    const timer = setTimeout(() => stop.abort(), TIMEOUT_MS);
+    return fetch(url, { cache: "no-store", ...opts, signal: stop.signal }).finally(() => clearTimeout(timer));
+  };
+  // Fire and forget: if it fails, the next poll shows the server's state again.
   const post = (body) =>
-    fetch(API, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) })
+    call(API, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) })
       .catch(() => {});
 
   async function load() {
-    const r = await fetch(API + "?key=" + encodeURIComponent(key), { headers: { accept: "application/json" }, cache: "no-store" });
+    const r = await call(API + "?key=" + encodeURIComponent(key), { headers: { accept: "application/json" } });
     if (r.status === 403) throw new Error("key");
     if (!r.ok) throw new Error("net");
     return (await r.json()).messages || [];
@@ -163,22 +170,17 @@
     buzz(urgent ? [400, 120, 400, 120, 400] : [200, 100, 200]);
     fresh.forEach((m) => { if (!queue.some((q) => q.id === m.id)) queue.push(m); });
     queue.sort((a, b) => !!b.allergy - !!a.allergy); // allergies first (stable, so order otherwise kept)
-    showAlert();
-    const first = fresh[0];
-    if (document.hidden && "Notification" in window && Notification.permission === "granted") {
-      try {
-        new Notification((first.allergy ? "⚠️ ALLERGY · " : "") + "Table " + first.table, {
-          body: (first.allergy ? first.allergy + "\n" : "") + first.msg,
-          tag: "table-" + first.id,
-        });
-      } catch (e) { /* the service worker push covers this */ }
-    }
+    showAlert(); // when the inbox is closed or hidden, the push from the function buzzes the phone instead
   }
 
   // ---------- polling (one request at a time, slower after an error) ----------
   function setLive(state, text) { el.live.className = "live" + (state ? " " + state : ""); el.liveText.textContent = text; }
 
+  let polling = false;
   async function poll() {
+    if (polling) return;
+    polling = true;
+    clearTimeout(pollTimer);
     let delay = POLL_MS;
     try {
       messages = (await load()).sort((a, b) => (a.done - b.done) || (b.ts - a.ts));
@@ -190,13 +192,12 @@
     } catch (e) {
       const bad = e && e.message === "key";
       setLive("err", bad ? "This link isn't right" : "Offline, retrying…");
-      if (bad) return; // a wrong key won't fix itself; stop hammering the function
-      delay = RETRY_MS;
+      delay = bad ? 60000 : RETRY_MS; // a wrong key won't fix itself, so check it rarely
     }
+    polling = false;
     pollTimer = setTimeout(poll, delay);
   }
   let pollTimer = null;
-  const pollNow = () => { clearTimeout(pollTimer); poll(); };
 
   // ---------- start button: sound, notifications, keep the screen awake ----------
   let wakeLock = null;
@@ -241,7 +242,7 @@
       if (await Notification.requestPermission() !== "granted") {
         return pushStatus("Notifications are blocked. Allow them for this site in your phone's settings so it can buzz.", false);
       }
-      const r = await fetch(API + "?vapid=1&key=" + encodeURIComponent(key), { cache: "no-store" });
+      const r = await call(API + "?vapid=1&key=" + encodeURIComponent(key));
       const { publicKey } = await r.json();
       const sub = (await reg.pushManager.getSubscription()) ||
         (await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: base64ToBytes(publicKey) }));
@@ -286,8 +287,11 @@
   // ---------- go ----------
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) return;
-    if (audio) keepAwake(); // the screen lock is released when the page is hidden
-    pollNow();
+    if (audio) {
+      audio.resume().catch(() => {}); // phones suspend sound while the page is in the background
+      keepAwake(); // and release the screen lock
+    }
+    poll();
   });
   setInterval(() => render(), 30000); // refresh "x min ago"
   poll();
