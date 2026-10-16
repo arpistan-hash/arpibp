@@ -191,6 +191,7 @@ kf = "\n".join(m.group(0) for m in re.finditer(r"@keyframes\s+[\w-]+\s*\{(?:[^{}
     ".prose .chips li { font-size: 18px; } .prose .place-panel button, .prose .pp-nav span, .prose .place-panel small { font-size: 16px; }\n"
     ".prose .place-panel h4 { font-size: 24px; margin: 0; } .prose .map-hint { font-size: 19px; color: var(--muted); }\n"
     ".prose .moves { padding-left: 0; } .prose .moves li { margin: 0; }\n"
+    ".moves li.star .when { color: color-mix(in srgb, var(--gold) 40%, var(--ink)); }\n"
     ".prose .moves-wrap > figure.atlas { position: sticky; top: 118px; z-index: 5; margin: 0 0 12px; }\n", encoding="utf-8")
 
 mom_start = been.find('<h3 class="mom-h">')
@@ -308,7 +309,7 @@ home = head(SITE_TITLE, SITE_DESC, 0) + f"""<main id="main">
   <a class="live" href="table.html">
     <span class="live-dot" aria-hidden="true"></span>
     <b>LIVE SERVER</b>
-    <span><span class="long">At one of my tables? </span>Order here</span>
+    <span><span class="long">At one of my tables? </span><span class="short">At my table? </span>Order here</span>
     <span class="arrow" aria-hidden="true">&rarr;</span>
   </a>
 
@@ -358,6 +359,7 @@ home = head(SITE_TITLE, SITE_DESC, 0) + f"""<main id="main">
       <p class="gb-status" id="gb-status" role="status" aria-live="polite"></p>
       <p class="gb-note">Your name and message are public. Your email stays private and is only used to reply to you.</p>
     </form>
+    <p class="gb-empty" id="gb-empty">Loading the guest book...</p>
     <ol class="gb-list" id="gb-list" aria-label="Guest book messages"></ol>
   </section>
 </div>
@@ -419,8 +421,13 @@ for name in used:
     shutil.copy(ROOT / "assets" / "img" / name, OUT / "assets" / "img" / name)
 
 # ---------- order pad: the table page, the private inbox and its function ----------
+THEME_JS = ('<script>try{var t=localStorage.getItem("blog-theme");'
+            'if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>')
 for f in ("table.html", "tables-qr.html", "inbox.html", "inbox-sw.js", "inbox.webmanifest"):
     shutil.copy(ROOT / f, OUT / f)
+# The order pad follows the light/dark choice saved on the blog, not only the phone's setting.
+tp = OUT / "table.html"
+tp.write_text(tp.read_text(encoding="utf-8").replace("</head>", THEME_JS + "\n</head>", 1), encoding="utf-8")
 for f in ("table.js", "table.css", "menu.js"):
     shutil.copy(ROOT / "assets" / f, OUT / "assets" / f)
 with open(OUT / "assets" / "table.css", "a", encoding="utf-8") as fh:
@@ -428,7 +435,16 @@ with open(OUT / "assets" / "table.css", "a", encoding="utf-8") as fh:
              ".tbl-panel .item .info small, .tbl-panel .item .price { font-size: 16px; }\n"
              "/* darker teal so the kicker reads well on cream (about 5:1) */\n"
              ".tbl-kicker { color: #0b6e63; }\n"
-             "@media (prefers-color-scheme: dark) { .tbl-kicker { color: var(--p2, #12a594); } }\n")
+             "@media (prefers-color-scheme: dark) { .tbl-kicker { color: var(--p2, #12a594); } }\n"
+             "/* follow the light/dark choice saved on the blog */\n"
+             "html[data-theme=dark] .tbl-page { --ink: #0b0d1f; --bg: #15172f; --card: #20234a; --fg: #f4efe6; --muted: #b7b9d6; }\n"
+             "html[data-theme=dark] .tbl-page .tbl-kicker { color: var(--p2, #12a594); }\n"
+             "html[data-theme=dark] .tbl-page .tbl-num span b, html[data-theme=dark] .tbl-page .tbl-step span b, "
+             "html[data-theme=dark] .tbl-page .tbl-tabs .tab[aria-selected=\"true\"] { background: #ffc94d; color: #1b1f3b; border-color: #ffc94d; }\n"
+             "html[data-theme=light] .tbl-page { --ink: #1b1f3b; --bg: #fff3dc; --card: #fffaf0; --fg: #1b1f3b; --muted: #55587a; }\n"
+             "html[data-theme=light] .tbl-page .tbl-kicker { color: #0b6e63; }\n"
+             "html[data-theme=light] .tbl-page .tbl-num span b, html[data-theme=light] .tbl-page .tbl-step span b, "
+             "html[data-theme=light] .tbl-page .tbl-tabs .tab[aria-selected=\"true\"] { background: var(--ink); color: var(--card); border-color: var(--ink); }\n")
 shutil.copytree(ROOT / "assets" / "app", OUT / "assets" / "app", dirs_exist_ok=True)
 (OUT / "netlify" / "functions").mkdir(parents=True, exist_ok=True)
 for f in ("guestbook.mjs", "table.mjs"):

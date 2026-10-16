@@ -155,4 +155,5 @@
 .prose .chips li { font-size: 18px; } .prose .place-panel button, .prose .pp-nav span, .prose .place-panel small { font-size: 16px; }
 .prose .place-panel h4 { font-size: 24px; margin: 0; } .prose .map-hint { font-size: 19px; color: var(--muted); }
 .prose .moves { padding-left: 0; } .prose .moves li { margin: 0; }
+.moves li.star .when { color: color-mix(in srgb, var(--gold) 40%, var(--ink)); }
 .prose .moves-wrap > figure.atlas { position: sticky; top: 118px; z-index: 5; margin: 0 0 12px; }

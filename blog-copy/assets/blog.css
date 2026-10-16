@@ -125,6 +125,8 @@ a { color: inherit; }
 .gb-form input, .gb-form textarea { font: 400 18px var(--font-body); padding: 11px 13px; border: 2px solid var(--ink); border-radius: 12px; background: var(--bg); color: var(--fg); width: 100%; }
 .gb-form .btn { justify-self: start; }
 .gb-status { margin: 0; min-height: 1.4em; font-weight: 600; }
+.gb-status a { color: inherit; }
+.gb-empty { margin: 16px 0 0; color: var(--muted); font-style: italic; }
 .gb-note { color: var(--muted); font-size: 17px; }
 .gb-list { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 12px; }
 .gb-list li { padding: 14px 16px; border: 2px solid var(--ink); border-radius: 16px; background: var(--card); }
@@ -293,9 +295,17 @@ body.tinted .bar { background: color-mix(in srgb, var(--tint) 92%, transparent);
 .doors a:hover { transform: translate(-3px, -3px); box-shadow: 11px 11px 0 var(--shade); }
 .doors svg { width: 120px; height: 90px; }
 .doors b { font-family: var(--font-display); font-weight: 800; font-size: clamp(28px, 4vw, 36px); line-height: 1.08; letter-spacing: -.02em; }
-.doors span { font-size: 19px; color: var(--muted); }
+.doors span { font-size: 19px; color: color-mix(in srgb, var(--fg) 80%, transparent); }
 #tips, #story { scroll-margin-top: 80px; }
 .live b { white-space: nowrap; }
-@media (max-width: 520px) { .live .long { display: none; } }
+.live .short { display: none; }
+@media (max-width: 520px) {
+  .live .long { display: none; } .live .short { display: inline; }
+  /* Two short lines on phones: LIVE SERVER on top, the call to action under it. */
+  .live { display: grid; grid-template-columns: auto 1fr auto; column-gap: 14px; row-gap: 2px; border-radius: 22px; padding-block: 10px; }
+  .live-dot { grid-row: 1 / 3; } .live b { grid-column: 2; }
+  .live > span:not(.live-dot):not(.arrow) { grid-column: 2; white-space: nowrap; }
+  .live .arrow { grid-column: 3; grid-row: 1 / 3; margin-left: 0; }
+}
 @media (max-width: 899px) { .hero > div { order: -1; } .hero { padding-top: 24px; } }
 @media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
