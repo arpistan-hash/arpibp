@@ -141,3 +141,6 @@
 /* blog copy: no text smaller than 16px */
 .tbl-kicker { font-size: 16px; }
 .tbl-panel .item .info small, .tbl-panel .item .price { font-size: 16px; }
+/* darker teal so the kicker reads well on cream (about 5:1) */
+.tbl-kicker { color: #0b6e63; }
+@media (prefers-color-scheme: dark) { .tbl-kicker { color: var(--p2, #12a594); } }

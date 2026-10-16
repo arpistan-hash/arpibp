@@ -191,7 +191,7 @@ kf = "\n".join(m.group(0) for m in re.finditer(r"@keyframes\s+[\w-]+\s*\{(?:[^{}
     ".prose .chips li { font-size: 18px; } .prose .place-panel button, .prose .pp-nav span, .prose .place-panel small { font-size: 16px; }\n"
     ".prose .place-panel h4 { font-size: 24px; margin: 0; } .prose .map-hint { font-size: 19px; color: var(--muted); }\n"
     ".prose .moves { padding-left: 0; } .prose .moves li { margin: 0; }\n"
-    ".prose .moves-wrap > figure.atlas { position: sticky; top: 70px; z-index: 5; margin: 0 0 12px; }\n", encoding="utf-8")
+    ".prose .moves-wrap > figure.atlas { position: sticky; top: 118px; z-index: 5; margin: 0 0 12px; }\n", encoding="utf-8")
 
 mom_start = been.find('<h3 class="mom-h">')
 mom_p = re.search(r"<p>(.*?)</p>", been[mom_start:], re.S).group(1)
@@ -252,7 +252,7 @@ def head(title, desc, depth, theme_color="#fff3dc", body_style="", extra_head=""
 <header class="bar"><div class="in">
   <a class="brand" href="{up}index.html">{NAME}</a>
   <nav aria-label="Main">
-    <a href="{up}index.html#tips">Budapest tips</a>
+    <a href="{up}index.html#tips"><span class="long">Budapest </span>tips</a>
     <a href="{up}index.html#story">My life</a>
     <a href="{up}table.html">Order</a>
     <a href="{up}index.html#guestbook">Guest book</a>
@@ -425,7 +425,10 @@ for f in ("table.js", "table.css", "menu.js"):
     shutil.copy(ROOT / "assets" / f, OUT / "assets" / f)
 with open(OUT / "assets" / "table.css", "a", encoding="utf-8") as fh:
     fh.write("\n/* blog copy: no text smaller than 16px */\n.tbl-kicker { font-size: 16px; }\n"
-             ".tbl-panel .item .info small, .tbl-panel .item .price { font-size: 16px; }\n")
+             ".tbl-panel .item .info small, .tbl-panel .item .price { font-size: 16px; }\n"
+             "/* darker teal so the kicker reads well on cream (about 5:1) */\n"
+             ".tbl-kicker { color: #0b6e63; }\n"
+             "@media (prefers-color-scheme: dark) { .tbl-kicker { color: var(--p2, #12a594); } }\n")
 shutil.copytree(ROOT / "assets" / "app", OUT / "assets" / "app", dirs_exist_ok=True)
 (OUT / "netlify" / "functions").mkdir(parents=True, exist_ok=True)
 for f in ("guestbook.mjs", "table.mjs"):
