@@ -144,3 +144,10 @@
 /* darker teal so the kicker reads well on cream (about 5:1) */
 .tbl-kicker { color: #0b6e63; }
 @media (prefers-color-scheme: dark) { .tbl-kicker { color: var(--p2, #12a594); } }
+/* follow the light/dark choice saved on the blog */
+html[data-theme=dark] .tbl-page { --ink: #0b0d1f; --bg: #15172f; --card: #20234a; --fg: #f4efe6; --muted: #b7b9d6; }
+html[data-theme=dark] .tbl-page .tbl-kicker { color: var(--p2, #12a594); }
+html[data-theme=dark] .tbl-page .tbl-num span b, html[data-theme=dark] .tbl-page .tbl-step span b, html[data-theme=dark] .tbl-page .tbl-tabs .tab[aria-selected="true"] { background: #ffc94d; color: #1b1f3b; border-color: #ffc94d; }
+html[data-theme=light] .tbl-page { --ink: #1b1f3b; --bg: #fff3dc; --card: #fffaf0; --fg: #1b1f3b; --muted: #55587a; }
+html[data-theme=light] .tbl-page .tbl-kicker { color: #0b6e63; }
+html[data-theme=light] .tbl-page .tbl-num span b, html[data-theme=light] .tbl-page .tbl-step span b, html[data-theme=light] .tbl-page .tbl-tabs .tab[aria-selected="true"] { background: var(--ink); color: var(--card); border-color: var(--ink); }

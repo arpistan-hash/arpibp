@@ -28,6 +28,13 @@
     });
   });
 
+  // Photo groups: the button says "Hide photos" while they are open.
+  document.querySelectorAll("details.pics").forEach(function (d) {
+    var sp = d.querySelector("summary span"); if (!sp) return;
+    var shut = sp.textContent;
+    d.addEventListener("toggle", function () { sp.textContent = d.open ? (/photos/.test(shut) ? "Hide photos" : "Hide the photo") : shut; });
+  });
+
   // Topic filter on the home page (?topic=tips or ?topic=story also works as a link).
   var filters = document.querySelectorAll(".filters button");
   function show(topic) {
