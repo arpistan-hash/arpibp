@@ -311,3 +311,9 @@ body.tinted .bar { background: color-mix(in srgb, var(--tint) 92%, transparent);
 /* Tablets: keep the cartoon modest so the two big tiles show on the first screen. */
 @media (min-width: 521px) and (max-width: 899px) { .hero .postcard { width: 100%; max-width: 420px; justify-self: center; } }
 @media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
+/* Contact band: WhatsApp, travel fund and email, repeated down every page. */
+.reach { margin: 28px 0; padding: 18px 20px; border: 2.5px solid var(--ink); border-radius: 18px; background: var(--card); box-shadow: 4px 4px 0 var(--shade); display: grid; gap: 12px; }
+.reach-t { margin: 0; font: 800 20px/1.25 var(--font-display, inherit); }
+.reach .links { display: flex; flex-wrap: wrap; gap: 10px; }
+.reach.slim { margin: 18px 0 0; padding: 14px 16px; box-shadow: none; }
+.reach.slim .reach-t { font-size: 17px; }
