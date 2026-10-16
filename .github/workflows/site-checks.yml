@@ -38,4 +38,4 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: shopt -s nullglob; for f in netlify/functions/*.js netlify/functions/*.mjs assets/*.js; do node --check "$f"; done
+      - run: shopt -s nullglob; for f in netlify/functions/*.js netlify/functions/*.mjs assets/*.js inbox-sw.js; do node --check "$f"; done
