@@ -59,6 +59,20 @@
   .paste input { font: inherit; padding: 14px; border-radius: 14px; border: 2px solid var(--muted); background: var(--card); color: var(--fg); }
   footer { margin-top: 28px; font-size: 15px; color: var(--muted); }
   footer a { color: var(--fg); }
+  /* Full-screen alert for each new order: huge table number, blinking, repeating sound until tapped. */
+  .alert { position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 24px; text-align: center; background: var(--new); color: #1b1f3b; animation: blink 1s steps(1) infinite; }
+  .alert.urgent { background: var(--red); }
+  @keyframes blink { 50% { background: var(--bg); color: var(--fg); } }
+  .alert .lbl { font-size: 28px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  .alert .big { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: min(42vw, 260px); line-height: .9; overflow-wrap: anywhere; }
+  .alert .alg2 { font-size: 26px; font-weight: 800; }
+  .alert .what { font-size: 26px; font-weight: 600; max-width: 30ch; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .alert .more { font-size: 18px; font-weight: 700; }
+  .alert .acts { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+  .alert button { font: inherit; font-weight: 800; font-size: 24px; min-height: 64px; padding: 14px 30px; border-radius: 18px; border: 3px solid #1b1f3b; background: #fff; color: #1b1f3b; cursor: pointer; }
+  /* Orders not yet marked done keep a slow blink in the list. */
+  li.open .tn { animation: tnblink 1.6s ease-in-out infinite; }
+  @keyframes tnblink { 50% { opacity: .35; } }
 </style>
 </head>
 <body>
@@ -89,6 +103,14 @@
   </div>
   <footer>Guests write from <a href="table.html" target="_blank" rel="noopener">the table page</a>. Print table cards with QR codes on <a href="tables-qr.html" target="_blank" rel="noopener">this page</a>.</footer>
 </main>
+<div class="alert" id="alert" role="alertdialog" aria-modal="true" aria-labelledby="alert-big" hidden>
+  <div class="lbl">New order · Table</div>
+  <div class="big" id="alert-big"></div>
+  <div class="alg2" id="alert-alg" hidden></div>
+  <div class="what" id="alert-what"></div>
+  <div class="more" id="alert-more" hidden></div>
+  <div class="acts"><button type="button" id="alert-ok">Got it 👍</button><button type="button" id="alert-done">Done ✓</button></div>
+</div>
 <script>
   (function () {
     var KEY_STORE = "arpi-inbox-key", key = decodeURIComponent((location.hash || "").slice(1));
@@ -127,7 +149,7 @@
     function render(fresh) {
       list.textContent = "";
       msgs.forEach(function (m) {
-        var li = document.createElement("li"); if (m.done) li.className = "done"; else if (fresh[m.id]) li.className = "new";
+        var li = document.createElement("li"); li.className = m.done ? "done" : "open" + (fresh[m.id] ? " new" : "");
         var tn = document.createElement("div"); tn.className = "tn"; tn.innerHTML = "<small>Table</small>"; tn.appendChild(document.createTextNode(m.table));
         if (m.allergy && !m.done) li.className += " allergy";
         var tx = document.createElement("div"); tx.className = "msg"; tx.textContent = m.msg;
@@ -148,6 +170,27 @@
       var open = msgs.filter(function (m) { return !m.done; }).length;
       document.title = (open ? "(" + open + ") " : "") + baseTitle;
     }
+    // The alert stays up, blinking and ringing every few seconds, until it is tapped.
+    var queue = [], again = null, alertEl = document.getElementById("alert");
+    function showAlert() {
+      queue = queue.filter(function (q) { return !q.done; });
+      if (!queue.length) { alertEl.hidden = true; clearInterval(again); again = null; return; }
+      var m = queue[0];
+      alertEl.className = "alert" + (m.allergy ? " urgent" : "");
+      document.getElementById("alert-big").textContent = m.table;
+      var al = document.getElementById("alert-alg"); al.hidden = !m.allergy; al.textContent = m.allergy ? "\u26A0\uFE0F ALLERGY: " + m.allergy : "";
+      document.getElementById("alert-what").textContent = m.msg || "";
+      var more = document.getElementById("alert-more"); more.hidden = queue.length < 2; more.textContent = "+" + (queue.length - 1) + " more waiting";
+      alertEl.hidden = false;
+      if (!again) again = setInterval(function () {
+        var u = queue.some(function (q) { return q.allergy; });
+        ding(u); if (navigator.vibrate) navigator.vibrate(u ? [400, 120, 400] : [200, 100, 200]);
+      }, 6000);
+    }
+    document.getElementById("alert-ok").onclick = function () { queue.shift(); showAlert(); };
+    document.getElementById("alert-done").onclick = function () {
+      var m = queue.shift(); if (m) { m.done = true; post({ key: key, done: m.id }); render({}); } showAlert();
+    };
     function post(body) { return fetch("/.netlify/functions/table", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) }).catch(function () {}); }
     function poll() {
       fetch("/.netlify/functions/table?key=" + encodeURIComponent(key), { headers: { accept: "application/json" }, cache: "no-store" })
@@ -162,6 +205,9 @@
           if (any) {
             var urgent = msgs.some(function (m) { return fresh[m.id] && m.allergy; });
             ding(urgent); if (navigator.vibrate) navigator.vibrate(urgent ? [400, 120, 400, 120, 400] : [200, 100, 200]);
+            msgs.forEach(function (m) { if (fresh[m.id] && !queue.some(function (q) { return q.id === m.id; })) queue.push(m); });
+            queue.sort(function (a, b) { return (b.allergy ? 1 : 0) - (a.allergy ? 1 : 0); });
+            showAlert();
             var first = msgs.filter(function (m) { return fresh[m.id]; })[0];
             if (first && "Notification" in window && Notification.permission === "granted" && document.hidden) {
               try { new Notification((first.allergy ? "\u26A0\uFE0F ALLERGY \u00b7 " : "") + "Table " + first.table, { body: (first.allergy ? first.allergy + "\n" : "") + first.msg, tag: "table-" + first.id }); } catch (e) {}
