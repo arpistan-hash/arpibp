@@ -6,10 +6,12 @@
 <title>Page not found · Arpi</title>
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem("blog-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <link rel="stylesheet" href="/assets/fonts.css">
 <style>
   :root { --ink: #1b1f3b; --bg: #fff3dc; --card: #fffaf0; --muted: #55587a; --shade: #1b1f3b; --p7: #f5a623; --accent: #e8452c; }
-  @media (prefers-color-scheme: dark) { :root { --ink: #f6ead2; --bg: #15172f; --card: #1d2044; --muted: #b2b5d6; --shade: #000; --accent: #ff7a59; } }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ink: #f6ead2; --bg: #15172f; --card: #1d2044; --muted: #b2b5d6; --shade: #000; --accent: #ff7a59; } }
+  :root[data-theme="dark"] { --ink: #f6ead2; --bg: #15172f; --card: #1d2044; --muted: #b2b5d6; --shade: #000; --accent: #ff7a59; }
   * { box-sizing: border-box; }
   body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; background: var(--bg); color: var(--ink); font-family: "Instrument Sans", system-ui, sans-serif;
     background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--ink) 16%, transparent) 1.2px, transparent 1.6px); background-size: 22px 22px; }
