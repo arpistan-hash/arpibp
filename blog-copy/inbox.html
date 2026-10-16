@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Table inbox</title>
+<meta name="theme-color" content="#15172f">
+<link rel="manifest" href="inbox.webmanifest">
+<link rel="apple-touch-icon" href="assets/app/inbox-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Tables">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+  :root { --ink: #0b0d1f; --bg: #15172f; --card: #20234a; --fg: #f4efe6; --muted: #b7b9d6; --new: #ffc94d; --ok: #4fd1c5; --red: #ff7a5c; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: "Instrument Sans", system-ui, sans-serif; font-size: 19px; line-height: 1.4; }
+  main { max-width: 640px; margin: 0 auto; padding: 16px 14px 60px; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  h1 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 30px; margin: 0; }
+  .live { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; color: var(--muted); }
+  .live i { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); }
+  .live.on i { background: var(--ok); box-shadow: 0 0 0 0 var(--ok); animation: pulse 1.6s infinite; }
+  .live.err i { background: var(--red); }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 70%, transparent); } 100% { box-shadow: 0 0 0 12px transparent; } }
+  .start { width: 100%; margin: 16px 0; padding: 18px; font: inherit; font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 24px; color: #1b1f3b; background: var(--new); border: 0; border-radius: 18px; cursor: pointer; }
+  .hint { color: var(--muted); font-size: 16px; margin: 6px 0 14px; }
+  ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  li { display: flex; gap: 14px; align-items: center; padding: 14px; border-radius: 18px; background: var(--card); border: 2px solid transparent; }
+  li.new { border-color: var(--new); animation: flash 1s ease 2; }
+  li.done { opacity: .45; }
+  .body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+  .alg { display: inline-block; padding: 4px 10px; border-radius: 10px; background: var(--red); color: #1b0805; font-weight: 800; font-size: 18px; }
+  li.allergy { border-color: var(--red); }
+  li.allergy .tn { background: var(--red); }
+  @keyframes flash { 50% { background: color-mix(in srgb, var(--new) 30%, var(--card)); } }
+  .tn { flex: none; min-width: 68px; height: 68px; padding: 0 8px; display: grid; place-items: center; border-radius: 16px; background: var(--new); color: #1b1f3b; font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 32px; line-height: 1; text-align: center; }
+  li.done .tn { background: var(--muted); }
+  .tn small { display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+  .msg { font-size: 22px; font-weight: 600; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .ago { font-size: 15px; color: var(--muted); }
+  .done-btn { flex: none; font: inherit; font-weight: 700; font-size: 17px; padding: 12px 14px; border-radius: 14px; border: 2px solid var(--ok); background: transparent; color: var(--ok); cursor: pointer; }
+  .empty { text-align: center; color: var(--muted); padding: 40px 10px; font-size: 20px; }
+  .bad { margin-top: 40px; text-align: center; }
+  .setup { margin: 14px 0 18px; padding: 16px; border-radius: 18px; background: var(--card); display: flex; flex-direction: column; gap: 10px; }
+  .setup h2 { margin: 0; font-family: "Bricolage Grotesque", sans-serif; font-size: 21px; }
+  .setup p { margin: 0; color: var(--muted); font-size: 16px; }
+  .setup ol { gap: 6px; padding-left: 0; counter-reset: s; }
+  .setup ol li { display: block; padding: 0 0 0 34px; background: none; border: 0; position: relative; font-size: 17px; }
+  .setup ol li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--new); color: #1b1f3b; font-weight: 800; font-size: 14px; display: grid; place-items: center; }
+  .btn2 { font: inherit; font-weight: 700; font-size: 18px; padding: 12px 16px; border-radius: 14px; border: 2px solid var(--new); background: transparent; color: var(--new); cursor: pointer; }
+  .btn2[disabled] { opacity: .6; cursor: default; }
+  .ok-line { color: var(--ok) !important; font-weight: 700; }
+  .paste { display: flex; flex-direction: column; gap: 10px; margin-top: 30px; }
+  .paste input { font: inherit; padding: 14px; border-radius: 14px; border: 2px solid var(--muted); background: var(--card); color: var(--fg); }
+  footer { margin-top: 28px; font-size: 15px; color: var(--muted); }
+  footer a { color: var(--fg); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Table inbox 🍽️</h1>
+    <span class="live" id="live"><i></i><span id="live-t">Not listening yet</span></span>
+  </header>
+  <div id="app">
+    <button class="start" id="start" type="button">🔔 Start listening</button>
+    <p class="hint" id="hint">Tap the button once so your phone can ding and buzz.</p>
+    <div class="setup" id="install" hidden>
+      <h2>📲 Make it an app on your phone</h2>
+      <p>Then it opens like a POS app and buzzes for every table, even with the screen locked.</p>
+      <button class="btn2" id="install-btn" type="button" hidden>Add to home screen</button>
+      <ol id="ios-steps" hidden>
+        <li>Tap the <b>Share</b> button at the bottom of Safari.</li>
+        <li>Choose <b>Add to Home Screen</b>, then <b>Add</b>.</li>
+        <li>Open <b>Tables</b> from your home screen and tap <b>Start listening</b>.</li>
+      </ol>
+    </div>
+    <div class="setup" id="push-box" hidden>
+      <p class="ok-line" id="push-t">✅ Notifications are on for this phone.</p>
+      <button class="btn2" id="test-btn" type="button">Send me a test buzz</button>
+    </div>
+    <ol id="list" aria-live="polite"></ol>
+    <p class="empty" id="empty" hidden>No requests yet. Enjoy the calm. 😌</p>
+  </div>
+  <footer>Guests write from <a href="table.html" target="_blank" rel="noopener">the table page</a>. Print table cards with QR codes on <a href="tables-qr.html" target="_blank" rel="noopener">this page</a>.</footer>
+</main>
+<script>
+  (function () {
+    var KEY_STORE = "arpi-inbox-key", key = decodeURIComponent((location.hash || "").slice(1));
+    try { if (key) localStorage.setItem(KEY_STORE, key); else key = localStorage.getItem(KEY_STORE) || ""; } catch (e) {}
+    if (!key) {
+      document.getElementById("app").innerHTML = '<div class="paste"><p class="bad">This page needs your private inbox link.</p><input id="paste" type="url" placeholder="Paste your inbox link here" autocomplete="off"><button class="start" id="paste-go" type="button">Open my inbox</button></div>';
+      document.getElementById("paste-go").onclick = function () {
+        var v = document.getElementById("paste").value.trim(), i = v.indexOf("#");
+        var k = decodeURIComponent(i >= 0 ? v.slice(i + 1) : v);
+        if (k) { try { localStorage.setItem(KEY_STORE, k); } catch (e) {} location.replace("inbox.html#" + encodeURIComponent(k)); location.reload(); }
+      };
+      return;
+    }
+    if (!location.hash) history.replaceState(null, "", "#" + encodeURIComponent(key));
+    var list = document.getElementById("list"), empty = document.getElementById("empty"), live = document.getElementById("live"), liveT = document.getElementById("live-t"), start = document.getElementById("start");
+    var seen = null, ctx = null, lock = null, msgs = [], baseTitle = document.title, unread = 0;
+
+    function ding(urgent) {
+      try {
+        if (!ctx) return;
+        (urgent ? [0, 0.18, 0.36, 0.6, 0.78, 0.96] : [0, 0.18]).forEach(function (t, i) {
+          var o = ctx.createOscillator(), g = ctx.createGain();
+          o.type = "sine"; o.frequency.value = urgent ? (i % 2 ? 660 : 990) : (i ? 1320 : 880);
+          g.gain.setValueAtTime(0.0001, ctx.currentTime + t);
+          g.gain.exponentialRampToValueAtTime(0.4, ctx.currentTime + t + 0.02);
+          g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + t + 0.35);
+          o.connect(g); g.connect(ctx.destination); o.start(ctx.currentTime + t); o.stop(ctx.currentTime + t + 0.4);
+        });
+      } catch (e) {}
+    }
+    function ago(ts) {
+      var s = Math.max(0, Math.round((Date.now() - ts) / 1000));
+      if (s < 60) return "just now"; if (s < 3600) return Math.round(s / 60) + " min ago";
+      return new Date(ts).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    }
+    function render(fresh) {
+      list.textContent = "";
+      msgs.forEach(function (m) {
+        var li = document.createElement("li"); if (m.done) li.className = "done"; else if (fresh[m.id]) li.className = "new";
+        var tn = document.createElement("div"); tn.className = "tn"; tn.innerHTML = "<small>Table</small>"; tn.appendChild(document.createTextNode(m.table));
+        if (m.allergy && !m.done) li.className += " allergy";
+        var tx = document.createElement("div"); tx.className = "msg"; tx.textContent = m.msg;
+        var ag = document.createElement("div"); ag.className = "ago"; ag.textContent = ago(m.ts);
+        var body = document.createElement("div"); body.className = "body";
+        li.appendChild(tn); li.appendChild(body);
+        if (m.allergy) { var al = document.createElement("div"); al.className = "alg"; al.textContent = "\u26A0\uFE0F ALLERGY: " + m.allergy; body.appendChild(al); }
+        if (m.msg) body.appendChild(tx);
+        body.appendChild(ag);
+        if (!m.done) {
+          var b = document.createElement("button"); b.type = "button"; b.className = "done-btn"; b.textContent = "Done ✓";
+          b.onclick = function () { m.done = true; render({}); post({ key: key, done: m.id }); };
+          li.appendChild(b);
+        }
+        list.appendChild(li);
+      });
+      empty.hidden = msgs.length > 0;
+      var open = msgs.filter(function (m) { return !m.done; }).length;
+      document.title = (open ? "(" + open + ") " : "") + baseTitle;
+    }
+    function post(body) { return fetch("/.netlify/functions/table", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) }).catch(function () {}); }
+    function poll() {
+      fetch("/.netlify/functions/table?key=" + encodeURIComponent(key), { headers: { accept: "application/json" }, cache: "no-store" })
+        .then(function (r) { if (r.status === 403) throw new Error("key"); if (!r.ok) throw new Error("net"); return r.json(); })
+        .then(function (d) {
+          var fresh = {}, any = false;
+          msgs = (d.messages || []).sort(function (a, b) { return (a.done - b.done) || (b.ts - a.ts); });
+          if (seen) msgs.forEach(function (m) { if (!seen[m.id] && !m.done) { fresh[m.id] = 1; any = true; } });
+          seen = {}; msgs.forEach(function (m) { seen[m.id] = 1; });
+          render(fresh);
+          live.className = "live on"; liveT.textContent = ctx ? "Listening" : "Updating (tap Start for sound)";
+          if (any) {
+            var urgent = msgs.some(function (m) { return fresh[m.id] && m.allergy; });
+            ding(urgent); if (navigator.vibrate) navigator.vibrate(urgent ? [400, 120, 400, 120, 400] : [200, 100, 200]);
+            var first = msgs.filter(function (m) { return fresh[m.id]; })[0];
+            if (first && "Notification" in window && Notification.permission === "granted" && document.hidden) {
+              try { new Notification((first.allergy ? "\u26A0\uFE0F ALLERGY \u00b7 " : "") + "Table " + first.table, { body: (first.allergy ? first.allergy + "\n" : "") + first.msg, tag: "table-" + first.id }); } catch (e) {}
+            }
+          }
+        })
+        .catch(function (e) {
+          live.className = "live err";
+          liveT.textContent = e && e.message === "key" ? "This link isn't right" : "Offline, retrying…";
+        });
+    }
+    start.addEventListener("click", function () {
+      try { ctx = new (window.AudioContext || window.webkitAudioContext)(); ding(); } catch (e) {}
+      if ("Notification" in window && Notification.permission === "default") Notification.requestPermission();
+      if (navigator.wakeLock) navigator.wakeLock.request("screen").then(function (l) { lock = l; }).catch(function () {});
+      start.textContent = "🔔 Listening";
+      start.disabled = true; liveT.textContent = "Listening";
+      turnOnPush();
+    });
+
+    // Phone notifications, so the inbox works like a POS app even when it's closed or the screen is locked.
+    var standalone = (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
+    var isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    var canPush = "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
+    var reg = null, deferred = null, pushBox = document.getElementById("push-box"), pushT = document.getElementById("push-t");
+    var install = document.getElementById("install"), installBtn = document.getElementById("install-btn");
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("inbox-sw.js", { scope: "/inbox" }).then(function (r) {
+      reg = r;
+      if (canPush && Notification.permission === "granted") r.pushManager.getSubscription().then(function (s) { if (s) { save(s); pushBox.hidden = false; } else turnOnPush(); });
+    }).catch(function () {});
+    if (!standalone) {
+      if (isIOS) { install.hidden = false; document.getElementById("ios-steps").hidden = false; }
+      window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); deferred = e; install.hidden = false; installBtn.hidden = false; });
+      installBtn.onclick = function () { if (!deferred) return; deferred.prompt(); deferred.userChoice.then(function () { deferred = null; install.hidden = true; }); };
+      window.addEventListener("appinstalled", function () { install.hidden = true; });
+    }
+    function b64(s) {
+      var pad = "=".repeat((4 - s.length % 4) % 4), raw = atob((s + pad).replace(/-/g, "+").replace(/_/g, "/")), out = new Uint8Array(raw.length);
+      for (var i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
+      return out;
+    }
+    function save(sub) { return post({ key: key, subscribe: sub.toJSON() }); }
+    function turnOnPush() {
+      if (!canPush) { if (isIOS && !standalone) install.hidden = false; return; }
+      (navigator.serviceWorker.ready).then(function (r) {
+        return Notification.requestPermission().then(function (perm) {
+          if (perm !== "granted") { pushBox.hidden = false; pushT.className = ""; pushT.textContent = "Notifications are blocked. Allow them for this site in your phone's settings so it can buzz."; document.getElementById("test-btn").hidden = true; throw 0; }
+          return fetch("/.netlify/functions/table?vapid=1&key=" + encodeURIComponent(key), { cache: "no-store" }).then(function (x) { return x.json(); }).then(function (d) {
+            return r.pushManager.getSubscription().then(function (s) { return s || r.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64(d.publicKey) }); });
+          });
+        });
+      }).then(function (s) { return save(s); }).then(function () {
+        pushBox.hidden = false; pushT.className = "ok-line"; pushT.textContent = "\u2705 Notifications are on for this phone."; document.getElementById("test-btn").hidden = false;
+      }).catch(function () {});
+    }
+    document.getElementById("test-btn").onclick = function () {
+      var b = this; b.disabled = true; b.textContent = "Sending…";
+      post({ key: key, test: true }).then(function () { setTimeout(function () { b.disabled = false; b.textContent = "Send me a test buzz"; }, 3000); });
+    };
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden && ctx && navigator.wakeLock) navigator.wakeLock.request("screen").then(function (l) { lock = l; }).catch(function () {});
+      if (!document.hidden) poll();
+    });
+    poll(); setInterval(poll, 4000);
+    setInterval(function () { render({}); }, 30000);
+  })();
+</script>
+</body>
+</html>

@@ -37,7 +37,7 @@
   if (filters.length) {
     filters.forEach(function (b) { b.addEventListener("click", function () { show(b.getAttribute("data-topic")); }); });
     var q = new URLSearchParams(location.search).get("topic");
-    if (q === "tips" || q === "story") show(q);
+    if (q === "tips" || q === "story" || q === "travels") show(q);
   }
 
   // Guest book (Netlify function in netlify/functions/guestbook.mjs).

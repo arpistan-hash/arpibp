@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Table cards</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+  :root { --ink: #1b1f3b; --bg: #fff3dc; --card: #fffaf0; --p7: #f5a623; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Instrument Sans", system-ui, sans-serif; }
+  .bar { max-width: 900px; margin: 0 auto; padding: 18px 16px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .bar h1 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; margin: 0 auto 0 0; font-size: 28px; }
+  .bar label { font-weight: 700; }
+  .bar input { width: 80px; font: inherit; font-size: 18px; padding: 6px 8px; border: 2px solid var(--ink); border-radius: 10px; }
+  .bar button { font: inherit; font-weight: 800; font-size: 18px; padding: 8px 16px; border: 2px solid var(--ink); border-radius: 12px; background: var(--p7); cursor: pointer; }
+  .grid { max-width: 900px; margin: 0 auto; padding: 0 16px 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .card { background: var(--card); border: 3px solid var(--ink); border-radius: 22px; padding: 18px; text-align: center; break-inside: avoid; page-break-inside: avoid; }
+  .card .t { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 40px; line-height: 1; margin: 0 0 10px; }
+  .card .qr { display: inline-block; padding: 10px; background: #fff; border-radius: 12px; }
+  .card .qr img, .card .qr canvas { display: block; width: 180px; height: 180px; }
+  .card p { margin: 10px 0 0; font-weight: 700; font-size: 17px; }
+  .card small { display: block; margin-top: 4px; font-size: 13px; color: #55587a; }
+  @media print { .bar { display: none; } body { background: #fff; } .grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+<div class="bar">
+  <h1>Table cards</h1>
+  <label>Tables <input id="n" type="number" min="1" max="99" value="20"></label>
+  <button type="button" onclick="window.print()">Print</button>
+</div>
+<div class="grid" id="grid"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  (function () {
+    var grid = document.getElementById("grid"), n = document.getElementById("n");
+    function draw() {
+      grid.textContent = "";
+      var count = Math.max(1, Math.min(99, +n.value || 1));
+      for (var i = 1; i <= count; i++) {
+        var url = location.origin + "/table.html?t=" + i;
+        var c = document.createElement("div"); c.className = "card";
+        c.innerHTML = '<p class="t">Table ' + i + '</p><div class="qr"></div><p>Scan to order or call Arpi 🙋</p><small></small>';
+        c.querySelector("small").textContent = url.replace(/^https?:\/\//, "");
+        grid.appendChild(c);
+        if (window.QRCode) new QRCode(c.querySelector(".qr"), { text: url, width: 360, height: 360, correctLevel: QRCode.CorrectLevel.M });
+      }
+    }
+    n.addEventListener("change", draw); draw();
+  })();
+</script>
+</body>
+</html>

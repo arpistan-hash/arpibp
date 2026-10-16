@@ -10,6 +10,8 @@
   --font-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  /* mood colors, see the note further down */
+  --m-joy: #ffc61a; --m-joy-bg: #fff4c9; --m-excited: #ff4d2e; --m-excited-bg: #ffe6dc; --m-love: #e8488a; --m-love-bg: #ffe4ee; --m-calm: #3a9fc4; --m-calm-bg: #e4f2f7; --m-nostalgic: #9583b8; --m-nostalgic-bg: #efe9f5; --m-sad: #74849b; --m-sad-bg: #e9edf2;
   --read: 680px; --wide: 1120px;
   color-scheme: light;
 }
@@ -18,6 +20,7 @@
     --ink: #f6ead2; --paper: #15172f; --shade: #000; --bg: #15172f; --bg2: #1c1f3f;
     --fg: #f6ead2; --muted: #b2b5d6; --card: #1d2044; --line: #f6ead2; --accent: #ff7a59;
     --p1: #ff7a59; --p2: #3ddcc4; --p3: #a996ff; --p4: #6fa8ff; --p5: #52e08f; --p6: #ff7fb3; --p7: #ffc94d;
+    --m-joy: #ffcf3d; --m-joy-bg: #1f1d2c; --m-excited: #ff7a59; --m-excited-bg: #24172a; --m-love: #ff7fb3; --m-love-bg: #23172f; --m-calm: #6cc6e8; --m-calm-bg: #12203a; --m-nostalgic: #b6a5dc; --m-nostalgic-bg: #1d1a38; --m-sad: #a2b1c7; --m-sad-bg: #171c30;
     color-scheme: dark;
   }
 }
@@ -25,6 +28,7 @@
   --ink: #f6ead2; --paper: #15172f; --shade: #000; --bg: #15172f; --bg2: #1c1f3f;
   --fg: #f6ead2; --muted: #b2b5d6; --card: #1d2044; --line: #f6ead2; --accent: #ff7a59;
   --p1: #ff7a59; --p2: #3ddcc4; --p3: #a996ff; --p4: #6fa8ff; --p5: #52e08f; --p6: #ff7fb3; --p7: #ffc94d;
+  --m-joy: #ffcf3d; --m-joy-bg: #1f1d2c; --m-excited: #ff7a59; --m-excited-bg: #24172a; --m-love: #ff7fb3; --m-love-bg: #23172f; --m-calm: #6cc6e8; --m-calm-bg: #12203a; --m-nostalgic: #b6a5dc; --m-nostalgic-bg: #1d1a38; --m-sad: #a2b1c7; --m-sad-bg: #171c30;
   color-scheme: dark;
 }
 
@@ -60,7 +64,7 @@ a { color: inherit; }
 .btn { display: inline-flex; align-items: center; gap: 8px; font: 700 18px var(--font-body); text-decoration: none; padding: 12px 20px; border: 2.5px solid var(--ink); border-radius: 14px; background: var(--card); color: var(--fg); box-shadow: 4px 4px 0 var(--shade); cursor: pointer; transition: transform .15s, box-shadow .15s; }
 .btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--shade); }
 .btn.primary { background: var(--sun); color: #1b1f3b; }
-.tag { display: inline-block; align-self: flex-start; justify-self: start; font: 600 15px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; color: var(--chap, var(--accent)); border: 2px solid currentColor; border-radius: 8px; padding: 3px 9px; }
+.tag { display: inline-block; align-self: flex-start; justify-self: start; font: 600 15px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; color: var(--fg); background: color-mix(in srgb, var(--chap, var(--accent)) 28%, transparent); border: 2px solid var(--ink); border-radius: 8px; padding: 3px 9px; }
 .meta { font: 500 15px var(--font-mono); letter-spacing: .03em; color: var(--muted); }
 
 /* ---------- home: hero ---------- */
@@ -139,7 +143,7 @@ a { color: inherit; }
 .prose { font-family: var(--font-serif); font-size: 22px; line-height: 1.7; padding-top: 18px; }
 @media (max-width: 520px) { .prose { font-size: 20px; line-height: 1.65; } }
 .prose p { margin: 0 0 1.25em; }
-.prose > p:first-of-type::first-letter { font-family: var(--font-display); font-weight: 800; float: left; font-size: 3.6em; line-height: .82; padding: 6px 10px 0 0; color: var(--chap); }
+.prose > p:first-of-type::first-letter { font-family: var(--font-display); font-weight: 800; float: left; font-size: 3.6em; line-height: .82; padding: 6px 10px 0 0; color: var(--chap); text-shadow: 3px 3px 0 var(--ink); }
 .prose a { color: inherit; text-decoration-color: var(--chap); text-decoration-thickness: 3px; text-underline-offset: 3px; }
 .prose a:hover { background: color-mix(in srgb, var(--chap) 18%, transparent); }
 .prose h3, .prose h4 { font-family: var(--font-display); font-weight: 800; font-size: 28px; line-height: 1.15; margin: 1.6em 0 .5em; }
@@ -173,7 +177,7 @@ a { color: inherit; }
 
 /* extras that some posts use: year labels, a promo code, ticket price comparison, photo rows */
 .prose .ico-col { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: none; }
-.prose .ico-col .yr { font: 700 15px var(--font-mono); color: var(--chap); text-align: center; line-height: 1.15; max-width: 84px; }
+.prose .ico-col .yr { font: 700 15px var(--font-mono); color: var(--fg); text-align: center; line-height: 1.15; max-width: 84px; }
 .prose .promo { display: inline-flex; align-items: center; gap: 10px; padding: 4px 6px 4px 14px; border: 2px dashed var(--ink); border-radius: 999px; background: color-mix(in srgb, var(--sun) 35%, var(--card)); font: 700 17px var(--font-mono); letter-spacing: .06em; }
 .prose .promo button { font: 700 16px var(--font-body); padding: 6px 14px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; }
 .prose .tix-cmp { margin: 0 0 1.25em; padding: 18px; border: 2.5px solid var(--ink); border-radius: 18px; background: var(--card); box-shadow: 4px 4px 0 var(--shade); display: grid; gap: 18px; font-family: var(--font-body); }
@@ -181,13 +185,65 @@ a { color: inherit; }
 .prose .tx-lbl b { display: block; font-family: var(--font-display); font-size: 20px; }
 .prose .tx-lbl span { font-size: 16px; color: var(--muted); line-height: 1.35; display: block; }
 .prose .tx-n { text-align: right; white-space: nowrap; font-size: 16px; }
-.prose .tx-n b { font-family: var(--font-display); font-size: 32px; line-height: 1; color: var(--chap); }
+.prose .tx-n b { font-family: var(--font-display); font-size: 32px; line-height: 1; color: var(--fg); }
 .prose .tx-ico { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 3px; font-size: 24px; line-height: 1; min-height: 26px; }
 .prose .tk { display: inline-block; filter: drop-shadow(1px 1px 0 var(--ink)); }
 .prose .tk.part { width: calc(1em * var(--f, 1)); overflow: hidden; white-space: nowrap; }
 .prose .trips { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 18px; }
 .prose .trips .photo img { aspect-ratio: 4 / 3; object-fit: cover; }
 .prose .chap-hook { font-style: italic; color: var(--muted); }
+
+
+/* ---------- mood colors ----------
+   Each post page takes the color of the feeling it should give, based on color-emotion research:
+   - joy: yellow (Jonauskaite et al. 2020, 4,598 people in 30 countries: yellow = joy)
+   - love / warmth: red-pink (same study: red = love)
+   - excited: bright, saturated red-orange (Wilms & Oberfeld 2018: saturation and red raise arousal)
+   - calm: soft blue (Wilms & Oberfeld 2018: blue is pleasant and the least arousing hue; Valdez & Mehrabian 1994)
+   - nostalgic and sad: muted, low-saturation violet and grey-blue (grey = sadness in Jonauskaite et al.;
+     low saturation lowers arousal) */
+body.tinted { background-color: var(--tint); }
+body.tinted .bar { background: color-mix(in srgb, var(--tint) 92%, transparent); }
+
+/* ---------- order card on the home page ---------- */
+.order { display: flex; align-items: center; gap: 18px; margin-top: 26px; padding: 18px 22px; text-decoration: none; border: 2.5px solid var(--ink); border-radius: 20px; background: color-mix(in srgb, var(--m-joy) 30%, var(--card)); box-shadow: 5px 5px 0 var(--shade); transition: transform .15s, box-shadow .15s; }
+.order:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--shade); }
+.order-ico { font-size: 40px; line-height: 1; }
+.order b { display: block; font-family: var(--font-display); font-size: 24px; }
+.order span span { font-size: 18px; color: var(--muted); }
+.order .arrow { margin-left: auto; font-size: 28px; }
+
+/* ---------- countries post: map, flags, photos ---------- */
+.prose .world { margin: 0 0 1.25em; }
+.prose .world svg { display: block; width: 100%; height: auto; border: 2.5px solid var(--ink); border-radius: 16px; box-shadow: 5px 5px 0 var(--shade); }
+.prose .world .sea, .prose .world .water { fill: color-mix(in srgb, var(--m-calm) 25%, var(--card)); }
+.prose .world .land { fill: color-mix(in srgb, var(--m-joy) 40%, var(--card)); }
+.prose .world .land.seam { stroke: color-mix(in srgb, var(--m-joy) 40%, var(--card)); stroke-width: .6; }
+.prose .world .visit { fill: var(--m-excited); stroke: var(--ink); stroke-width: .5; }
+.prose .world .ring { fill: none; stroke: var(--ink); stroke-width: 1; }
+.prose .chips { list-style: none; padding: 0; margin: 0 0 1.25em; display: flex; flex-wrap: wrap; gap: 8px; }
+.prose .chips li { margin: 0; display: inline-flex; align-items: center; gap: 6px; font: 600 17px var(--font-body); padding: 5px 13px; border: 2px solid var(--ink); border-radius: 999px; background: var(--card); }
+.prose .chips li.lived { background: var(--m-joy); color: #1b1f3b; box-shadow: 2px 2px 0 var(--shade); }
+.prose .chips .flag { font-size: 20px; }
+
+/* ---------- Tobi's pet passport ---------- */
+.prose .passport { font-family: var(--font-body); margin: 1em 0 1.25em; border: 2.5px solid var(--ink); border-radius: 20px; overflow: hidden; background: var(--card); box-shadow: 6px 6px 0 var(--shade); }
+.prose .pp-cover { display: flex; gap: 14px; align-items: center; padding: 16px 20px; background: #1e3a8a; color: #ffd84d; }
+.prose .pp-cover .flag { font-size: 34px; }
+.prose .pp-cover strong { display: block; font-size: 20px; }
+.prose .pp-cover small { font-size: 16px; }
+.prose .pp-head { display: flex; justify-content: space-between; gap: 10px; padding: 12px 20px; font: 600 15px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; border-bottom: 2px dashed color-mix(in srgb, var(--ink) 40%, transparent); }
+.prose .pp-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 12px 20px; margin: 0; padding: 16px 20px; }
+.prose .pp-fields dt { font: 600 15px var(--font-mono); color: var(--muted); text-transform: uppercase; }
+.prose .pp-fields dd { margin: 0; font-size: 20px; font-weight: 600; }
+.prose .stamps { list-style: none; margin: 0; padding: 4px 20px 16px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr)); gap: 12px; }
+.prose .stamp { margin: 0; display: grid; gap: 2px; justify-items: center; text-align: center; padding: 10px; border: 2.5px dashed var(--chap); border-radius: 14px; }
+.prose .stamp:nth-child(odd) { transform: rotate(-2deg); }
+.prose .stamp:nth-child(even) { transform: rotate(2deg); }
+.prose .stamp .flag { font-size: 28px; }
+.prose .stamp b { font-size: 17px; }
+.prose .stamp small { font-size: 15px; color: var(--muted); }
+.prose .pp-foot { margin: 0; padding: 12px 20px 16px; font-style: italic; font-size: 18px; border-top: 2px dashed color-mix(in srgb, var(--ink) 40%, transparent); }
 
 /* ---------- chapter drawings (same drawing classes as the main site) ---------- */
 .chap-art { display: block; width: 100%; height: auto; }

@@ -23,12 +23,24 @@ WHATSAPP = "+36 20 223 9524"
 EMAIL = "arpistan@gmail.com"
 MAIN_SITE = "https://budapesthungry.com"
 
-# Chapter colors, the same ones the main page gives each card.
-COLORS = {
-    "ch1": 1, "ch2": 7, "ch3": 6, "ch4": 3, "ch5": 4, "ch6": 2, "ch7": 5, "ch8": 1, "ch9": 6, "ch10": 2, "ch11": 4,
-    "tip1": 2, "tip2": 5, "tip3": 4, "trip": 5, "tip4": 6, "tip5": 3, "hist": 1, "tip6": 1, "tip7": 7, "tip8": 5,
-    "pal": 2, "tip9": 4, "tip10": 6, "tip11": 3, "tip12": 5, "tip13": 7, "tip14": 1,
+# Each post gets the color of the feeling it should give (see assets/blog.css, "mood colors"):
+# joy = yellow, excited = saturated red-orange, love = warm pink-red,
+# calm = soft blue, nostalgic = dusty violet, sad = muted grey-blue.
+MOODS = {
+    "tip1": "calm", "tip2": "calm", "tip3": "calm", "trip": "joy", "tip6": "excited", "tip7": "joy",
+    "pal": "excited", "tip9": "calm", "tip8": "joy", "hist": "sad", "tip4": "calm", "tip5": "joy",
+    "tip11": "sad", "tip12": "love", "tip13": "nostalgic", "tip14": "excited", "tip10": "joy",
+    "ch1": "nostalgic", "ch2": "love", "ch3": "sad", "ch4": "excited", "ch5": "joy", "ch6": "excited",
+    "ch7": "nostalgic", "ch8": "joy", "ch9": "nostalgic", "ch10": "excited", "ch11": "sad",
+    "countries": "excited", "mom": "love", "tobi": "joy",
 }
+MOOD_WORD = {"joy": "happy", "excited": "exciting", "love": "warm", "calm": "calm", "nostalgic": "nostalgic", "sad": "bittersweet"}
+
+
+def mood_style(p):
+    m = MOODS.get(p["id"], "joy")
+    return f"--chap:var(--m-{m});--tint:var(--m-{m}-bg)"
+
 
 body = SRC[SRC.find("<body"):SRC.find("<script")]
 
@@ -88,7 +100,6 @@ for m in re.finditer(r'<div class="chapter[^"]*" id="([^"]+)"[^>]*>', body):
         "facts": facts.group(1) if facts else "",
         "body": rest,
         "mins": max(1, round(words / 230)),
-        "color": COLORS.get(cid, 1),
         "slug": slugify(title),
     })
 
@@ -100,14 +111,62 @@ AVATAR = ('<svg viewBox="108 126 84 84" aria-hidden="true"><rect x="108" y="126"
 about = re.search(r'<section class="story about".*?</section>', body, re.S).group(0)
 about_ps = [p for p in re.findall(r"<p>(.*?)</p>", about, re.S)]
 
+# ---------- travel posts: countries, traveling with mom, Tobi ----------
+been = re.search(r'<section class="story" aria-labelledby="been-h".*?</section>', body, re.S).group(0)
+world = re.search(r'<figure class="atlas">.*?(<svg.*?</svg>)', been, re.S).group(1)
+regions = re.findall(r'<h3>(.*?)</h3><ul class="chips">(.*?)</ul>', been, re.S)
+names = {code: text(re.sub(r'<span class="flag".*?</span>', "", li))
+         for code, li in re.findall(r'<li[^>]*data-hello="(\w+)"[^>]*>(.*?)</li>', been, re.S)}
+flags = dict(re.findall(r'<li[^>]*data-hello="(\w+)"[^>]*><span class="flag" aria-hidden="true">(.*?)</span>', been, re.S))
+store = been[been.find('<div id="place-store"'):been.find('<h3 class="mom-h">')]
+galleries = ""
+for code, inner in re.findall(r'<div data-place="(\w+)">(.*?)</div>', store, re.S):
+    if "<img" in inner:
+        galleries += (f'<h3><span aria-hidden="true">{flags.get(code, "")}</span> {html.escape(names.get(code, code))}</h3>'
+                      f'<div class="photos">{inner.strip()}</div>')
+lede = text(re.search(r'<p class="lede">(.*?)</p>', been, re.S).group(1))
+chips = "".join(f'<h3>{t}</h3><ul class="chips">{re.sub(r" role=\"button\" tabindex=\"0\"", "", c)}</ul>' for t, c in regions)
+countries_body = (f"<p>Here is where I've been: {lede[0].lower() + lede[1:]} Here they all are, grouped by region, with my photos further down.</p>"
+                  f'<figure class="world">{world}</figure>{chips}<h3 class="gal-h">Photos from the road</h3>{galleries}')
+
+mom_start = been.find('<h3 class="mom-h">')
+mom_p = re.search(r"<p>(.*?)</p>", been[mom_start:], re.S).group(1)
+mom_photos = re.search(r'<div class="carousel">(.*?)</div>', been[mom_start:], re.S).group(1).strip()
+mom_body = f'<p>{mom_p}</p><div class="photos">{mom_photos}</div>'
+
+dog = re.search(r"<!-- dog -->\s*(<g>.*?</g>)\s*\n\s*<path", scene, re.S).group(1)
+passport = re.search(r'<article class="passport">.*?</article>', been, re.S).group(0)
+tobi_txt = re.search(r"(Now I have Tobi.*?Budapest\.)", " ".join(about_ps), re.S)
+tobi_body = (f"<p>{tobi_txt.group(1) if tobi_txt else 'Meet Tobi, my dog.'} He is the real star of this blog, "
+             "and he has the stamps to prove it.</p>" + passport)
+
+ART = {
+    "countries": '<svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><circle cx="110" cy="48" r="34" style="fill:var(--m-calm);stroke:var(--ink);stroke-width:2.5px"/><path d="M88 30 Q100 22 112 28 Q118 38 108 44 Q96 46 90 40 Z M114 52 Q128 48 134 58 Q130 72 118 74 Q110 64 114 52 Z M82 52 Q90 54 92 62 Q86 66 80 60 Z" style="fill:var(--m-joy);stroke:var(--ink);stroke-width:1.5px"/><path class="dash" d="M150 40 Q200 0 250 36"/><path class="k" d="M248 30 L270 26 L258 44 Z"/><circle class="s" cx="282" cy="22" r="10"/></svg>',
+    "mom": '<svg class="chap-art" viewBox="0 0 320 100" aria-hidden="true"><rect class="g" x="0" y="82" width="320" height="18"/><path class="c" d="M120 80 C92 60 76 48 76 32 C76 20 85 12 96 12 C104 12 112 16 120 26 C128 16 136 12 144 12 C155 12 164 20 164 32 C164 48 148 60 120 80Z"/><path class="dash" d="M176 50 Q220 18 262 40"/><path class="k" d="M260 34 L284 30 L270 50 Z"/><circle class="s" cx="290" cy="18" r="9"/></svg>',
+    "tobi": '<svg class="chap-art" viewBox="160 278 280 124" aria-hidden="true"><rect class="g" x="160" y="388" width="280" height="14"/>' + dog + '<circle class="s" cx="400" cy="300" r="10"/><g class="c"><path d="M340 330 c-6-8-20-4-16 6 l16 14 16-14 c4-10-10-14-16-6z"/></g></svg>',
+}
+for key, title, hook, body_html in (
+    ("countries", "37 countries, one map", "Three continents, a lot of hellos.", countries_body),
+    ("mom", "Traveling with my mom", "She keeps all the pictures.", mom_body),
+    ("tobi", "Meet Tobi, my very good dog", "From the Cayman Islands to Budapest, with a passport full of stamps.", tobi_body),
+):
+    body_html = body_html.replace('src="assets/', 'src="../assets/')
+    posts.append({
+        "id": key, "topic": "travels", "topic_name": "Travels", "group": "Travels", "kind": "Travels",
+        "title": title, "title_txt": title, "hook": hook, "art": ART[key], "facts": "",
+        "body": body_html, "mins": max(1, round(len(text(body_html).split()) / 230)),
+        "slug": slugify(title),
+    })
+
 ICON_WA = ('<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
            '<path d="M4 5h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H10l-4 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg>')
 ICON_MAIL = ('<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
              '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7.5l9 6 9-6"/></svg>')
 
 
-def head(title, desc, depth, theme_color="#fff3dc"):
+def head(title, desc, depth, theme_color="#fff3dc", body_style=""):
     up = "../" * depth
+    body_attr = f' class="tinted" style="{body_style}"' if body_style else ""
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -124,7 +183,7 @@ def head(title, desc, depth, theme_color="#fff3dc"):
 <link rel="stylesheet" href="{up}assets/fonts.css">
 <link rel="stylesheet" href="{up}assets/blog.css">
 </head>
-<body>
+<body{body_attr}>
 <a class="skip" href="#main">Skip to content</a>
 <header class="bar"><div class="in">
   <a class="brand" href="{up}index.html">{NAME}</a>
@@ -132,6 +191,8 @@ def head(title, desc, depth, theme_color="#fff3dc"):
     <a href="{up}index.html#posts">All posts</a>
     <a href="{up}index.html?topic=tips#posts">Budapest tips</a>
     <a href="{up}index.html?topic=story#posts">My story</a>
+    <a href="{up}index.html?topic=travels#posts">Travels</a>
+    <a href="{up}table.html">Order</a>
     <a href="{up}index.html#about">About</a>
     <a href="{up}index.html#guestbook">Guest book</a>
   </nav>
@@ -158,7 +219,7 @@ def foot(depth):
 
 
 def card(p, featured=False):
-    style = f"--chap:var(--p{p['color']})"
+    style = mood_style(p)
     href = f"posts/{p['slug']}.html"
     meta = f'<span class="meta">{p["mins"]} min read</span>'
     tag = f'<span class="tag">{html.escape(p["group"])}</span>'
@@ -190,11 +251,18 @@ home = head(SITE_TITLE, SITE_DESC, 0) + f"""<main id="main">
   <div class="sec-h"><h2>Start here</h2></div>
   {card(featured, featured=True)}
 
+  <a class="order" href="table.html">
+    <span class="order-ico" aria-hidden="true">&#127863;</span>
+    <span><b>At one of my tables?</b><span>Order drinks and food, ask for the bill or call me over, right from your phone.</span></span>
+    <span class="arrow" aria-hidden="true">&rarr;</span>
+  </a>
+
   <div class="sec-h" id="posts"><h2>All posts</h2><span class="meta">{len(posts)} posts</span></div>
   <div class="filters" role="group" aria-label="Show posts about">
     <button type="button" data-topic="all" aria-pressed="true">Everything</button>
     <button type="button" data-topic="tips" aria-pressed="false">Budapest tips</button>
     <button type="button" data-topic="story" aria-pressed="false">My story</button>
+    <button type="button" data-topic="travels" aria-pressed="false">Travels</button>
   </div>
   <ul class="grid">
     {"".join(card(p) for p in posts)}
@@ -242,13 +310,13 @@ for i, p in enumerate(posts):
     if next_p:
         pager += f'<a class="next" href="{next_p["slug"]}.html"><small>Next &rarr;</small><b>{next_p["title"]}</b></a>'
     pager += "</nav>"
-    page = head(f'{p["title_txt"]} · {SITE_TITLE}', text(p["hook"]) or SITE_DESC, 1) + f"""<main id="main">
-<article style="--chap:var(--p{p['color']})">
+    page = head(f'{p["title_txt"]} · {SITE_TITLE}', text(p["hook"]) or SITE_DESC, 1, body_style=mood_style(p)) + f"""<main id="main">
+<article>
   <div class="wrap post-head">
-    <a class="tag" href="../index.html?topic={p['topic']}#posts">{html.escape(p['topic_name'])} · {html.escape(p['group'])}</a>
+    <a class="tag" href="../index.html?topic={p['topic']}#posts">{html.escape(p['topic_name'] if p['topic_name'] == p['group'] else p['topic_name'] + ' · ' + p['group'])}</a>
     <h1>{p['title']}</h1>
     {f'<p class="sub">{p["hook"]}</p>' if p['hook'] else ''}
-    <div class="byline"><span class="ava">{AVATAR}</span><span><b>{NAME}</b><span class="meta">{p['mins']} min read</span></span></div>
+    <div class="byline"><span class="ava">{AVATAR}</span><span><b>{NAME}</b><span class="meta">{p['mins']} min read · {MOOD_WORD[MOODS.get(p['id'], 'joy')]}</span></span></div>
   </div>
   <div class="cover"><div class="frame">{p['art']}</div></div>
   <div class="wrap">
@@ -278,5 +346,18 @@ for old in (OUT / "assets" / "img").iterdir():
         old.unlink()
 for name in used:
     shutil.copy(ROOT / "assets" / "img" / name, OUT / "assets" / "img" / name)
+
+# ---------- order pad: the table page, the private inbox and its function ----------
+for f in ("table.html", "tables-qr.html", "inbox.html", "inbox-sw.js", "inbox.webmanifest"):
+    shutil.copy(ROOT / f, OUT / f)
+for f in ("table.js", "table.css", "menu.js"):
+    shutil.copy(ROOT / "assets" / f, OUT / "assets" / f)
+with open(OUT / "assets" / "table.css", "a", encoding="utf-8") as fh:
+    fh.write("\n/* blog copy: no text smaller than 16px */\n.tbl-kicker { font-size: 16px; }\n"
+             ".tbl-panel .item .info small, .tbl-panel .item .price { font-size: 16px; }\n")
+shutil.copytree(ROOT / "assets" / "app", OUT / "assets" / "app", dirs_exist_ok=True)
+(OUT / "netlify" / "functions").mkdir(parents=True, exist_ok=True)
+for f in ("guestbook.mjs", "table.mjs"):
+    shutil.copy(ROOT / "netlify" / "functions" / f, OUT / "netlify" / "functions" / f)
 
 print(f"{len(posts)} posts, {len(used)} photos")
