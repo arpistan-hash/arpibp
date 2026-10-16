@@ -1,5 +1,5 @@
 # Netlify settings for the blog copy: plain static site, no build step.
-# To put it online, make a new Netlify site with "blog-copy" as the base directory.
+# The live site publishes this folder (see ../netlify.toml).
 [build]
   publish = "."
   command = ""
