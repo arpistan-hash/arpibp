@@ -175,6 +175,7 @@
         };
         tabs.appendChild(b);
       });
+      var only = tabs.querySelectorAll(".tab"); if (only.length === 1) only[0].click(); // a bar menu: open the drinks straight away
       basketBox = el("div", "tbl-basket"); basketBox.hidden = true;
       menuBox.appendChild(tabs); menuBox.appendChild(panel); menuBox.appendChild(basketBox);
     }

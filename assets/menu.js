@@ -1,4 +1,5 @@
 // The menu guests can order from on the table page (table.html and the "At my table" section).
+// It is a bar and lounge menu, so only "drinks" is filled; an empty list (like food) is simply not shown.
 // While both lists are empty, the menu stays hidden and guests just write what they want.
 //
 // Shape:
