@@ -43,7 +43,9 @@
   // Guest book (Netlify function in netlify/functions/guestbook.mjs).
   var form = document.getElementById("gb-form");
   if (!form) return;
-  var list = document.getElementById("gb-list"), status = document.getElementById("gb-status");
+  var list = document.getElementById("gb-list"), status = document.getElementById("gb-status"), empty = document.getElementById("gb-empty");
+  var WA = "36202239524";
+  function settle() { if (empty) { empty.hidden = list.children.length > 0; empty.textContent = "No messages yet. Be the first to sign!"; } }
   var API = "/.netlify/functions/guestbook";
   function fmt(ts) { try { return new Date(ts).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }); } catch (e) { return ""; } }
   function add(e, top) {
@@ -53,11 +55,13 @@
     txt.className = "txt"; txt.textContent = e.msg || "";
     li.appendChild(who); li.appendChild(when); li.appendChild(txt);
     if (top) list.insertBefore(li, list.firstChild); else list.appendChild(li);
+    if (empty) empty.hidden = true;
   }
   fetch(API, { headers: { accept: "application/json" } })
     .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
     .then(function (d) { ((d && d.entries) || []).forEach(function (e) { add(e, false); }); })
-    .catch(function () {});
+    .catch(function () {})
+    .then(settle);
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
     var name = form.name.value.trim(), email = form.email.value.trim(), msg = form.msg.value.trim();
@@ -72,7 +76,14 @@
         add(d.entry || { name: name, msg: msg, ts: Date.now() }, true);
         status.textContent = "Thank you for signing, " + name + "!"; form.msg.value = "";
       })
-      .catch(function () { status.textContent = "That didn't go through. Please try again in a moment."; })
+      .catch(function () {
+        // Keep the message: offer it on WhatsApp, already written out.
+        var a = document.createElement("a");
+        a.href = "https://wa.me/" + WA + "?text=" + encodeURIComponent("Guest book from " + name + (email ? " (" + email + ")" : "") + ":\n" + msg);
+        a.target = "_blank"; a.rel = "noopener"; a.textContent = "send it on WhatsApp";
+        status.textContent = "That didn't go through. Your message is still here, so try again, or ";
+        status.appendChild(a); status.appendChild(document.createTextNode(" instead."));
+      })
       .then(function () { btn.disabled = false; });
   });
 })();
