@@ -90,7 +90,7 @@ for m in re.finditer(r'<div class="chapter[^"]*" id="([^"]+)"[^>]*>', body):
     posts.append({
         "id": cid,
         "topic": "tips" if is_tip else "story",
-        "topic_name": "Budapest tips" if is_tip else "My story",
+        "topic_name": "Budapest tips" if is_tip else "My life",
         "group": groups[-1] if is_tip and groups else kind,
         "kind": kind,
         "title": title,
@@ -152,7 +152,7 @@ for key, title, hook, body_html in (
 ):
     body_html = body_html.replace('src="assets/', 'src="../assets/')
     posts.append({
-        "id": key, "topic": "travels", "topic_name": "Travels", "group": "Travels", "kind": "Travels",
+        "id": key, "topic": "story", "topic_name": "My life", "group": "Travels", "kind": "Travels",
         "title": title, "title_txt": title, "hook": hook, "art": ART[key], "facts": "",
         "body": body_html, "mins": max(1, round(len(text(body_html).split()) / 230)),
         "slug": slugify(title),
@@ -188,12 +188,9 @@ def head(title, desc, depth, theme_color="#fff3dc", body_style=""):
 <header class="bar"><div class="in">
   <a class="brand" href="{up}index.html">{NAME}</a>
   <nav aria-label="Main">
-    <a href="{up}index.html#posts">All posts</a>
-    <a href="{up}index.html?topic=tips#posts">Budapest tips</a>
-    <a href="{up}index.html?topic=story#posts">My story</a>
-    <a href="{up}index.html?topic=travels#posts">Travels</a>
+    <a href="{up}index.html#tips">Budapest tips</a>
+    <a href="{up}index.html#story">My life</a>
     <a href="{up}table.html">Order</a>
-    <a href="{up}index.html#about">About</a>
     <a href="{up}index.html#guestbook">Guest book</a>
   </nav>
   <button class="theme" type="button" aria-label="Light or dark">&#9790;</button>
@@ -232,7 +229,6 @@ def card(p, featured=False):
 
 
 # ---------- home page ----------
-featured = next(p for p in posts if p["id"] == "ch1")
 home = head(SITE_TITLE, SITE_DESC, 0) + f"""<main id="main">
 <div class="wrap-wide">
   <section class="hero">
@@ -240,33 +236,44 @@ home = head(SITE_TITLE, SITE_DESC, 0) + f"""<main id="main">
     <div>
       <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Budapest, Hungary</p>
       <h1>Hi, this is {NAME}</h1>
-      <p class="lede">Friendly Budapest tips from a local, and the story of a life that went from socialist Hungary to Canada, the Cayman Islands and back.</p>
-      <div class="ctas">
-        <a class="btn primary" href="#posts">Start reading</a>
-        <a class="btn" href="#guestbook">Sign the guest book</a>
-      </div>
+      <p class="aka">or Arpy, RP, AARP and many others</p>
+      <p class="lede">It's really &Aacute;rp&aacute;d. I'm honored to have your attention online. What would you like to do today?</p>
     </div>
   </section>
 
-  <div class="sec-h"><h2>Start here</h2></div>
-  {card(featured, featured=True)}
-
-  <a class="order" href="table.html">
-    <span class="order-ico" aria-hidden="true">&#127863;</span>
-    <span><b>At one of my tables?</b><span>Order drinks and food, ask for the bill or call me over, right from your phone.</span></span>
+  <a class="live" href="table.html">
+    <span class="live-dot" aria-hidden="true"></span>
+    <b>LIVE SERVER</b>
+    <span><span class="long">At one of my tables? </span>Order here</span>
     <span class="arrow" aria-hidden="true">&rarr;</span>
   </a>
 
-  <div class="sec-h" id="posts"><h2>All posts</h2><span class="meta">{len(posts)} posts</span></div>
-  <div class="filters" role="group" aria-label="Show posts about">
-    <button type="button" data-topic="all" aria-pressed="true">Everything</button>
-    <button type="button" data-topic="tips" aria-pressed="false">Budapest tips</button>
-    <button type="button" data-topic="story" aria-pressed="false">My story</button>
-    <button type="button" data-topic="travels" aria-pressed="false">Travels</button>
-  </div>
-  <ul class="grid">
-    {"".join(card(p) for p in posts)}
+  <ul class="doors">
+    <li style="--chap:var(--m-calm);--tint:var(--m-calm-bg)"><a href="#tips">
+      <svg viewBox="0 0 120 90" aria-hidden="true"><rect x="8" y="58" width="104" height="22" rx="4" style="fill:var(--m-joy);stroke:var(--ink);stroke-width:3px"/><rect x="48" y="30" width="24" height="28" style="fill:var(--m-joy);stroke:var(--ink);stroke-width:3px"/><path d="M48 30 Q60 6 72 30Z" style="fill:var(--m-excited);stroke:var(--ink);stroke-width:3px"/><path d="M20 58 V40 L26 30 L32 40 V58 M88 58 V40 L94 30 L100 40 V58" style="fill:var(--m-joy);stroke:var(--ink);stroke-width:3px"/><path d="M0 84 H120" style="stroke:var(--m-calm);stroke-width:6px"/></svg>
+      <b>Tips and fun facts for your Budapest / Hungary trip</b>
+      <span>Getting around, food and drink, history and culture</span>
+    </a></li>
+    <li style="--chap:var(--m-love);--tint:var(--m-love-bg)"><a href="#story">
+      <svg viewBox="0 0 120 90" aria-hidden="true"><path d="M70 84 Q66 50 76 22" style="fill:none;stroke:var(--ink);stroke-width:5px;stroke-linecap:round"/><path d="M76 22 Q60 8 40 16 M76 22 Q92 6 110 14 M76 22 Q96 22 106 38 M76 22 Q58 26 50 42" style="fill:none;stroke:var(--m-calm);stroke-width:7px;stroke-linecap:round"/><circle cx="40" cy="62" r="20" style="fill:#8b5a2b;stroke:var(--ink);stroke-width:3px"/><circle cx="33" cy="57" r="3" style="fill:var(--ink)"/><circle cx="46" cy="57" r="3" style="fill:var(--ink)"/><circle cx="40" cy="67" r="3" style="fill:var(--ink)"/></svg>
+      <b>My life in a (coco)nutshell</b>
+      <span>From socialist Hungary to Canada, the Cayman Islands and back, plus travels and Tobi</span>
+    </a></li>
   </ul>
+
+  <section id="tips" aria-labelledby="tips-h">
+    <div class="sec-h"><h2 id="tips-h">Tips and fun facts</h2><span class="meta">{sum(p["topic"] == "tips" for p in posts)} posts</span></div>
+    <ul class="grid">
+      {"".join(card(p) for p in posts if p["topic"] == "tips")}
+    </ul>
+  </section>
+
+  <section id="story" aria-labelledby="story-h">
+    <div class="sec-h"><h2 id="story-h">My life in a (coco)nutshell</h2><span class="meta">{sum(p["topic"] != "tips" for p in posts)} posts</span></div>
+    <ul class="grid">
+      {"".join(card(p) for p in posts if p["topic"] != "tips")}
+    </ul>
+  </section>
 
   <section class="about" id="about" aria-labelledby="about-h">
     <div class="ava">{AVATAR}</div>
@@ -313,7 +320,7 @@ for i, p in enumerate(posts):
     page = head(f'{p["title_txt"]} · {SITE_TITLE}', text(p["hook"]) or SITE_DESC, 1, body_style=mood_style(p)) + f"""<main id="main">
 <article>
   <div class="wrap post-head">
-    <a class="tag" href="../index.html?topic={p['topic']}#posts">{html.escape(p['topic_name'] if p['topic_name'] == p['group'] else p['topic_name'] + ' · ' + p['group'])}</a>
+    <a class="tag" href="../index.html#{p['topic']}">{html.escape(p['topic_name'] if p['topic_name'] == p['group'] else p['topic_name'] + ' · ' + p['group'])}</a>
     <h1>{p['title']}</h1>
     {f'<p class="sub">{p["hook"]}</p>' if p['hook'] else ''}
     <div class="byline"><span class="ava">{AVATAR}</span><span><b>{NAME}</b><span class="meta">{p['mins']} min read · {MOOD_WORD[MOODS.get(p['id'], 'joy')]}</span></span></div>
