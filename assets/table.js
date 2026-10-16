@@ -36,6 +36,17 @@
     '</form>';
   document.querySelectorAll(".tbl-mount").forEach(function (m) { m.innerHTML = FORM; });
 
+  function confetti(x, y) {
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var E = ["\uD83C\uDF89", "\uD83C\uDF77", "\uD83C\uDF7B", "\u2728", "\uD83E\uDD73"];
+    for (var i = 0; i < 18; i++) {
+      var s = el("span", "confetti", E[i % E.length]), a = Math.random() * Math.PI * 2, d = 80 + Math.random() * 160;
+      s.setAttribute("aria-hidden", "true"); s.style.left = x + "px"; s.style.top = y + "px";
+      s.style.setProperty("--dx", Math.round(Math.cos(a) * d) + "px"); s.style.setProperty("--dy", Math.round(Math.sin(a) * d - 110) + "px");
+      s.style.setProperty("--rot", Math.round(Math.random() * 720 - 360) + "deg");
+      document.body.appendChild(s); setTimeout(function (n) { n.remove(); }.bind(null, s), 1700);
+    }
+  }
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
   function hasItems(groups) { return (groups || []).some(function (g) { return g.items && g.items.length; }); }
   function optsOf(item) { return item.options === "spirit" ? SPIRIT : (item.options || []); }
@@ -207,6 +218,7 @@
           if (a && algBox) { algBox.hidden = true; if (algBtn) algBtn.setAttribute("aria-expanded", "false"); algBox.querySelectorAll(".chs button").forEach(function (b) { b.setAttribute("aria-pressed", "false"); }); if (algNote) algNote.value = ""; }
           status.textContent = "Got it! Arpi will be with table " + t + " soon. 🙌";
           form.classList.remove("sent"); void form.offsetWidth; form.classList.add("sent");
+          var r = send.getBoundingClientRect(); confetti(r.left + r.width / 2, r.top);
         })
         .catch(function () {
           status.textContent = "That didn't go through. Tap “Send on WhatsApp” instead, or just wave. 👋";

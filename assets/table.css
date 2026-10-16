@@ -112,3 +112,6 @@
 .tbl-allergy .chs button[aria-pressed="true"] { background: #b3261e; color: #fff; }
 .tbl-allergy input { font-size: 17px; border-color: #b3261e; background: #fff; color: #3b0f0c; }
 .tbl-allergy label span { font-size: 16px; }
+
+.confetti { position: fixed; z-index: 90; pointer-events: none; font-size: 26px; animation: tbl-confetti 1.6s cubic-bezier(.2, .7, .3, 1) forwards; }
+@keyframes tbl-confetti { 0% { transform: translate(0, 0) rotate(0); opacity: 1; } 100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); opacity: 0; } }

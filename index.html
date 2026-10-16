@@ -974,6 +974,72 @@
   .tx-ico { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 3px; font-size: 25.5px; line-height: 1; min-height: 26px; }
   .tk { display: inline-block; filter: drop-shadow(1px 1px 0 var(--ink)); }
   .tk.part { width: calc(1em * var(--f, 1)); overflow: hidden; white-space: nowrap; }
+
+  /* ===== Music section ===== */
+  .music .chapter { --chap: var(--p3); }
+  .music .chapter:nth-of-type(4n+2) { --chap: var(--p2); } .music .chapter:nth-of-type(4n+3) { --chap: var(--p1); } .music .chapter:nth-of-type(4n+4) { --chap: var(--p7); }
+  .tunes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 18px; }
+  @media (min-width: 640px) { .tunes { grid-template-columns: 1fr 1fr; } }
+  .tune { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 18px 18px 16px; border: 2.5px solid var(--ink); border-radius: 22px; background: color-mix(in srgb, var(--c) 18%, var(--card)); box-shadow: 6px 6px 0 var(--shade); transition: transform .18s ease, box-shadow .18s ease; }
+  .tune:nth-child(odd) { transform: rotate(-.6deg); } .tune:nth-child(even) { transform: rotate(.6deg); }
+  .tune:hover { transform: translate(-2px, -3px) rotate(0); box-shadow: 9px 9px 0 var(--shade); }
+  .tune-ic { position: absolute; top: -16px; right: 14px; width: 52px; height: 52px; display: grid; place-items: center; font-size: 30px; border: 2.5px solid var(--ink); border-radius: 16px; background: var(--card); box-shadow: 3px 3px 0 var(--shade); transform: rotate(6deg); }
+  .tune-k { margin: 0; font-family: var(--font-mono); font-size: 13.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--fg); opacity: .8; }
+  .tune h4 { margin: 0; padding-right: 54px; font-family: var(--font-display); font-weight: 800; font-size: clamp(22px, 5.6vw, 26px); line-height: 1.1; letter-spacing: -.02em; color: var(--fg); }
+  .tune p:not(.tune-k) { margin: 0; font-size: .92em; line-height: 1.55; color: var(--fg); }
+  .tune .listen { align-self: flex-start; margin-top: 4px; padding: 7px 14px; font-weight: 800; font-size: 16px; text-decoration: none; color: #1b1f3b; background: var(--p7); border: 2px solid var(--ink); border-radius: 999px; box-shadow: 3px 3px 0 var(--shade); }
+  .tune .listen:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--shade); }
+  .tune .listen:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--shade); }
+
+  /* ===== "At my table" banner ===== */
+  .tbl-banner { display: flex; align-items: center; gap: 14px; padding: 14px 16px; text-decoration: none; color: #1b1f3b; background: var(--p7); border: 2.5px solid var(--ink); border-radius: 20px; box-shadow: 6px 6px 0 var(--shade); transition: transform .15s ease, box-shadow .15s ease; }
+  .tbl-banner:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--shade); }
+  .tbl-banner .tb-ic { flex: none; width: 50px; height: 50px; display: grid; place-items: center; font-size: 28px; background: #fffaf0; border: 2px solid #1b1f3b; border-radius: 14px; transform: rotate(-5deg); }
+  .tbl-banner .tb-tx { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .tbl-banner strong { font-family: var(--font-display); font-weight: 800; font-size: 21px; line-height: 1.15; }
+  .tbl-banner .tb-tx span { font-size: 16px; line-height: 1.35; }
+  .tbl-banner .tb-go { flex: none; font-size: 26px; font-weight: 800; }
+
+  /* ===== Easier reading: long cards fold, with a "Keep reading" button ===== */
+  .chapter.folded { max-height: var(--fold, 680px); overflow: hidden; position: relative; }
+  .chapter.folded::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 170px; z-index: 2; pointer-events: none; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--chap, var(--p7)) 16%, var(--card)) 78%); }
+  .chapter .more { position: absolute; left: 50%; bottom: 18px; z-index: 3; transform: translateX(-50%); white-space: nowrap; font: inherit; font-weight: 800; font-size: 17px; padding: 10px 18px; cursor: pointer; color: #1b1f3b; background: var(--p7); border: 2.5px solid var(--ink); border-radius: 999px; box-shadow: 4px 4px 0 var(--shade); }
+  .chapter .more:hover { transform: translate(calc(-50% - 1px), -1px); box-shadow: 5px 5px 0 var(--shade); }
+  .chapter:not(.folded) .more { position: static; transform: none; display: block; margin: 18px auto 0; background: var(--card); }
+  .chapter.unfolding { animation: unfold .45s ease; }
+  @keyframes unfold { from { clip-path: inset(0 0 25% 0 round 22px); } to { clip-path: inset(0 0 0 0 round 22px); } }
+  @media (prefers-reduced-motion: reduce) { .chapter.unfolding { animation: none; } .tune, .tune:nth-child(odd), .tune:nth-child(even) { transform: none; transition: none; } }
+  @media print { .chapter.folded { max-height: none; overflow: visible; } .chapter.folded::before, .chapter .more { display: none; } }
+
+  /* ===== Easier reading: rhythm and contrast ===== */
+  .chapter p, .story > p, .tune p { text-wrap: pretty; }
+  .chapter p { line-height: 1.68; }
+  .chapter h3 { text-wrap: balance; }
+
+  /* ===== Big screens: use the space ===== */
+  @media (min-width: 1100px) {
+    main { max-width: 1180px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 56px; align-items: start; }
+    main > * { grid-column: 1 / -1; width: 100%; max-width: 760px; justify-self: center; }
+    main > figure.scene { grid-column: 1; grid-row: 1; max-width: none; align-self: center; }
+    main > header { grid-column: 2; grid-row: 1; max-width: none; align-self: center; }
+    main > header h1 { font-size: clamp(56px, 6vw, 88px); }
+    main > header .heroStats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    main > .welcome { max-width: 1180px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto) 1fr; column-gap: 56px; row-gap: 14px; align-items: start; }
+    main > .welcome > * { grid-column: 1; }
+    main > .welcome > .jump { grid-column: 2; grid-row: 1 / -1; margin: 0; }
+    main > .welcome > .tbl-banner { margin-top: 10px; }
+    main > .welcome > .tbl-banner { grid-column: 1; }
+    main > .story.tips, main > .story.music { max-width: 1180px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 32px; row-gap: 32px; align-items: start; }
+    main > .story.tips > *, main > .story.music > * { grid-column: 1 / -1; margin-top: 0; margin-bottom: 0; }
+    main > .story.tips::before, main > .story.tips::after, main > .story.music::before, main > .story.music::after { grid-column: 1 / -1; }
+    main > .story.tips > .chapter, main > .story.music > .chapter { grid-column: auto; margin-right: 8px; }
+    main > .story.tips > p, main > .story.music > p { max-width: 760px; }
+    .tunes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
+  /* ===== Confetti (guest book and table messages) ===== */
+  .confetti { position: fixed; z-index: 90; pointer-events: none; font-size: 26px; will-change: transform, opacity; animation: confetti 1.6s cubic-bezier(.2, .7, .3, 1) forwards; }
+  @keyframes confetti { 0% { transform: translate(0, 0) rotate(0); opacity: 1; } 100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); opacity: 0; } }
 </style>
 </head>
 <body>
@@ -1138,7 +1204,8 @@
     <h2 id="welcome-h">Welcome! <span lang="hu">Üdvözöllek!</span></h2>
     <p class="thanks">Thanks for stopping by! I'm truly grateful you took a look. For me, that's mission accomplished: we've made a connection.</p>
     <p class="promise">A friendly guide to Budapest, plus the story of the life behind it.</p>
-    <ul class="jump"><li><a href="#tips-h" style="--c:var(--p2)"><strong>Budapest tips and facts</strong><span>Getting around, food and drink, history and culture</span></a></li><li><a href="#story-h" style="--c:var(--p1)"><strong>My story</strong><span>From socialist Hungary to Canada, the Cayman Islands and back</span></a></li><li><a href="#been-h" style="--c:var(--p4)"><strong>Countries and Tobi</strong><span>37 countries, one map and one very good dog</span></a></li></ul>
+    <ul class="jump"><li><a href="#tips-h" style="--c:var(--p2)"><strong>Budapest tips and facts</strong><span>Getting around, food and drink, history and culture</span></a></li><li><a href="#music-h" style="--c:var(--p7)"><strong>Hungarian classical music</strong><span>Tunes you already know, from Tom and Jerry to <i>2001</i></span></a></li><li><a href="#story-h" style="--c:var(--p1)"><strong>My story</strong><span>From socialist Hungary to Canada, the Cayman Islands and back</span></a></li><li><a href="#been-h" style="--c:var(--p4)"><strong>Countries and Tobi</strong><span>37 countries, one map and one very good dog</span></a></li></ul>
+    <a class="tbl-banner" href="table.html"><span class="tb-ic" aria-hidden="true">🍽️</span><span class="tb-tx"><strong>Sitting at one of my tables?</strong><span>Order, ask for the bill or call me over, right from your phone.</span></span><span class="tb-go" aria-hidden="true">→</span></a>
   </section>
 
 
@@ -1406,6 +1473,87 @@
       <p>The Hungarian alphabet is essentially the Latin alphabet, with a lot of accents added. We have four different Os (o, ó, ö, ő) and four different Us (u, ú, ü, ű). A few sounds are written with letter pairs, like ty, which outsiders find nearly impossible to pronounce.</p>
       <p>Hungarian is extremely difficult. Even after you learn the rules, you're not finished, because almost every rule comes with exceptions.</p>
       <p>The one piece of good news: Hungarian is phonetic. Once you master how each sound is spelled, the written word never surprises you, unlike English, where the same spelling can sound completely different.</p>
+    </div>
+  </section>
+
+  <section class="story music" aria-labelledby="music-h">
+    <h2 id="music-h">Hungarian classical music</h2>
+    <p>You probably know more Hungarian music than you think. Cartoons, Chaplin and Kubrick have been borrowing it for ages. Here are the tunes you have almost certainly heard, and my favorite stories behind them.</p>
+    <nav class="chapnav" aria-label="Hungarian classical music"><a href="#music-know">You already know these</a><a href="#music-facts">Fun facts</a></nav>
+
+    <h3 class="tipgroup" id="music-know">You already know these</h3>
+    <ul class="tunes">
+      <li class="tune" style="--c:var(--p1)">
+        <span class="tune-ic" aria-hidden="true">🐱</span>
+        <p class="tune-k">Liszt · 1847</p>
+        <h4>Hungarian Rhapsody No. 2</h4>
+        <p>The piano piece Tom plays while Jerry wrecks the show in <i>The Cat Concerto</i> (1947), which won an Oscar. A year earlier Bugs Bunny played the very same piece in <i>Rhapsody Rabbit</i>, with nearly identical gags, and the two studios have been side-eyeing each other ever since.</p>
+        <a class="listen" href="https://www.youtube.com/results?search_query=Liszt+Hungarian+Rhapsody+No.+2" target="_blank" rel="noopener">▶ Listen</a>
+      </li>
+      <li class="tune" style="--c:var(--p2)">
+        <span class="tune-ic" aria-hidden="true">💈</span>
+        <p class="tune-k">Brahms · 1869</p>
+        <h4>Hungarian Dance No. 5</h4>
+        <p>Charlie Chaplin shaves a customer perfectly in time to it in <i>The Great Dictator</i> (1940). The twist: Brahms was German, and the tune was by the Hungarian bandmaster Béla Kéler, from his csárdás "Bártfai emlék". Brahms thought it was an old folk song. Kéler was not amused.</p>
+        <a class="listen" href="https://www.youtube.com/results?search_query=Brahms+Hungarian+Dance+No.+5" target="_blank" rel="noopener">▶ Listen</a>
+      </li>
+      <li class="tune" style="--c:var(--p3)">
+        <span class="tune-ic" aria-hidden="true">🚀</span>
+        <p class="tune-k">Ligeti · 1960s</p>
+        <h4>Atmosphères, Lux Aeterna, Requiem</h4>
+        <p>The eerie, shimmering voices around the black monolith in Kubrick's <i>2001: A Space Odyssey</i> (1968) are György Ligeti, born in Transylvania. Kubrick didn't ask him first, and Ligeti was not happy about it. Kubrick loved him anyway: the lonely piano notes in <i>Eyes Wide Shut</i> (1999) are Ligeti too.</p>
+        <a class="listen" href="https://www.youtube.com/results?search_query=Ligeti+Atmospheres+2001+A+Space+Odyssey" target="_blank" rel="noopener">▶ Listen</a>
+      </li>
+      <li class="tune" style="--c:var(--p7)">
+        <span class="tune-ic" aria-hidden="true">🐎</span>
+        <p class="tune-k">Berlioz · 1846</p>
+        <h4>Rákóczi March</h4>
+        <p>An old Hungarian march that the French composer Berlioz loved so much that he moved the opening of his <i>Damnation of Faust</i> to the Hungarian plains, just so a troop of hussars could gallop past to it. It premiered in Pest in 1846, and the crowd went wild.</p>
+        <a class="listen" href="https://www.youtube.com/results?search_query=Berlioz+Rakoczi+March" target="_blank" rel="noopener">▶ Listen</a>
+      </li>
+      <li class="tune" style="--c:var(--p6)">
+        <span class="tune-ic" aria-hidden="true">🤧</span>
+        <p class="tune-k">Kodály · 1926</p>
+        <h4>Háry János Suite</h4>
+        <p>It starts with the whole orchestra sneezing. Seriously. In Hungarian folk belief, if someone sneezes while you tell a story, the story is true, and Háry János is the biggest storyteller of them all: he claims he defeated Napoleon single-handedly.</p>
+        <a class="listen" href="https://www.youtube.com/results?search_query=Kodaly+Hary+Janos+Suite+sneeze" target="_blank" rel="noopener">▶ Listen</a>
+      </li>
+      <li class="tune" style="--c:var(--p4)">
+        <span class="tune-ic" aria-hidden="true">🎺</span>
+        <p class="tune-k">Bartók · 1943</p>
+        <h4>Concerto for Orchestra</h4>
+        <p>Written in America, when Bartók was ill and short of money. In the fourth movement he quotes a march from Shostakovich's hugely popular "Leningrad" Symphony, and then the orchestra openly laughs at it with sliding, giggling trombones. Classical music shade at its finest.</p>
+        <a class="listen" href="https://www.youtube.com/results?search_query=Bartok+Concerto+for+Orchestra+Interrupted+Intermezzo" target="_blank" rel="noopener">▶ Listen</a>
+      </li>
+    </ul>
+
+    <h3 class="tipgroup" id="music-facts">Fun facts</h3>
+    <div class="chapter" id="music1">
+      <p class="chap-k">Fun fact</p>
+      <h3>Liszt, the first rock star</h3>
+      <p class="chap-hook">Fans fought over his gloves. And his cigar stubs.</p>
+      <p>Franz Liszt, born in 1811 in a Hungarian village that is now in Austria, was the most famous pianist on Earth. The poet Heinrich Heine called the craze "Lisztomania" in 1844. Women fought over his handkerchiefs, collected the dregs of his coffee in little glass bottles, and made bracelets from the piano strings he broke. One lady carried his old cigar stub in a diamond locket.</p>
+      <p>He is also credited with inventing the solo piano recital: one person, one piano, a whole evening. Later he founded the Music Academy here in Budapest, which still carries his name. Go and see a concert there: the Art Nouveau hall is stunning.</p>
+    </div>
+    <div class="chapter" id="music2">
+      <p class="chap-k">Fun fact</p>
+      <h3>The symphony that went on strike</h3>
+      <p class="chap-hook">Haydn's polite way of saying "we want to go home".</p>
+      <p>Joseph Haydn worked for the Hungarian Esterházy princes for decades. In 1772 the prince kept the whole court at his summer palace, Eszterháza, in Hungary for far too long, and the musicians missed their families.</p>
+      <p>So Haydn wrote the "Farewell" Symphony. In the last movement the players stop one by one, blow out the candle on their music stand and walk off, until only two violins are left. The prince got the hint, and the next day everybody went home.</p>
+    </div>
+    <div class="chapter" id="music3">
+      <p class="chap-k">Fun fact</p>
+      <h3>Folk song hunters</h3>
+      <p class="chap-hook">Bartók and Kodály, a phonograph and a lot of villages.</p>
+      <p>From the early 1900s Béla Bartók and Zoltán Kodály travelled from village to village with a phonograph, recording peasants singing onto wax cylinders. They collected thousands of folk songs, and you can hear those old melodies and rhythms all over their own music.</p>
+      <p>Kodály also changed how the world teaches music. The Kodály method, with its singing and hand signs for do, re, mi, is used in schools all over the world. If you've seen the scientist in <i>Close Encounters of the Third Kind</i> "talk" to the aliens with hand signals for those five famous notes, those are solfège hand signs, the same kind Hungarian kids learn at school.</p>
+    </div>
+    <div class="chapter" id="music4">
+      <p class="chap-k">Fun fact</p>
+      <h3>Our anthem has a composer too</h3>
+      <p class="chap-hook">The poem came first. The music won a contest.</p>
+      <p>The words of the Hungarian national anthem, the Himnusz, were written by Ferenc Kölcsey in 1823. The music came in 1844, when Ferenc Erkel won a competition for it. Erkel also wrote the first great Hungarian operas, and the Erkel Theatre in Budapest is named after him.</p>
     </div>
   </section>
 
@@ -2571,8 +2719,8 @@
       });
     });
     // desktop table of contents
-    var items = hu ? [["tips-go","Közlekedés"],["tips-eat","Étel és ital"],["tips-hist","Történelem és kultúra"],["about-h","Rólam"],["story-h","Élettörténet"],["been-h","Ahol jártam"],["gb-h","Vendégkönyv"]]
-                   : [["tips-go","Getting around"],["tips-eat","Eat and drink"],["tips-hist","History and culture"],["about-h","About me"],["story-h","My story"],["been-h","Countries I've been to"],["gb-h","Guest book"]];
+    var items = hu ? [["tips-go","Közlekedés"],["tips-eat","Étel és ital"],["tips-hist","Történelem és kultúra"],["music-know","Komolyzene"],["about-h","Rólam"],["story-h","Élettörténet"],["been-h","Ahol jártam"],["gb-h","Vendégkönyv"]]
+                   : [["tips-go","Getting around"],["tips-eat","Eat and drink"],["tips-hist","History and culture"],["music-know","Classical music"],["about-h","About me"],["story-h","My story"],["been-h","Countries I've been to"],["gb-h","Guest book"]];
     var toc = document.createElement("nav"); toc.className = "toc"; toc.setAttribute("aria-label", hu ? "Tartalom" : "Contents");
     var st = document.createElement("strong"); st.textContent = hu ? "Tartalom" : "Contents"; toc.appendChild(st);
     var links = [];
@@ -2597,7 +2745,7 @@
     var nav = document.createElement("nav"); nav.className = "topnav"; nav.setAttribute("aria-label", hu ? "Fő navigáció" : "Main navigation");
     var brand = document.createElement("a"); brand.className = "brand"; brand.href = "#"; brand.textContent = "Arpi"; brand.addEventListener("click", function (e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); });
     var wrap = document.createElement("div"); wrap.className = "links";
-    var items = hu ? [["tips-h","Tippek"],["about-h","Rólam"],["story-h","Történetem"],["been-h","Helyek"],["gb-h","Vendégkönyv"]] : [["tips-h","Tips & facts"],["about-h","About me"],["story-h","My story"],["been-h","Countries"],["gb-h","Guest book"]];
+    var items = hu ? [["tips-h","Tippek"],["music-h","Zene"],["about-h","Rólam"],["story-h","Történetem"],["been-h","Helyek"],["gb-h","Vendégkönyv"]] : [["tips-h","Tips & facts"],["music-h","Music"],["about-h","About me"],["story-h","My story"],["been-h","Countries"],["gb-h","Guest book"]];
     var links = [];
     items.forEach(function (it) { var el = document.getElementById(it[0]); if (!el) return; var a = document.createElement("a"); a.href = "#" + it[0]; a.textContent = it[1]; wrap.appendChild(a); links.push([a, el]); });
     var tg = document.createElement("button"); tg.type = "button"; tg.className = "theme"; tg.setAttribute("aria-label", hu ? "Világos / sötét téma" : "Light / dark theme");
@@ -2652,7 +2800,7 @@
 <script>
   (function () {
     var hu = (document.documentElement.lang || "").indexOf("hu") === 0;
-    var SEC = [["tips-h", hu ? "Tippek" : "Tips and facts"], ["about-h", hu ? "Rólam" : "About me"], ["story-h", hu ? "Történetem" : "My story"], ["been-h", hu ? "Országok" : "Countries"], ["gb-h", hu ? "Vendégkönyv" : "Guest book"]];
+    var SEC = [["tips-h", hu ? "Tippek" : "Tips and facts"], ["music-h", hu ? "Komolyzene" : "Classical music"], ["about-h", hu ? "Rólam" : "About me"], ["story-h", hu ? "Történetem" : "My story"], ["been-h", hu ? "Országok" : "Countries"], ["gb-h", hu ? "Vendégkönyv" : "Guest book"]];
     SEC.forEach(function (s, i) {
       var h = document.getElementById(s[0]); if (!h) return;
       var n = document.createElement("span"); n.className = "sec-n"; n.setAttribute("aria-hidden", "true"); n.textContent = (i < 9 ? "0" : "") + (i + 1);
@@ -2678,7 +2826,7 @@
       li.innerHTML = '<a href="#about-h" style="--c:var(--p3)"><strong></strong><span></span></a>';
       li.querySelector("strong").textContent = hu ? "Rólam" : "About me";
       li.querySelector("span").textContent = hu ? "Hány éves vagyok? Attól függ, melyik testrészemről van szó." : "How old am I? It depends on the body part.";
-      jl.insertBefore(li, jl.children[1] || null);
+      jl.insertBefore(li, jl.querySelector('a[href="#story-h"]') ? jl.querySelector('a[href="#story-h"]').parentNode : null);
       Array.prototype.forEach.call(jl.querySelectorAll("li"), function (l, i) { var s = l.querySelector("strong"); if (s) s.insertAdjacentHTML("afterbegin", '<em class="jn">0' + (i + 1) + '</em>'); });
     }
   })();
@@ -2718,5 +2866,56 @@
   })();
 </script>
 <!-- Updated automatically from the ccr-55fadb15-0mw2fx branch -->
+<script>
+  // Easier reading: long cards show their start, with a "Keep reading" button for the rest.
+  (function () {
+    var hu = (document.documentElement.lang || "").indexOf("hu") === 0;
+    var MORE = hu ? "Tovább olvasom ↓" : "Keep reading ↓", LESS = hu ? "Összecsukom ↑" : "Fold it back ↑";
+    var cards = [];
+    function fold(c, b) { c.classList.add("folded"); b.textContent = MORE; b.setAttribute("aria-expanded", "false"); }
+    function unfold(c, b) { c.classList.remove("folded"); c.classList.add("unfolding"); b.textContent = LESS; b.setAttribute("aria-expanded", "true"); setTimeout(function () { c.classList.remove("unfolding"); }, 500); }
+    function setup() {
+      var limit = Math.max(900, window.innerHeight * 1.3), keep = Math.round(Math.max(560, Math.min(780, window.innerHeight * 0.95)));
+      document.querySelectorAll(".story .chapter").forEach(function (c) {
+        if (c.querySelector(":scope > .more") || c.scrollHeight < limit) return;
+        var b = document.createElement("button"); b.type = "button"; b.className = "more";
+        b.addEventListener("click", function () {
+          if (c.classList.contains("folded")) unfold(c, b);
+          else { fold(c, b); var top = c.getBoundingClientRect().top; if (top < 0) window.scrollBy({ top: top - 90, behavior: "instant" }); }
+        });
+        c.style.setProperty("--fold", keep + "px"); c.appendChild(b); fold(c, b); cards.push([c, b]);
+      });
+    }
+    function reveal() {
+      var id = decodeURIComponent((location.hash || "").slice(1)); if (!id) return;
+      var t = document.getElementById(id); if (!t) return;
+      cards.forEach(function (p) { if (p[0] !== t && p[0].contains(t) && p[0].classList.contains("folded")) { unfold(p[0], p[1]); t.scrollIntoView(); } });
+    }
+    function go() { setup(); reveal(); }
+    if (document.readyState === "complete") go(); else window.addEventListener("load", go);
+    window.addEventListener("hashchange", reveal);
+  })();
+
+  // A little confetti when someone signs the guest book.
+  (function () {
+    var EMO = ["🎉", "🇭🇺", "✨", "🍷", "🥳", "💛"];
+    window.arpiConfetti = function (x, y) {
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      for (var i = 0; i < 22; i++) {
+        var s = document.createElement("span"); s.className = "confetti"; s.setAttribute("aria-hidden", "true");
+        s.textContent = EMO[i % EMO.length];
+        var a = Math.random() * Math.PI * 2, r = 90 + Math.random() * 180;
+        s.style.left = x + "px"; s.style.top = y + "px";
+        s.style.setProperty("--dx", Math.round(Math.cos(a) * r) + "px"); s.style.setProperty("--dy", Math.round(Math.sin(a) * r - 120) + "px");
+        s.style.setProperty("--rot", Math.round(Math.random() * 720 - 360) + "deg");
+        document.body.appendChild(s); setTimeout(function (n) { n.remove(); }.bind(null, s), 1700);
+      }
+    };
+    var st = document.getElementById("gb-status"), btn = document.getElementById("gb-send");
+    if (st && btn && "MutationObserver" in window) new MutationObserver(function () {
+      if (/^(Thank you|Köszönöm)/.test(st.textContent)) { var r = btn.getBoundingClientRect(); window.arpiConfetti(r.left + r.width / 2, r.top); }
+    }).observe(st, { childList: true, characterData: true, subtree: true });
+  })();
+</script>
 </body>
 </html>
