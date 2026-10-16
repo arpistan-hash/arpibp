@@ -1,0 +1,15 @@
+{
+  "name": "Arpi's Table Inbox",
+  "short_name": "Tables",
+  "description": "Guest requests from Arpi's tables, with a buzz for each one.",
+  "id": "/inbox.html",
+  "scope": "/inbox",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#15172f",
+  "theme_color": "#15172f",
+  "icons": [
+    { "src": "/assets/app/inbox-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/assets/app/inbox-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

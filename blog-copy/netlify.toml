@@ -1,0 +1,8 @@
+# Netlify settings for the blog copy: plain static site, no build step.
+# The live site publishes this folder (see ../netlify.toml).
+[build]
+  publish = "."
+  command = ""
+
+[functions]
+  directory = "netlify/functions"

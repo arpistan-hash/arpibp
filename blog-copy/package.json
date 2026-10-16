@@ -1,0 +1,8 @@
+{
+  "name": "arpi-blog",
+  "private": true,
+  "dependencies": {
+    "@netlify/blobs": "^11.1.4",
+    "web-push": "^3.6.7"
+  }
+}

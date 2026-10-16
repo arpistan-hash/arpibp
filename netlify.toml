@@ -1,6 +1,7 @@
 # Netlify settings: plain static site, no build step.
+# The live site is the blog in blog-copy/ (made by blog-copy/tools/build.py from index.html).
 [build]
-  publish = "."
+  publish = "blog-copy"
   command = ""
 
 [functions]
