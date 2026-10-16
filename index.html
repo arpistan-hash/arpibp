@@ -1087,6 +1087,39 @@
     .door:hover .go { transform: translateX(5px); }
   }
   @media (prefers-reduced-motion: reduce) { .door, .door .go { transition: none; } .door:hover .pic svg { animation: none; } }
+
+  /* ===== Live server grabber + two big doors ===== */
+  .doors { grid-template-columns: 1fr; }
+  .live { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 18px; background: #14183a; color: #fff; text-decoration: none; box-shadow: 0 0 0 0 rgba(255,201,77,.55); animation: livering 2.4s ease-out infinite; transition: transform .2s ease; }
+  .live-tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 11px; border-radius: 999px; background: #ffc94d; color: #14183a; font-family: var(--font-mono, ui-monospace, monospace); font-size: 12.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+  .live-dot { width: 9px; height: 9px; border-radius: 50%; background: #e0122f; animation: liveblink 1.1s ease-in-out infinite; }
+  .live-txt { font-size: 15px; line-height: 1.3; }
+  .live-txt strong { display: block; font-family: var(--font-display); font-size: 17.5px; font-weight: 800; letter-spacing: -.01em; }
+  .live-txt span { opacity: .82; }
+  .live .go { font-size: 24px; font-weight: 800; color: #ffc94d; transition: transform .2s; }
+  .live:hover, .live:focus-visible { transform: translateY(-2px); }
+  .live:hover .go { transform: translateX(5px); }
+  @keyframes livering { 0% { box-shadow: 0 0 0 0 rgba(255,201,77,.6); } 70%,100% { box-shadow: 0 0 0 12px rgba(255,201,77,0); } }
+  @keyframes liveblink { 50% { opacity: .25; } }
+  .door { padding-top: 26px; padding-bottom: 26px; }
+  .door strong { font-size: clamp(24px, 6.6vw, 30px); }
+  .door .pic { width: 86px; height: 86px; } .door .pic svg { width: 64px; height: 64px; }
+  @media (min-width: 1000px) {
+    .doors { grid-template-columns: 1fr 1fr; }
+    .live { grid-column: 1 / -1; padding: 16px 24px; }
+    .live-txt strong { display: inline; font-size: 19px; margin-right: 6px; }
+    .door { min-height: 300px; padding: 34px 32px 40px; }
+    .door strong { font-size: 34px; }
+    .door .sub { font-size: 17.5px; }
+    .door .pic { width: 104px; height: 104px; } .door .pic svg { width: 76px; height: 76px; }
+  }
+  @media (max-width: 999px) {
+    .live { grid-template-columns: 1fr auto; row-gap: 8px; }
+    .live-tag { justify-self: start; }
+    .live-txt { grid-column: 1; grid-row: 2; }
+    .live .go { grid-column: 2; grid-row: 1 / 3; }
+  }
+  @media (prefers-reduced-motion: reduce) { .live, .live-dot { animation: none; } .live, .live .go { transition: none; } }
 </style>
 </head>
 <body>
@@ -1252,15 +1285,14 @@
   </header>
 
   <nav class="doors" aria-label="What would you like to do today?">
-    <a class="door d1" href="table.html">
-      <span class="pic" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M14 14h36L32 34Z" fill="#fff6e3" stroke="#14183a" stroke-width="3" stroke-linejoin="round"/><path d="M20 20h24" stroke="#14183a" stroke-width="3"/><circle cx="40" cy="17" r="3.5" fill="#2e9e44" stroke="#14183a" stroke-width="2"/><path d="M32 34v16M22 52h20" stroke="#14183a" stroke-width="3.5" stroke-linecap="round"/><path d="M46 10l-8 12" stroke="#14183a" stroke-width="2.5" stroke-linecap="round"/></svg></span>
-      <strong>You're at the restaurant or lounge</strong>
-      <span class="sub">Order, get the check, or just call me over.</span>
+    <a class="live" href="table.html">
+      <span class="live-tag"><span class="live-dot" aria-hidden="true"></span>Live server</span>
+      <span class="live-txt"><strong>At the restaurant or lounge?</strong> <span>Order, get the check, or just call me over.</span></span>
       <span class="go" aria-hidden="true">→</span>
     </a>
     <a class="door d2" href="#tips-h">
       <span class="pic" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M8 48h48" stroke="#14183a" stroke-width="3.5" stroke-linecap="round"/><path d="M12 48V36h40v12" fill="#fff6e3" stroke="#14183a" stroke-width="3" stroke-linejoin="round"/><path d="M24 36c0-10 16-10 16 0" fill="#fff6e3" stroke="#14183a" stroke-width="3"/><path d="M32 26v-12" stroke="#14183a" stroke-width="3" stroke-linecap="round"/><path d="M14 36v-8l3-5 3 5v8M44 36v-8l3-5 3 5v8" fill="#fff6e3" stroke="#14183a" stroke-width="3" stroke-linejoin="round"/><path d="M8 56h48" stroke="#2f6fed" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 5"/></svg></span>
-      <strong>Tips for your Budapest / Hungary trip</strong>
+      <strong>Tips and fun facts for your Budapest / Hungary trip</strong>
       <span class="sub">Getting around, food and drink, history, culture and music.</span>
       <span class="go" aria-hidden="true">→</span>
     </a>
