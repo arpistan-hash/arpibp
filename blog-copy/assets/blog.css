@@ -308,4 +308,6 @@ body.tinted .bar { background: color-mix(in srgb, var(--tint) 92%, transparent);
   .live .arrow { grid-column: 3; grid-row: 1 / 3; margin-left: 0; }
 }
 @media (max-width: 899px) { .hero > div { order: -1; } .hero { padding-top: 24px; } }
+/* Tablets: keep the cartoon modest so the two big tiles show on the first screen. */
+@media (min-width: 521px) and (max-width: 899px) { .hero .postcard { width: 100%; max-width: 420px; justify-self: center; } }
 @media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
