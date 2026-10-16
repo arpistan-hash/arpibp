@@ -1125,6 +1125,28 @@
   .item > .item-body { flex: 1; min-width: 0; }
   .chapter .item > .item-body > p { font-size: 18px; line-height: 1.62; margin: 0 0 .8em; }
   .chapter .item > .item-body > p:last-child { margin-bottom: 0; }
+
+  /* ===== Bigger, easier reading: no tiny text ===== */
+  body { font-size: 19px; }
+  .chapter p, .story > p, .chapter .item > p, .chapter .item.callout > p, .chapter .item > .item-body > p { font-size: 20px !important; line-height: 1.6 !important; }
+  .chapter .chap-hook { font-size: 22px !important; }
+  header .aka { font-size: 20px; }
+  header .real { font-size: 20px; }
+  div.links a, nav.toc a, nav.toc strong, nav.chapnav a, .topnav a { font-size: 16px !important; }
+  figure figcaption, .scene figcaption, figure.photo figcaption, figure.ages figcaption, figure.ages p.between { font-size: 17px !important; letter-spacing: .02em; }
+  div.eyebrow span, div.eyebrow #clock, .live-tag, .sec-n, p.chap-k, p.kicker, ul.facts li, ul.chips li, div.regions h3, ol.moves span.when, li.star span.when, a.nextlink small, p.daycount, p.daycount span, div.tx-lbl span, div.tx-row div.tx-n, span.tx span, div.ico-col span.yr, details.pics span, figure.atlas button.expand, span.promo button, div.item span.promo { font-size: 16px !important; letter-spacing: .05em; }
+  .live-txt span, a.door .sub { font-size: 17px !important; }
+  div.ag-scale span, div.ag-row span.ag-note, ol.moves span, li.star span { font-size: 16px !important; }
+  ul.facts li, ul.chips li, p.daycount { letter-spacing: normal; }
+  p.disclaimer, p.disclaimer strong { font-size: 16.5px !important; }
+  #gb-form label, p.gb-hp label, dl.pp-fields dt, div.pp-head span, div.pp-cover small, div.pp-nav span, article.passport p.pp-foot { font-size: 16px !important; }
+  #contact-h, #wa-text, #email-row .label, #mail-text, #copy-btn, #mail-link, span.fund-text em.quip, #tip-text, footer { font-size: 16.5px !important; }
+  nav.dock a, nav.dock button { font-size: 16px !important; }
+  @media (min-width: 1000px) {
+    body { font-size: 20px; }
+    .chapter p, .story > p, .chapter .item > p, .chapter .item.callout > p, .chapter .item > .item-body > p { font-size: 21px !important; }
+    nav.dock a, nav.dock button { font-size: 17px !important; }
+  }
 </style>
 </head>
 <body>
