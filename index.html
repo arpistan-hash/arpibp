@@ -1234,8 +1234,8 @@
   <section class="welcome" aria-labelledby="welcome-h">
     <h2 id="welcome-h">Welcome! <span lang="hu">Üdvözöllek!</span></h2>
     <p class="thanks">Thanks for stopping by! I'm truly grateful you took a look. For me, that's mission accomplished: we've made a connection.</p>
-    <p class="promise">A friendly guide to Budapest, plus the story of the life behind it.</p>
-    <ul class="jump"><li><a href="#tips-h" style="--c:var(--p2)"><strong>Budapest tips and facts</strong><span>Getting around, food and drink, history and culture</span></a></li><li><a href="#music-h" style="--c:var(--p7)"><strong>Hungarian classical music</strong><span>Tunes you already know, from Tom and Jerry to <i>2001</i></span></a></li><li><a href="#story-h" style="--c:var(--p1)"><strong>My story</strong><span>From socialist Hungary to Canada, the Cayman Islands and back</span></a></li><li><a href="#been-h" style="--c:var(--p4)"><strong>Countries and Tobi</strong><span>37 countries, one map and one very good dog</span></a></li></ul>
+    <p class="promise">A personal project of mine, in three parts. I hope you enjoy it!</p>
+    <ul class="jump"><li><a href="#tips-h" style="--c:var(--p2)"><strong>Budapest and Hungary</strong><span>Tips, recommendations and stories: getting around, food and drink, history and culture</span></a></li><li><a href="#music-h" style="--c:var(--p7)"><strong>Fun facts</strong><span>Hungarian music you already know, from Tom and Jerry to <i>2001</i>, and more surprises</span></a></li><li><a href="#about-h" style="--c:var(--p1)"><strong>My life</strong><span>From socialist Hungary to Canada, the Cayman Islands and back, 37 countries and one very good dog</span></a></li></ul>
     <a class="tbl-banner" href="table.html"><span class="tb-ic" aria-hidden="true">🍽️</span><span class="tb-tx"><strong>Sitting at one of my tables?</strong><span>Order, ask for the bill or call me over, right from your phone.</span></span><span class="tb-go" aria-hidden="true">→</span></a>
   </section>
 
@@ -2854,11 +2854,6 @@
     });
     var jl = document.querySelector("ul.jump");
     if (jl) {
-      var li = document.createElement("li");
-      li.innerHTML = '<a href="#about-h" style="--c:var(--p3)"><strong></strong><span></span></a>';
-      li.querySelector("strong").textContent = hu ? "Rólam" : "About me";
-      li.querySelector("span").textContent = hu ? "Hány éves vagyok? Attól függ, melyik testrészemről van szó." : "How old am I? It depends on the body part.";
-      jl.insertBefore(li, jl.querySelector('a[href="#story-h"]') ? jl.querySelector('a[href="#story-h"]').parentNode : null);
       Array.prototype.forEach.call(jl.querySelectorAll("li"), function (l, i) { var s = l.querySelector("strong"); if (s) s.insertAdjacentHTML("afterbegin", '<em class="jn">0' + (i + 1) + '</em>'); });
     }
   })();
