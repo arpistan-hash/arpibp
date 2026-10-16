@@ -1,5 +1,5 @@
 // The menu guests can order from on the table page (table.html and the "At my table" section).
-// It is a bar and lounge menu, so only "drinks" is filled; an empty list (like food) is simply not shown.
+// Bar and lounge menu: drinks plus a page of food. An empty list is simply not shown.
 // While both lists are empty, the menu stays hidden and guests just write what they want.
 //
 // Shape:
@@ -14,6 +14,19 @@ window.ARPI_SPIRIT_OPTIONS = [
 ];
 
 window.ARPI_MENU = {
-  food: [],
+  food: [
+    { category: "Snacks", items: [
+      { name: "Lángos" },
+      { name: "Nuts" },
+      { name: "Olives" }
+    ] },
+    { category: "Salads", items: [
+      { name: "Caesar salad", options: [{ label: "Chicken?", choices: ["With chicken", "Without chicken"] }] },
+      { name: "Beet salad" }
+    ] },
+    { category: "Mains", items: [
+      { name: "Burger" }
+    ] }
+  ],
   drinks: []
 };
