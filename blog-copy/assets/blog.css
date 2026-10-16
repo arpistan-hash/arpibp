@@ -64,7 +64,7 @@ a { color: inherit; }
 .btn { display: inline-flex; align-items: center; gap: 8px; font: 700 18px var(--font-body); text-decoration: none; padding: 12px 20px; border: 2.5px solid var(--ink); border-radius: 14px; background: var(--card); color: var(--fg); box-shadow: 4px 4px 0 var(--shade); cursor: pointer; transition: transform .15s, box-shadow .15s; }
 .btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--shade); }
 .btn.primary { background: var(--sun); color: #1b1f3b; }
-.tag { display: inline-block; align-self: flex-start; justify-self: start; font: 600 15px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; color: var(--fg); background: color-mix(in srgb, var(--chap, var(--accent)) 28%, transparent); border: 2px solid var(--ink); border-radius: 8px; padding: 3px 9px; }
+.tag { display: inline-block; align-self: flex-start; justify-self: start; font: 600 15px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; color: var(--fg); background: color-mix(in srgb, var(--chap, var(--accent)) 28%, transparent); border: 2px solid var(--ink); border-radius: 8px; padding: 7px 12px; }
 .meta { font: 500 15px var(--font-mono); letter-spacing: .03em; color: var(--muted); }
 
 /* ---------- home: hero ---------- */
