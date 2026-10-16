@@ -228,8 +228,9 @@ ICON_MAIL = ('<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke
              '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7.5l9 6 9-6"/></svg>')
 
 
-def head(title, desc, depth, theme_color="#fff3dc", body_style="", extra_head=""):
+def head(title, desc, depth, theme_color="#fff3dc", body_style="", extra_head="", path=""):
     up = "../" * depth
+    url = f"{MAIN_SITE}/{path}"
     body_attr = f' class="tinted" style="{body_style}"' if body_style else ""
     return f"""<!doctype html>
 <html lang="en">
@@ -238,9 +239,16 @@ def head(title, desc, depth, theme_color="#fff3dc", body_style="", extra_head=""
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{html.escape(title)}</title>
 <meta name="description" content="{html.escape(desc)}">
+<link rel="canonical" href="{url}">
 <meta property="og:type" content="website">
+<meta property="og:url" content="{url}">
 <meta property="og:title" content="{html.escape(title)}">
 <meta property="og:description" content="{html.escape(desc)}">
+<meta property="og:image" content="{MAIN_SITE}/assets/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Cartoon of Arpi and Tobi the dog on the Danube bank at night, with Parliament lit up behind them">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="{theme_color}">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2718%27 fill=%27%23ffc94d%27/%3E%3Ctext x=%2714%27 y=%2748%27 font-family=%27sans-serif%27 font-weight=%27800%27 font-size=%2738%27 fill=%27%231b1f3b%27%3EA%3C/text%3E%3C/svg%3E">
 <script>try{{var t=localStorage.getItem("blog-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}</script>
@@ -381,7 +389,7 @@ for i, p in enumerate(posts):
     if next_p:
         pager += f'<a class="next" href="{next_p["slug"]}.html"><small>Next &rarr;</small><b>{next_p["title"]}</b></a>'
     pager += "</nav>"
-    page = head(f'{p["title_txt"]} · {SITE_TITLE}', text(p["hook"]) or SITE_DESC, 1, body_style=mood_style(p), extra_head='<link rel="stylesheet" href="../assets/map.css">\n' if p["id"] == "countries" else "") + f"""<main id="main">
+    page = head(f'{p["title_txt"]} · {SITE_TITLE}', text(p["hook"]) or SITE_DESC, 1, body_style=mood_style(p), extra_head='<link rel="stylesheet" href="../assets/map.css">\n' if p["id"] == "countries" else "", path=f'posts/{p["slug"]}.html') + f"""<main id="main">
 <article>
   <div class="wrap post-head">
     <a class="tag" href="../index.html#{p['topic']}">{html.escape(p['topic_name'] if p['topic_name'] == p['group'] else p['topic_name'] + ' · ' + p['group'])}</a>
@@ -433,5 +441,11 @@ shutil.copytree(ROOT / "assets" / "app", OUT / "assets" / "app", dirs_exist_ok=T
 (OUT / "netlify" / "functions").mkdir(parents=True, exist_ok=True)
 for f in ("guestbook.mjs", "table.mjs"):
     shutil.copy(ROOT / "netlify" / "functions" / f, OUT / "netlify" / "functions" / f)
+
+# ---------- for search engines: sitemap and robots ----------
+urls = [f"{MAIN_SITE}/"] + [f'{MAIN_SITE}/posts/{p["slug"]}.html' for p in posts]
+(OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+                                 + "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>\n", encoding="utf-8")
+(OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {MAIN_SITE}/sitemap.xml\n", encoding="utf-8")
 
 print(f"{len(posts)} posts, {len(used)} photos")
