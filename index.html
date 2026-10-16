@@ -1088,6 +1088,15 @@
   .order-go:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--shade); }
   @media (max-width: 380px) { .order-perks { grid-template-columns: 1fr; } }
   .order-fun { margin: 16px 0 0; font-size: 16px; color: var(--muted, inherit); font-style: italic; }
+  /* Part banner and its section read as one block, without a stack of headers and gaps */
+  .partband { margin-bottom: 0; }
+  .partband + .story { margin-top: 18px; padding-top: 8px; }
+  .partband + .story::before { display: none; }
+  @media (max-width: 699px) {
+    .partband { margin-top: 44px; padding: 16px 18px; border-radius: 22px; }
+    .partband .part-t { font-size: 34px; }
+    .totop { display: none !important; } /* on phones the top bar's "Arpi" button already scrolls to the top */
+  }
 </style>
 </head>
 <body>
@@ -1274,7 +1283,7 @@
 
   <p class="partband" style="--c:var(--p2)" aria-hidden="true"><span class="part-n">Part 2</span><span class="part-t">Budapest and Hungary</span></p>
   <section class="story tips" aria-labelledby="tips-h">
-    <h2 id="tips-h">Budapest and Hungary: tips and fun facts</h2>
+    <h2 id="tips-h">Tips and fun facts</h2>
     <p>Not everybody wants to read my whole life story, so here is what I'd tell a friend visiting Budapest: how to get around, what to eat and drink, a bit of history and culture, and the Hungarian music you already know without knowing it.</p>
     <p class="disclaimer"><strong>Friendly note:</strong> these are my own opinions and recommendations, not professional advice. Please check opening hours, prices and conditions before you go.</p>
     <nav class="chapnav" aria-label="Budapest tips and facts"><a href="#tips-go">Getting around</a><a href="#tips-eat">Eat and drink</a><a href="#tips-hist">History and culture</a><a href="#music-h">Music</a></nav>
@@ -2865,7 +2874,7 @@
       var n = document.createElement("span"); n.className = "sec-n"; n.setAttribute("aria-hidden", "true"); n.textContent = s[2];
       h.insertBefore(n, h.firstChild);
       var nx = SEC[i + 1], sec = h.closest("section");
-      if (nx && sec && document.getElementById(nx[0])) {
+      if (nx && sec && document.getElementById(nx[0]) && !/^\d+(\.1)?$/.test(nx[2])) { // a big "Part" banner already introduces the next part
         var a = document.createElement("a"); a.className = "nextlink"; a.href = "#" + nx[0];
         a.innerHTML = '<small>' + (hu ? "Következő" : "Next") + '</small><b></b><i aria-hidden="true">\u2193</i>'; a.querySelector("b").textContent = nx[1];
         sec.appendChild(a);
