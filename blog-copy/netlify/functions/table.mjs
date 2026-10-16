@@ -12,7 +12,7 @@ import { getStore } from "@netlify/blobs";
 import { createHash } from "node:crypto";
 import webpush from "web-push";
 
-const KEY_SHA256 = "e098fdb3ccaba18e92f70171233174fd8ad6f66d813129d7fe8bcc804f87a2ed";
+const KEY_SHA256 = "2a4bc831536c0bb03c11c5c8f8e347012c50ab97263656e4b03819c924f4fd52";
 const KEEP_MS = 12 * 60 * 60 * 1000; // messages older than 12 hours are cleared
 const WAIT_MS = 8 * 1000; // one message per guest every 8 seconds
 
