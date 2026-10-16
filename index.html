@@ -528,9 +528,9 @@
   .hello-hint { margin: 0; font-size: 14px; color: var(--muted); }
   .place-panel { border: 1px solid var(--line); border-radius: 16px; background: var(--card); padding: 14px; display: flex; flex-direction: column; gap: 12px; scroll-margin-top: 12px; }
   .place-panel[hidden] { display: none; }
-  .place-head { display: flex; align-items: center; gap: 10px; }
+  .place-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
   .place-head .flag { font-size: 30px; line-height: 1; }
-  .place-head h4 { margin: 0; flex: 1; min-width: 0; font-family: var(--font-display); font-size: 20px; line-height: 1.15; }
+  .place-head h4 { margin: 0; flex: 1; min-width: max-content; font-family: var(--font-display); font-size: 20px; line-height: 1.15; }
   .place-hello, .place-close { font: inherit; font-size: 14px; font-weight: 700; border-radius: 999px; cursor: pointer; padding: 6px 12px; border: 1px solid var(--line); background: var(--card); color: var(--fg); }
   .place-hello { background: var(--sun); border-color: var(--p7); color: #2a1f00; }
   .place-none { margin: 0; color: var(--muted); font-size: 15px; }
