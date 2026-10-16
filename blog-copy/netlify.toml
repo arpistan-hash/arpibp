@@ -1,0 +1,8 @@
+# Netlify settings for the blog copy: plain static site, no build step.
+# To put it online, make a new Netlify site with "blog-copy" as the base directory.
+[build]
+  publish = "."
+  command = ""
+
+[functions]
+  directory = "netlify/functions"

@@ -1,0 +1,282 @@
+#!/usr/bin/env python3
+"""Builds the blog copy from the main site's index.html.
+
+Every tip and story chapter on the main page becomes its own blog post page,
+and the home page lists them all as cards. Run it again after editing the main
+page to refresh the blog:
+
+    python3 blog-copy/tools/build.py
+"""
+import html
+import pathlib
+import re
+import shutil
+
+ROOT = pathlib.Path(__file__).resolve().parents[2]
+OUT = ROOT / "blog-copy"
+SRC = (ROOT / "index.html").read_text(encoding="utf-8")
+
+NAME = "Arpi"
+SITE_TITLE = "Arpi from Budapest"
+SITE_DESC = "Friendly Budapest tips and the story of a life across three continents."
+WHATSAPP = "+36 20 223 9524"
+EMAIL = "arpistan@gmail.com"
+MAIN_SITE = "https://budapesthungry.com"
+
+# Chapter colors, the same ones the main page gives each card.
+COLORS = {
+    "ch1": 1, "ch2": 7, "ch3": 6, "ch4": 3, "ch5": 4, "ch6": 2, "ch7": 5, "ch8": 1, "ch9": 6, "ch10": 2, "ch11": 4,
+    "tip1": 2, "tip2": 5, "tip3": 4, "trip": 5, "tip4": 6, "tip5": 3, "hist": 1, "tip6": 1, "tip7": 7, "tip8": 5,
+    "pal": 2, "tip9": 4, "tip10": 6, "tip11": 3, "tip12": 5, "tip13": 7, "tip14": 1,
+}
+
+body = SRC[SRC.find("<body"):SRC.find("<script")]
+
+
+def block(src, start):
+    """Inner HTML of the <div> opening at index `start` (handles nested divs)."""
+    i = src.index(">", start) + 1
+    depth = 1
+    for t in re.finditer(r"<(/?)div\b", src[i:]):
+        depth += -1 if t.group(1) else 1
+        if depth == 0:
+            return src[i:i + t.start()]
+    raise ValueError("unclosed div")
+
+
+def text(s):
+    return html.unescape(re.sub(r"<[^>]+>", "", s)).strip()
+
+
+def slugify(s):
+    s = text(s).lower()
+    s = re.sub(r"[áàâä]", "a", s); s = re.sub(r"[éèêë]", "e", s); s = re.sub(r"[íìîï]", "i", s)
+    s = re.sub(r"[óòôöőõ]", "o", s); s = re.sub(r"[úùûüű]", "u", s)
+    return re.sub(r"[^a-z0-9]+", "-", s).strip("-")[:60]
+
+
+# ---------- collect posts ----------
+posts = []
+for m in re.finditer(r'<div class="chapter[^"]*" id="([^"]+)"[^>]*>', body):
+    cid, inner = m.group(1), block(body, m.start())
+    section = [x.group(1) for x in re.finditer(r'<section[^>]*aria-labelledby="([^"]+)"', body[:m.start()])][-1]
+    groups = [x.group(1) for x in re.finditer(r'<h3 class="tipgroup[^"]*" id="tips-[^"]+">([^<]*)', body[:m.start()])]
+    kind = text(re.search(r'class="chap-k">(.*?)</p>', inner).group(1))
+    title = re.search(r"<h3>(.*?)</h3>", inner, re.S).group(1).strip()
+    hook = re.search(r'<p class="chap-hook">(.*?)</p>', inner, re.S)
+    art = re.search(r'<svg class="chap-art"[^>]*>.*?</svg>', inner, re.S)
+    facts = re.search(r'<ul class="facts">(.*?)</ul>', inner, re.S)
+    rest = inner
+    for pat in (r'<p class="chap-k">.*?</p>', r"<h3>.*?</h3>", r'<p class="chap-hook">.*?</p>', r'<ul class="facts">.*?</ul>'):
+        rest = re.sub(pat, "", rest, count=1, flags=re.S)
+    if art:
+        rest = rest.replace(art.group(0), "", 1)
+    rest = rest.replace('src="assets/', 'src="../assets/')
+    rest = re.sub(r"\n\s*\n+", "\n", rest).strip()
+    is_tip = section == "tips-h"
+    words = len(text(rest).split())
+    posts.append({
+        "id": cid,
+        "topic": "tips" if is_tip else "story",
+        "topic_name": "Budapest tips" if is_tip else "My story",
+        "group": groups[-1] if is_tip and groups else kind,
+        "kind": kind,
+        "title": title,
+        "title_txt": text(title),
+        "hook": hook.group(1).strip() if hook else "",
+        "art": art.group(0) if art else "",
+        "facts": facts.group(1) if facts else "",
+        "body": rest,
+        "mins": max(1, round(words / 230)),
+        "color": COLORS.get(cid, 1),
+        "slug": slugify(title),
+    })
+
+# Story first in reading order? Keep the main page order: tips, then story.
+scene = re.search(r'<figure class="scene">\s*(<svg.*?</svg>)', body, re.S).group(1)
+man = re.search(r"<!-- man -->\s*(<g>.*?</g>)\s*\n\s*<!-- dog -->", scene, re.S).group(1)
+AVATAR = ('<svg viewBox="108 126 84 84" aria-hidden="true"><rect x="108" y="126" width="84" height="84" fill="#ffc94d"/>'
+          + man + "</svg>")
+about = re.search(r'<section class="story about".*?</section>', body, re.S).group(0)
+about_ps = [p for p in re.findall(r"<p>(.*?)</p>", about, re.S)]
+
+ICON_WA = ('<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
+           '<path d="M4 5h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H10l-4 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg>')
+ICON_MAIL = ('<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
+             '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7.5l9 6 9-6"/></svg>')
+
+
+def head(title, desc, depth, theme_color="#fff3dc"):
+    up = "../" * depth
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>{html.escape(title)}</title>
+<meta name="description" content="{html.escape(desc)}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{html.escape(title)}">
+<meta property="og:description" content="{html.escape(desc)}">
+<meta name="theme-color" content="{theme_color}">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2718%27 fill=%27%23ffc94d%27/%3E%3Ctext x=%2714%27 y=%2748%27 font-family=%27sans-serif%27 font-weight=%27800%27 font-size=%2738%27 fill=%27%231b1f3b%27%3EA%3C/text%3E%3C/svg%3E">
+<script>try{{var t=localStorage.getItem("blog-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}</script>
+<link rel="stylesheet" href="{up}assets/fonts.css">
+<link rel="stylesheet" href="{up}assets/blog.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar"><div class="in">
+  <a class="brand" href="{up}index.html">{NAME}</a>
+  <nav aria-label="Main">
+    <a href="{up}index.html#posts">All posts</a>
+    <a href="{up}index.html?topic=tips#posts">Budapest tips</a>
+    <a href="{up}index.html?topic=story#posts">My story</a>
+    <a href="{up}index.html#about">About</a>
+    <a href="{up}index.html#guestbook">Guest book</a>
+  </nav>
+  <button class="theme" type="button" aria-label="Light or dark">&#9790;</button>
+</div></header>
+"""
+
+
+def foot(depth):
+    up = "../" * depth
+    digits = re.sub(r"\D", "", WHATSAPP)
+    return f"""<footer class="foot"><div class="in">
+  <div class="links">
+    <a class="btn primary" href="https://wa.me/{digits}" target="_blank" rel="noopener">{ICON_WA} WhatsApp</a>
+    <a class="btn" href="mailto:{EMAIL}">{ICON_MAIL} {EMAIL}</a>
+    <a class="btn" href="{MAIN_SITE}" target="_blank" rel="noopener">My main site</a>
+  </div>
+  <small>This is my own private blog. Everything on it is my personal opinion and has nothing to do with any employer, past or present. Recommendations are friendly suggestions, not professional advice, so please check opening hours, prices, timetables and safety before you go.</small>
+</div></footer>
+<script src="{up}assets/blog.js"></script>
+</body>
+</html>
+"""
+
+
+def card(p, featured=False):
+    style = f"--chap:var(--p{p['color']})"
+    href = f"posts/{p['slug']}.html"
+    meta = f'<span class="meta">{p["mins"]} min read</span>'
+    tag = f'<span class="tag">{html.escape(p["group"])}</span>'
+    if featured:
+        return (f'<a class="featured" href="{href}" style="{style}"><div class="art">{p["art"]}</div>'
+                f'<div class="txt">{tag}<h3>{p["title"]}</h3><p>{p["hook"]}</p>{meta}</div></a>')
+    return (f'<li class="card" data-topic="{p["topic"]}" style="{style}"><a href="{href}">'
+            f'<div class="art">{p["art"]}</div><div class="txt">{tag}<h3>{p["title"]}</h3>'
+            f'<p>{p["hook"]}</p>{meta}</div></a></li>')
+
+
+# ---------- home page ----------
+featured = next(p for p in posts if p["id"] == "ch1")
+home = head(SITE_TITLE, SITE_DESC, 0) + f"""<main id="main">
+<div class="wrap-wide">
+  <section class="hero">
+    <figure class="postcard">{scene}<figcaption>Tobi and I, on the Danube</figcaption></figure>
+    <div>
+      <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Budapest, Hungary</p>
+      <h1>Hi, this is {NAME}</h1>
+      <p class="lede">Friendly Budapest tips from a local, and the story of a life that went from socialist Hungary to Canada, the Cayman Islands and back.</p>
+      <div class="ctas">
+        <a class="btn primary" href="#posts">Start reading</a>
+        <a class="btn" href="#guestbook">Sign the guest book</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="sec-h"><h2>Start here</h2></div>
+  {card(featured, featured=True)}
+
+  <div class="sec-h" id="posts"><h2>All posts</h2><span class="meta">{len(posts)} posts</span></div>
+  <div class="filters" role="group" aria-label="Show posts about">
+    <button type="button" data-topic="all" aria-pressed="true">Everything</button>
+    <button type="button" data-topic="tips" aria-pressed="false">Budapest tips</button>
+    <button type="button" data-topic="story" aria-pressed="false">My story</button>
+  </div>
+  <ul class="grid">
+    {"".join(card(p) for p in posts)}
+  </ul>
+
+  <section class="about" id="about" aria-labelledby="about-h">
+    <div class="ava">{AVATAR}</div>
+    <div>
+      <h2 id="about-h">Who am I?</h2>
+      {"".join(f"<p>{p}</p>" for p in about_ps)}
+    </div>
+  </section>
+
+  <section class="guestbook" id="guestbook" aria-labelledby="gb-h">
+    <div class="sec-h"><h2 id="gb-h">Guest book</h2></div>
+    <form class="gb-form" id="gb-form" novalidate>
+      <p hidden><label>Do not fill this in: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+      <label>Your name<input name="name" maxlength="60" autocomplete="name" required></label>
+      <label>Your email (optional, only I see it)<input name="email" type="email" maxlength="120" autocomplete="email"></label>
+      <label>Your message<textarea name="msg" maxlength="600" rows="4" required></textarea></label>
+      <button type="submit" class="btn primary">Sign the guest book</button>
+      <p class="gb-status" id="gb-status" role="status" aria-live="polite"></p>
+      <p class="gb-note">Your name and message are public. Your email stays private and is only used to reply to you.</p>
+    </form>
+    <ol class="gb-list" id="gb-list" aria-label="Guest book messages"></ol>
+  </section>
+</div>
+</main>
+""" + foot(0)
+(OUT / "index.html").write_text(home, encoding="utf-8")
+
+# ---------- post pages ----------
+(OUT / "posts").mkdir(exist_ok=True)
+for old in (OUT / "posts").glob("*.html"):
+    old.unlink()
+for i, p in enumerate(posts):
+    prev_p = posts[i - 1] if i > 0 else None
+    next_p = posts[i + 1] if i + 1 < len(posts) else None
+    facts = f'<ul class="facts" aria-label="At a glance">{p["facts"]}</ul>' if p["facts"] else ""
+    pager = '<nav class="pager" aria-label="More posts">'
+    if prev_p:
+        pager += f'<a href="{prev_p["slug"]}.html"><small>&larr; Previous</small><b>{prev_p["title"]}</b></a>'
+    else:
+        pager += "<span></span>"
+    if next_p:
+        pager += f'<a class="next" href="{next_p["slug"]}.html"><small>Next &rarr;</small><b>{next_p["title"]}</b></a>'
+    pager += "</nav>"
+    page = head(f'{p["title_txt"]} · {SITE_TITLE}', text(p["hook"]) or SITE_DESC, 1) + f"""<main id="main">
+<article style="--chap:var(--p{p['color']})">
+  <div class="wrap post-head">
+    <a class="tag" href="../index.html?topic={p['topic']}#posts">{html.escape(p['topic_name'])} · {html.escape(p['group'])}</a>
+    <h1>{p['title']}</h1>
+    {f'<p class="sub">{p["hook"]}</p>' if p['hook'] else ''}
+    <div class="byline"><span class="ava">{AVATAR}</span><span><b>{NAME}</b><span class="meta">{p['mins']} min read</span></span></div>
+  </div>
+  <div class="cover"><div class="frame">{p['art']}</div></div>
+  <div class="wrap">
+    {facts}
+    <div class="prose">
+{p['body']}
+    </div>
+    <div class="post-end">
+      <p>Enjoyed this? Leave me a note.</p>
+      <a class="btn primary" href="../index.html#guestbook">Sign the guest book</a>
+    </div>
+    {pager}
+  </div>
+</article>
+</main>
+""" + foot(1)
+    (OUT / "posts" / f'{p["slug"]}.html').write_text(page, encoding="utf-8")
+
+# ---------- assets: fonts and only the photos the posts use ----------
+(OUT / "assets" / "img").mkdir(parents=True, exist_ok=True)
+shutil.copytree(ROOT / "assets" / "fonts", OUT / "assets" / "fonts", dirs_exist_ok=True)
+faces = re.findall(r"@font-face \{[^}]*\}", SRC[:SRC.find("<body")])
+(OUT / "assets" / "fonts.css").write_text("\n".join(f.replace('url("assets/fonts/', 'url("fonts/') for f in faces) + "\n", encoding="utf-8")
+used = set(re.findall(r'assets/img/([\w.-]+)', "".join(p["body"] for p in posts)))
+for old in (OUT / "assets" / "img").iterdir():
+    if old.name not in used:
+        old.unlink()
+for name in used:
+    shutil.copy(ROOT / "assets" / "img" / name, OUT / "assets" / "img" / name)
+
+print(f"{len(posts)} posts, {len(used)} photos")
