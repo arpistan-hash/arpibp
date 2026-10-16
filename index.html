@@ -1032,6 +1032,34 @@
     main > header .heroStats li:nth-child(2) { border-right: 0 !important; }
     main > header .heroStats li:nth-child(-n+2) { border-bottom: 1px solid var(--line) !important; }
   }
+
+  /* ===== Funny bits, kept sleek ===== */
+  h1::after { content: none !important; }
+  .squig { position: relative; display: inline-block; }
+  .squig::after { content: ""; position: absolute; left: 2%; right: -2%; bottom: -.12em; height: .2em; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 8'%3E%3Cpath d='M0 4 Q5 0 10 4 T20 4 T30 4 T40 4' fill='none' stroke='%23c8102e' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x 0 50% / .55em 100%; animation: squig 6s linear infinite; }
+  @keyframes squig { to { background-position: 5.5em 50%; } }
+  figure.scene { position: relative; overflow: visible; }
+  .sticker { position: absolute; right: -10px; top: -14px; width: 92px; height: 92px; z-index: 3; animation: spin 18s linear infinite; filter: drop-shadow(0 6px 10px rgba(0,0,0,.18)); }
+  .sticker svg { width: 100%; height: 100%; overflow: visible; }
+  .sticker circle { fill: var(--accent); }
+  .sticker text { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; letter-spacing: .14em; fill: #fff; }
+  .sticker .stk-mid { font-size: 30px; letter-spacing: 0; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (min-width: 700px) { .sticker { width: 118px; height: 118px; right: -26px; top: -26px; } }
+  .bub { transform-box: fill-box; transform-origin: 50% 100%; animation: bob 3.2s ease-in-out infinite; }
+  .bub.b2 { animation-delay: 1.6s; }
+  @keyframes bob { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-4px) rotate(-2deg); } }
+  .pp-ic, .tune-ic { transition: transform .2s; }
+  .chapter:hover .pp-ic { animation: wob .5s ease-in-out; }
+  @keyframes wob { 25% { transform: rotate(-10deg) scale(1.08); } 75% { transform: rotate(8deg) scale(1.08); } }
+  .chapter { transition: transform .2s ease, border-color .2s; }
+  @media (hover: hover) { .chapter:hover { transform: translateY(-3px) !important; border-color: var(--fg) !important; border-top-color: var(--chap) !important; } }
+  .jump a:hover strong { letter-spacing: -.01em; }
+  .jump a::after { transition: transform .2s; }
+  .jump a:hover::after { transform: translate(6px, -50%) !important; }
+  .heroStats li:last-child b::after { content: " 🐾"; font-size: .6em; vertical-align: .3em; }
+  .dock a.wa:hover { animation: wob .5s ease-in-out; }
+  @media (prefers-reduced-motion: reduce) { .squig::after, .sticker, .bub, .chapter:hover .pp-ic, .dock a.wa:hover { animation: none !important; } }
 </style>
 </head>
 <body>
@@ -1168,17 +1196,18 @@
       <path d="M210 298 Q232 312 246 332" fill="none" stroke="#2d2d35" stroke-width="2"/>
 
       <!-- speech bubbles -->
-      <g>
+      <g class="bub b1">
         <rect x="22" y="96" width="78" height="38" rx="16" fill="#ffffff"/>
         <polygon points="84,132 102,132 112,152" fill="#ffffff"/>
         <text x="61" y="122" text-anchor="middle" style="font-family: var(--font-display); font-weight: 800; font-size: 20px;" fill="#0e1b26">Szia!</text>
       </g>
-      <g>
+      <g class="bub b2">
         <rect x="296" y="262" width="112" height="34" rx="15" fill="#ffffff"/>
         <polygon points="306,294 322,294 292,310" fill="#ffffff"/>
         <text x="352" y="286" text-anchor="middle" style="font-family: var(--font-display); font-weight: 800; font-size: 19px;" fill="#0e1b26">Tobi: Vau!</text>
       </g>
     </svg>
+    <div class="sticker" aria-hidden="true"><svg viewBox="0 0 120 120"><defs><path id="stk" d="M60 60 m-44 0 a44 44 0 1 1 88 0 a44 44 0 1 1 -88 0"/></defs><circle cx="60" cy="60" r="58"/><text><textPath href="#stk">BUDAPEST LOCAL ✦ SERVER ✦ DOG DAD ✦</textPath></text><text class="stk-mid" x="60" y="70" text-anchor="middle">🐶</text></svg></div>
     <figcaption>Tobi and I</figcaption>
   </figure>
 
@@ -1188,7 +1217,7 @@
       <span>Budapest, Hungary</span>
       <span>Local time <time id="clock">--:--</time></span>
     </div>
-    <h1>Hi, this is Arpi</h1>
+    <h1>Hi, this is <span class="squig">Arpi</span></h1>
     <p class="aka">Also known as <b>Árpád</b> (the official version, though it is the one I use the least, because it was pretty much reserved for when my mom was mad at me), <b>RP</b>, <b>Arpy</b>, <b>Arpee</b> and <b>AARP</b>. Pick your favorite.</p>
   </header>
 
