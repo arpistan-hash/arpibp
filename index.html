@@ -976,8 +976,7 @@
   .tk.part { width: calc(1em * var(--f, 1)); overflow: hidden; white-space: nowrap; }
 
   /* ===== Music section ===== */
-  .music .chapter { --chap: var(--p3); }
-  .music .chapter:nth-of-type(4n+2) { --chap: var(--p2); } .music .chapter:nth-of-type(4n+3) { --chap: var(--p1); } .music .chapter:nth-of-type(4n+4) { --chap: var(--p7); }
+  #music1 { --chap: var(--p3); } #music2 { --chap: var(--p2); } #music3 { --chap: var(--p1); } #music4 { --chap: var(--p7); }
   .tunes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 18px; }
   @media (min-width: 640px) { .tunes { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 639px) {
@@ -1071,6 +1070,23 @@
   .next-ch i { flex: none; font-style: normal; font-weight: 800; font-size: 22px; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: var(--p7); color: #1b1f3b; border: 2px solid var(--ink); }
   .chapter.folded > .next-ch { display: none; }
   @media (max-width: 480px) { .next-ch small { display: none; } }
+
+  /* Three parts: big, distinct banners (Order from me / Budapest and Hungary / My life) */
+  .partband { max-width: 1180px; margin: 72px auto 8px; padding: 22px 22px 20px; border: 3px solid var(--ink); border-radius: 26px; background: var(--c); color: #1b1f3b; box-shadow: 7px 7px 0 var(--shade); display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; position: relative; overflow: hidden; }
+  .partband::after { content: ""; position: absolute; right: -40px; top: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(255,255,255,.22); }
+  .part-n { font-family: var(--font-mono); font-weight: 800; font-size: 15px; letter-spacing: .16em; text-transform: uppercase; padding: 4px 10px; border: 2px solid #1b1f3b; border-radius: 10px; background: rgba(255,255,255,.55); }
+  .part-t { font-family: var(--font-display); font-weight: 800; font-size: clamp(32px, 9vw, 64px); line-height: .95; letter-spacing: -.03em; flex-basis: 100%; }
+  @media (min-width: 700px) { .partband { margin-left: 16px; margin-right: 16px; } }
+  @media (min-width: 1212px) { .partband { margin-left: auto; margin-right: auto; } }
+  @media (max-width: 699px) { .partband { margin-left: 12px; margin-right: 12px; } }
+  .story.order { border: 3px solid var(--ink); border-radius: 24px; background: color-mix(in srgb, var(--p7) 14%, var(--card)); box-shadow: 6px 6px 0 var(--shade); padding: 22px 20px 24px; }
+  .order-perks { list-style: none; margin: 14px 0 20px; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .order-perks li { display: flex; align-items: center; gap: 10px; padding: 12px; border: 2px solid var(--ink); border-radius: 16px; background: var(--card); font-weight: 700; font-size: 16px; line-height: 1.2; }
+  .order-perks li span { font-size: 24px; flex: none; }
+  .order-go { display: flex; justify-content: center; align-items: center; gap: 10px; padding: 18px; border: 3px solid var(--ink); border-radius: 18px; background: var(--p7); color: #1b1f3b; font-family: var(--font-display); font-weight: 800; font-size: 22px; text-decoration: none; box-shadow: 5px 5px 0 var(--shade); transition: transform .15s, box-shadow .15s; }
+  .order-go:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--shade); }
+  .order-go:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--shade); }
+  @media (max-width: 380px) { .order-perks { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -1235,17 +1251,31 @@
     <h2 id="welcome-h">Welcome! <span lang="hu">Üdvözöllek!</span></h2>
     <p class="thanks">Thanks for stopping by! I'm truly grateful you took a look. For me, that's mission accomplished: we've made a connection.</p>
     <p class="promise">A personal project of mine, in three parts. I hope you enjoy it!</p>
-    <ul class="jump"><li><a href="#tips-h" style="--c:var(--p2)"><strong>Budapest tips and facts</strong><span>Getting around, food and drink, history and culture, plus Hungarian music you already know</span></a></li><li><a href="table.html" style="--c:var(--p7)"><strong>Order from me</strong><span>At one of my tables? Order, ask for the bill or call me over from your phone, even when I'm across the room</span></a></li><li><a href="#about-h" style="--c:var(--p1)"><strong>My life</strong><span>From socialist Hungary to Canada, the Cayman Islands and back, 37 countries and one very good dog</span></a></li></ul>
+    <ul class="jump"><li><a href="#order-h" style="--c:var(--p7)"><strong>Order from me</strong><span>At one of my tables? Order drinks and food, ask for the bill or call me over, right from your phone</span></a></li><li><a href="#tips-h" style="--c:var(--p2)"><strong>Budapest and Hungary</strong><span>My tips and fun facts: getting around, food and drink, history, culture and the music you already know</span></a></li><li><a href="#about-h" style="--c:var(--p1)"><strong>My life</strong><span>From socialist Hungary to Canada, the Cayman Islands and back, 37 countries and one very good dog</span></a></li></ul>
   </section>
 
 
   
 
+  <p class="partband" style="--c:var(--p7)" aria-hidden="true"><span class="part-n">Part 1</span><span class="part-t">Order from me</span></p>
+  <section class="story order" aria-labelledby="order-h">
+    <h2 id="order-h">At one of my tables?</h2>
+    <p>Skip the waving. Tell me your table number and what you'd like, and it pops up on my phone, even when I'm across the room.</p>
+    <ul class="order-perks">
+      <li><span aria-hidden="true">🍸</span>Drinks and food from the menu</li>
+      <li><span aria-hidden="true">🙋</span>Call me over</li>
+      <li><span aria-hidden="true">🧾</span>The bill: card, room or cash</li>
+      <li><span aria-hidden="true">⚠️</span>Allergies go straight to me</li>
+    </ul>
+    <a class="order-go" href="table.html">Open the order pad <span aria-hidden="true">→</span></a>
+  </section>
+
+  <p class="partband" style="--c:var(--p2)" aria-hidden="true"><span class="part-n">Part 2</span><span class="part-t">Budapest and Hungary</span></p>
   <section class="story tips" aria-labelledby="tips-h">
-    <h2 id="tips-h">Budapest tips and facts</h2>
-    <p>Not everybody wants to read my whole life story, so here is what I'd tell a friend visiting Budapest: how to get around, what to eat and drink, and a bit of history and culture.</p>
+    <h2 id="tips-h">Budapest and Hungary: tips and fun facts</h2>
+    <p>Not everybody wants to read my whole life story, so here is what I'd tell a friend visiting Budapest: how to get around, what to eat and drink, a bit of history and culture, and the Hungarian music you already know without knowing it.</p>
     <p class="disclaimer"><strong>Friendly note:</strong> these are my own opinions and recommendations, not professional advice. Please check opening hours, prices and conditions before you go.</p>
-    <nav class="chapnav" aria-label="Budapest tips and facts"><a href="#tips-go">Getting around</a><a href="#tips-eat">Eat and drink</a><a href="#tips-hist">History and culture</a></nav>
+    <nav class="chapnav" aria-label="Budapest tips and facts"><a href="#tips-go">Getting around</a><a href="#tips-eat">Eat and drink</a><a href="#tips-hist">History and culture</a><a href="#music-h">Music</a></nav>
     <h3 class="tipgroup" id="tips-go">Getting around</h3>
     <div class="chapter" id="tip1">
       <p class="chap-k">Tip 1</p>
@@ -1504,14 +1534,9 @@
       <p>Hungarian is extremely difficult. Even after you learn the rules, you're not finished, because almost every rule comes with exceptions.</p>
       <p>The one piece of good news: Hungarian is phonetic. Once you master how each sound is spelled, the written word never surprises you, unlike English, where the same spelling can sound completely different.</p>
     </div>
-  </section>
-
-  <section class="story music" aria-labelledby="music-h">
-    <h2 id="music-h">Hungarian classical music</h2>
+    <h3 class="tipgroup" id="music-h">Hungarian music you already know</h3>
     <p>You probably know more Hungarian music than you think. Cartoons, Chaplin and Kubrick have been borrowing it for ages. Here are the tunes you have almost certainly heard, and my favorite stories behind them.</p>
-    <nav class="chapnav" aria-label="Hungarian classical music"><a href="#music-know">You already know these</a><a href="#music-facts">Fun facts</a></nav>
 
-    <h3 class="tipgroup" id="music-know">You already know these</h3>
     <ul class="tunes">
       <li class="tune" style="--c:var(--p1)">
         <span class="tune-ic" aria-hidden="true">🐱</span>
@@ -1558,7 +1583,7 @@
     </ul>
     <p class="tunes-hint" aria-hidden="true"><span>Swipe for more →</span><span class="tunes-dots"></span></p>
 
-    <h3 class="tipgroup" id="music-facts">Fun facts</h3>
+    <h3 class="tipgroup" id="music-facts">Music fun facts</h3>
     <div class="chapter" id="music1">
       <p class="chap-k">Fun fact</p>
       <h3>Liszt, the first rock star</h3>
@@ -1588,6 +1613,7 @@
     </div>
   </section>
 
+  <p class="partband" style="--c:var(--p1)" aria-hidden="true"><span class="part-n">Part 3</span><span class="part-t">My life</span></p>
   <section class="story about" aria-labelledby="about-h">
     <div>
       <p class="kicker">Who am I?</p>
@@ -2750,8 +2776,8 @@
       });
     });
     // desktop table of contents
-    var items = hu ? [["tips-go","Közlekedés"],["tips-eat","Étel és ital"],["tips-hist","Történelem és kultúra"],["music-know","Komolyzene"],["about-h","Rólam"],["story-h","Élettörténet"],["been-h","Ahol jártam"],["gb-h","Vendégkönyv"]]
-                   : [["tips-go","Getting around"],["tips-eat","Eat and drink"],["tips-hist","History and culture"],["music-know","Classical music"],["about-h","About me"],["story-h","My story"],["been-h","Countries I've been to"],["gb-h","Guest book"]];
+    var items = hu ? [["order-h","Rendelés"],["tips-go","Közlekedés"],["tips-eat","Étel és ital"],["tips-hist","Történelem és kultúra"],["music-h","Zene"],["about-h","Rólam"],["story-h","Élettörténet"],["been-h","Ahol jártam"],["gb-h","Vendégkönyv"]]
+                   : [["order-h","Order from me"],["tips-go","Getting around"],["tips-eat","Eat and drink"],["tips-hist","History and culture"],["music-h","Music"],["about-h","About me"],["story-h","My story"],["been-h","Countries I've been to"],["gb-h","Guest book"]];
     var toc = document.createElement("nav"); toc.className = "toc"; toc.setAttribute("aria-label", hu ? "Tartalom" : "Contents");
     var st = document.createElement("strong"); st.textContent = hu ? "Tartalom" : "Contents"; toc.appendChild(st);
     var links = [];
@@ -2776,7 +2802,7 @@
     var nav = document.createElement("nav"); nav.className = "topnav"; nav.setAttribute("aria-label", hu ? "Fő navigáció" : "Main navigation");
     var brand = document.createElement("a"); brand.className = "brand"; brand.href = "#"; brand.textContent = "Arpi"; brand.addEventListener("click", function (e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); });
     var wrap = document.createElement("div"); wrap.className = "links";
-    var items = hu ? [["tips-h","Tippek"],["music-h","Zene"],["about-h","Rólam"],["story-h","Történetem"],["been-h","Helyek"],["gb-h","Vendégkönyv"]] : [["tips-h","Tips & facts"],["music-h","Music"],["about-h","About me"],["story-h","My story"],["been-h","Countries"],["gb-h","Guest book"]];
+    var items = hu ? [["order-h","Rendelés"],["tips-h","Budapest"],["music-h","Zene"],["about-h","Életem"],["story-h","Történetem"],["been-h","Helyek"],["gb-h","Vendégkönyv"]] : [["order-h","Order"],["tips-h","Budapest"],["music-h","Music"],["about-h","My life"],["story-h","My story"],["been-h","Countries"],["gb-h","Guest book"]];
     var links = [];
     items.forEach(function (it) { var el = document.getElementById(it[0]); if (!el) return; var a = document.createElement("a"); a.href = "#" + it[0]; a.textContent = it[1]; wrap.appendChild(a); links.push([a, el]); });
     var tg = document.createElement("button"); tg.type = "button"; tg.className = "theme"; tg.setAttribute("aria-label", hu ? "Világos / sötét téma" : "Light / dark theme");
@@ -2831,10 +2857,10 @@
 <script>
   (function () {
     var hu = (document.documentElement.lang || "").indexOf("hu") === 0;
-    var SEC = [["tips-h", hu ? "Tippek" : "Tips and facts"], ["music-h", hu ? "Komolyzene" : "Classical music"], ["about-h", hu ? "Rólam" : "About me"], ["story-h", hu ? "Történetem" : "My story"], ["been-h", hu ? "Országok" : "Countries"], ["gb-h", hu ? "Vendégkönyv" : "Guest book"]];
+    var SEC = [["order-h", hu ? "Rendelés" : "Order from me", "1"], ["tips-h", hu ? "Budapest és Magyarország" : "Budapest and Hungary", "2"], ["about-h", hu ? "Rólam" : "About me", "3.1"], ["story-h", hu ? "Történetem" : "My story", "3.2"], ["been-h", hu ? "Országok" : "Countries", "3.3"], ["gb-h", hu ? "Vendégkönyv" : "Guest book", "3.4"]];
     SEC.forEach(function (s, i) {
       var h = document.getElementById(s[0]); if (!h) return;
-      var n = document.createElement("span"); n.className = "sec-n"; n.setAttribute("aria-hidden", "true"); n.textContent = (i < 9 ? "0" : "") + (i + 1);
+      var n = document.createElement("span"); n.className = "sec-n"; n.setAttribute("aria-hidden", "true"); n.textContent = s[2];
       h.insertBefore(n, h.firstChild);
       var nx = SEC[i + 1], sec = h.closest("section");
       if (nx && sec && document.getElementById(nx[0])) {
