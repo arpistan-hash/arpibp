@@ -25,6 +25,7 @@
     <a href="index.html#tips"><span class="long">Budapest </span>tips</a>
     <a href="index.html#story">My life</a>
     <a href="table.html">Order</a>
+    <a href="index.html#ask">Ask<span class="long"> Arpi</span></a>
     <a href="index.html#guestbook">Guest book</a>
   </nav>
   <button class="theme" type="button" aria-label="Light or dark">&#9790;</button>
@@ -221,6 +222,22 @@
       <span>From socialist Hungary to Canada, the Cayman Islands and back, plus travels and Tobi</span>
     </a></li>
   </ul>
+
+  <section class="ask" id="ask" aria-labelledby="ask-h">
+    <div class="sec-h"><h2 id="ask-h">Ask Arpi</h2><span class="meta">answered within 24 hours</span></div>
+    <p class="ask-lede">Any question about Budapest or Hungary: where to eat, what to skip, what things really cost. I'll answer within 24 hours. Honest, no-bullshit answers, and never sponsored.</p>
+    <form class="ask-form" id="ask-form" novalidate>
+      <p hidden><label>Do not fill this in: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+      <label>Your question<textarea name="q" maxlength="600" rows="3" required placeholder="Is the Széchenyi bath worth it in winter?"></textarea></label>
+      <label>Your first name (optional)<input name="name" maxlength="60" autocomplete="given-name"></label>
+      <label>Your email (optional, only I see it, in case you want a private reply)<input name="email" type="email" maxlength="120" autocomplete="email"></label>
+      <button type="submit" class="btn primary">Ask Arpi</button>
+      <p class="gb-status" id="ask-status" role="status" aria-live="polite"></p>
+      <p class="gb-note">Your question and first name appear here once I've answered. Your email is never shown.</p>
+    </form>
+    <div class="ask-owner" id="ask-owner" hidden><h3>Waiting for your answer</h3><ol class="ask-list" id="ask-pending"></ol></div>
+    <ol class="ask-list" id="ask-list" aria-label="Answered questions"></ol>
+  </section>
 
   <section id="tips" aria-labelledby="tips-h">
     <div class="sec-h"><h2 id="tips-h">Tips and fun facts</h2><span class="meta">18 posts</span></div>

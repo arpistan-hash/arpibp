@@ -361,3 +361,19 @@ body.tinted .bar { background: color-mix(in srgb, var(--tint) 92%, transparent);
 .keep .art svg { width: 100%; height: auto; display: block; border-radius: 10px; }
 .keep b { font: 800 18px/1.25 var(--font-display); }
 .keep small { font: 500 14px var(--font-mono); color: var(--muted); }
+/* Ask Arpi: question form, answered questions, and Arpi's own answer boxes. */
+.ask { margin-top: 48px; }
+.ask-lede { font-family: var(--font-serif); font-size: 21px; line-height: 1.5; margin: 0 0 16px; max-width: 60ch; }
+.ask-form { display: grid; gap: 14px; padding: 22px; border: 2.5px solid var(--ink); border-radius: 20px; background: color-mix(in srgb, var(--sun) 22%, var(--card)); box-shadow: 5px 5px 0 var(--shade); }
+.ask-form label { display: grid; gap: 6px; font-weight: 600; }
+.ask-form input, .ask-form textarea { font: 400 18px var(--font-body); padding: 11px 13px; border: 2px solid var(--ink); border-radius: 12px; background: var(--bg); color: var(--fg); width: 100%; }
+.ask-form .btn { justify-self: start; }
+.ask-owner { margin-top: 18px; }
+.ask-owner h3 { font: 800 21px var(--font-display); margin: 0; }
+.ask-list { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 12px; }
+.ask-list li { padding: 14px 16px; border: 2px solid var(--ink); border-radius: 16px; background: var(--card); }
+.ask-q { margin: 0 0 4px; font: 700 19px/1.35 var(--font-body); }
+.ask-list .when { font: 500 15px var(--font-mono); color: var(--muted); }
+.ask-a { margin: 12px 0 0 14px; padding: 10px 14px; border-left: 4px solid var(--p2, var(--ink)); border-radius: 0 12px 12px 0; background: color-mix(in srgb, var(--sun) 22%, var(--card)); }
+.ask-a .who { font-weight: 700; }
+.ask-a .txt { margin: 6px 0 0; font-family: var(--font-serif); font-size: 19px; line-height: 1.5; white-space: pre-wrap; }
