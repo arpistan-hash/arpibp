@@ -6,3 +6,29 @@
 
 [functions]
   directory = "netlify/functions"
+
+# bullshitsunami.hu (bought at Rackhost) is a second name for the blog:
+# send every visit to the same page on budapesthungry.com.
+[[redirects]]
+  from = "https://bullshitsunami.hu/*"
+  to = "https://budapesthungry.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.bullshitsunami.hu/*"
+  to = "https://budapesthungry.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://bullshitsunami.hu/*"
+  to = "https://budapesthungry.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.bullshitsunami.hu/*"
+  to = "https://budapesthungry.com/:splat"
+  status = 301
+  force = true
