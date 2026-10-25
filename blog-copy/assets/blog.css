@@ -340,3 +340,24 @@ body.tinted .bar { background: color-mix(in srgb, var(--tint) 92%, transparent);
 .links-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
 .links-row .tt { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; border: 2.5px solid var(--ink); border-radius: 999px; background: var(--card); color: var(--fg); font: 700 17px var(--font-body); text-decoration: none; box-shadow: 3px 3px 0 var(--shade); }
 .photo small { display: block; font-size: 16px; opacity: .8; margin-top: 2px; }
+/* "At a glance" summary box at the top of a post. */
+.glance { margin: 24px 0 0; padding: 18px 20px; border: 2.5px solid var(--ink); border-radius: 18px; background: color-mix(in srgb, var(--chap) 14%, var(--card)); box-shadow: 4px 4px 0 var(--shade); }
+.glance-h { margin: 0 0 6px; font: 700 15px var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+.glance-sum { margin: 0 0 4px; font-family: var(--font-serif); font-size: 20px; line-height: 1.45; }
+.glance .facts { margin-top: 10px; }
+/* Author box after a post. */
+.author { display: flex; gap: 16px; align-items: flex-start; margin-top: 32px; padding: 20px; border: 2.5px solid var(--ink); border-radius: 18px; background: var(--card); }
+.author .ava { flex: none; width: 64px; height: 64px; border-radius: 50%; overflow: hidden; border: 2.5px solid var(--ink); }
+.author .ava svg { width: 100%; height: 100%; display: block; }
+.author p { margin: 0 0 8px; font-family: var(--font-serif); font-size: 18px; line-height: 1.5; }
+.author .author-h { font: 800 19px var(--font-display); }
+.author a { font-weight: 700; color: var(--fg); }
+/* "Keep reading": three related posts. */
+.keep { margin-top: 36px; }
+.keep h2 { font: 800 clamp(24px, 4.5vw, 30px) var(--font-display); margin: 0 0 14px; }
+.keep ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+@media (min-width: 720px) { .keep ul { grid-template-columns: repeat(3, 1fr); } }
+.keep a { display: grid; gap: 6px; height: 100%; text-decoration: none; color: var(--fg); padding: 12px; border: 2.5px solid var(--ink); border-radius: 16px; background: color-mix(in srgb, var(--chap) 14%, var(--card)); box-shadow: 4px 4px 0 var(--shade); }
+.keep .art svg { width: 100%; height: auto; display: block; border-radius: 10px; }
+.keep b { font: 800 18px/1.25 var(--font-display); }
+.keep small { font: 500 14px var(--font-mono); color: var(--muted); }
