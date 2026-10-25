@@ -311,3 +311,15 @@ body.tinted .bar { background: color-mix(in srgb, var(--tint) 92%, transparent);
 /* Tablets: keep the cartoon modest so the two big tiles show on the first screen. */
 @media (min-width: 521px) and (max-width: 899px) { .hero .postcard { width: 100%; max-width: 420px; justify-self: center; } }
 @media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
+/* Contact band: WhatsApp, travel fund and email, repeated down every page. */
+.reach { margin: 28px 0; padding: 18px 20px; border: 2.5px solid var(--ink); border-radius: 18px; background: var(--card); box-shadow: 4px 4px 0 var(--shade); display: grid; gap: 12px; }
+.reach-t { margin: 0; font: 800 20px/1.25 var(--font-display, inherit); }
+.reach .links { display: flex; flex-wrap: wrap; gap: 10px; }
+.reach.slim { margin: 18px 0 0; padding: 14px 16px; box-shadow: none; }
+.reach.slim .reach-t { font-size: 17px; }
+/* "Why the name?" box on the home page. */
+.why { margin-top: 40px; padding: 28px; border: 2.5px solid var(--ink); border-radius: 22px; background: color-mix(in srgb, var(--sun) 22%, var(--card)); box-shadow: 8px 8px 0 var(--shade); }
+.why h2 { font-family: var(--font-display); font-weight: 800; font-size: 30px; margin: 0 0 8px; }
+.why p { font-family: var(--font-serif); font-size: 21px; line-height: 1.6; margin: 0 0 10px; }
+.why .quips { list-style: none; margin: 4px 0 14px; padding: 0; display: grid; gap: 8px; }
+.why .quips li { font: 700 19px/1.4 var(--font-body); padding: 10px 14px; border-left: 5px solid var(--ink); background: var(--card); border-radius: 0 12px 12px 0; }
