@@ -1,10 +1,17 @@
 // Guest book: saves and lists messages in Netlify Blobs, so it works without any
 // tokens or settings in the Netlify dashboard.
-// GET  /.netlify/functions/guestbook -> { entries: [{ name, msg, ts }] } (newest first)
+// GET  /.netlify/functions/guestbook -> { entries: [{ id, name, msg, ts, reply? }] } (newest first)
 // POST /.netlify/functions/guestbook  { name, email?, msg, "bot-field"? } -> { ok, entry }
+// POST /.netlify/functions/guestbook  { key, reply: "<id>", msg } -> { ok, reply } (Arpi answers under a message;
+//                                     an empty msg removes the answer). key is the same private key as the table inbox.
 // Every message is shown right away. Email addresses are kept in a separate private
 // store and are never returned.
 import { getStore } from "@netlify/blobs";
+import { createHash } from "node:crypto";
+
+// Only the SHA-256 of Arpi's private key lives in this public repo (same key as the table inbox).
+const KEY_SHA256 = "2a4bc831536c0bb03c11c5c8f8e347012c50ab97263656e4b03819c924f4fd52";
+const isOwner = (key) => !!key && createHash("sha256").update(String(key)).digest("hex") === KEY_SHA256;
 
 const MAX_SHOWN = 200;
 const WAIT_MS = 30 * 1000; // one message per visitor every 30 seconds
@@ -27,7 +34,9 @@ async function list(store) {
   const { blobs } = await store.list({ prefix: "e/" });
   const keys = blobs.map((b) => b.key).sort().reverse().slice(0, MAX_SHOWN);
   const rows = await Promise.all(keys.map((k) => store.get(k, { type: "json" }).catch(() => null)));
-  return rows.filter((r) => r && r.name && r.msg).map((r) => ({ name: r.name, msg: r.msg, ts: r.ts }));
+  return rows
+    .map((r, i) => (r && r.name && r.msg ? { id: keys[i].slice(2), name: r.name, msg: r.msg, ts: r.ts, reply: r.reply || null } : null))
+    .filter(Boolean);
 }
 
 export default async (req, context) => {
@@ -50,6 +59,20 @@ export default async (req, context) => {
   } catch (e) {
     return json(400, { error: "bad_request" });
   }
+
+  if (data.reply !== undefined) {
+    if (!isOwner(data.key)) return json(403, { error: "forbidden" });
+    const id = clean(data.reply, 40);
+    if (!/^[0-9]{15}-[0-9a-z]+$/.test(id)) return json(400, { error: "bad_id" });
+    const entry = await store.get("e/" + id, { type: "json" }).catch(() => null);
+    if (!entry) return json(404, { error: "not_found" });
+    const text = clean(data.msg, 1000);
+    const reply = text ? { msg: text, ts: Date.now() } : null;
+    const { reply: _old, ...rest } = entry;
+    await store.setJSON("e/" + id, reply ? { ...rest, reply } : rest);
+    return json(200, { ok: true, reply });
+  }
+
   if (data["bot-field"]) return json(200, { ok: true }); // quietly ignore bots
 
   const name = clean(data.name, 60);
@@ -70,7 +93,7 @@ export default async (req, context) => {
     const entry = { name, msg, ts: now };
     await store.setJSON(key, entry);
     if (email) await getStore("guestbook-private").setJSON(key, { name, email, ts: now });
-    return json(200, { ok: true, entry });
+    return json(200, { ok: true, entry: { id: key.slice(2), ...entry, reply: null } });
   } catch (e) {
     console.error("guestbook save failed", e);
     return json(500, { error: "save_failed" });
