@@ -27,7 +27,7 @@ TRAVEL_FUND = "https://revolut.me/arpadqsln"
 # joy = yellow, excited = saturated red-orange, love = warm pink-red,
 # calm = soft blue, nostalgic = dusty violet, sad = muted grey-blue.
 MOODS = {
-    "tip1": "calm", "tip2": "calm", "tip3": "calm", "trip": "joy", "tip6": "excited", "tip7": "joy",
+    "tip1": "calm", "tip2": "calm", "tip3": "calm", "trip": "joy", "xmas": "excited", "tip6": "excited", "tip7": "joy",
     "pal": "excited", "tip9": "calm", "tip8": "joy", "hist": "sad", "tip4": "calm", "tip5": "joy",
     "tip11": "sad", "tip12": "love", "tip13": "nostalgic", "tip14": "excited", "tip10": "joy",
     "ch1": "nostalgic", "ch2": "love", "ch3": "sad", "ch4": "excited", "usa": "excited", "ch5": "joy", "ch6": "excited",
