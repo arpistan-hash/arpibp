@@ -64,6 +64,86 @@
     ownerKey = localStorage.getItem(KEY_STORE) || "";
   } catch (e) {}
   function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
+
+  // Ask Arpi (netlify/functions/ask.mjs): visitors ask, Arpi answers on this page with his key.
+  (function () {
+    var af = document.getElementById("ask-form");
+    if (!af) return;
+    var AAPI = "/.netlify/functions/ask", alist = document.getElementById("ask-list"), astatus = document.getElementById("ask-status");
+    var owner = document.getElementById("ask-owner"), pending = document.getElementById("ask-pending");
+    function qa(x, editable) {
+      var li = el("li");
+      var head = el("p", "ask-q"); head.appendChild(el("b", null, x.q));
+      li.appendChild(head);
+      li.appendChild(el("span", "when", (x.name ? x.name + " · " : "") + fmt(x.ts) + (editable && x.email ? " · " + x.email : "")));
+      var ans = el("div", "ask-a");
+      function showAns() { ans.textContent = ""; ans.hidden = !x.a; if (x.a) { ans.appendChild(el("span", "who", "Arpi's answer")); ans.appendChild(el("p", "txt", x.a)); } }
+      showAns(); li.appendChild(ans);
+      if (editable) {
+        var ta = el("textarea"); ta.rows = 3; ta.maxLength = 2000; ta.value = x.a || ""; ta.setAttribute("aria-label", "Your answer");
+        var save = el("button", "btn primary", x.a ? "Save answer" : "Post answer"), del = el("button", "btn", "Delete"), note = el("p", "gb-status");
+        save.type = del.type = "button";
+        var post = function (body) {
+          return fetch(AAPI, { method: "POST", headers: { "Content-Type": "application/json", accept: "application/json" }, body: JSON.stringify(body) })
+            .then(function (r) { if (!r.ok) throw new Error(r.status === 403 ? "key" : "net"); return r.json(); });
+        };
+        save.onclick = function () {
+          save.disabled = true; note.textContent = "Saving...";
+          post({ key: ownerKey, answer: x.id, msg: ta.value.trim() }).then(function (d) {
+            x.a = d.a; showAns(); note.textContent = x.a ? "Posted. It's now on the blog." : "Answer removed."; save.textContent = x.a ? "Save answer" : "Post answer";
+          }).catch(function (e) { note.textContent = e.message === "key" ? "This phone doesn't have your private key. Open your inbox link first." : "That didn't save. Please try again."; })
+            .then(function () { save.disabled = false; });
+        };
+        del.onclick = function () {
+          if (!confirm("Delete this question?")) return;
+          post({ key: ownerKey, remove: x.id }).then(function () { li.remove(); }).catch(function () { note.textContent = "That didn't delete. Please try again."; });
+        };
+        var acts = el("div", "gb-reply-acts"); acts.appendChild(save); acts.appendChild(del);
+        var f = el("div", "gb-reply-form"); f.appendChild(ta); f.appendChild(acts); f.appendChild(note);
+        li.appendChild(f);
+      }
+      return li;
+    }
+    function load() {
+      var url = AAPI + (ownerKey ? "?key=" + encodeURIComponent(ownerKey) : "");
+      fetch(url, { headers: { accept: "application/json" }, cache: "no-store" })
+        .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+        .then(function (d) {
+          var qs = (d && d.questions) || [];
+          alist.textContent = ""; pending.textContent = "";
+          qs.forEach(function (x) {
+            if (ownerKey) (x.a ? alist : pending).appendChild(qa(x, true));
+            else if (x.a) alist.appendChild(qa(x, false));
+          });
+          owner.hidden = !ownerKey || !pending.children.length;
+        })
+        .catch(function () {});
+    }
+    load();
+    af.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var q = af.q.value.trim(), name = af.name.value.trim(), email = af.email.value.trim();
+      if (!q) { astatus.textContent = "Please write your question."; af.q.focus(); return; }
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { astatus.textContent = "That email doesn't look right. You can also leave it empty."; return; }
+      if (af["bot-field"].value) return;
+      var btn = af.querySelector("button[type=submit]"); btn.disabled = true; astatus.textContent = "Sending...";
+      fetch(AAPI, { method: "POST", headers: { "Content-Type": "application/json", accept: "application/json" }, body: JSON.stringify({ q: q, name: name, email: email, "bot-field": "" }) })
+        .then(function (r) { if (r.status === 429) return "wait"; if (!r.ok) throw new Error(); return r.json(); })
+        .then(function (d) {
+          if (d === "wait") { astatus.textContent = "Got it! Please wait a few seconds before asking another one."; return; }
+          astatus.textContent = "Thanks" + (name ? ", " + name : "") + "! I'll answer within 24 hours, right here on this page."; af.q.value = "";
+          if (ownerKey) load();
+        })
+        .catch(function () {
+          var a = el("a", null, "ask me on WhatsApp");
+          a.href = "https://wa.me/" + WA + "?text=" + encodeURIComponent("Ask Arpi" + (name ? " from " + name : "") + ":\n" + q);
+          a.target = "_blank"; a.rel = "noopener";
+          astatus.textContent = "That didn't go through. Your question is still here, so try again, or ";
+          astatus.appendChild(a); astatus.appendChild(document.createTextNode(" instead."));
+        })
+        .then(function () { btn.disabled = false; });
+    });
+  })();
   function showReply(box, e) {
     box.textContent = "";
     box.hidden = !e.reply;
