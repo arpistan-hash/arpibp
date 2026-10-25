@@ -336,3 +336,7 @@ body.tinted .bar { background: color-mix(in srgb, var(--tint) 92%, transparent);
 .gb-reply-form { display: grid; gap: 10px; margin-top: 12px; }
 .gb-reply-form textarea { font: 400 18px var(--font-body); padding: 11px 13px; border: 2px solid var(--ink); border-radius: 12px; background: var(--bg); color: var(--fg); width: 100%; }
 .gb-reply-acts { display: flex; flex-wrap: wrap; gap: 10px; }
+/* Timetable / ticket link buttons in the Esztergom post, and photo credits. */
+.links-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
+.links-row .tt { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; border: 2.5px solid var(--ink); border-radius: 999px; background: var(--card); color: var(--fg); font: 700 17px var(--font-body); text-decoration: none; box-shadow: 3px 3px 0 var(--shade); }
+.photo small { display: block; font-size: 16px; opacity: .8; margin-top: 2px; }
