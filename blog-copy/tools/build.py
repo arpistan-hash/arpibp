@@ -8,6 +8,7 @@ page to refresh the blog:
     python3 blog-copy/tools/build.py
 """
 import html
+import json
 import pathlib
 import re
 import shutil
@@ -19,6 +20,7 @@ SRC = (ROOT / "index.html").read_text(encoding="utf-8")
 NAME = "Arpi"
 SITE_TITLE = "Arpi from Budapest"
 SITE_DESC = "Friendly Budapest tips and the story of a life across three continents."
+SITE_URL = "https://budapesthungry.com"  # canonical address (bullshitsunami.hu serves the same pages)
 WHATSAPP = "+36 20 223 9524"
 EMAIL = "arpistan@gmail.com"
 TRAVEL_FUND = "https://revolut.me/arpadqsln"
@@ -231,8 +233,10 @@ ICON_MAIL = ('<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke
              '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7.5l9 6 9-6"/></svg>')
 
 
-def head(title, desc, depth, theme_color="#fff3dc", body_style="", extra_head=""):
+def head(title, desc, depth, theme_color="#fff3dc", body_style="", extra_head="", path="", og_type="website", ld=None):
     up = "../" * depth
+    url = SITE_URL + "/" + path
+    ld_tag = ('<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace("</", "<\\/") + "</script>\n") if ld else ""
     body_attr = f' class="tinted" style="{body_style}"' if body_style else ""
     return f"""<!doctype html>
 <html lang="en">
@@ -241,7 +245,9 @@ def head(title, desc, depth, theme_color="#fff3dc", body_style="", extra_head=""
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{html.escape(title)}</title>
 <meta name="description" content="{html.escape(desc)}">
-<meta property="og:type" content="website">
+<link rel="canonical" href="{url}">
+<meta property="og:type" content="{og_type}">
+<meta property="og:url" content="{url}">
 <meta property="og:title" content="{html.escape(title)}">
 <meta property="og:description" content="{html.escape(desc)}">
 <meta name="theme-color" content="{theme_color}">
@@ -249,7 +255,7 @@ def head(title, desc, depth, theme_color="#fff3dc", body_style="", extra_head=""
 <script>try{{var t=localStorage.getItem("blog-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}</script>
 <link rel="stylesheet" href="{up}assets/fonts.css">
 <link rel="stylesheet" href="{up}assets/blog.css">
-{extra_head}</head>
+{ld_tag}{extra_head}</head>
 <body{body_attr}>
 <a class="skip" href="#main">Skip to content</a>
 <header class="bar"><div class="in">
@@ -309,7 +315,7 @@ def card(p, featured=False):
 
 
 # ---------- home page ----------
-home = head(SITE_TITLE, SITE_DESC, 0) + f"""<main id="main">
+home = head(SITE_TITLE, SITE_DESC, 0, path="", ld={"@context": "https://schema.org", "@type": "WebSite", "name": SITE_TITLE, "url": SITE_URL + "/", "author": {"@type": "Person", "name": "Árpád (Arpi)"}}) + f"""<main id="main">
 <div class="wrap-wide">
   <section class="hero">
     <figure class="postcard">{scene}<figcaption>Tobi and I, on the Danube</figcaption></figure>
@@ -408,7 +414,27 @@ for old in (OUT / "posts").glob("*.html"):
 for i, p in enumerate(posts):
     prev_p = posts[i - 1] if i > 0 else None
     next_p = posts[i + 1] if i + 1 < len(posts) else None
-    facts = f'<ul class="facts" aria-label="At a glance">{p["facts"]}</ul>' if p["facts"] else ""
+    glance = (f'<aside class="glance" aria-label="At a glance"><p class="glance-h">At a glance</p>'
+              + (f'<p class="glance-sum">{p["hook"]}</p>' if p["hook"] else "")
+              + f'<ul class="facts">{p["facts"]}</ul></aside>') if p["facts"] else ""
+    # Keep reading: same group first, then same topic, never the post itself or its prev/next neighbours.
+    near = {p["slug"]} | {q["slug"] for q in (prev_p, next_p) if q}
+    pool = [q for q in posts if q["slug"] not in near and q["group"] == p["group"]] + \
+           [q for q in posts if q["slug"] not in near and q["group"] != p["group"] and q["topic"] == p["topic"]]
+    related = pool[:3]
+    keep = ('<section class="keep" aria-labelledby="keep-h"><h2 id="keep-h">Keep reading</h2><ul>'
+            + "".join(f'<li style="{mood_style(q)}"><a href="{q["slug"]}.html"><span class="art">{q["art"]}</span>'
+                      f'<b>{q["title"]}</b><small>{q["mins"]} min read</small></a></li>' for q in related)
+            + "</ul></section>") if related else ""
+    ld = {"@context": "https://schema.org", "@graph": [
+        {"@type": "BlogPosting", "headline": p["title_txt"], "description": text(p["hook"]) or SITE_DESC,
+         "inLanguage": "en", "mainEntityOfPage": f'{SITE_URL}/posts/{p["slug"]}.html',
+         "author": {"@type": "Person", "name": "Árpád (Arpi)", "url": SITE_URL + "/"},
+         "publisher": {"@type": "Person", "name": "Árpád (Arpi)"}},
+        {"@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/"},
+            {"@type": "ListItem", "position": 2, "name": p["topic_name"], "item": f'{SITE_URL}/#{p["topic"]}'},
+            {"@type": "ListItem", "position": 3, "name": p["title_txt"]}]}]}
     pager = '<nav class="pager" aria-label="More posts">'
     if prev_p:
         pager += f'<a href="{prev_p["slug"]}.html"><small>&larr; Previous</small><b>{prev_p["title"]}</b></a>'
@@ -417,7 +443,7 @@ for i, p in enumerate(posts):
     if next_p:
         pager += f'<a class="next" href="{next_p["slug"]}.html"><small>Next &rarr;</small><b>{next_p["title"]}</b></a>'
     pager += "</nav>"
-    page = head(f'{p["title_txt"]} · {SITE_TITLE}', text(p["hook"]) or SITE_DESC, 1, body_style=mood_style(p), extra_head='<link rel="stylesheet" href="../assets/map.css">\n' if p["id"] == "countries" else "") + f"""<main id="main">
+    page = head(f'{p["title_txt"]} · {SITE_TITLE}', text(p["hook"]) or SITE_DESC, 1, body_style=mood_style(p), extra_head='<link rel="stylesheet" href="../assets/map.css">\n' if p["id"] == "countries" else "", path=f'posts/{p["slug"]}.html', og_type="article", ld=ld) + f"""<main id="main">
 <article>
   <div class="wrap post-head">
     <a class="tag" href="../index.html#{p['topic']}">{html.escape(p['topic_name'] if p['topic_name'] == p['group'] else p['topic_name'] + ' · ' + p['group'])}</a>
@@ -428,7 +454,7 @@ for i, p in enumerate(posts):
   </div>
   <div class="cover"><div class="frame">{p['art']}</div></div>
   <div class="wrap">
-    {facts}
+    {glance}
     <div class="prose">
 {p['body']}
     </div>
@@ -436,6 +462,10 @@ for i, p in enumerate(posts):
       <p>Enjoyed this? Leave me a note.</p>
       <a class="btn primary" href="../index.html#guestbook">Sign the guest book</a>
     </div>
+    <aside class="author" aria-label="About the author"><span class="ava">{AVATAR}</span><div><p class="author-h">Written by Arpi</p>
+      <p>A Budapest local who has lived on three continents, visited 37 countries and works in restaurants. Everything here is my own honest opinion. Nothing is sponsored.</p>
+      <a href="../index.html#story">Read my story &rarr;</a></div></aside>
+    {keep}
     {reach("Liked it? Say hi, or chip in for Tobi's and my next trip")}
     {pager}
   </div>
@@ -485,5 +515,11 @@ shutil.copytree(ROOT / "assets" / "app", OUT / "assets" / "app", dirs_exist_ok=T
 (OUT / "netlify" / "functions").mkdir(parents=True, exist_ok=True)
 for f in ("guestbook.mjs", "table.mjs"):
     shutil.copy(ROOT / "netlify" / "functions" / f, OUT / "netlify" / "functions" / f)
+
+# ---------- sitemap and robots, so search engines find every page ----------
+urls = [SITE_URL + "/"] + [f'{SITE_URL}/posts/{q["slug"]}.html' for q in posts]
+(OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    + "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>\n", encoding="utf-8")
+(OUT / "robots.txt").write_text("User-agent: *\nDisallow: /inbox.html\nDisallow: /tables-qr.html\n\nSitemap: " + SITE_URL + "/sitemap.xml\n", encoding="utf-8")
 
 print(f"{len(posts)} posts, {len(used)} photos")
