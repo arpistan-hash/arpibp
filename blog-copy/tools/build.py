@@ -21,7 +21,6 @@ SITE_TITLE = "Arpi from Budapest"
 SITE_DESC = "Friendly Budapest tips and the story of a life across three continents."
 WHATSAPP = "+36 20 223 9524"
 EMAIL = "arpistan@gmail.com"
-MAIN_SITE = "https://budapesthungry.com"
 TRAVEL_FUND = "https://revolut.me/arpadqsln"
 
 # Each post gets the color of the feeling it should give (see assets/blog.css, "mood colors"):
@@ -287,7 +286,6 @@ def foot(depth, extra_js=""):
     <a class="btn primary" href="https://wa.me/{digits}" target="_blank" rel="noopener">{ICON_WA} WhatsApp</a>
     <a class="btn" href="mailto:{EMAIL}">{ICON_MAIL} {EMAIL}</a>
     <a class="btn" href="{TRAVEL_FUND}" target="_blank" rel="noopener">{ICON_FUND} Arpi + Tobi travel fund</a>
-    <a class="btn" href="{MAIN_SITE}" target="_blank" rel="noopener">My main site</a>
   </div>
   <small>This is my own private blog. Everything on it is my personal opinion and has nothing to do with any employer, past or present. Recommendations are friendly suggestions, not professional advice, so please check opening hours, prices, timetables and safety before you go.</small>
 </div></footer>
