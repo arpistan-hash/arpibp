@@ -31,7 +31,7 @@ MOODS = {
     "tip1": "calm", "tip2": "calm", "tip3": "calm", "trip": "joy", "tip6": "excited", "tip7": "joy",
     "pal": "excited", "tip9": "calm", "tip8": "joy", "hist": "sad", "tip4": "calm", "tip5": "joy",
     "tip11": "sad", "tip12": "love", "tip13": "nostalgic", "tip14": "excited", "tip10": "joy",
-    "ch1": "nostalgic", "ch2": "love", "ch3": "sad", "ch4": "excited", "ch5": "joy", "ch6": "excited",
+    "ch1": "nostalgic", "ch2": "love", "ch3": "sad", "ch4": "excited", "usa": "excited", "ch5": "joy", "ch6": "excited",
     "ch7": "nostalgic", "ch8": "joy", "ch9": "nostalgic", "ch10": "excited", "ch11": "sad",
     "countries": "excited", "mom": "love", "tobi": "joy",
 }
