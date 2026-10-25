@@ -320,6 +320,19 @@ home = head(SITE_TITLE, SITE_DESC, 0) + f"""<main id="main">
       <h1>Hi, this is {NAME}</h1>
       <p class="aka">or Arpy, RP, AARP and many others</p>
       <p class="lede">It's really &Aacute;rp&aacute;d. I'm honored to have your attention online. What would you like to do today?</p>
+      <details class="why" id="why-the-name">
+        <summary>&#129300; Why &ldquo;Budapest Hungry&rdquo;?</summary>
+        <div class="why-body">
+        <p>One of the most annoying things a Hungarian can hear is a joke about Hungary vs. hungry. Most of us have heard these &ldquo;super funny&rdquo; lines thousands of times:</p>
+        <ul class="quips">
+          <li>&ldquo;Why didn't you eat the sandwich?&rdquo;</li>
+          <li>&ldquo;Oh, you're hungry, but you work in a restaurant!&rdquo;</li>
+        </ul>
+        <p>So calling my blog budapesthungry.com is pretty much self-abuse.</p>
+        <p>Then again, I do work in restaurants, and much of this blog is about food, drinks and Budapest, so I guess it fits, however irritating it is.</p>
+        <p>Also, the domain was a whopping $10. A sweet deal for a name that's easy to remember and super annoying. &#128521;</p>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -367,18 +380,6 @@ home = head(SITE_TITLE, SITE_DESC, 0) + f"""<main id="main">
       <h2 id="about-h">Who am I?</h2>
       {"".join(f"<p>{p}</p>" for p in about_ps)}
     </div>
-  </section>
-
-  <section class="why" id="why-the-name" aria-labelledby="why-h">
-    <h2 id="why-h">Why the name?</h2>
-    <p>One of the most annoying things a Hungarian can hear is a joke about Hungary vs. hungry. Most of us have heard these &ldquo;super funny&rdquo; lines thousands of times:</p>
-    <ul class="quips">
-      <li>&ldquo;Why didn't you eat the sandwich?&rdquo;</li>
-      <li>&ldquo;Oh, you're hungry, but you work in a restaurant!&rdquo;</li>
-    </ul>
-    <p>So calling my blog budapesthungry.com is pretty much self-abuse.</p>
-    <p>Then again, I do work in restaurants, and much of this blog is about food, drinks and Budapest, so I guess it fits, however irritating it is.</p>
-    <p>Also, the domain was a whopping $10. A sweet deal for a name that's easy to remember and super annoying. &#128521;</p>
   </section>
 
   {reach("Every coin buys Tobi and me one more passport stamp")}
