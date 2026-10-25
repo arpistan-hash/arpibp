@@ -329,3 +329,10 @@ body.tinted .bar { background: color-mix(in srgb, var(--tint) 92%, transparent);
 .why-body p:last-child { margin-bottom: 0; }
 .why .quips { list-style: none; margin: 4px 0 14px; padding: 0; display: grid; gap: 8px; }
 .why .quips li { font: 700 18px/1.4 var(--font-body); padding: 10px 14px; border-left: 5px solid var(--ink); background: var(--card); border-radius: 0 12px 12px 0; }
+/* Guest book: Arpi's answer under a message, and the Reply button he sees on his own phone. */
+.gb-reply { margin: 12px 0 0 14px; padding: 10px 14px; border-left: 4px solid var(--p2, var(--ink)); border-radius: 0 12px 12px 0; background: color-mix(in srgb, var(--sun) 22%, var(--card)); }
+.gb-reply .txt { font-size: 19px; }
+.gb-reply-btn { margin-top: 10px; font: 700 16px var(--font-body); padding: 6px 14px; border: 2px solid var(--ink); border-radius: 999px; background: var(--card); color: var(--fg); cursor: pointer; }
+.gb-reply-form { display: grid; gap: 10px; margin-top: 12px; }
+.gb-reply-form textarea { font: 400 18px var(--font-body); padding: 11px 13px; border: 2px solid var(--ink); border-radius: 12px; background: var(--bg); color: var(--fg); width: 100%; }
+.gb-reply-acts { display: flex; flex-wrap: wrap; gap: 10px; }

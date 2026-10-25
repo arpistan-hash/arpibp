@@ -55,12 +55,59 @@
   function settle() { if (empty) { empty.hidden = list.children.length > 0; empty.textContent = "No messages yet. Be the first to sign!"; } }
   var API = "/.netlify/functions/guestbook";
   function fmt(ts) { try { return new Date(ts).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }); } catch (e) { return ""; } }
+  // Arpi's private key (the table inbox key). Opening the blog with #gbkey=<key> remembers it on this phone;
+  // the inbox page stores it under the same name. With it, every message gets a Reply button.
+  var KEY_STORE = "arpi-inbox-key", ownerKey = "";
+  try {
+    var hk = /(?:^#|&)gbkey=([^&]+)/.exec(location.hash);
+    if (hk) { localStorage.setItem(KEY_STORE, decodeURIComponent(hk[1])); history.replaceState(null, "", location.pathname + location.search + "#guestbook"); }
+    ownerKey = localStorage.getItem(KEY_STORE) || "";
+  } catch (e) {}
+  function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
+  function showReply(box, e) {
+    box.textContent = "";
+    box.hidden = !e.reply;
+    if (!e.reply) return;
+    box.appendChild(el("span", "who", "Arpi replied"));
+    box.appendChild(el("span", "when", fmt(e.reply.ts)));
+    box.appendChild(el("p", "txt", e.reply.msg));
+  }
+  function replyTools(li, e, box) {
+    var btn = el("button", "gb-reply-btn", e.reply ? "Edit reply" : "Reply");
+    btn.type = "button";
+    btn.onclick = function () {
+      btn.hidden = true;
+      var f = el("div", "gb-reply-form"), ta = el("textarea"), save = el("button", "btn primary", "Post reply"), cancel = el("button", "btn", "Cancel"), note = el("p", "gb-status");
+      ta.rows = 3; ta.maxLength = 1000; ta.value = e.reply ? e.reply.msg : ""; ta.setAttribute("aria-label", "Your reply to " + (e.name || "this message"));
+      save.type = cancel.type = "button";
+      if (e.reply) save.textContent = "Save reply";
+      cancel.onclick = function () { f.remove(); btn.hidden = false; };
+      save.onclick = function () {
+        save.disabled = true; note.textContent = "Saving...";
+        fetch(API, { method: "POST", headers: { "Content-Type": "application/json", accept: "application/json" }, body: JSON.stringify({ key: ownerKey, reply: e.id, msg: ta.value.trim() }) })
+          .then(function (r) { if (r.status === 403) throw new Error("key"); if (!r.ok) throw new Error(); return r.json(); })
+          .then(function (d) {
+            e.reply = d.reply; showReply(box, e);
+            btn.textContent = e.reply ? "Edit reply" : "Reply"; f.remove(); btn.hidden = false;
+          })
+          .catch(function (err) {
+            save.disabled = false;
+            note.textContent = err && err.message === "key" ? "This phone doesn't have your private key. Open your inbox link first." : "That didn't save. Please try again.";
+          });
+      };
+      var acts = el("div", "gb-reply-acts"); acts.appendChild(save); acts.appendChild(cancel);
+      f.appendChild(ta); f.appendChild(acts); f.appendChild(note);
+      li.appendChild(f); ta.focus();
+    };
+    li.appendChild(btn);
+  }
   function add(e, top) {
-    var li = document.createElement("li"), who = document.createElement("span"), when = document.createElement("span"), txt = document.createElement("p");
-    who.className = "who"; who.textContent = e.name || "Someone";
-    when.className = "when"; when.textContent = fmt(e.ts);
-    txt.className = "txt"; txt.textContent = e.msg || "";
-    li.appendChild(who); li.appendChild(when); li.appendChild(txt);
+    var li = el("li");
+    li.appendChild(el("span", "who", e.name || "Someone"));
+    li.appendChild(el("span", "when", fmt(e.ts)));
+    li.appendChild(el("p", "txt", e.msg || ""));
+    var box = el("div", "gb-reply"); showReply(box, e); li.appendChild(box);
+    if (ownerKey && e.id) replyTools(li, e, box);
     if (top) list.insertBefore(li, list.firstChild); else list.appendChild(li);
     if (empty) empty.hidden = true;
   }

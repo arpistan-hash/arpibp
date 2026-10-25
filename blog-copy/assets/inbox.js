@@ -29,6 +29,9 @@
     pushBox: $("push-box"), pushText: $("push-t"), testBtn: $("test-btn"),
   };
   const baseTitle = document.title;
+  // The guest book link carries the key, so the blog shows Reply buttons on this phone (even outside the app).
+  const gbLink = $("gb-owner");
+  if (gbLink) gbLink.href = "index.html#gbkey=" + encodeURIComponent(key);
   let messages = [];
   let seen = null; // ids from the previous poll; null until the first one, so old messages don't ring
   let audio = null;
