@@ -20,29 +20,6 @@
     window.addEventListener("scroll", upd, { passive: true }); upd();
   }
 
-  // The lock note in the footer only shows when the page really came over HTTPS.
-  if (location.protocol === "https:") document.querySelectorAll(".https-badge").forEach(function (b) { b.hidden = false; });
-
-  // Guests who scanned Arpi's tip card at the restaurant don't see the travel fund button during their
-  // visit, so the card never reads like asking for a tip.
-  try {
-    if (/[?&]s=card\b/.test(location.search)) sessionStorage.setItem("from-card", "1");
-    if (sessionStorage.getItem("from-card")) root.classList.add("from-card");
-  } catch (e) {}
-
-  // Visitor count: one anonymous hit per page view (page, referring site, source tag like ?s=card).
-  // No cookies, nothing personal. Arpi's own phone (it holds his key) and test copies are not counted.
-  try {
-    var mine = false; try { mine = !!localStorage.getItem("arpi-inbox-key") || /gbkey=/.test(location.hash); } catch (e) {}
-    if (!mine && /^(budapesthungry\.com|bullshittsunami\.hu)$/.test(location.hostname.replace(/^www\./, ""))) {
-      var q = new URLSearchParams(location.search), ref = "";
-      try { ref = document.referrer ? new URL(document.referrer).hostname : ""; } catch (e) {}
-      if (ref.replace(/^www\./, "") === location.hostname.replace(/^www\./, "")) ref = "";
-      fetch("/.netlify/functions/stats", { method: "POST", keepalive: true, headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ p: location.pathname, r: ref, s: q.get("s") || q.get("utm_source") || "" }) }).catch(function () {});
-    }
-  } catch (e) {}
-
   // "Copy" buttons next to promo codes.
   document.querySelectorAll(".promo button").forEach(function (b) {
     b.addEventListener("click", function () {
@@ -213,19 +190,6 @@
     if (ownerKey && e.id) replyTools(li, e, box);
     if (top) list.insertBefore(li, list.firstChild); else list.appendChild(li);
     if (empty) empty.hidden = true;
-  }
-  // One-time copy of the messages left on the old copy of the site (only Arpi sees this button).
-  var imp = document.getElementById("gb-import");
-  if (imp && ownerKey) {
-    imp.hidden = false;
-    var ib = imp.querySelector("button"), is = imp.querySelector("span");
-    ib.onclick = function () {
-      ib.disabled = true; is.textContent = "Copying...";
-      fetch(API, { method: "POST", headers: { "Content-Type": "application/json", accept: "application/json" }, body: JSON.stringify({ key: ownerKey, import: "old" }) })
-        .then(function (r) { if (r.status === 403) throw new Error("key"); if (!r.ok) throw new Error(); return r.json(); })
-        .then(function (d) { is.textContent = d.added ? "Done: " + d.added + " message" + (d.added === 1 ? "" : "s") + " copied. Reloading..." : "All old messages are already here."; if (d.added) setTimeout(function () { location.reload(); }, 1200); })
-        .catch(function (e) { is.textContent = e.message === "key" ? "This phone doesn't have your private key. Open your inbox link first." : "Couldn't reach the old site. Please try again later."; ib.disabled = false; });
-    };
   }
   fetch(API, { headers: { accept: "application/json" } })
     .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
