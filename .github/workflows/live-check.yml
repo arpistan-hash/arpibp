@@ -33,7 +33,9 @@ jobs:
               except Exception as e:
                   return 0, {}, str(e)
           def check(cond, msg):
-              (notes if cond else fails).append(("ok   " if cond else "FAIL ") + msg)
+              line = ("ok   " if cond else "FAIL ") + msg
+              (notes if cond else fails).append(line)
+              print(line, flush=True)
 
           for host in ("budapesthungry.com", "www.budapesthungry.com", "bullshittsunami.hu", "www.bullshittsunami.hu"):
               s, h, body = get(f"https://{host}/")
@@ -46,7 +48,7 @@ jobs:
 
           s, h, sm = get("https://budapesthungry.com/sitemap.xml")
           urls = re.findall(r"<loc>(.*?)</loc>", sm)
-          check(s == 200 and len(urls) >= 30 and sm.count("<lastmod>") == len(urls), f"sitemap.xml: {len(urls)} pages with dates")
+          check(s == 200 and len(urls) >= 30 and sm.count("<lastmod>") == len(urls), f"sitemap.xml -> {s}: {len(urls)} pages with dates {'' if urls else sm[:200]}")
           bad = []
           for u in urls:
               s, h, body = get(u)
@@ -54,8 +56,9 @@ jobs:
               if s != 200 or not canon or canon.group(1) != u:
                   bad.append(f"{u} -> {s} canonical={canon.group(1) if canon else None}")
           check(not bad, f"all {len(urls)} sitemap pages load with the right canonical" + ("".join("\n       " + b for b in bad)))
-          s, h, _ = get(urls[1].replace("budapesthungry.com", "bullshittsunami.hu"))
-          check(s == 200, f"a post on bullshittsunami.hu -> {s}")
+          if len(urls) > 1:
+              s, h, _ = get(urls[1].replace("budapesthungry.com", "bullshittsunami.hu"))
+              check(s == 200, f"a post on bullshittsunami.hu -> {s}")
 
           s, h, rb = get("https://budapesthungry.com/robots.txt")
           check(s == 200 and "Sitemap: https://budapesthungry.com/sitemap.xml" in rb, "robots.txt names the sitemap")
@@ -80,7 +83,6 @@ jobs:
               s, h, _ = get(f"https://budapesthungry.com/{page}")
               check(s == 200, f"/{page} -> {s}")
 
-          print("\n".join(notes + fails))
           print(f"\n{len(notes)} passed, {len(fails)} failed")
           raise SystemExit(1 if fails else 0)
           EOF
