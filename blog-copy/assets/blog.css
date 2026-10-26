@@ -377,3 +377,4 @@ body.tinted .bar { background: color-mix(in srgb, var(--tint) 92%, transparent);
 .ask-a { margin: 12px 0 0 14px; padding: 10px 14px; border-left: 4px solid var(--p2, var(--ink)); border-radius: 0 12px 12px 0; background: color-mix(in srgb, var(--sun) 22%, var(--card)); }
 .ask-a .who { font-weight: 700; }
 .ask-a .txt { margin: 6px 0 0; font-family: var(--font-serif); font-size: 19px; line-height: 1.5; white-space: pre-wrap; }
+.gb-import:not([hidden]) { margin: 14px 0 0; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-weight: 600; }
