@@ -7,6 +7,8 @@ page to refresh the blog:
 
     python3 blog-copy/tools/build.py
 """
+import datetime
+import hashlib
 import html
 import json
 import pathlib
@@ -20,7 +22,55 @@ SRC = (ROOT / "index.html").read_text(encoding="utf-8")
 NAME = "Arpi"
 SITE_TITLE = "Arpi from Budapest"
 SITE_DESC = "Friendly Budapest tips and the story of a life across three continents."
-SITE_URL = "https://budapesthungry.com"  # canonical address (bullshitsunami.hu serves the same pages)
+SITE_URL = "https://budapesthungry.com"  # canonical address (bullshittsunami.hu serves the same pages)
+SITE_NAME = "Budapest Hungry"  # the name search engines show for the site
+HOME_TITLE = "Budapest Hungry: Honest Budapest Tips from a Local Waiter"
+HOME_DESC = ("Honest, no-bullshit Budapest tips from Arpi, a local waiter: what to eat, taxis and transport, "
+             "thermal baths, day trips and Christmas markets. Ask Arpi anything.")
+# Lets Bing (and through it ChatGPT and Copilot) hear about new or changed pages right away; the same key
+# is published as /<key>.txt and used by .github/workflows/indexnow.yml.
+INDEXNOW_KEY = "72cae46324595e3748f16f14f261e4e7"
+
+# What people type into Google, for the page title and description. The headline and hook on the page
+# stay Arpi's own words; this only changes what shows in search results and link previews.
+SEO = {
+    "tip1": ("Budapest Taxis, Uber, Bolt and Public Transport Tips",
+             "Never flag down a taxi on the street in Budapest. A local waiter's honest tips on Bolt and Uber, travel passes, the BudapestGO app, night buses, Bubi bikes and scooters."),
+    "tip2": ("Quiet Budapest: Buda Hills, the Libegő Chair Lift and Caves",
+             "Need a break from party Budapest? A local's tips for the Buda Hills, the Libegő chair lift, the Children's Railway, the Pálvölgyi cave and Margaret Island."),
+    "tip3": ("Széchenyi Baths Tip: Go at Opening Time",
+             "Go to the Széchenyi thermal bath right when it opens, when it's almost all locals. A Budapest waiter's honest tip, plus where to drink the thermal water."),
+    "trip": ("Budapest to Esztergom by Train: Easy Day Trip from a Local",
+             "Trains from Budapest-Nyugati to Esztergom run every 30 minutes and take about an hour, for roughly 1,200 Ft. Timetables, tickets, the Nyugati McDonald's and a hop to Slovakia."),
+    "xmas": ("Budapest Christmas Markets: Worth It? A Local's Honest Take",
+             "Are the Budapest Christmas markets worth it? A local waiter's honest opinion of the Vörösmarty tér and Basilica markets: the crowds, the prices and the dates."),
+    "tip6": ("Hungarian Food: What to Eat in Budapest, from a Local",
+             "Lángos, goulash, chicken paprikás, túrós csusza and Hungarian salami: what to eat in Budapest and where locals actually get it, from a Budapest waiter."),
+    "tip7": ("Hungarian Wine and Tokaji Aszú: What to Drink in Budapest",
+             "Why the best Hungarian wines rarely get exported, and why you should try Tokaji Aszú while you're in Budapest. Honest tips from a local waiter."),
+    "pal": ("Pálinka and Unicum: Hungary's Famous Drinks Explained",
+            "What pálinka is, how strong it gets and the golden rule: sip the good ones, shoot the bad ones. Plus Unicum, and the beer-and-Unicum habit."),
+    "tip9": ("Is Tap Water Safe to Drink in Budapest? Yes",
+             "Yes, Budapest tap water is safe and high quality. A local on drinking water in Hungary, and why Hungarians love their mineral water."),
+    "tip8": ("Why Hungarians Don't Like Their Drinks Too Cold",
+             "Many Hungarians believe ice-cold drinks give you a sore throat. A Budapest waiter explains the belief, and the 'winter ice cream' that wasn't ice cream."),
+    "hist": ("Hungarian History in Two Minutes, Told by a Local",
+             "From horseback nomads in 896 to Saint Stephen, the Turks, two world wars and socialism: Hungarian history in two minutes, told honestly by a Budapest local."),
+    "tip4": ("What Not to Say in Hungary: Topics to Handle with Care",
+             "Don't call Hungarians Slavic, and steer clear of 20th-century politics. A local's honest guide to the touchy topics in Hungary."),
+    "tip5": ("What Hungarians Are Proud Of, and Túró Rudi",
+             "The Rubik's Cube, paprika, pálinka, sour cream and Túró Rudi: what Hungarians are proud of, and what to taste at a Budapest market's pickle stalls."),
+    "tip11": ("Hungarian Pessimism, Explained by a Local",
+              "Why Hungarians prepare for the worst, so anything better feels great. Even the national anthem is dark. A Budapest local explains."),
+    "tip12": ("What Hungarians Are Like Once They Like You",
+              "Hungarians can seem reserved, but once they like you it's like family, with no filter. A Budapest local on Hungarian friendship."),
+    "tip13": ("Hungarian Inventions and Nobel Prizes",
+              "Vitamin C, the ballpoint pen and the Rubik's Cube: famous Hungarian inventions and Nobel Prizes, and why most of them were won abroad."),
+    "tip14": ("Why Hungarians Love to Travel: Flights from $15",
+              "Hungary sits in the middle of Europe, with one-way flights from $15. How far a Hungarian salary goes on flights today compared with 30 years ago."),
+    "tip10": ("Is Hungarian Hard to Learn? The Hungarian Language",
+              "Four kinds of O, four kinds of U, and rules full of exceptions. Why Hungarian is so hard to learn, and the one piece of good news."),
+}
 WHATSAPP = "+36 20 223 9524"
 EMAIL = "arpistan@gmail.com"
 TRAVEL_FUND = "https://revolut.me/arpadqsln"
@@ -315,8 +365,31 @@ def card(p, featured=False):
             f'<p>{p["hook"]}</p>{meta}</div></a></li>')
 
 
+# The author, the same everywhere, so search engines and AI assistants know a real local wrote this.
+AUTHOR = {"@type": "Person", "@id": SITE_URL + "/#arpi", "name": "Árpád (Arpi)", "url": SITE_URL + "/",
+          "jobTitle": "Waiter", "homeLocation": {"@type": "Place", "name": "Budapest, Hungary"},
+          "knowsAbout": ["Budapest", "Hungarian food", "Hungarian wine", "Budapest restaurants", "Hospitality"]}
+
+# Last real change of each page, for the sitemap: a page's date only moves when its own words change.
+LASTMOD_FILE = OUT / "tools" / "lastmod.json"
+try:
+    LASTMOD = json.loads(LASTMOD_FILE.read_text(encoding="utf-8"))
+except (OSError, ValueError):
+    LASTMOD = {}
+TODAY = datetime.date.today().isoformat()
+
+
+def lastmod(path, content):
+    h = hashlib.sha1(content.encode("utf-8")).hexdigest()[:16]
+    if LASTMOD.get(path, {}).get("h") != h:
+        LASTMOD[path] = {"h": h, "d": TODAY}
+    return LASTMOD[path]["d"]
+
+
 # ---------- home page ----------
-home = head(SITE_TITLE, SITE_DESC, 0, path="", ld={"@context": "https://schema.org", "@type": "WebSite", "name": SITE_TITLE, "url": SITE_URL + "/", "author": {"@type": "Person", "name": "Árpád (Arpi)"}}) + f"""<main id="main">
+home = head(HOME_TITLE, HOME_DESC, 0, path="", ld={"@context": "https://schema.org", "@graph": [
+    {"@type": "WebSite", "name": SITE_NAME, "alternateName": [SITE_TITLE, "bullshittsunami.hu"], "url": SITE_URL + "/", "inLanguage": "en", "author": AUTHOR},
+    AUTHOR]}) + f"""<main id="main">
 <div class="wrap-wide">
   <section class="hero">
     <figure class="postcard">{scene}<figcaption>Tobi and I, on the Danube</figcaption></figure>
@@ -443,11 +516,14 @@ for i, p in enumerate(posts):
             + "".join(f'<li style="{mood_style(q)}"><a href="{q["slug"]}.html"><span class="art">{q["art"]}</span>'
                       f'<b>{q["title"]}</b><small>{q["mins"]} min read</small></a></li>' for q in related)
             + "</ul></section>") if related else ""
+    seo_title, seo_desc = SEO.get(p["id"], (p["title_txt"], text(p["hook"]) or SITE_DESC))
+    p["lastmod"] = lastmod(f'posts/{p["slug"]}.html', p["title"] + p["hook"] + p["facts"] + p["body"])
+    first_img = re.search(r'<img[^>]*\ssrc="\.\./(assets/[^"]+)"', p["body"])
     ld = {"@context": "https://schema.org", "@graph": [
-        {"@type": "BlogPosting", "headline": p["title_txt"], "description": text(p["hook"]) or SITE_DESC,
-         "inLanguage": "en", "mainEntityOfPage": f'{SITE_URL}/posts/{p["slug"]}.html',
-         "author": {"@type": "Person", "name": "Árpád (Arpi)", "url": SITE_URL + "/"},
-         "publisher": {"@type": "Person", "name": "Árpád (Arpi)"}},
+        {"@type": "BlogPosting", "headline": p["title_txt"], "description": seo_desc,
+         "inLanguage": "en", "mainEntityOfPage": f'{SITE_URL}/posts/{p["slug"]}.html', "dateModified": p["lastmod"],
+         **({"image": f"{SITE_URL}/{first_img.group(1)}"} if first_img else {}),
+         "author": AUTHOR, "publisher": {"@id": AUTHOR["@id"]}},
         {"@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/"},
             {"@type": "ListItem", "position": 2, "name": p["topic_name"], "item": f'{SITE_URL}/#{p["topic"]}'},
@@ -460,7 +536,7 @@ for i, p in enumerate(posts):
     if next_p:
         pager += f'<a class="next" href="{next_p["slug"]}.html"><small>Next &rarr;</small><b>{next_p["title"]}</b></a>'
     pager += "</nav>"
-    page = head(f'{p["title_txt"]} · {SITE_TITLE}', text(p["hook"]) or SITE_DESC, 1, body_style=mood_style(p), extra_head='<link rel="stylesheet" href="../assets/map.css">\n' if p["id"] == "countries" else "", path=f'posts/{p["slug"]}.html', og_type="article", ld=ld) + f"""<main id="main">
+    page = head(f'{seo_title} · {SITE_NAME}', seo_desc, 1, body_style=mood_style(p), extra_head='<link rel="stylesheet" href="../assets/map.css">\n' if p["id"] == "countries" else "", path=f'posts/{p["slug"]}.html', og_type="article", ld=ld) + f"""<main id="main">
 <article>
   <div class="wrap post-head">
     <a class="tag" href="../index.html#{p['topic']}">{html.escape(p['topic_name'] if p['topic_name'] == p['group'] else p['topic_name'] + ' · ' + p['group'])}</a>
@@ -534,9 +610,13 @@ for f in ("guestbook.mjs", "table.mjs", "ask.mjs"):
     shutil.copy(ROOT / "netlify" / "functions" / f, OUT / "netlify" / "functions" / f)
 
 # ---------- sitemap and robots, so search engines find every page ----------
-urls = [SITE_URL + "/"] + [f'{SITE_URL}/posts/{q["slug"]}.html' for q in posts]
+home_mod = max([lastmod("", home)] + [q["lastmod"] for q in posts])
+urls = [(SITE_URL + "/", home_mod)] + [(f'{SITE_URL}/posts/{q["slug"]}.html', q["lastmod"]) for q in posts]
 (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    + "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>\n", encoding="utf-8")
+    + "".join(f"  <url><loc>{u}</loc><lastmod>{d}</lastmod></url>\n" for u, d in urls) + "</urlset>\n", encoding="utf-8")
+known = {""} | {f'posts/{q["slug"]}.html' for q in posts}
+LASTMOD_FILE.write_text(json.dumps({k: v for k, v in sorted(LASTMOD.items()) if k in known}, indent=1) + "\n", encoding="utf-8")
+(OUT / f"{INDEXNOW_KEY}.txt").write_text(INDEXNOW_KEY, encoding="utf-8")
 (OUT / "robots.txt").write_text("User-agent: *\nDisallow: /inbox.html\nDisallow: /tables-qr.html\n\nSitemap: " + SITE_URL + "/sitemap.xml\n", encoding="utf-8")
 
 print(f"{len(posts)} posts, {len(used)} photos")
