@@ -33,14 +33,14 @@
         <!-- body -->
         <rect x="213" y="258" width="44" height="50" fill="#f2c096" stroke="#1b1f3b" stroke-width="4"/>
         <path d="M95 420 C95 340 150 300 235 300 C320 300 375 340 375 420 Z" fill="#fffaf0" stroke="#1b1f3b" stroke-width="4"/>
-        <path d="M160 322 L212 318 L204 420 L112 420 C114 375 130 340 160 322 Z" fill="#1e2a4a" stroke="#1b1f3b" stroke-width="4"/>
-        <path d="M310 322 L258 318 L266 420 L358 420 C356 375 340 340 310 322 Z" fill="#1e2a4a" stroke="#1b1f3b" stroke-width="4"/>
-        <circle cx="196" cy="368" r="4" fill="#ffc94d"/><circle cx="196" cy="394" r="4" fill="#ffc94d"/>
-        <circle cx="274" cy="368" r="4" fill="#ffc94d"/><circle cx="274" cy="394" r="4" fill="#ffc94d"/>
-        <!-- bow tie -->
-        <path d="M235 308 L204 294 L204 322 Z" fill="#e8452c" stroke="#1b1f3b" stroke-width="4"/>
-        <path d="M235 308 L266 294 L266 322 Z" fill="#e8452c" stroke="#1b1f3b" stroke-width="4"/>
-        <circle cx="235" cy="308" r="8" fill="#c43a22" stroke="#1b1f3b" stroke-width="4"/>
+        <!-- shirt collar and brown apron tied around the neck -->
+        <polygon points="213,297 190,306 208,326" fill="#fffaf0" stroke="#1b1f3b" stroke-width="4"/>
+        <polygon points="257,297 280,306 262,326" fill="#fffaf0" stroke="#1b1f3b" stroke-width="4"/>
+        <path d="M207 318 L263 318 C267 352 290 372 314 420 L156 420 C180 372 203 352 207 318 Z" fill="#8a5a34" stroke="#1b1f3b" stroke-width="4"/>
+        <path d="M208 320 L214 272 M262 320 L256 272" fill="none" stroke="#1b1f3b" stroke-width="11"/>
+        <path d="M208 320 L214 272 M262 320 L256 272" fill="none" stroke="#8a5a34" stroke-width="4"/>
+        <rect x="199" y="374" width="72" height="34" rx="5" fill="#7a4b28" stroke="#1b1f3b" stroke-width="3.5"/>
+        <path d="M205 380 H265" fill="none" stroke="#c99a6b" stroke-width="2" stroke-dasharray="4 4"/>
 
         <!-- ears and head -->
         <circle cx="165" cy="198" r="13" fill="#f2c096" stroke="#1b1f3b" stroke-width="4"/>
