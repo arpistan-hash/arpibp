@@ -1,0 +1,104 @@
+name: Check the live site
+
+# Every 3 hours, opens the real budapesthungry.com and bullshittsunami.hu and checks that every page, the
+# guest book, Ask Arpi, the card link, the security certificate and the security headers answer correctly.
+# If anything fails, GitHub emails the repository owner. Read-only: it never posts anything.
+on:
+  schedule:
+    - cron: "17 */3 * * *"
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+    paths: [ ".github/workflows/live-check.yml" ]
+
+permissions:
+  contents: read
+
+jobs:
+  live:
+    name: Check the live site
+    runs-on: ubuntu-latest
+    steps:
+      - name: Where the domains point
+        run: |
+          for d in budapesthungry.com www.budapesthungry.com bullshittsunami.hu www.bullshittsunami.hu; do
+            echo "== $d"; echo "A: $(dig +short A $d | tr '\n' ' ')"; echo "CNAME: $(dig +short CNAME $d | tr '\n' ' ')"; echo "NS: $(dig +short NS ${d#www.} | tr '\n' ' ')"
+          done
+          for u in https://budapesthungry.com/ http://budapesthungry.com/ http://bullshittsunami.hu/ https://bullshittsunami.hu/; do
+            echo "== $u"; curl -skI --max-time 20 "$u" | grep -iE "^(HTTP|location|server|x-nf|content-type)" || true
+            curl -sk --max-time 20 "$u" | head -c 900; echo
+          done
+      - name: Check
+        run: |
+          python3 - <<'EOF'
+          import json, re, ssl, urllib.request, urllib.error
+          fails, notes = [], []
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, *a, **k): return None
+          plain = urllib.request.build_opener(NoRedirect)
+          def get(url, follow=True):
+              try:
+                  r = (urllib.request.urlopen if follow else plain.open)(urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 live-check bot"}), timeout=30)
+                  return r.status, r.headers, r.read().decode("utf-8", "replace")
+              except urllib.error.HTTPError as e:
+                  return e.code, e.headers, e.read().decode("utf-8", "replace")
+              except Exception as e:
+                  return 0, {}, str(e)
+          def check(cond, msg):
+              line = ("ok   " if cond else "FAIL ") + msg
+              (notes if cond else fails).append(line)
+              print(line, flush=True)
+
+          for host in ("budapesthungry.com", "www.budapesthungry.com", "bullshittsunami.hu", "www.bullshittsunami.hu"):
+              s, h, body = get(f"https://{host}/")
+              title = re.search(r"<title>(.*?)</title>", body or "")
+              check(s == 200 and title and "Budapest Hungry" in title.group(1), f"https://{host}/ -> {s} {title.group(1) if title else body[:120]}")
+              s, h, body = get(f"http://{host}/", follow=False)
+              check(s in (200, 301, 302, 308), f"http://{host}/ -> {s} {h.get('Location', '') if h else ''}")
+          s, h, _ = get("https://bparpi.netlify.app/", follow=False)
+          check(s in (301, 302, 308) and "budapesthungry.com" in (h.get("Location", "") if h else ""), f"bparpi.netlify.app sends visitors to {h.get('Location', '') if h else s}")
+
+          s, h, _ = get("https://budapesthungry.com/")
+          for name in ("Strict-Transport-Security", "Content-Security-Policy", "X-Content-Type-Options", "X-Frame-Options", "Referrer-Policy"):
+              check(bool(h) and bool(h.get(name)), f"security header {name}: {(h.get(name) or 'missing')[:60] if h else 'no answer'}")
+
+          s, h, sm = get("https://budapesthungry.com/sitemap.xml")
+          urls = re.findall(r"<loc>(.*?)</loc>", sm)
+          check(s == 200 and len(urls) >= 30 and sm.count("<lastmod>") == len(urls), f"sitemap.xml -> {s}: {len(urls)} pages with dates {'' if urls else sm[:200]}")
+          bad = []
+          for u in urls:
+              s, h, body = get(u)
+              canon = re.search(r'<link rel="canonical" href="([^"]+)"', body)
+              if s != 200 or not canon or canon.group(1) != u:
+                  bad.append(f"{u} -> {s} canonical={canon.group(1) if canon else None}")
+          check(not bad, f"all {len(urls)} sitemap pages load with the right canonical" + ("".join("\n       " + b for b in bad)))
+          if len(urls) > 1:
+              s, h, _ = get(urls[1].replace("budapesthungry.com", "bullshittsunami.hu"))
+              check(s == 200, f"a post on bullshittsunami.hu -> {s}")
+
+          s, h, rb = get("https://budapesthungry.com/robots.txt")
+          check(s == 200 and "Sitemap: https://budapesthungry.com/sitemap.xml" in rb, "robots.txt names the sitemap")
+          key = "72cae46324595e3748f16f14f261e4e7"
+          s, h, kb = get(f"https://budapesthungry.com/{key}.txt")
+          check(s == 200 and kb.strip() == key, "IndexNow key file is live")
+
+          s, h, _ = get("https://budapesthungry.com/card", follow=False)
+          check(s in (301, 302) and (h.get("Location", "") if h else "").endswith("/?s=card"), f"/card -> {s} {h.get('Location', '') if h else ''}")
+
+          for fn in ("guestbook", "ask"):
+              s, h, body = get(f"https://budapesthungry.com/.netlify/functions/{fn}")
+              try:
+                  data = json.loads(body); n = len(data.get("entries", data.get("questions", [])))
+              except ValueError:
+                  data, n = None, -1
+              check(s == 200 and data is not None, f"{fn} function -> {s}, {n} public items")
+          for fn, q in (("stats", ""), ("table", "")):
+              s, h, body = get(f"https://budapesthungry.com/.netlify/functions/{fn}{q}")
+              check(s == 403, f"{fn} function without the private key -> {s} (should be 403)")
+          for page in ("privacy.html", "inbox.html", "stats.html", "card.html", "table.html", "tables-qr.html", "assets/blog.js", "assets/blog.css"):
+              s, h, _ = get(f"https://budapesthungry.com/{page}")
+              check(s == 200, f"/{page} -> {s}")
+
+          print(f"\n{len(notes)} passed, {len(fails)} failed")
+          raise SystemExit(1 if fails else 0)
+          EOF

@@ -20,6 +20,9 @@
     window.addEventListener("scroll", upd, { passive: true }); upd();
   }
 
+  // The lock note in the footer only shows when the page really came over HTTPS.
+  if (location.protocol === "https:") document.querySelectorAll(".https-badge").forEach(function (b) { b.hidden = false; });
+
   // Guests who scanned Arpi's tip card at the restaurant don't see the travel fund button during their
   // visit, so the card never reads like asking for a tip.
   try {
