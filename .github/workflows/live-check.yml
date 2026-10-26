@@ -1,11 +1,14 @@
 name: Check the live site
 
-# Opens the real budapesthungry.com and bullshittsunami.hu and checks that every page, the guest book,
-# Ask Arpi, the card link and the search-engine files answer correctly. Read-only: it never posts anything.
+# Every 3 hours, opens the real budapesthungry.com and bullshittsunami.hu and checks that every page, the
+# guest book, Ask Arpi, the card link, the security certificate and the security headers answer correctly.
+# If anything fails, GitHub emails the repository owner. Read-only: it never posts anything.
 on:
+  schedule:
+    - cron: "17 */3 * * *"
   workflow_dispatch:
   push:
-    branches: [ "ccr-*" ]
+    branches: [ "main" ]
     paths: [ ".github/workflows/live-check.yml" ]
 
 permissions:
@@ -55,6 +58,10 @@ jobs:
           s, h, _ = get("https://bparpi.netlify.app/", follow=False)
           check(s in (301, 302, 308) and "budapesthungry.com" in (h.get("Location", "") if h else ""), f"bparpi.netlify.app sends visitors to {h.get('Location', '') if h else s}")
 
+          s, h, _ = get("https://budapesthungry.com/")
+          for name in ("Strict-Transport-Security", "Content-Security-Policy", "X-Content-Type-Options", "X-Frame-Options", "Referrer-Policy"):
+              check(bool(h) and bool(h.get(name)), f"security header {name}: {(h.get(name) or 'missing')[:60] if h else 'no answer'}")
+
           s, h, sm = get("https://budapesthungry.com/sitemap.xml")
           urls = re.findall(r"<loc>(.*?)</loc>", sm)
           check(s == 200 and len(urls) >= 30 and sm.count("<lastmod>") == len(urls), f"sitemap.xml -> {s}: {len(urls)} pages with dates {'' if urls else sm[:200]}")
@@ -88,7 +95,7 @@ jobs:
           for fn, q in (("stats", ""), ("table", "")):
               s, h, body = get(f"https://budapesthungry.com/.netlify/functions/{fn}{q}")
               check(s == 403, f"{fn} function without the private key -> {s} (should be 403)")
-          for page in ("inbox.html", "stats.html", "card.html", "table.html", "tables-qr.html", "assets/blog.js", "assets/blog.css"):
+          for page in ("privacy.html", "inbox.html", "stats.html", "card.html", "table.html", "tables-qr.html", "assets/blog.js", "assets/blog.css"):
               s, h, _ = get(f"https://budapesthungry.com/{page}")
               check(s == 200, f"/{page} -> {s}")
 

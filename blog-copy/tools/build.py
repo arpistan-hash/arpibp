@@ -344,6 +344,7 @@ def foot(depth, extra_js=""):
     <a class="btn" href="mailto:{EMAIL}">{ICON_MAIL} {EMAIL}</a>
     <a class="btn" href="{TRAVEL_FUND}" target="_blank" rel="noopener">{ICON_FUND} Arpi + Tobi travel fund</a>
   </div>
+  <p class="trust"><span class="https-badge" hidden>&#128274; You're on a secure, encrypted connection.</span> No ads. No tracking cookies. Never sponsored. <a href="{up}privacy.html">Privacy and security</a></p>
   <small>This is my own private blog. Everything on it is my personal opinion and has nothing to do with any employer, past or present. Recommendations are friendly suggestions, not professional advice, so please check opening hours, prices, timetables and safety before you go.</small>
 </div></footer>
 <script src="{up}assets/blog.js"></script>
@@ -497,6 +498,50 @@ home = head(HOME_TITLE, HOME_DESC, 0, path="", ld={"@context": "https://schema.o
 </main>
 """ + foot(0)
 (OUT / "index.html").write_text(home, encoding="utf-8")
+
+# ---------- privacy and security: what the site keeps, in plain words ----------
+privacy = head("Privacy and security · " + SITE_NAME, "What budapesthungry.com keeps about you (very little), how it's protected, and how to have it deleted.", 0, path="privacy.html") + f"""<main id="main">
+<article class="wrap prose privacy">
+  <h1>Privacy and security</h1>
+  <p class="sub">Short version: no ads, no tracking cookies, nothing sold, ever. Here is exactly what this site keeps.</p>
+  <h2>&#128274; How the site is protected</h2>
+  <ul>
+    <li>Every page is sent over an encrypted connection (HTTPS), so nobody on the café Wi-Fi can read or change what you see or send.</li>
+    <li>The site tells browsers to always use the encrypted connection, refuses to run scripts from unknown places, and can't be hidden inside another website.</li>
+    <li>The only private part of the site (my inbox) is locked with a long private key that only I have.</li>
+    <li>An automatic check opens the site every three hours, so if anything breaks, I hear about it quickly.</li>
+  </ul>
+  <h2>What I keep, and why</h2>
+  <ul>
+    <li><b>Guest book:</b> your name and message are public, that's the point. Your email, if you give it, stays private and is only used so I can write back.</li>
+    <li><b>Ask Arpi:</b> your question and first name are shown once I've answered. Your email, if you give it, is never shown.</li>
+    <li><b>Table requests</b> (only if you're at my table at work): the table number and what you asked for, so I can bring it.</li>
+    <li><b>Visitor numbers:</b> each day I count how many times each page was read and which website sent people here. No cookies, no IP addresses, nothing that identifies you.</li>
+    <li><b>Your light or dark choice</b> is remembered in your own browser, not sent to me.</li>
+  </ul>
+  <h2>Where it's stored</h2>
+  <p>The site runs on Netlify, and the guest book, questions and visitor numbers are stored with Netlify. Some pages load a map or QR-code script from Cloudflare's cdnjs. The WhatsApp, email and travel fund buttons only open those apps when you tap them.</p>
+  <h2>Getting something changed or deleted</h2>
+  <p>Write to me at <a href="mailto:{EMAIL}">{EMAIL}</a> or on WhatsApp and I'll change or delete your message, question or email address, usually within a day. You can also complain to the Hungarian data protection authority (NAIH, naih.hu).</p>
+  <p>Árpád (Arpi), Budapest</p>
+</article>
+</main>
+""" + foot(0)
+(OUT / "privacy.html").write_text(privacy, encoding="utf-8")
+
+# ---------- security headers for every page (Netlify reads this file) ----------
+CSP = ("default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; "
+       "img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; media-src 'self' data:; worker-src 'self'; "
+       "manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'")
+(OUT / "_headers").write_text(
+    "/*\n"
+    "  Strict-Transport-Security: max-age=31536000\n"
+    "  Content-Security-Policy: " + CSP + "\n"
+    "  X-Content-Type-Options: nosniff\n"
+    "  X-Frame-Options: SAMEORIGIN\n"
+    "  Referrer-Policy: strict-origin-when-cross-origin\n"
+    "  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()\n"
+    "  Cross-Origin-Opener-Policy: same-origin\n", encoding="utf-8")
 
 # ---------- post pages ----------
 (OUT / "posts").mkdir(exist_ok=True)
