@@ -7,8 +7,6 @@ page to refresh the blog:
 
     python3 blog-copy/tools/build.py
 """
-import datetime
-import hashlib
 import html
 import json
 import pathlib
@@ -22,55 +20,7 @@ SRC = (ROOT / "index.html").read_text(encoding="utf-8")
 NAME = "Arpi"
 SITE_TITLE = "Arpi from Budapest"
 SITE_DESC = "Friendly Budapest tips and the story of a life across three continents."
-SITE_URL = "https://budapesthungry.com"  # canonical address (bullshittsunami.hu serves the same pages)
-SITE_NAME = "Budapest Hungry"  # the name search engines show for the site
-HOME_TITLE = "Budapest Hungry: Honest Budapest Tips from a Local Waiter"
-HOME_DESC = ("Honest, no-bullshit Budapest tips from Arpi, a local waiter: what to eat, taxis and transport, "
-             "thermal baths, day trips and Christmas markets. Ask Arpi anything.")
-# Lets Bing (and through it ChatGPT and Copilot) hear about new or changed pages right away; the same key
-# is published as /<key>.txt and used by .github/workflows/indexnow.yml.
-INDEXNOW_KEY = "72cae46324595e3748f16f14f261e4e7"
-
-# What people type into Google, for the page title and description. The headline and hook on the page
-# stay Arpi's own words; this only changes what shows in search results and link previews.
-SEO = {
-    "tip1": ("Budapest Taxis, Uber, Bolt and Public Transport Tips",
-             "Never flag down a taxi on the street in Budapest. A local waiter's honest tips on Bolt and Uber, travel passes, the BudapestGO app, night buses, Bubi bikes and scooters."),
-    "tip2": ("Quiet Budapest: Buda Hills, the Libegő Chair Lift and Caves",
-             "Need a break from party Budapest? A local's tips for the Buda Hills, the Libegő chair lift, the Children's Railway, the Pálvölgyi cave and Margaret Island."),
-    "tip3": ("Széchenyi Baths Tip: Go at Opening Time",
-             "Go to the Széchenyi thermal bath right when it opens, when it's almost all locals. A Budapest waiter's honest tip, plus where to drink the thermal water."),
-    "trip": ("Budapest to Esztergom by Train: Easy Day Trip from a Local",
-             "Trains from Budapest-Nyugati to Esztergom run every 30 minutes and take about an hour, for roughly 1,200 Ft. Timetables, tickets, the Nyugati McDonald's and a hop to Slovakia."),
-    "xmas": ("Budapest Christmas Markets: Worth It? A Local's Honest Take",
-             "Are the Budapest Christmas markets worth it? A local waiter's honest opinion of the Vörösmarty tér and Basilica markets: the crowds, the prices and the dates."),
-    "tip6": ("Hungarian Food: What to Eat in Budapest, from a Local",
-             "Lángos, goulash, chicken paprikás, túrós csusza and Hungarian salami: what to eat in Budapest and where locals actually get it, from a Budapest waiter."),
-    "tip7": ("Hungarian Wine and Tokaji Aszú: What to Drink in Budapest",
-             "Why the best Hungarian wines rarely get exported, and why you should try Tokaji Aszú while you're in Budapest. Honest tips from a local waiter."),
-    "pal": ("Pálinka and Unicum: Hungary's Famous Drinks Explained",
-            "What pálinka is, how strong it gets and the golden rule: sip the good ones, shoot the bad ones. Plus Unicum, and the beer-and-Unicum habit."),
-    "tip9": ("Is Tap Water Safe to Drink in Budapest? Yes",
-             "Yes, Budapest tap water is safe and high quality. A local on drinking water in Hungary, and why Hungarians love their mineral water."),
-    "tip8": ("Why Hungarians Don't Like Their Drinks Too Cold",
-             "Many Hungarians believe ice-cold drinks give you a sore throat. A Budapest waiter explains the belief, and the 'winter ice cream' that wasn't ice cream."),
-    "hist": ("Hungarian History in Two Minutes, Told by a Local",
-             "From horseback nomads in 896 to Saint Stephen, the Turks, two world wars and socialism: Hungarian history in two minutes, told honestly by a Budapest local."),
-    "tip4": ("What Not to Say in Hungary: Topics to Handle with Care",
-             "Don't call Hungarians Slavic, and steer clear of 20th-century politics. A local's honest guide to the touchy topics in Hungary."),
-    "tip5": ("What Hungarians Are Proud Of, and Túró Rudi",
-             "The Rubik's Cube, paprika, pálinka, sour cream and Túró Rudi: what Hungarians are proud of, and what to taste at a Budapest market's pickle stalls."),
-    "tip11": ("Hungarian Pessimism, Explained by a Local",
-              "Why Hungarians prepare for the worst, so anything better feels great. Even the national anthem is dark. A Budapest local explains."),
-    "tip12": ("What Hungarians Are Like Once They Like You",
-              "Hungarians can seem reserved, but once they like you it's like family, with no filter. A Budapest local on Hungarian friendship."),
-    "tip13": ("Hungarian Inventions and Nobel Prizes",
-              "Vitamin C, the ballpoint pen and the Rubik's Cube: famous Hungarian inventions and Nobel Prizes, and why most of them were won abroad."),
-    "tip14": ("Why Hungarians Love to Travel: Flights from $15",
-              "Hungary sits in the middle of Europe, with one-way flights from $15. How far a Hungarian salary goes on flights today compared with 30 years ago."),
-    "tip10": ("Is Hungarian Hard to Learn? The Hungarian Language",
-              "Four kinds of O, four kinds of U, and rules full of exceptions. Why Hungarian is so hard to learn, and the one piece of good news."),
-}
+SITE_URL = "https://budapesthungry.com"  # canonical address (bullshitsunami.hu serves the same pages)
 WHATSAPP = "+36 20 223 9524"
 EMAIL = "arpistan@gmail.com"
 TRAVEL_FUND = "https://revolut.me/arpadqsln"
@@ -344,7 +294,6 @@ def foot(depth, extra_js=""):
     <a class="btn" href="mailto:{EMAIL}">{ICON_MAIL} {EMAIL}</a>
     <a class="btn" href="{TRAVEL_FUND}" target="_blank" rel="noopener">{ICON_FUND} Arpi + Tobi travel fund</a>
   </div>
-  <p class="trust"><span class="https-badge" hidden>&#128274; You're on a secure, encrypted connection.</span> No ads. No tracking cookies. Never sponsored. <a href="{up}privacy.html">Privacy and security</a></p>
   <small>This is my own private blog. Everything on it is my personal opinion and has nothing to do with any employer, past or present. Recommendations are friendly suggestions, not professional advice, so please check opening hours, prices, timetables and safety before you go.</small>
 </div></footer>
 <script src="{up}assets/blog.js"></script>
@@ -366,31 +315,8 @@ def card(p, featured=False):
             f'<p>{p["hook"]}</p>{meta}</div></a></li>')
 
 
-# The author, the same everywhere, so search engines and AI assistants know a real local wrote this.
-AUTHOR = {"@type": "Person", "@id": SITE_URL + "/#arpi", "name": "Árpád (Arpi)", "url": SITE_URL + "/",
-          "jobTitle": "Waiter", "homeLocation": {"@type": "Place", "name": "Budapest, Hungary"},
-          "knowsAbout": ["Budapest", "Hungarian food", "Hungarian wine", "Budapest restaurants", "Hospitality"]}
-
-# Last real change of each page, for the sitemap: a page's date only moves when its own words change.
-LASTMOD_FILE = OUT / "tools" / "lastmod.json"
-try:
-    LASTMOD = json.loads(LASTMOD_FILE.read_text(encoding="utf-8"))
-except (OSError, ValueError):
-    LASTMOD = {}
-TODAY = datetime.date.today().isoformat()
-
-
-def lastmod(path, content):
-    h = hashlib.sha1(content.encode("utf-8")).hexdigest()[:16]
-    if LASTMOD.get(path, {}).get("h") != h:
-        LASTMOD[path] = {"h": h, "d": TODAY}
-    return LASTMOD[path]["d"]
-
-
 # ---------- home page ----------
-home = head(HOME_TITLE, HOME_DESC, 0, path="", ld={"@context": "https://schema.org", "@graph": [
-    {"@type": "WebSite", "name": SITE_NAME, "alternateName": [SITE_TITLE, "bullshittsunami.hu"], "url": SITE_URL + "/", "inLanguage": "en", "author": AUTHOR},
-    AUTHOR]}) + f"""<main id="main">
+home = head(SITE_TITLE, SITE_DESC, 0, path="", ld={"@context": "https://schema.org", "@type": "WebSite", "name": SITE_TITLE, "url": SITE_URL + "/", "author": {"@type": "Person", "name": "Árpád (Arpi)"}}) + f"""<main id="main">
 <div class="wrap-wide">
   <section class="hero">
     <figure class="postcard">{scene}<figcaption>Tobi and I, on the Danube</figcaption></figure>
@@ -490,7 +416,6 @@ home = head(HOME_TITLE, HOME_DESC, 0, path="", ld={"@context": "https://schema.o
       <p class="gb-status" id="gb-status" role="status" aria-live="polite"></p>
       <p class="gb-note">Your name and message are public. Your email stays private and is only used to reply to you.</p>
     </form>
-    <p class="gb-import" id="gb-import" hidden><button type="button" class="btn">Bring over the old guest book messages</button> <span role="status"></span></p>
     <p class="gb-empty" id="gb-empty">Loading the guest book...</p>
     <ol class="gb-list" id="gb-list" aria-label="Guest book messages"></ol>
   </section>
@@ -498,50 +423,6 @@ home = head(HOME_TITLE, HOME_DESC, 0, path="", ld={"@context": "https://schema.o
 </main>
 """ + foot(0)
 (OUT / "index.html").write_text(home, encoding="utf-8")
-
-# ---------- privacy and security: what the site keeps, in plain words ----------
-privacy = head("Privacy and security · " + SITE_NAME, "What budapesthungry.com keeps about you (very little), how it's protected, and how to have it deleted.", 0, path="privacy.html") + f"""<main id="main">
-<article class="wrap prose privacy">
-  <h1>Privacy and security</h1>
-  <p class="sub">Short version: no ads, no tracking cookies, nothing sold, ever. Here is exactly what this site keeps.</p>
-  <h2>&#128274; How the site is protected</h2>
-  <ul>
-    <li>Every page is sent over an encrypted connection (HTTPS), so nobody on the café Wi-Fi can read or change what you see or send.</li>
-    <li>The site tells browsers to always use the encrypted connection, refuses to run scripts from unknown places, and can't be hidden inside another website.</li>
-    <li>The only private part of the site (my inbox) is locked with a long private key that only I have.</li>
-    <li>An automatic check opens the site every three hours, so if anything breaks, I hear about it quickly.</li>
-  </ul>
-  <h2>What I keep, and why</h2>
-  <ul>
-    <li><b>Guest book:</b> your name and message are public, that's the point. Your email, if you give it, stays private and is only used so I can write back.</li>
-    <li><b>Ask Arpi:</b> your question and first name are shown once I've answered. Your email, if you give it, is never shown.</li>
-    <li><b>Table requests</b> (only if you're at my table at work): the table number and what you asked for, so I can bring it.</li>
-    <li><b>Visitor numbers:</b> each day I count how many times each page was read and which website sent people here. No cookies, no IP addresses, nothing that identifies you.</li>
-    <li><b>Your light or dark choice</b> is remembered in your own browser, not sent to me.</li>
-  </ul>
-  <h2>Where it's stored</h2>
-  <p>The site runs on Netlify, and the guest book, questions and visitor numbers are stored with Netlify. Some pages load a map or QR-code script from Cloudflare's cdnjs. The WhatsApp, email and travel fund buttons only open those apps when you tap them.</p>
-  <h2>Getting something changed or deleted</h2>
-  <p>Write to me at <a href="mailto:{EMAIL}">{EMAIL}</a> or on WhatsApp and I'll change or delete your message, question or email address, usually within a day. You can also complain to the Hungarian data protection authority (NAIH, naih.hu).</p>
-  <p>Árpád (Arpi), Budapest</p>
-</article>
-</main>
-""" + foot(0)
-(OUT / "privacy.html").write_text(privacy, encoding="utf-8")
-
-# ---------- security headers for every page (Netlify reads this file) ----------
-CSP = ("default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; "
-       "img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; media-src 'self' data:; worker-src 'self'; "
-       "manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'")
-(OUT / "_headers").write_text(
-    "/*\n"
-    "  Strict-Transport-Security: max-age=31536000\n"
-    "  Content-Security-Policy: " + CSP + "\n"
-    "  X-Content-Type-Options: nosniff\n"
-    "  X-Frame-Options: SAMEORIGIN\n"
-    "  Referrer-Policy: strict-origin-when-cross-origin\n"
-    "  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()\n"
-    "  Cross-Origin-Opener-Policy: same-origin\n", encoding="utf-8")
 
 # ---------- post pages ----------
 (OUT / "posts").mkdir(exist_ok=True)
@@ -562,14 +443,11 @@ for i, p in enumerate(posts):
             + "".join(f'<li style="{mood_style(q)}"><a href="{q["slug"]}.html"><span class="art">{q["art"]}</span>'
                       f'<b>{q["title"]}</b><small>{q["mins"]} min read</small></a></li>' for q in related)
             + "</ul></section>") if related else ""
-    seo_title, seo_desc = SEO.get(p["id"], (p["title_txt"], text(p["hook"]) or SITE_DESC))
-    p["lastmod"] = lastmod(f'posts/{p["slug"]}.html', p["title"] + p["hook"] + p["facts"] + p["body"])
-    first_img = re.search(r'<img[^>]*\ssrc="\.\./(assets/[^"]+)"', p["body"])
     ld = {"@context": "https://schema.org", "@graph": [
-        {"@type": "BlogPosting", "headline": p["title_txt"], "description": seo_desc,
-         "inLanguage": "en", "mainEntityOfPage": f'{SITE_URL}/posts/{p["slug"]}.html', "dateModified": p["lastmod"],
-         **({"image": f"{SITE_URL}/{first_img.group(1)}"} if first_img else {}),
-         "author": AUTHOR, "publisher": {"@id": AUTHOR["@id"]}},
+        {"@type": "BlogPosting", "headline": p["title_txt"], "description": text(p["hook"]) or SITE_DESC,
+         "inLanguage": "en", "mainEntityOfPage": f'{SITE_URL}/posts/{p["slug"]}.html',
+         "author": {"@type": "Person", "name": "Árpád (Arpi)", "url": SITE_URL + "/"},
+         "publisher": {"@type": "Person", "name": "Árpád (Arpi)"}},
         {"@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/"},
             {"@type": "ListItem", "position": 2, "name": p["topic_name"], "item": f'{SITE_URL}/#{p["topic"]}'},
@@ -582,7 +460,7 @@ for i, p in enumerate(posts):
     if next_p:
         pager += f'<a class="next" href="{next_p["slug"]}.html"><small>Next &rarr;</small><b>{next_p["title"]}</b></a>'
     pager += "</nav>"
-    page = head(f'{seo_title} · {SITE_NAME}', seo_desc, 1, body_style=mood_style(p), extra_head='<link rel="stylesheet" href="../assets/map.css">\n' if p["id"] == "countries" else "", path=f'posts/{p["slug"]}.html', og_type="article", ld=ld) + f"""<main id="main">
+    page = head(f'{p["title_txt"]} · {SITE_TITLE}', text(p["hook"]) or SITE_DESC, 1, body_style=mood_style(p), extra_head='<link rel="stylesheet" href="../assets/map.css">\n' if p["id"] == "countries" else "", path=f'posts/{p["slug"]}.html', og_type="article", ld=ld) + f"""<main id="main">
 <article>
   <div class="wrap post-head">
     <a class="tag" href="../index.html#{p['topic']}">{html.escape(p['topic_name'] if p['topic_name'] == p['group'] else p['topic_name'] + ' · ' + p['group'])}</a>
@@ -628,7 +506,7 @@ for name in used:
 # ---------- order pad: the table page, the private inbox and its function ----------
 THEME_JS = ('<script>try{var t=localStorage.getItem("blog-theme");'
             'if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>')
-for f in ("table.html", "tables-qr.html", "inbox.html", "inbox-sw.js", "inbox.webmanifest", "stats.html", "card.html"):
+for f in ("table.html", "tables-qr.html", "inbox.html", "inbox-sw.js", "inbox.webmanifest"):
     shutil.copy(ROOT / f, OUT / f)
 # The order pad follows the light/dark choice saved on the blog, not only the phone's setting.
 tp = OUT / "table.html"
@@ -652,19 +530,13 @@ with open(OUT / "assets" / "table.css", "a", encoding="utf-8") as fh:
              "html[data-theme=light] .tbl-page .tbl-tabs .tab[aria-selected=\"true\"] { background: var(--ink); color: var(--card); border-color: var(--ink); }\n")
 shutil.copytree(ROOT / "assets" / "app", OUT / "assets" / "app", dirs_exist_ok=True)
 (OUT / "netlify" / "functions").mkdir(parents=True, exist_ok=True)
-for f in ("guestbook.mjs", "table.mjs", "ask.mjs", "stats.mjs"):
+for f in ("guestbook.mjs", "table.mjs", "ask.mjs"):
     shutil.copy(ROOT / "netlify" / "functions" / f, OUT / "netlify" / "functions" / f)
 
 # ---------- sitemap and robots, so search engines find every page ----------
-home_mod = max([lastmod("", home)] + [q["lastmod"] for q in posts])
-urls = [(SITE_URL + "/", home_mod)] + [(f'{SITE_URL}/posts/{q["slug"]}.html', q["lastmod"]) for q in posts]
+urls = [SITE_URL + "/"] + [f'{SITE_URL}/posts/{q["slug"]}.html' for q in posts]
 (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    + "".join(f"  <url><loc>{u}</loc><lastmod>{d}</lastmod></url>\n" for u, d in urls) + "</urlset>\n", encoding="utf-8")
-known = {""} | {f'posts/{q["slug"]}.html' for q in posts}
-LASTMOD_FILE.write_text(json.dumps({k: v for k, v in sorted(LASTMOD.items()) if k in known}, indent=1) + "\n", encoding="utf-8")
-(OUT / f"{INDEXNOW_KEY}.txt").write_text(INDEXNOW_KEY, encoding="utf-8")
-# Short address printed on Arpi's tip cards; the s=card tag lets the visitors page count card scans.
-(OUT / "_redirects").write_text("/card  /?s=card  302\n", encoding="utf-8")
-(OUT / "robots.txt").write_text("User-agent: *\nDisallow: /inbox.html\nDisallow: /tables-qr.html\nDisallow: /stats.html\nDisallow: /card.html\n\nSitemap: " + SITE_URL + "/sitemap.xml\n", encoding="utf-8")
+    + "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>\n", encoding="utf-8")
+(OUT / "robots.txt").write_text("User-agent: *\nDisallow: /inbox.html\nDisallow: /tables-qr.html\n\nSitemap: " + SITE_URL + "/sitemap.xml\n", encoding="utf-8")
 
 print(f"{len(posts)} posts, {len(used)} photos")

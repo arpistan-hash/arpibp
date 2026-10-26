@@ -1,7 +1,5 @@
 User-agent: *
 Disallow: /inbox.html
 Disallow: /tables-qr.html
-Disallow: /stats.html
-Disallow: /card.html
 
 Sitemap: https://budapesthungry.com/sitemap.xml
