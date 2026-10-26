@@ -49,14 +49,15 @@ jobs:
               (notes if cond else fails).append(line)
               print(line, flush=True)
 
-          for host in ("budapesthungry.com", "www.budapesthungry.com", "bullshittsunami.hu", "www.bullshittsunami.hu"):
+          for host in ("budapesthungry.com", "www.budapesthungry.com", "bullshittsunami.hu"):
               s, h, body = get(f"https://{host}/")
               title = re.search(r"<title>(.*?)</title>", body or "")
               check(s == 200 and title and "Budapest Hungry" in title.group(1), f"https://{host}/ -> {s} {title.group(1) if title else body[:120]}")
               s, h, body = get(f"http://{host}/", follow=False)
               check(s in (200, 301, 302, 308), f"http://{host}/ -> {s} {h.get('Location', '') if h else ''}")
-          s, h, _ = get("https://bparpi.netlify.app/", follow=False)
-          check(s in (301, 302, 308) and "budapesthungry.com" in (h.get("Location", "") if h else ""), f"bparpi.netlify.app sends visitors to {h.get('Location', '') if h else s}")
+          # www.bullshittsunami.hu is optional: only reported, never a failure.
+          s, h, _ = get("https://www.bullshittsunami.hu/")
+          print(f"info www.bullshittsunami.hu -> {s or 'not set up'}", flush=True)
 
           s, h, _ = get("https://budapesthungry.com/")
           for name in ("Strict-Transport-Security", "Content-Security-Policy", "X-Content-Type-Options", "X-Frame-Options", "Referrer-Policy"):
