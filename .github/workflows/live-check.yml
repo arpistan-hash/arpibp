@@ -16,6 +16,15 @@ jobs:
     name: Check the live site
     runs-on: ubuntu-latest
     steps:
+      - name: Where the domains point
+        run: |
+          for d in budapesthungry.com www.budapesthungry.com bullshittsunami.hu www.bullshittsunami.hu; do
+            echo "== $d"; echo "A: $(dig +short A $d | tr '\n' ' ')"; echo "CNAME: $(dig +short CNAME $d | tr '\n' ' ')"; echo "NS: $(dig +short NS ${d#www.} | tr '\n' ' ')"
+          done
+          for u in https://budapesthungry.com/ http://budapesthungry.com/ http://bullshittsunami.hu/ https://bullshittsunami.hu/; do
+            echo "== $u"; curl -skI --max-time 20 "$u" | grep -iE "^(HTTP|location|server|x-nf|content-type)" || true
+            curl -sk --max-time 20 "$u" | head -c 900; echo
+          done
       - name: Check
         run: |
           python3 - <<'EOF'
