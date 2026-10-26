@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Arpi's tip cards</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+  :root { --ink: #1b1f3b; --sun: #ffc94d; --paper: #fff8ea; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #eee5d3; color: var(--ink); font-family: "Space Grotesk", system-ui, sans-serif; }
+  .help { max-width: 760px; margin: 0 auto; padding: 16px; font-size: 18px; line-height: 1.45; }
+  .help button { font: 700 18px inherit; padding: 12px 20px; border-radius: 12px; border: 2px solid var(--ink); background: var(--sun); color: var(--ink); cursor: pointer; }
+  .sheet { display: grid; grid-template-columns: repeat(2, 85mm); gap: 6mm; justify-content: center; padding: 8mm 0 16px; }
+  .card { width: 85mm; height: 55mm; background: var(--paper); border: 1px dashed #b9ab8c; border-radius: 3mm; padding: 4mm 5mm;
+          display: grid; grid-template-columns: 1fr 30mm; gap: 4mm; align-items: center; overflow: hidden; }
+  .card h2 { margin: 0 0 1.5mm; font-size: 12.5pt; line-height: 1.1; }
+  .card p { margin: 0 0 1.2mm; font-size: 8.5pt; line-height: 1.25; }
+  .card .url { font-weight: 700; font-size: 10.5pt; }
+  .card .qr { width: 30mm; height: 30mm; }
+  .card .qr img, .card .qr canvas { width: 30mm !important; height: 30mm !important; }
+  .card small { display: block; text-align: center; font-size: 7pt; margin-top: 1mm; }
+  @media (max-width: 400px) { .sheet { grid-template-columns: 85mm; } }
+  @media print { body { background: #fff; } .help { display: none; } .sheet { padding: 6mm 0 0; } .card { break-inside: avoid; } @page { size: A4; margin: 10mm; } }
+</style>
+</head>
+<body>
+<div class="help">
+  <h1>Tip cards for your guests</h1>
+  <p>Eight business-card-size cards per A4 page. Print on thick paper (300 g) and cut along the dashed lines, or send this page to a print shop.
+  The QR code opens budapesthungry.com/card, so the <a href="stats.html">visitors page</a> can count how many people came from a card.
+  Please ask your manager first, and hand cards out only when a guest asks for tips.</p>
+  <button type="button" onclick="window.print()">🖨️ Print the cards</button>
+</div>
+<div class="sheet" id="sheet"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function () {
+  var URL_ON_CARD = "https://budapesthungry.com/card";
+  var sheet = document.getElementById("sheet");
+  for (var i = 0; i < 8; i++) {
+    var c = document.createElement("div");
+    c.className = "card";
+    c.innerHTML = '<div><h2>Honest Budapest tips from your waiter</h2>' +
+      '<p>Where locals really eat, what to skip, and how not to get ripped off. No ads, no sponsors.</p>' +
+      '<p>Questions? Ask Arpi, answered within 24 hours.</p><p class="url">budapesthungry.com</p></div>' +
+      '<div><div class="qr"></div><small>Scan me</small></div>';
+    sheet.appendChild(c);
+    if (window.QRCode) new QRCode(c.querySelector(".qr"), { text: URL_ON_CARD, width: 240, height: 240, colorDark: "#1b1f3b", colorLight: "#fff8ea", correctLevel: QRCode.CorrectLevel.M });
+  }
+})();
+</script>
+</body>
+</html>
