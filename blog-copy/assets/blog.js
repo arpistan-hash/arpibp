@@ -191,6 +191,19 @@
     if (top) list.insertBefore(li, list.firstChild); else list.appendChild(li);
     if (empty) empty.hidden = true;
   }
+  // One-time copy of the messages left on the old copy of the site (only Arpi sees this button).
+  var imp = document.getElementById("gb-import");
+  if (imp && ownerKey) {
+    imp.hidden = false;
+    var ib = imp.querySelector("button"), is = imp.querySelector("span");
+    ib.onclick = function () {
+      ib.disabled = true; is.textContent = "Copying...";
+      fetch(API, { method: "POST", headers: { "Content-Type": "application/json", accept: "application/json" }, body: JSON.stringify({ key: ownerKey, import: "old" }) })
+        .then(function (r) { if (r.status === 403) throw new Error("key"); if (!r.ok) throw new Error(); return r.json(); })
+        .then(function (d) { is.textContent = d.added ? "Done: " + d.added + " message" + (d.added === 1 ? "" : "s") + " copied. Reloading..." : "All old messages are already here."; if (d.added) setTimeout(function () { location.reload(); }, 1200); })
+        .catch(function (e) { is.textContent = e.message === "key" ? "This phone doesn't have your private key. Open your inbox link first." : "Couldn't reach the old site. Please try again later."; ib.disabled = false; });
+    };
+  }
   fetch(API, { headers: { accept: "application/json" } })
     .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
     .then(function (d) { ((d && d.entries) || []).forEach(function (e) { add(e, false); }); })
