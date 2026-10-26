@@ -20,6 +20,19 @@
     window.addEventListener("scroll", upd, { passive: true }); upd();
   }
 
+  // Visitor count: one anonymous hit per page view (page, referring site, source tag like ?utm_source=pinterest).
+  // No cookies, nothing personal. Arpi's own phone (it holds his key) and test copies are not counted.
+  try {
+    var mine = false; try { mine = !!localStorage.getItem("arpi-inbox-key") || /gbkey=/.test(location.hash); } catch (e) {}
+    if (!mine && /^(budapesthungry\.com|bullshittsunami\.hu)$/.test(location.hostname.replace(/^www\./, ""))) {
+      var q = new URLSearchParams(location.search), ref = "";
+      try { ref = document.referrer ? new URL(document.referrer).hostname : ""; } catch (e) {}
+      if (ref.replace(/^www\./, "") === location.hostname.replace(/^www\./, "")) ref = "";
+      fetch("/.netlify/functions/stats", { method: "POST", keepalive: true, headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ p: location.pathname, r: ref, s: q.get("utm_source") || q.get("s") || "" }) }).catch(function () {});
+    }
+  } catch (e) {}
+
   // "Copy" buttons next to promo codes.
   document.querySelectorAll(".promo button").forEach(function (b) {
     b.addEventListener("click", function () {

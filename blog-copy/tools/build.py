@@ -582,7 +582,7 @@ for name in used:
 # ---------- order pad: the table page, the private inbox and its function ----------
 THEME_JS = ('<script>try{var t=localStorage.getItem("blog-theme");'
             'if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>')
-for f in ("table.html", "tables-qr.html", "inbox.html", "inbox-sw.js", "inbox.webmanifest"):
+for f in ("table.html", "tables-qr.html", "inbox.html", "inbox-sw.js", "inbox.webmanifest", "stats.html"):
     shutil.copy(ROOT / f, OUT / f)
 # The order pad follows the light/dark choice saved on the blog, not only the phone's setting.
 tp = OUT / "table.html"
@@ -606,7 +606,7 @@ with open(OUT / "assets" / "table.css", "a", encoding="utf-8") as fh:
              "html[data-theme=light] .tbl-page .tbl-tabs .tab[aria-selected=\"true\"] { background: var(--ink); color: var(--card); border-color: var(--ink); }\n")
 shutil.copytree(ROOT / "assets" / "app", OUT / "assets" / "app", dirs_exist_ok=True)
 (OUT / "netlify" / "functions").mkdir(parents=True, exist_ok=True)
-for f in ("guestbook.mjs", "table.mjs", "ask.mjs"):
+for f in ("guestbook.mjs", "table.mjs", "ask.mjs", "stats.mjs"):
     shutil.copy(ROOT / "netlify" / "functions" / f, OUT / "netlify" / "functions" / f)
 
 # ---------- sitemap and robots, so search engines find every page ----------
@@ -617,6 +617,6 @@ urls = [(SITE_URL + "/", home_mod)] + [(f'{SITE_URL}/posts/{q["slug"]}.html', q[
 known = {""} | {f'posts/{q["slug"]}.html' for q in posts}
 LASTMOD_FILE.write_text(json.dumps({k: v for k, v in sorted(LASTMOD.items()) if k in known}, indent=1) + "\n", encoding="utf-8")
 (OUT / f"{INDEXNOW_KEY}.txt").write_text(INDEXNOW_KEY, encoding="utf-8")
-(OUT / "robots.txt").write_text("User-agent: *\nDisallow: /inbox.html\nDisallow: /tables-qr.html\n\nSitemap: " + SITE_URL + "/sitemap.xml\n", encoding="utf-8")
+(OUT / "robots.txt").write_text("User-agent: *\nDisallow: /inbox.html\nDisallow: /tables-qr.html\nDisallow: /stats.html\n\nSitemap: " + SITE_URL + "/sitemap.xml\n", encoding="utf-8")
 
 print(f"{len(posts)} posts, {len(used)} photos")
