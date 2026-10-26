@@ -7,5 +7,5 @@
 [functions]
   directory = "netlify/functions"
 
-# bullshitsunami.hu serves the same site as budapesthungry.com (no redirect):
+# bullshittsunami.hu serves the same site as budapesthungry.com (no redirect):
 # add it as a domain on the Netlify project and point its DNS there.
