@@ -157,6 +157,9 @@ for m in re.finditer(r'<div class="chapter[^"]*" id="([^"]+)"[^>]*>', body):
 
 # Story first in reading order? Keep the main page order: tips, then story.
 scene = re.search(r'<figure class="scene">\s*(<svg.*?</svg>)', body, re.S).group(1)
+# The home page hero is its own illustration (blog-copy/tools/hero.svg); the old scene above is still
+# the source for the man and dog drawings reused on the cards.
+hero = (pathlib.Path(__file__).resolve().parent / "hero.svg").read_text(encoding="utf-8").strip()
 man = re.search(r"<!-- man -->\s*(<g>.*?</g>)\s*\n\s*<!-- dog -->", scene, re.S).group(1)
 AVATAR = ('<svg viewBox="108 126 84 84" aria-hidden="true"><rect x="108" y="126" width="84" height="84" fill="#ffc94d"/>'
           + man + "</svg>")
@@ -392,7 +395,7 @@ home = head(HOME_TITLE, HOME_DESC, 0, path="", ld={"@context": "https://schema.o
     AUTHOR]}) + f"""<main id="main">
 <div class="wrap-wide">
   <section class="hero">
-    <figure class="postcard">{scene}<figcaption>Tobi and I, on the Danube</figcaption></figure>
+    <figure class="postcard">{hero}<figcaption>Me, Tobi, a stack of plates and no off switch</figcaption></figure>
     <div>
       <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Budapest, Hungary</p>
       <h1>Hi, this is {NAME}</h1>
