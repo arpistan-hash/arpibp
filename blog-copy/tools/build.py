@@ -30,6 +30,8 @@ HOME_DESC = ("Honest, no-bullshit Budapest tips from Arpi, a local waiter: what 
 # Lets Bing (and through it ChatGPT and Copilot) hear about new or changed pages right away; the same key
 # is published as /<key>.txt and used by .github/workflows/indexnow.yml.
 INDEXNOW_KEY = "72cae46324595e3748f16f14f261e4e7"
+SHARE_ALT = ("Cartoon of Arpi, a Budapest waiter with messy hair and glasses, talking nonstop with a stack of plates, "
+             "a covered dish and his ginger dog Tobi")
 
 # What people type into Google, for the page title and description. The headline and hook on the page
 # stay Arpi's own words; this only changes what shows in search results and link previews.
@@ -286,6 +288,24 @@ ICON_MAIL = ('<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke
              '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7.5l9 6 9-6"/></svg>')
 
 
+def size_imgs(page):
+    """Give every local photo its real width and height, so the page doesn't jump while photos load."""
+    try:
+        from PIL import Image
+    except ImportError:
+        return page
+
+    def fix(m):
+        tag = m.group(0)
+        src = re.search(r'src="(?:\.\./)?assets/img/([\w.-]+)"', tag)
+        if "width=" in tag or not src:
+            return tag
+        with Image.open(ROOT / "assets" / "img" / src.group(1)) as im:
+            w, h = im.size
+        return tag.replace("<img ", f'<img width="{w}" height="{h}" ', 1)
+    return re.sub(r"<img [^>]*>", fix, page)
+
+
 def head(title, desc, depth, theme_color="#fff3dc", body_style="", extra_head="", path="", og_type="website", ld=None):
     up = "../" * depth
     url = SITE_URL + "/" + path
@@ -303,8 +323,21 @@ def head(title, desc, depth, theme_color="#fff3dc", body_style="", extra_head=""
 <meta property="og:url" content="{url}">
 <meta property="og:title" content="{html.escape(title)}">
 <meta property="og:description" content="{html.escape(desc)}">
+<meta property="og:site_name" content="{SITE_NAME}">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="{SITE_URL}/assets/share.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{html.escape(SHARE_ALT)}">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="{theme_color}">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2718%27 fill=%27%23ffc94d%27/%3E%3Ctext x=%2714%27 y=%2748%27 font-family=%27sans-serif%27 font-weight=%27800%27 font-size=%2738%27 fill=%27%231b1f3b%27%3EA%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="{up}assets/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="{up}assets/icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="{up}assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="{up}site.webmanifest">
+<link rel="preload" href="{up}assets/fonts/bricolage-grotesque-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{up}assets/fonts/instrument-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <script>try{{var t=localStorage.getItem("blog-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}</script>
 <link rel="stylesheet" href="{up}assets/fonts.css">
 <link rel="stylesheet" href="{up}assets/blog.css">
@@ -498,7 +531,7 @@ home = head(HOME_TITLE, HOME_DESC, 0, path="", ld={"@context": "https://schema.o
 </div>
 </main>
 """ + foot(0)
-(OUT / "index.html").write_text(home, encoding="utf-8")
+(OUT / "index.html").write_text(size_imgs(home), encoding="utf-8")
 
 # ---------- post pages ----------
 (OUT / "posts").mkdir(exist_ok=True)
@@ -568,7 +601,7 @@ for i, p in enumerate(posts):
 </article>
 </main>
 """ + foot(1, MAP_JS if p["id"] == "countries" else "")
-    (OUT / "posts" / f'{p["slug"]}.html').write_text(page, encoding="utf-8")
+    (OUT / "posts" / f'{p["slug"]}.html').write_text(size_imgs(page), encoding="utf-8")
 
 # ---------- assets: fonts and only the photos the posts use ----------
 (OUT / "assets" / "img").mkdir(parents=True, exist_ok=True)
@@ -621,5 +654,50 @@ known = {""} | {f'posts/{q["slug"]}.html' for q in posts}
 LASTMOD_FILE.write_text(json.dumps({k: v for k, v in sorted(LASTMOD.items()) if k in known}, indent=1) + "\n", encoding="utf-8")
 (OUT / f"{INDEXNOW_KEY}.txt").write_text(INDEXNOW_KEY, encoding="utf-8")
 (OUT / "robots.txt").write_text("User-agent: *\nDisallow: /inbox.html\nDisallow: /tables-qr.html\nDisallow: /stats.html\n\nSitemap: " + SITE_URL + "/sitemap.xml\n", encoding="utf-8")
+
+# ---------- install-to-home-screen manifest, caching and security headers, llms.txt ----------
+(OUT / "site.webmanifest").write_text(json.dumps({
+    "id": "/", "name": SITE_NAME, "short_name": "Arpi", "description": HOME_DESC, "lang": "en",
+    "start_url": "/", "scope": "/", "display": "standalone", "orientation": "portrait",
+    "background_color": "#fff3dc", "theme_color": "#fff3dc",
+    "icons": [
+        {"src": "/assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+        {"src": "/assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+        {"src": "/assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"},
+        {"src": "/assets/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"},
+    ],
+}, indent=2) + "\n", encoding="utf-8")
+
+(OUT / "_headers").write_text("""# Written by tools/build.py. Fonts and photos have fixed names, so browsers may keep them for a year.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/icons/*
+  Cache-Control: public, max-age=604800
+
+/assets/share.png
+  Cache-Control: public, max-age=86400
+""", encoding="utf-8")
+
+llms = [f"# {SITE_NAME}", "", f"> {HOME_DESC}", "",
+        "Written by Arpi (Arpad), a Budapest waiter. Independent, never sponsored; opinions are personal.", ""]
+for topic, heading in (("tips", "Budapest and Hungary tips"), ("story", "Arpi's story")):
+    llms += [f"## {heading}", ""]
+    for q in posts:
+        if q["topic"] == topic:
+            llms.append(f'- [{q["title_txt"]}]({SITE_URL}/posts/{q["slug"]}.html): {text(q["hook"])}')
+    llms.append("")
+llms += ["## Other", "", f"- [Ask Arpi a question]({SITE_URL}/#ask): any question about Budapest or Hungary, answered within 24 hours",
+         f"- [Sitemap]({SITE_URL}/sitemap.xml)", ""]
+(OUT / "llms.txt").write_text("\n".join(llms), encoding="utf-8")
 
 print(f"{len(posts)} posts, {len(used)} photos")
