@@ -378,3 +378,4 @@ body.tinted .bar { background: color-mix(in srgb, var(--tint) 92%, transparent);
 .ask-a .who { font-weight: 700; }
 .ask-a .txt { margin: 6px 0 0; font-family: var(--font-serif); font-size: 19px; line-height: 1.5; white-space: pre-wrap; }
 .gb-import:not([hidden]) { margin: 14px 0 0; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-weight: 600; }
+.from-card a[href^="https://revolut.me"] { display: none; }
