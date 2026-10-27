@@ -133,6 +133,13 @@ export default async (req, context) => {
       }
       if (m === "DELETE") { await editMenu(s, (cur) => { delete cur._notice; return cur; }); return json({ ok: true }); }
     }
+    // "Your host today is …" under the review card, set by the crew for each shift
+    if (res === "menu" && id === "_host" && m === "PUT") {
+      const b = await body(req, 1024);
+      const who = String(b.who || "").trim().slice(0, 40);
+      await editMenu(s, (cur) => { cur._host = { who, at: Date.now(), createdAt: 0 }; return cur; });
+      return json({ ok: true });
+    }
     if (res === "staff" && m === "GET") {
       const now = Date.now();
       const [reqDocs, stDocs] = await Promise.all([readPrefix(s, "requests/"), readPrefix(s, "status/")]);
