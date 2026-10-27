@@ -65,7 +65,8 @@ async function editMenu(s, change) {
   }
   throw new Error("busy");
 }
-const docs = (map) => Object.keys(map).map((id) => ({ id, data: map[id] }));
+// "_spotlight" was a short-lived extra; if a copy was saved, it is never sent out
+const docs = (map) => Object.keys(map).filter((id) => id !== "_spotlight").map((id) => ({ id, data: map[id] }));
 
 async function body(req, limit = MAX_BODY) {
   const text = await req.text();
