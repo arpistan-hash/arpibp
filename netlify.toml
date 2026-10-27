@@ -1,0 +1,29 @@
+# Lounge table service: static page in public/, API in netlify/functions (Blobs storage).
+[build]
+  publish = "public"
+  command = "echo 'static site, nothing to build'"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Asked for when the site is created with the Deploy to Netlify button.
+[template.environment]
+  STAFF_PIN = "Staff PIN for the staff board (4 to 8 digits)"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "same-origin"
+    Permissions-Policy = "camera=(), geolocation=()"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/shim.js"
+  [headers.values]
+    Cache-Control = "no-cache"

@@ -1,0 +1,9 @@
+{
+  "name": "lounge-table-service",
+  "private": true,
+  "type": "module",
+  "description": "Lounge table service: guests order from their phone with no sign-in; staff run the board with a PIN.",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}
