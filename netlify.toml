@@ -16,7 +16,7 @@
   [headers.values]
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "same-origin"
-    Permissions-Policy = "camera=(), geolocation=()"
+    Permissions-Policy = "camera=(self), microphone=(self), geolocation=()"
 
 [[headers]]
   for = "/"

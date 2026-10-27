@@ -928,6 +928,7 @@ html[data-app="crew"] body { background: var(--bg); }
     alert: 'M12 4l9 16H3L12 4z M12 10v4 M12 17h.01',
     sound: 'M4 9h4l5-4v14l-5-4H4V9z M16 9a4 4 0 0 1 0 6 M18.5 6.5a8 8 0 0 1 0 11',
     mute: 'M4 9h4l5-4v14l-5-4H4V9z M17 9l5 6 M22 9l-5 6',
+    torch: 'M8 2h8l-1.2 6H9.2L8 2z M9.2 8h5.6v3.2L13.6 22h-3.2l-1.2-10.8V8z M12 12.5v3',
     moon: 'M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z',
     sun: 'M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10z M12 2v2 M12 20v2 M2 12h2 M20 12h2 M4.9 4.9l1.4 1.4 M17.7 17.7l1.4 1.4 M4.9 19.1l1.4-1.4 M17.7 6.3l1.4-1.4',
     note: 'M6 3h9l4 4v14H6V3z M9 11h7 M9 15h7',
@@ -1198,6 +1199,29 @@ html[data-app="crew"] body { background: var(--bg); }
       on: function () { return on; },
       toggle: function () { on = !on; lsSet('lounge.sound', on ? 'on' : 'off'); return on; },
       unlock: function () { var c = live(true); return !!(c && c.state !== 'suspended'); },
+      /* the loudest a web page can be: full gain into a limiter, a sharp two-tone alarm three times.
+         (the phone's own volume and silent switch still decide the final loudness) */
+      alarm: function () {
+        var c = live(true); if (!c) return;
+        try {
+          var lim = c.createDynamicsCompressor();
+          lim.threshold.value = -6; lim.knee.value = 0; lim.ratio.value = 12; lim.attack.value = 0.002; lim.release.value = 0.1;
+          var g = c.createGain(); g.gain.value = 1; g.connect(lim); lim.connect(c.destination);
+          var t0 = c.currentTime + 0.02;
+          if (decoded.notify) {
+            for (var r = 0; r < 3; r++) { var smp = c.createBufferSource(); smp.buffer = decoded.notify; smp.connect(g); smp.start(t0 + r * Math.max(0.6, decoded.notify.duration + 0.15)); }
+          } else {
+            for (var k = 0; k < 3; k++) {
+              for (var i = 0; i < 4; i++) {
+                var t = t0 + k * 0.95 + i * 0.16, f = i % 2 ? 1318 : 988;
+                tone(c, g, t, f, 0.14, 0.95, 'square', 0.004);
+                tone(c, g, t, f * 2, 0.12, 0.35, 'sawtooth', 0.004);
+              }
+            }
+          }
+          setTimeout(function () { try { g.disconnect(); lim.disconnect(); } catch (_) {} }, 4500);
+        } catch (e) { if (window.console) console.warn('alarm', e); }
+      },
       ready: function () { return !!(ctx && ctx.state === 'running'); },
       names: Object.keys(LIB),
       addSample: function (name, b64) { SAMPLES[name] = b64; delete decoded[name]; predecoded = false; if (ctx) predecode(ctx); },
@@ -2180,6 +2204,7 @@ html[data-app="crew"] body { background: var(--bg); }
     var tab = S.staffTab === 'pad' ? 'pad' : 'req', n = crewOpenCount(), np = padCount();
     return '<div class="pad"><div class="col wide"><div class="crew-top"><div class="crew-brand"><span class="crew-mark">LOUNGE</span><span class="crew-sub">Crew</span></div>' +
       '<span class="crew-clock" id="crew-clock">' + fmtTime(Date.now()) + '</span>' +
+      (torchSupported() ? '<button type="button" class="crew-icon" data-act="torch" aria-pressed="' + !!S.torch + '" aria-label="' + (S.torch ? 'Flashlight alerts on. Tap to turn off' : 'Flash the flashlight for new orders') + '">' + icon('torch', 20) + '</button>' : '') +
       '<button type="button" class="crew-icon" data-act="sound" aria-pressed="' + S.sound + '" aria-label="' + (S.sound ? 'Alerts on. Tap to turn off' : 'Alerts off. Tap to turn on') + '">' + icon(S.sound ? 'bell' : 'mute', 20) + '</button>' +
       (ROLE === 'both' ? '<button type="button" class="crew-icon" data-act="crewExit" aria-label="Leave the crew app">' + icon('close', 20) + '</button>'
         : typeof window.__loungeSignIn === 'function' ? '<button type="button" class="crew-icon" data-act="crewSignIn" aria-label="Staff sign-in and sign-out">' + icon('keys', 20) + '</button>' : '') + '</div>' +
@@ -3404,13 +3429,14 @@ html[data-app="crew"] body { background: var(--bg); }
   document.addEventListener('visibilitychange', function () { if (S.sound && S.mode === 'staff' && document.visibilityState === 'visible') keepAwake(true); });
   window.addEventListener('offline', function () { S.offline = true; renderTop(); });
   window.addEventListener('online', function () { S.offline = false; renderTop(); });
-  function beep() { SFX.play('notify', null, true); }
+  function beep() { SFX.alarm(); }
   /* a new order, bill or call: sound, buzz and a screen flash so nobody misses it */
   var titleBase = document.title, titleTimer = 0;
   function staffAlert() {
     if (S.sound) {
       beep();
-      try { if (navigator.vibrate) navigator.vibrate([250, 120, 250, 120, 500]); } catch (_) {}
+      try { if (navigator.vibrate) navigator.vibrate([700, 150, 700, 150, 700, 150, 1200]); } catch (_) {}
+      if (S.torch) torchBlink();
     }
     var f = document.getElementById('alert-flash');
     if (!f) { f = document.createElement('div'); f.id = 'alert-flash'; f.setAttribute('aria-hidden', 'true'); document.body.appendChild(f); }
@@ -3421,6 +3447,24 @@ html[data-app="crew"] body { background: var(--bg); }
     }
   }
   document.addEventListener('visibilitychange', function () { if (!document.hidden && titleTimer) { clearInterval(titleTimer); titleTimer = 0; document.title = titleBase; } });
+  S.torch = lsGet('lounge.torch') === 'on';
+  function torchSupported() { try { return !!(navigator.mediaDevices && navigator.mediaDevices.getSupportedConstraints && navigator.mediaDevices.getSupportedConstraints().torch); } catch (_) { return false; } }
+  var torchBusy = false;
+  async function torchBlink() {
+    if (torchBusy || !torchSupported()) return;
+    torchBusy = true;
+    var st = null;
+    try {
+      st = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' } } });
+      var tr = st.getVideoTracks()[0], caps = tr && tr.getCapabilities ? tr.getCapabilities() : {};
+      if (tr && caps.torch) {
+        for (var i = 0; i < 10; i++) { await tr.applyConstraints({ advanced: [{ torch: i % 2 === 0 }] }); await sleep(200); }
+        await tr.applyConstraints({ advanced: [{ torch: false }] });
+      }
+    } catch (_) {}
+    if (st) st.getTracks().forEach(function (t) { t.stop(); });
+    torchBusy = false;
+  }
   /* browsers keep sound off until the first tap: wake it on any tap, then forget the listener */
   function wakeAudio() { if (S.mode === 'staff' && S.sound && SFX.unlock()) { document.removeEventListener('pointerdown', wakeAudio, true); keepAwake(true); setTimeout(function () { if (S.mode === 'staff') renderMain(); }, 50); } }
   document.addEventListener('pointerdown', wakeAudio, true);
@@ -3664,6 +3708,16 @@ html[data-app="crew"] body { background: var(--bg); }
         S.sound = !S.sound; lsSet('lounge.alerts', S.sound ? 'on' : 'off');
         if (S.sound) { SFX.unlock(); beep(); keepAwake(true); } else keepAwake(false);
         break;
+      case 'torch':
+        if (S.torch) { S.torch = false; lsSet('lounge.torch', 'off'); break; }
+        /* ask for the camera once now, so a flash later does not stop to ask */
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' } } }).then(function (st) {
+            st.getTracks().forEach(function (t) { t.stop(); });
+            S.torch = true; lsSet('lounge.torch', 'on'); toast('The flashlight will flash for new orders'); render(); torchBlink();
+          }, function () { toast('The flashlight needs camera access. Allow it for this site to use it.', true); });
+        }
+        return;
       case 'wakeSound': SFX.unlock(); SFX.play('notify', null, true); keepAwake(true); break;
       case 'sndPlay': SFX.play(v, null, true); return;
       case 'sndReset': if (S.db) dbDo(function () { return S.db.doc('sounds/' + v).delete().then(function () { SFX.removeSample(v); toast('Back to the built-in sound'); }); }); return;
