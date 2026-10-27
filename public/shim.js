@@ -175,7 +175,7 @@
         .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j, status: r.status }; }); })
         .then(function (x) {
           if (x.ok && x.j.token) { lsSet('lounge.staffToken', x.j.token); leave(true); }
-          else { err.textContent = x.status === 429 ? 'Too many tries. Wait a minute.' : 'That PIN is not right.'; input.select(); }
+          else { err.textContent = x.status === 429 ? 'Too many tries. Wait a minute.' : x.status === 503 ? 'The staff PIN is not set up on the site yet (STAFF_PIN).' : x.status === 401 ? 'That PIN is not right.' : 'Sign-in failed (error ' + x.status + '). Try again.'; input.select(); }
         }, function () { err.textContent = 'No connection. Try again.'; });
     };
     if (input) setTimeout(function () { input.focus(); }, 50);
