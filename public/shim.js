@@ -75,7 +75,7 @@
     menu: new Poller('/menu', 30000),           // also carries the bar's notice to guests
     sounds: new Poller('/sounds', 300000),
     guest: new Poller('/guest?uid=' + uid, guestEvery),
-    staff: new Poller('/staff', 5000)
+    staff: new Poller('/staff', 2500)            // new orders reach the crew app within about 3 seconds
   };
   document.addEventListener('visibilitychange', function () { if (!document.hidden) Object.keys(P).forEach(function (k) { P[k].now(); }); });
 

@@ -577,10 +577,11 @@ html[data-app="crew"] body { background: var(--bg); }
 .crew-lock .crew-btn { flex: none; min-width: 200px; }
 @media (max-width: 380px) { .cs { padding: 10px 8px; } .cs b { font-size: 24px; } .crew-mark { letter-spacing: .22em; } }
 
-.notice-card { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 16px; border: 1px solid var(--brass); background: linear-gradient(135deg, var(--surface), var(--accent-soft)); }
-.notice-card .ico { flex: none; color: var(--brass); margin-top: 2px; }
+.notice-card { display: flex; gap: 14px; align-items: flex-start; padding: 18px 18px; border-radius: 18px; border: 0; background: var(--brass); color: var(--surface); box-shadow: var(--shadow); }
+.notice-card .ico { flex: none; color: var(--surface); margin-top: 2px; }
+.notice-card .eyebrow { color: var(--surface); opacity: .85; }
 .notice-card > div { min-width: 0; }
-.notice-t { margin: 2px 0 0; font-size: 16px; font-weight: 600; overflow-wrap: anywhere; }
+.notice-t { margin: 4px 0 0; font-family: var(--display); font-size: 21px; font-weight: 700; line-height: 1.25; overflow-wrap: anywhere; }
 .t2-add { align-self: flex-start; color: var(--accent); }
 .t2-field { max-width: 140px; }
 .leave-card .btn.warn { background: var(--alert); color: #fff; border-color: var(--alert); }
@@ -590,6 +591,12 @@ html[data-app="crew"] body { background: var(--bg); }
 .crew-live { display: flex; gap: 8px; align-items: flex-start; margin: 0; padding: 10px 12px; border-radius: 12px; background: var(--accent-soft); font-weight: 600; overflow-wrap: anywhere; }
 .crew-live .ico { flex: none; color: var(--accent); margin-top: 2px; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+#alert-flash { position: fixed; inset: 0; z-index: 70; pointer-events: none; opacity: 0; background: var(--accent); }
+#alert-flash.go { animation: alertFlash 1.8s ease-out 1; }
+@keyframes alertFlash { 0%, 30%, 60% { opacity: .55; } 15%, 45%, 100% { opacity: 0; } }
+.tk.fresh { animation: tkPulse 1.4s ease-in-out infinite; }
+@keyframes tkPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(232, 176, 75, .55); } 50% { box-shadow: 0 0 0 7px rgba(232, 176, 75, 0); } }
+@media (prefers-reduced-motion: reduce) { #alert-flash.go { animation-duration: 3s; } .tk.fresh { animation: none; outline: 2px solid var(--accent); } }
 /* staff POS */
 .staff-head { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
 .seg { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); flex: 1 1 320px; max-width: 520px; padding: 4px; gap: 4px; border-radius: 14px; background: var(--accent-soft); }
@@ -1190,6 +1197,8 @@ html[data-app="crew"] body { background: var(--bg); }
     return {
       on: function () { return on; },
       toggle: function () { on = !on; lsSet('lounge.sound', on ? 'on' : 'off'); return on; },
+      unlock: function () { var c = live(true); return !!(c && c.state !== 'suspended'); },
+      ready: function () { return !!(ctx && ctx.state === 'running'); },
       names: Object.keys(LIB),
       addSample: function (name, b64) { SAMPLES[name] = b64; delete decoded[name]; predecoded = false; if (ctx) predecode(ctx); },
       removeSample: function (name) { delete SAMPLES[name]; delete decoded[name]; },
@@ -1254,7 +1263,7 @@ html[data-app="crew"] body { background: var(--bg); }
     orderNote: '', pay: 'card', split: false, checkNote: '', callReason: 'help',
     busy: false, toast: null, activeSec: '', started: false, cat: null, undo: null,
     ai: null, aiOff: false, quiz: { step: 0, a: {} }, aiText: '', aiState: 'idle', aiRes: null, aiErr: '', aiCtl: null,
-    staffFilter: 'all', staffTab: 'req', staffQ: '', soundDocs: {}, soundBusy: '', sound: false, confirm: '',
+    staffFilter: 'all', staffTab: 'req', staffQ: '', soundDocs: {}, soundBusy: '', sound: lsGet('lounge.alerts') !== 'off', confirm: '',
     newName: '', newPrice: '', newDesc: '', newCat: 'signature', newMods: 'none'
   };
   if (!Array.isArray(S.cart)) S.cart = [];
@@ -1456,7 +1465,7 @@ html[data-app="crew"] body { background: var(--bg); }
     var all = topCats(), idx = -1;
     all.forEach(function (x, i) { if (x.k === S.cat) idx = i; });
     var c = all[idx];
-    var h = '<div class="stack"><div><button type="button" class="back" data-act="closeCat">' + icon('back', 20) + '<span>' + T('menu') + '</span></button></div>';
+    var h = '<div class="stack">' + noticeCard() + '<div><button type="button" class="back" data-act="closeCat">' + icon('back', 20) + '<span>' + T('menu') + '</span></button></div>';
     h += '<div class="sec-head">' + picto(S.cat, 46) + '<h2>' + esc(catName(S.cat)) + '</h2></div>';
     if (!c) return h + '<div class="empty">' + icon('book', 28) + '<span>' + esc(T('menuEmpty')) + '</span></div></div>';
     c.members.forEach(function (mc) {
@@ -1532,7 +1541,7 @@ html[data-app="crew"] body { background: var(--bg); }
   function algLink() { var n = algNames(); return '<button type="button" class="alg-link' + (n.length ? ' on' : '') + '" data-act="goAllergy">' + icon('alert', 18) + '<span>' + esc(n.length ? T('algNoted') + ' ' + n.join(', ') : T('algAsk')) + '</span></button>'; }
   function seatTag() { return hasSeat() ? '<span class="seat-ok">' + icon('check', 16) + T('seatOk') + '</span>' : '<span class="req-tag">' + T('required') + '</span>'; }
   function orderTab() {
-    var h = '<div class="stack">' + seatCard();
+    var h = '<div class="stack">' + noticeCard() + seatCard();
     if (!S.cart.length) {
       h += '<div class="empty">' + icon('bag', 30) + '<span>' + T('emptyCart') + '</span><button type="button" class="btn small" data-act="tab" data-v="menu">' + T('browse') + '</button></div>';
     } else {
@@ -1603,7 +1612,7 @@ html[data-app="crew"] body { background: var(--bg); }
   }
   function noticeCard() {
     if (!S.notice || !S.notice.text) return '';
-    return '<div class="notice-card" role="status">' + icon('alert', 22) + '<div><p class="eyebrow">' + T('noticeEyebrow') + '</p><p class="notice-t">' + esc(S.notice.text) + '</p></div></div>';
+    return '<div class="notice-card" role="status">' + icon('alert', 28) + '<div><p class="eyebrow">' + T('noticeEyebrow') + '</p><p class="notice-t">' + esc(S.notice.text) + '</p></div></div>';
   }
 
   /* ---------- guest: welcome ---------- */
@@ -2194,7 +2203,7 @@ html[data-app="crew"] body { background: var(--bg); }
     else acts = '<button type="button" class="crew-btn" data-act="seen" data-id="' + esc(r.id) + '">' + icon('hand', 18) + 'On it</button><button type="button" class="crew-btn go" data-act="done" data-id="' + esc(r.id) + '">' + icon('check', 18) + doneLabel + '</button>';
     var who = r.table ? '<span class="tk-t"><small>TABLE</small><b>' + esc(r.table) + '</b></span>' + (r.name ? '<span class="tk-name">' + esc(r.name) + '</span>' : '')
       : '<span class="tk-name">' + esc(r.name || 'Guest') + '</span>';
-    return '<article class="tk tk-' + esc(r.type) + (on ? ' on' : '') + (cx ? ' cx' : '') + (done ? ' done' : '') + (lvl ? ' ' + lvl : '') + '">' +
+    return '<article class="tk tk-' + esc(r.type) + (st === 'new' ? ' fresh' : '') + (on ? ' on' : '') + (cx ? ' cx' : '') + (done ? ' done' : '') + (lvl ? ' ' + lvl : '') + '">' +
       '<header class="tk-head"><div class="tk-who">' + who + '</div><div class="tk-meta"><span class="tk-kind' + (cx ? ' cx' : '') + '">' + (cx ? 'Cancelled' : kind) + '</span>' +
       '<span class="tk-age">' + (done ? fmtTime(r.doneAt || r.createdAt) : a.text) + '</span></div></header>' +
       '<div class="tk-body">' + reqBody(r) + '</div><div class="tk-acts">' + acts + '</div></article>';
@@ -2227,6 +2236,7 @@ html[data-app="crew"] body { background: var(--bg); }
       '<div class="cs' + (late ? ' hot' : '') + '"><b>' + late + '</b><span>Late</span></div></div>';
     h += crewNoticeCard();
     if (!S.sound) h += '<div class="crew-alert">' + icon('bell', 20) + '<span>Alerts are off. Turn them on to hear new orders.</span><button type="button" data-act="sound">Turn on</button></div>';
+    else if (!SFX.ready()) h += '<div class="crew-alert">' + icon('bell', 20) + '<span>Tap once anywhere so this phone can ring and buzz for new orders.</span><button type="button" data-act="wakeSound">Tap here</button></div>';
     h += '<div class="crew-cols">' +
       crewCol('new', 'New', fresh, 'Nothing new. Orders, bills and calls land here.') +
       crewCol('on', 'On it', onit, 'Tap “On it” on a ticket to move it here.') +
@@ -3395,6 +3405,25 @@ html[data-app="crew"] body { background: var(--bg); }
   window.addEventListener('offline', function () { S.offline = true; renderTop(); });
   window.addEventListener('online', function () { S.offline = false; renderTop(); });
   function beep() { SFX.play('notify', null, true); }
+  /* a new order, bill or call: sound, buzz and a screen flash so nobody misses it */
+  var titleBase = document.title, titleTimer = 0;
+  function staffAlert() {
+    if (S.sound) {
+      beep();
+      try { if (navigator.vibrate) navigator.vibrate([250, 120, 250, 120, 500]); } catch (_) {}
+    }
+    var f = document.getElementById('alert-flash');
+    if (!f) { f = document.createElement('div'); f.id = 'alert-flash'; f.setAttribute('aria-hidden', 'true'); document.body.appendChild(f); }
+    f.classList.remove('go'); void f.offsetWidth; f.classList.add('go');
+    if (document.hidden && !titleTimer) {
+      var on = false;
+      titleTimer = setInterval(function () { on = !on; document.title = on ? '● New order · Lounge' : titleBase; }, 900);
+    }
+  }
+  document.addEventListener('visibilitychange', function () { if (!document.hidden && titleTimer) { clearInterval(titleTimer); titleTimer = 0; document.title = titleBase; } });
+  /* browsers keep sound off until the first tap: wake it on any tap, then forget the listener */
+  function wakeAudio() { if (S.mode === 'staff' && S.sound && SFX.unlock()) { document.removeEventListener('pointerdown', wakeAudio, true); keepAwake(true); setTimeout(function () { if (S.mode === 'staff') renderMain(); }, 50); } }
+  document.addEventListener('pointerdown', wakeAudio, true);
   async function dbDo(fn) { try { await fn(); } catch (err) { toast('That change did not save. Try again.', true); } }
 
   document.addEventListener('input', function (ev) {
@@ -3632,9 +3661,10 @@ html[data-app="crew"] body { background: var(--bg); }
       /* staff */
       case 'filter': S.staffFilter = v; break;
       case 'sound':
-        S.sound = !S.sound;
-        if (S.sound) { beep(); keepAwake(true); } else keepAwake(false);
+        S.sound = !S.sound; lsSet('lounge.alerts', S.sound ? 'on' : 'off');
+        if (S.sound) { SFX.unlock(); beep(); keepAwake(true); } else keepAwake(false);
         break;
+      case 'wakeSound': SFX.unlock(); SFX.play('notify', null, true); keepAwake(true); break;
       case 'sndPlay': SFX.play(v, null, true); return;
       case 'sndReset': if (S.db) dbDo(function () { return S.db.doc('sounds/' + v).delete().then(function () { SFX.removeSample(v); toast('Back to the built-in sound'); }); }); return;
       case 'seen': if (S.db) dbDo(function () { return S.db.doc('status/' + id).set({ state: 'seen', seenAt: Date.now() }); }); return;
@@ -3766,7 +3796,7 @@ html[data-app="crew"] body { background: var(--bg); }
       if (r.status === 'cancelled' && !seen['c-' + r.id]) { seen['c-' + r.id] = 1; if (!firstStaffSnap) fresh = true; }
     });
     S.requests = flat;
-    if (fresh && S.sound) beep();
+    if (fresh) staffAlert();
   }
   async function boot() {
     render();
