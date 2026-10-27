@@ -8,7 +8,7 @@ The guest app and the staff app are two separate pages:
 - `/` is the guest app. Each phone gets its own random id and only ever sees its own table
   (one table, or two pushed together for a big group). "Finish and clear this phone" wipes it.
   There is no way into staff screens from here.
-- `/crew` is the staff app (Orders and Notepad). It asks for the staff PIN first.
+- `/crew` is the staff app (Orders and Notepad). It opens without a PIN, so keep the link among staff.
   From the Orders tab staff can post a notice ("running low on...") that shows on the guest menu.
 
 - `public/` the two pages and `shim.js`, which connects them to the API

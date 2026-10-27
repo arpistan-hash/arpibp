@@ -120,9 +120,18 @@ export default async (req, context) => {
       return json({ ok: true });
     }
 
-    /* ---- everything below is staff only ---- */
-    if (!(await isStaff(req))) return fail("staff only", 401);
-
+    /* ---- the crew app (/crew) works without a PIN, as the Lounge asked: the board, marking
+       requests on it or served, and the guest notice. Menu edits and sounds stay PIN-only. ---- */
+    if (res === "menu" && id === "_notice") {
+      if (m === "PUT") {
+        const b = await body(req, 2048);
+        const text = String(b.text || "").trim().slice(0, 200);
+        if (!text) return fail("empty notice");
+        await editMenu(s, (cur) => { cur._notice = { text, at: Date.now() }; return cur; });
+        return json({ ok: true });
+      }
+      if (m === "DELETE") { await editMenu(s, (cur) => { delete cur._notice; return cur; }); return json({ ok: true }); }
+    }
     if (res === "staff" && m === "GET") {
       const now = Date.now();
       const [reqDocs, stDocs] = await Promise.all([readPrefix(s, "requests/"), readPrefix(s, "status/")]);
@@ -141,6 +150,10 @@ export default async (req, context) => {
       if (m === "PUT") { const b = await body(req, 4096); await s.setJSON("status/" + id, b); return json({ ok: true }); }
       if (m === "DELETE") { await s.delete("status/" + id); cache.delete("status/" + id); return json({ ok: true }); }
     }
+
+    /* ---- everything below is staff only (PIN) ---- */
+    if (!(await isStaff(req))) return fail("staff only", 401);
+
     if (res === "menu") {
       if (!id && m === "POST") {
         const b = await body(req);

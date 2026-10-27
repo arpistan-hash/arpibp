@@ -86,9 +86,9 @@
       onSnapshot: function (cb, err) {
         if (name === 'menu') return P.menu.on(function (j) { cb(colSnap(j.docs || [])); }, err);
         if (name === 'sounds') return P.sounds.on(function (j) { cb(colSnap(j.docs || [])); }, err);
-        if (name === 'requests') return token ? P.staff.on(function (j) { cb(colSnap(j.requests || [])); }, err) : function () {};
+        if (name === 'requests') return ROLE === 'crew' ? P.staff.on(function (j) { cb(colSnap(j.requests || [])); }, err) : function () {};
         if (name === 'status') {
-          var p = token ? P.staff : P.guest;
+          var p = ROLE === 'crew' ? P.staff : P.guest;
           return p.on(function (j) { var st = j.status || {}; cb(colSnap(Object.keys(st).map(function (k) { return { id: k, data: st[k] }; }))); }, err);
         }
         return function () {};
@@ -122,7 +122,8 @@
   }
   var db = Object.freeze({ collection: collection, doc: doc });
 
-  var staffCheck = token ? call('GET', '/pin').then(function (j) { if (!j.staff) { token = ''; lsSet('lounge.staffToken', null); } return !!j.staff; }, function () { return !!token; }) : Promise.resolve(false);
+  /* the crew page is staff without a PIN; the guest page never is */
+  var staffCheck = Promise.resolve(ROLE === 'crew');
   var user = Object.freeze({
     canEdit: function () { return staffCheck; },
     isOwner: function () { return staffCheck; },
@@ -180,7 +181,6 @@
     };
     if (input) setTimeout(function () { input.focus(); }, 50);
   }
-  window.__loungeSignIn = pinScreen;
-  function start() { if (!token) pinScreen(); }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+  /* no PIN: the crew app opens straight away (pinScreen stays here, unused, in case a PIN is wanted again) */
+  void pinScreen;
 })();
