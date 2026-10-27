@@ -1,10 +1,11 @@
 /* Lounge on its own website: stands in for the Claude page runtime so the same app runs with
-   no sign-in. Guests get a random id for this phone; staff unlock the board with the staff PIN
-   (open the site with #staff). Data lives behind /api (Netlify Functions + Blobs). */
+   no sign-in. index.html is the guest app (each phone gets its own random id and sees only its
+   own table); crew.html is the staff app, unlocked with the staff PIN.
+   Data lives behind /api (Netlify Functions + Blobs). */
 (function () {
   if (window.claude) return; // running inside Claude: use the real runtime
 
-  var API = '/api';
+  var API = '/api', ROLE = window.LOUNGE_ROLE === 'crew' ? 'crew' : 'guest';
   function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function lsSet(k, v) { try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} }
   function rand(n) {
@@ -15,7 +16,8 @@
   }
   var uid = lsGet('lounge.uid');
   if (!uid || !/^g_[A-Za-z0-9]{20,40}$/.test(uid)) { uid = 'g_' + rand(24); lsSet('lounge.uid', uid); }
-  var token = lsGet('lounge.staffToken') || '';
+  // the guest app never carries a staff token, even on a staff member's own phone
+  var token = ROLE === 'crew' ? (lsGet('lounge.staffToken') || '') : '';
 
   function call(method, path, body) {
     var h = { 'content-type': 'application/json' };
@@ -34,10 +36,7 @@
     var d = list.map(function (x) { return docSnap(x.id, x.data); });
     return { docs: d, size: d.length, empty: !d.length, forEach: function (f) { d.forEach(f); } };
   }
-  // one poller per endpoint, many listeners; it only calls back when the data changed
-  function Poller(path, every) {
-    this.path = path; this.every = every; this.subs = []; this.last = null; this.data = null; this.timer = 0; this.running = false;
-  }
+  function Poller(path, every) { this.path = path; this.every = every; this.subs = []; this.last = null; this.data = null; this.timer = 0; this.running = false; }
   Poller.prototype.on = function (fn, err) {
     var s = { fn: fn, err: err }, self = this;
     this.subs.push(s);
@@ -73,7 +72,7 @@
     return open ? 6000 : 45000;
   }
   var P = {
-    menu: new Poller('/menu', 60000),
+    menu: new Poller('/menu', 30000),           // also carries the bar's notice to guests
     sounds: new Poller('/sounds', 300000),
     guest: new Poller('/guest?uid=' + uid, guestEvery),
     staff: new Poller('/staff', 5000)
@@ -87,7 +86,7 @@
       onSnapshot: function (cb, err) {
         if (name === 'menu') return P.menu.on(function (j) { cb(colSnap(j.docs || [])); }, err);
         if (name === 'sounds') return P.sounds.on(function (j) { cb(colSnap(j.docs || [])); }, err);
-        if (name === 'requests') return P.staff.on(function (j) { cb(colSnap(j.requests || [])); }, err);
+        if (name === 'requests') return token ? P.staff.on(function (j) { cb(colSnap(j.requests || [])); }, err) : function () {};
         if (name === 'status') {
           var p = token ? P.staff : P.guest;
           return p.on(function (j) { var st = j.status || {}; cb(colSnap(Object.keys(st).map(function (k) { return { id: k, data: st[k] }; }))); }, err);
@@ -123,7 +122,6 @@
   }
   var db = Object.freeze({ collection: collection, doc: doc });
 
-  /* ---------- who is looking: a guest, or staff with a valid token ---------- */
   var staffCheck = token ? call('GET', '/pin').then(function (j) { if (!j.staff) { token = ''; lsSet('lounge.staffToken', null); } return !!j.staff; }, function () { return !!token; }) : Promise.resolve(false);
   var user = Object.freeze({
     canEdit: function () { return staffCheck; },
@@ -131,16 +129,18 @@
     id: function () { return Promise.resolve(uid); },
     me: function () { return Promise.resolve({ id: uid }); }
   });
+  window.claude = Object.freeze({ use: function (name) { return Promise.resolve(name === 'db' ? db : name === 'user' ? user : null); } });
 
-  window.claude = Object.freeze({
-    use: function (name) {
-      if (name === 'db') return Promise.resolve(db);
-      if (name === 'user') return Promise.resolve(user);
-      return Promise.resolve(null);
-    }
-  });
+  /* ---------- guest: "Finish and clear this phone" forgets everything, including the guest id ---------- */
+  if (ROLE === 'guest') {
+    window.__loungeForget = function () {
+      ['lounge.cart', 'lounge.table', 'lounge.table2', 'lounge.name', 'lounge.allergies', 'lounge.room', 'lounge.since', 'lounge.seen', 'lounge.uid'].forEach(function (k) { lsSet(k, null); });
+      location.replace(location.pathname);
+    };
+    return;
+  }
 
-  /* ---------- staff sign-in: open the site with #staff ---------- */
+  /* ---------- crew: staff sign-in with the PIN ---------- */
   function pinScreen() {
     if (document.getElementById('lounge-pin')) return;
     var wrap = document.createElement('div');
@@ -149,21 +149,21 @@
     wrap.setAttribute('aria-modal', 'true');
     wrap.setAttribute('aria-label', 'Staff sign-in');
     wrap.innerHTML =
-      '<style>#lounge-pin{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:16px;background:rgba(8,20,17,.72);font-family:Inter,system-ui,sans-serif}' +
-      '#lounge-pin form{width:min(360px,100%);background:#fff;color:#14211d;border-radius:22px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.35)}' +
-      '#lounge-pin h2{margin:0 0 6px;font:700 26px/1.1 Georgia,serif}#lounge-pin p{margin:0 0 16px;color:#5b6b66;font-size:14px;line-height:1.4}' +
-      '#lounge-pin input{width:100%;box-sizing:border-box;font:700 28px/1 ui-monospace,Menlo,monospace;letter-spacing:.3em;text-align:center;padding:14px;border:1.5px solid #cfd9d5;border-radius:14px;outline:none}' +
-      '#lounge-pin input:focus{border-color:#1f4d42;box-shadow:0 0 0 3px #e2ece8}' +
-      '#lounge-pin .row{display:flex;gap:10px;margin-top:16px}#lounge-pin button{flex:1;min-height:50px;border-radius:14px;font:700 16px system-ui,sans-serif;border:1px solid #cfd9d5;background:#f4f7f6;color:#14211d}' +
-      '#lounge-pin button[type=submit]{background:#1f4d42;border-color:#1f4d42;color:#fff}#lounge-pin .err{min-height:20px;margin:10px 0 0;color:#b3261e;font-size:14px;font-weight:600}</style>' +
-      '<form><h2>Staff sign-in</h2><p>' + (token ? 'This phone is signed in as staff.' : 'Enter the staff PIN to open the staff board on this phone.') + '</p>' +
+      '<style>#lounge-pin{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:16px;background:rgba(0,0,0,.72);font-family:"Hanken Grotesk",system-ui,sans-serif}' +
+      '#lounge-pin form{width:min(360px,100%);background:#141A18;color:#F2EFE8;border:1px solid #29332F;border-radius:22px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.5)}' +
+      '#lounge-pin .mk{margin:0 0 14px;font-weight:800;font-size:13px;letter-spacing:.3em}#lounge-pin .mk span{margin-left:8px;padding:3px 7px;border:1px solid #E8B04B;border-radius:6px;color:#E8B04B;font-size:10px;letter-spacing:.18em}' +
+      '#lounge-pin h2{margin:0 0 6px;font:800 24px/1.15 system-ui,sans-serif}#lounge-pin p{margin:0 0 16px;color:#9AA6A1;font-size:14px;line-height:1.4}' +
+      '#lounge-pin input{width:100%;box-sizing:border-box;font:800 28px/1 ui-monospace,Menlo,monospace;letter-spacing:.3em;text-align:center;padding:14px;color:#F2EFE8;background:#1C2422;border:1.5px solid #29332F;border-radius:14px;outline:none}' +
+      '#lounge-pin input:focus{border-color:#E8B04B}' +
+      '#lounge-pin .row{display:flex;gap:10px;margin-top:16px}#lounge-pin button{flex:1;min-height:50px;border-radius:14px;font:800 16px system-ui,sans-serif;border:1px solid #29332F;background:#1C2422;color:#F2EFE8}' +
+      '#lounge-pin button[type=submit]{background:#E8B04B;border-color:#E8B04B;color:#1A1206}#lounge-pin .err{min-height:20px;margin:10px 0 0;color:#FF7A59;font-size:14px;font-weight:700}</style>' +
+      '<form><p class="mk">LOUNGE<span>CREW</span></p><h2>' + (token ? 'Signed in' : 'Staff sign-in') + '</h2><p>' + (token ? 'This phone is signed in to the crew app.' : 'Enter the staff PIN to open the crew app on this phone.') + '</p>' +
       (token ? '' : '<input id="lounge-pin-in" type="password" inputmode="numeric" autocomplete="off" maxlength="12" aria-label="Staff PIN">') +
       '<p class="err" id="lounge-pin-err" role="alert"></p><div class="row"><button type="button" id="lounge-pin-x">' + (token ? 'Sign out' : 'Cancel') + '</button>' +
       '<button type="submit">' + (token ? 'Done' : 'Sign in') + '</button></div></form>';
     document.body.appendChild(wrap);
     var form = wrap.querySelector('form'), input = document.getElementById('lounge-pin-in'), err = document.getElementById('lounge-pin-err');
-    // the crew app keeps its address so the phone lands back in it after signing in
-    function leave(reload) { wrap.remove(); var keep = location.hash === '#crew' && reload; try { history.replaceState(null, '', location.pathname + location.search + (keep ? '#crew' : '')); } catch (e) {} if (reload) location.reload(); }
+    function leave(reload) { wrap.remove(); if (reload) location.replace(location.pathname); }
     document.getElementById('lounge-pin-x').onclick = function () { if (token) { lsSet('lounge.staffToken', null); leave(true); } else leave(false); };
     form.onsubmit = function (e) {
       e.preventDefault();
@@ -180,7 +180,7 @@
     };
     if (input) setTimeout(function () { input.focus(); }, 50);
   }
-  function checkHash() { if (location.hash === '#staff' || (location.hash === '#crew' && !token)) pinScreen(); }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', checkHash); else checkHash();
-  window.addEventListener('hashchange', checkHash);
+  window.__loungeSignIn = pinScreen;
+  function start() { if (!token) pinScreen(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();

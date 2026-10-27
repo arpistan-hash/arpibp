@@ -1,5 +1,5 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#1f4d42"><meta name="robots" content="noindex"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><script src="/shim.js"></script>
-<title>Lounge Table Service</title>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#1f4d42"><meta name="robots" content="noindex"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><script>window.LOUNGE_ROLE="guest";</script><script src="/shim.js"></script>
+<title>Lounge</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -577,6 +577,19 @@ html[data-app="crew"] body { background: var(--bg); }
 .crew-lock .crew-btn { flex: none; min-width: 200px; }
 @media (max-width: 380px) { .cs { padding: 10px 8px; } .cs b { font-size: 24px; } .crew-mark { letter-spacing: .22em; } }
 
+.notice-card { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 16px; border: 1px solid var(--brass); background: linear-gradient(135deg, var(--surface), var(--accent-soft)); }
+.notice-card .ico { flex: none; color: var(--brass); margin-top: 2px; }
+.notice-card > div { min-width: 0; }
+.notice-t { margin: 2px 0 0; font-size: 16px; font-weight: 600; overflow-wrap: anywhere; }
+.t2-add { align-self: flex-start; color: var(--accent); }
+.t2-field { max-width: 140px; }
+.leave-card .btn.warn { background: var(--alert); color: #fff; border-color: var(--alert); }
+.crew-notice { display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface); }
+.crew-notice .crew-h { margin: 0; }
+.crew-notice textarea { min-height: 64px; background: var(--raised); color: var(--fg); border-color: var(--line); }
+.crew-live { display: flex; gap: 8px; align-items: flex-start; margin: 0; padding: 10px 12px; border-radius: 12px; background: var(--accent-soft); font-weight: 600; overflow-wrap: anywhere; }
+.crew-live .ico { flex: none; color: var(--accent); margin-top: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 /* staff POS */
 .staff-head { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
 .seg { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); flex: 1 1 320px; max-width: 520px; padding: 4px; gap: 4px; border-radius: 14px; background: var(--accent-soft); }
@@ -648,7 +661,8 @@ html[data-app="crew"] body { background: var(--bg); }
 .ai-entry strong { font-family: var(--display); font-size: 22px; line-height: 1.1; }
 @media (max-width: 420px) { .brand small { display: none; } .brand { font-size: 24px; } }
 /* small phones: keep "Table 12" readable in the header instead of truncating it */
-@media (max-width: 380px) { .top-actions { gap: 4px; } .seat { padding: 0 10px; gap: 4px; } .seat svg { display: none; } .brand { font-size: 22px; } }
+@media (max-width: 420px) { .top-actions { gap: 4px; } .seat { padding: 0 10px; gap: 4px; } .seat svg { display: none; } }
+@media (max-width: 380px) { .brand { font-size: 22px; } }
 .pos-quick .pos-it { padding: 8px 8px 8px 10px; }
 .pos-quick .pos-it-n { font-size: 13.5px; line-height: 1.2; }
 .ai-entry .sub { font-size: 14px; color: var(--muted); }
@@ -753,7 +767,7 @@ html[data-app="crew"] body { background: var(--bg); }
       noDb: 'Ordering is not available on this link right now. Please wave your server over.',
       noWrite: 'This link cannot send requests. Ask your server for the ordering link.',
       failed: 'That did not go through. Check your connection and try again.',
-      order_t: 'Order', check_t: 'Bill', call_t: 'Server call', staff: 'Staff', guest: 'Guest view', soundOn: 'Sound on, tap to mute', soundOff: 'Sound off, tap to turn on', room: 'Room charge', roomNo: 'Room number (optional)', roomHint: 'We will let your server know you are charging it to your room.', roomSent: 'Your server knows you are charging it to your room.', clearOrder: 'Clear order', removedToast: 'Removed', clearedToast: 'Order cleared', undo: 'Undo', cancelReq: 'Cancel', cancelConfirm: 'Tap again to cancel', cancelled: 'Cancelled', cancelledToast: 'Cancelled. Your server can see it.', lastOrder: 'Your last order', teamLine: 'Your hosts: the Lounge team', offline: 'You are offline. Reconnect to send requests.', onWay: 'On its way', seenToast: 'Your server is on it.', doneToast: 'Served. Enjoy!', offTonight: 'Not available tonight', offInCart: 'Something in your order is not available tonight. Remove it to send.', yourTab: 'Your tab', total: 'Total', tabHint: 'Your server confirms the final bill.', yourTable: 'Your table', seatOk: 'Saved', addTable: 'Add table', newVisit: 'Start a new visit', newVisitConfirm: 'Tap again to clear everything', newVisitHint: 'Clears the order, allergies and previous requests from this phone.', newVisitDone: 'Fresh start. Previous orders are cleared from this phone.', spTap: 'Tap to begin', hsHint: 'Tap to open', nextCat: 'Next', aiEntry: 'A few quick questions, then your perfect drink.', nItems: function (n) { return n + (n === 1 ? ' item' : ' items'); },
+      order_t: 'Order', check_t: 'Bill', call_t: 'Server call', staff: 'Staff', guest: 'Guest view', soundOn: 'Sound on, tap to mute', soundOff: 'Sound off, tap to turn on', room: 'Room charge', roomNo: 'Room number (optional)', roomHint: 'We will let your server know you are charging it to your room.', roomSent: 'Your server knows you are charging it to your room.', clearOrder: 'Clear order', removedToast: 'Removed', clearedToast: 'Order cleared', undo: 'Undo', cancelReq: 'Cancel', cancelConfirm: 'Tap again to cancel', cancelled: 'Cancelled', cancelledToast: 'Cancelled. Your server can see it.', lastOrder: 'Your last order', teamLine: 'Your hosts: the Lounge team', offline: 'You are offline. Reconnect to send requests.', onWay: 'On its way', seenToast: 'Your server is on it.', doneToast: 'Served. Enjoy!', offTonight: 'Not available tonight', offInCart: 'Something in your order is not available tonight. Remove it to send.', yourTab: 'Your tab', total: 'Total', tabHint: 'Your server confirms the final bill.', yourTable: 'Your table', seatOk: 'Saved', addTable: 'Add table', nightMode: 'Switch to night mode', dayMode: 'Switch to day mode', newVisit: 'Finish and clear this phone', addT2: 'Big group? Add a second table', table2: 'Second table', leaveTitle: 'Leaving?', noticeEyebrow: 'From the bar', newVisitConfirm: 'Tap again to clear everything', newVisitHint: 'Clears your table, order, allergies and requests from this phone, so the next guest starts fresh.', newVisitDone: 'Fresh start. Previous orders are cleared from this phone.', spTap: 'Tap to begin', hsHint: 'Tap to open', nextCat: 'Next', aiEntry: 'A few quick questions, then your perfect drink.', nItems: function (n) { return n + (n === 1 ? ' item' : ' items'); },
       aiTitle: 'What should I drink?', aiLede: 'Answer a few quick questions. We will find your drink, or invent one just for you.',
       aiStep: function (n, t) { return 'Question ' + n + ' of ' + t; }, aiTapHint: 'Tap an answer to continue.',
       aiNext: 'Next', aiBack: 'Back', aiSkip: 'Skip', aiOptional: 'Optional, in your own words', aiPh: 'e.g. not too sweet, I love ginger, something to celebrate',
@@ -793,7 +807,7 @@ html[data-app="crew"] body { background: var(--bg); }
       noDb: 'Ezen a linken most nem lehet rendelni. Kérjük, intsen a pincérnek.',
       noWrite: 'Erről a linkről nem lehet kérést küldeni. Kérje el a pincértől a rendelési linket.',
       failed: 'Nem sikerült elküldeni. Ellenőrizze a kapcsolatot, és próbálja újra.',
-      order_t: 'Rendelés', check_t: 'Számla', call_t: 'Pincérhívás', staff: 'Személyzet', guest: 'Vendég nézet', soundOn: 'Hang bekapcsolva, koppintson a némításhoz', soundOff: 'Hang kikapcsolva, koppintson a bekapcsoláshoz', room: 'Szobaszámla', roomNo: 'Szobaszám (nem kötelező)', roomHint: 'Szólunk a pincérnek, hogy a szobaszámlájára kéri.', roomSent: 'A pincér tudja, hogy a szobaszámlájára kéri.', clearOrder: 'Rendelés törlése', removedToast: 'Törölve', clearedToast: 'Rendelés törölve', undo: 'Visszavonás', cancelReq: 'Lemondás', cancelConfirm: 'Koppintson újra a lemondáshoz', cancelled: 'Lemondva', cancelledToast: 'Lemondva. A pincér látja.', lastOrder: 'Legutóbbi rendelése', teamLine: 'Vendéglátói: a Lounge csapata', offline: 'Nincs internetkapcsolat. Csatlakozzon újra a küldéshez.', onWay: 'Úton van', seenToast: 'A pincér már intézi.', doneToast: 'Kész. Egészségére!', offTonight: 'Ma este nem elérhető', offInCart: 'A rendelése egyik tétele ma este nem elérhető. Törölje, hogy elküldhesse.', yourTab: 'Fogyasztása', total: 'Összesen', tabHint: 'A végleges számlát a pincér hozza.', yourTable: 'Az Ön asztala', seatOk: 'Mentve', addTable: 'Asztal', newVisit: 'Új látogatás indítása', newVisitConfirm: 'Koppintson újra, és mindent törlünk', newVisitHint: 'Törli a rendelést, az allergiákat és a korábbi kéréseket erről a telefonról.', newVisitDone: 'Tiszta lap. A korábbi rendelések törölve erről a telefonról.', spTap: 'Koppintson a kezdéshez', hsHint: 'Koppintson a megnyitáshoz', nextCat: 'Következő', aiEntry: 'Néhány gyors kérdés, és megvan a tökéletes itala.', nItems: function (n) { return n + ' tétel'; },
+      order_t: 'Rendelés', check_t: 'Számla', call_t: 'Pincérhívás', staff: 'Személyzet', guest: 'Vendég nézet', soundOn: 'Hang bekapcsolva, koppintson a némításhoz', soundOff: 'Hang kikapcsolva, koppintson a bekapcsoláshoz', room: 'Szobaszámla', roomNo: 'Szobaszám (nem kötelező)', roomHint: 'Szólunk a pincérnek, hogy a szobaszámlájára kéri.', roomSent: 'A pincér tudja, hogy a szobaszámlájára kéri.', clearOrder: 'Rendelés törlése', removedToast: 'Törölve', clearedToast: 'Rendelés törölve', undo: 'Visszavonás', cancelReq: 'Lemondás', cancelConfirm: 'Koppintson újra a lemondáshoz', cancelled: 'Lemondva', cancelledToast: 'Lemondva. A pincér látja.', lastOrder: 'Legutóbbi rendelése', teamLine: 'Vendéglátói: a Lounge csapata', offline: 'Nincs internetkapcsolat. Csatlakozzon újra a küldéshez.', onWay: 'Úton van', seenToast: 'A pincér már intézi.', doneToast: 'Kész. Egészségére!', offTonight: 'Ma este nem elérhető', offInCart: 'A rendelése egyik tétele ma este nem elérhető. Törölje, hogy elküldhesse.', yourTab: 'Fogyasztása', total: 'Összesen', tabHint: 'A végleges számlát a pincér hozza.', yourTable: 'Az Ön asztala', seatOk: 'Mentve', addTable: 'Asztal', nightMode: 'Éjszakai mód', dayMode: 'Nappali mód', newVisit: 'Befejezés és a telefon törlése', addT2: 'Nagy társaság? Második asztal hozzáadása', table2: 'Második asztal', leaveTitle: 'Távozik?', noticeEyebrow: 'A bártól', newVisitConfirm: 'Koppintson újra, és mindent törlünk', newVisitHint: 'Törli az asztalt, a rendelést, az allergiákat és a kéréseket erről a telefonról, így a következő vendég tiszta lappal kezd.', newVisitDone: 'Tiszta lap. A korábbi rendelések törölve erről a telefonról.', spTap: 'Koppintson a kezdéshez', hsHint: 'Koppintson a megnyitáshoz', nextCat: 'Következő', aiEntry: 'Néhány gyors kérdés, és megvan a tökéletes itala.', nItems: function (n) { return n + ' tétel'; },
       aiTitle: 'Mit igyak?', aiLede: 'Válaszoljon néhány gyors kérdésre. Megtaláljuk az italát, vagy kitalálunk egyet kifejezetten Önnek.',
       aiStep: function (n, t) { return n + '. kérdés / ' + t; }, aiTapHint: 'Koppintson egy válaszra a folytatáshoz.',
       aiNext: 'Tovább', aiBack: 'Vissza', aiSkip: 'Kihagyom', aiOptional: 'Nem kötelező, a saját szavaival', aiPh: 'pl. ne legyen túl édes, szeretem a gyömbért, ünneplünk',
@@ -906,6 +920,7 @@ html[data-app="crew"] body { background: var(--bg); }
     alert: 'M12 4l9 16H3L12 4z M12 10v4 M12 17h.01',
     sound: 'M4 9h4l5-4v14l-5-4H4V9z M16 9a4 4 0 0 1 0 6 M18.5 6.5a8 8 0 0 1 0 11',
     mute: 'M4 9h4l5-4v14l-5-4H4V9z M17 9l5 6 M22 9l-5 6',
+    moon: 'M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z',
     sun: 'M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10z M12 2v2 M12 20v2 M2 12h2 M20 12h2 M4.9 4.9l1.4 1.4 M17.7 17.7l1.4 1.4 M4.9 19.1l1.4-1.4 M17.7 6.3l1.4-1.4',
     note: 'M6 3h9l4 4v14H6V3z M9 11h7 M9 15h7',
     clock: 'M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18z M12 7v5l3 2',
@@ -1231,9 +1246,9 @@ html[data-app="crew"] body { background: var(--bg); }
     db: null, uid: null, staff: false, mode: 'guest', dbState: 'loading',
     tab: 'menu', menu: [], mine: [], statuses: {}, requests: [],
     cart: loadJSON('lounge.cart', []),
-    table: lsGet('lounge.table') || '', name: lsGet('lounge.name') || '',
+    table: lsGet('lounge.table') || '', table2: lsGet('lounge.table2') || '', name: lsGet('lounge.name') || '',
     room: lsGet('lounge.room') || '',
-    seatTable: '', seatName: '',
+    theme: (function () { var v = lsGet('lounge.theme'); return v === 'dark' || v === 'light' ? v : ''; })(), seatTable: '', seatTable2: '', seatName: '', showT2: false, crewNotice: '', notice: null,
     q: '', sheet: null, allergies: loadJSON('lounge.allergies', []),
     orderNote: '', pay: 'card', split: false, checkNote: '', callReason: 'help',
     busy: false, toast: null, activeSec: '', started: false, cat: null, undo: null,
@@ -1252,7 +1267,7 @@ html[data-app="crew"] body { background: var(--bg); }
     S.room = ''; lsSet('lounge.room', '');
     S.quiz = { step: 0, a: {} }; S.aiText = ''; S.aiRes = null; S.aiErr = '';
     S.undo = null; S.cat = null; S.tab = 'menu'; S.q = ''; S.sheet = null; S.confirm = '';
-    if (clearSeat) { S.table = ''; S.name = ''; lsSet('lounge.table', ''); lsSet('lounge.name', ''); S.started = false; }
+    if (clearSeat) { S.table = ''; S.table2 = ''; S.name = ''; S.showT2 = false; lsSet('lounge.table', ''); lsSet('lounge.table2', ''); lsSet('lounge.name', ''); S.started = false; }
     S.since = Date.now(); lsSet('lounge.since', String(S.since));
   }
   (function startVisit() {
@@ -1261,16 +1276,24 @@ html[data-app="crew"] body { background: var(--bg); }
     var stale = !last || Date.now() - last > 4 * 3600 * 1000;
     var leftovers = S.cart.length || S.table || S.name || S.since;
     if ((m && m[1] !== S.table) || (stale && leftovers)) newVisit(true);
-    if (m) { S.table = m[1]; lsSet('lounge.table', S.table); }
+    if (m) { S.table = m[1]; lsSet('lounge.table', S.table); if (S.table2) { S.table2 = ''; lsSet('lounge.table2', ''); } }
     lsSet('lounge.seen', String(Date.now()));
   })();
   S.started = !!(S.table.trim() || S.name.trim());
   var T = function (k) { var d = STR[S.lang]; return d[k] != null ? d[k] : STR.en[k]; };
   var audio = null, firstStaffSnap = true, seen = {}, spy = null, toastTimer = null, sheetKey = '';
 
-  function hasSeat() { return !!(S.table.trim() || S.name.trim()); }
+  /* day or night: the guest's own choice, otherwise the phone's setting */
+  function isDark() { if (S.theme) return S.theme === 'dark'; try { return window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (_) { return false; } }
+  function hasSeat() { return !!(S.table.trim() || (S.table2 || '').trim() || S.name.trim()); }
+  /* one table, or two pushed together for a big group: "9 + 10" */
+  function tableLabel() { var a = S.table.trim(), b = (S.table2 || '').trim(); return a && b ? a + ' + ' + b : (a || b); }
+  function t2Field(idp, key, val) {
+    if (!String(val || '').trim() && !S.showT2) return '<button type="button" class="link-btn t2-add" data-act="addT2" data-v="' + idp + '">' + icon('plus', 15) + esc(T('addT2')) + '</button>';
+    return '<div class="field t2-field"><label for="' + idp + '-table2">' + T('table2') + '</label><input type="text" id="' + idp + '-table2" class="bigin" data-k="' + key + '" value="' + esc(val || '') + '" maxlength="6" inputmode="numeric" autocomplete="off"></div>';
+  }
   function seatLabel() {
-    var t = S.table.trim(), n = S.name.trim();
+    var t = tableLabel().replace(/ \+ /g, '+'), n = S.name.trim();
     if (t && n && window.innerWidth > 420) return T('table') + ' ' + t + ' · ' + n;
     return t ? T('table') + ' ' + t : n;
   }
@@ -1331,6 +1354,7 @@ html[data-app="crew"] body { background: var(--bg); }
     if (!staffMode && S.started) h += '<button type="button" class="seat' + (hasSeat() ? '' : ' need') + '" data-act="editSeat" aria-label="' + esc(T('seatTitle')) + '">' + icon('edit', 16) + '<span>' + esc(hasSeat() ? seatLabel() : T('addTable')) + '</span></button>';
     if (S.staff) h += staffMode ? '<button type="button" class="pill-btn" data-act="mode">' + T('guest') + '</button>'
       : '<button type="button" class="pill-btn icon-only" data-act="mode" aria-label="' + esc(T('staff')) + '" title="' + esc(T('staff')) + '">' + icon('keys', 20) + '</button>';
+    if (!staffMode) h += '<button type="button" class="pill-btn icon-only" data-act="theme" aria-label="' + esc(isDark() ? T('dayMode') : T('nightMode')) + '" title="' + esc(isDark() ? T('dayMode') : T('nightMode')) + '">' + icon(isDark() ? 'sun' : 'moon', 20) + '</button>';
     if (!staffMode) h += '<button type="button" class="pill-btn icon-only" data-act="soundToggle" aria-pressed="' + SFX.on() + '" aria-label="' + esc(SFX.on() ? T('soundOn') : T('soundOff')) + '">' + icon(SFX.on() ? 'sound' : 'mute', 20) + '</button>';
     h += (S.padOnly && !S.staff ? '' : '<button type="button" class="pill-btn" data-act="lang" lang="' + (S.lang === 'en' ? 'hu' : 'en') + '" aria-label="' + (S.lang === 'en' ? 'Magyar nyelv' : 'English language') + '">' + (S.lang === 'en' ? 'HU' : 'EN') + '</button>') + '</div></div>';
     if (!staffMode && S.started && S.tab === 'menu' && S.cat && !S.q.trim()) {
@@ -1400,8 +1424,9 @@ html[data-app="crew"] body { background: var(--bg); }
       h += hits.length ? '<div class="list">' + hits.slice(0, 60).map(itemRow).join('') + '</div>' : '<div class="empty">' + icon('search', 28) + '<span>' + esc(T('noResults')) + '</span></div>';
       return h;
     }
+    h += noticeCard();
     h += lastOrderCard();
-    if (S.ai && !S.aiOff) h += aiEntry();
+    h += aiEntry();
     h += '<section class="section"><p class="label">' + T('quick') + '</p><div class="quick">' + QUICK.map(function (x) {
       var l = S.cart.filter(function (c) { return c.key === x.id; })[0];
       return '<button type="button" class="qtile" data-act="quick" data-id="' + x.id + '">' + picto(x.id === 'q-sparkling' ? 'fizzy' : x.ic, 32) + '<span>' + esc(STR[S.lang].q[x.k]) + '</span>' + (l ? '<span class="count">' + l.qty + '</span>' : '') + '</button>';
@@ -1567,7 +1592,17 @@ html[data-app="crew"] body { background: var(--bg); }
     h += '<section class="card"><h3>' + T('helpTitle') + '</h3><div class="tiles">' + rs.map(function (r) {
       return '<button type="button" class="tile" data-act="reason" data-v="' + r[0] + '" aria-pressed="' + (S.callReason === r[0]) + '">' + icon(r[1], 24) + '<span class="tile-t">' + esc(T('r_' + r[0])) + '</span></button>';
     }).join('') + '</div><button type="button" class="btn block" data-act="sendCall"' + (S.busy ? ' disabled' : '') + '>' + icon('bell', 20) + (S.busy ? T('sending') : T('callBtn')) + '</button></section>';
+    h += leaveCard();
     return h + '</div>';
+  }
+
+  function leaveCard() {
+    return '<section class="card leave-card"><h3>' + T('leaveTitle') + '</h3><p class="hint">' + T('newVisitHint') + '</p>' +
+      '<button type="button" class="btn ghost block' + (S.confirm === 'nv' ? ' warn' : '') + '" data-act="newVisit">' + icon('trash', 18) + (S.confirm === 'nv' ? T('newVisitConfirm') : T('newVisit')) + '</button></section>';
+  }
+  function noticeCard() {
+    if (!S.notice || !S.notice.text) return '';
+    return '<div class="notice-card" role="status">' + icon('alert', 22) + '<div><p class="eyebrow">' + T('noticeEyebrow') + '</p><p class="notice-t">' + esc(S.notice.text) + '</p></div></div>';
   }
 
   /* ---------- guest: welcome ---------- */
@@ -1577,7 +1612,7 @@ html[data-app="crew"] body { background: var(--bg); }
       '<div class="card"><div class="seatgrid">' +
       '<div class="field"><label for="w-table">' + T('table') + '</label><input type="text" id="w-table" class="bigin" data-k="table" value="' + esc(S.table) + '" maxlength="6" inputmode="numeric" autocomplete="off"></div>' +
       '<div class="field"><label for="w-name">' + T('name') + '</label><input type="text" id="w-name" data-k="name" value="' + esc(S.name) + '" maxlength="60" placeholder="' + esc(T('namePh')) + '" autocomplete="off"></div>' +
-      '</div><p class="hint">' + T('seatHint') + '</p><button type="button" class="btn block" data-act="start">' + T('start') + '</button></div></div>';
+      '</div>' + t2Field('w', 'table2', S.table2) + '<p class="hint">' + T('seatHint') + '</p><button type="button" class="btn block" data-act="start">' + T('start') + '</button></div></div>';
   }
 
   /* ---------- sheets ---------- */
@@ -1625,7 +1660,7 @@ html[data-app="crew"] body { background: var(--bg); }
     } else if (sh.kind === 'seat') {
       h += '<div class="sheet-head pad"><div style="flex:1"><h2 id="sh-title">' + T('seatTitle') + '</h2></div><button type="button" class="x" data-act="closeSheet" aria-label="' + T('close') + '">' + icon('close', 18) + '</button></div>' +
         '<div class="sheet-body pad"><div class="seatgrid"><div class="field"><label for="s-table">' + T('table') + '</label><input type="text" id="s-table" class="bigin" data-k="seatTable" value="' + esc(S.seatTable) + '" maxlength="6" inputmode="numeric" autocomplete="off"></div>' +
-        '<div class="field"><label for="s-name">' + T('name') + '</label><input type="text" id="s-name" data-k="seatName" value="' + esc(S.seatName) + '" maxlength="60" placeholder="' + esc(T('namePh')) + '" autocomplete="off"></div></div><p class="hint">' + T('seatHint') + '</p>' +
+        '<div class="field"><label for="s-name">' + T('name') + '</label><input type="text" id="s-name" data-k="seatName" value="' + esc(S.seatName) + '" maxlength="60" placeholder="' + esc(T('namePh')) + '" autocomplete="off"></div></div>' + t2Field('s', 'seatTable2', S.seatTable2) + '<p class="hint">' + T('seatHint') + '</p>' +
         '<div class="new-visit"><button type="button" class="link-btn danger" data-act="newVisit">' + icon('trash', 15) + (S.confirm === 'nv' ? T('newVisitConfirm') : T('newVisit')) + '</button><p class="hint">' + T('newVisitHint') + '</p></div></div>' +
         '<div class="sheet-foot pad"><button type="button" class="btn" data-act="saveSeat">' + T('save') + '</button></div>';
     } else if (sh.kind === 'sent') {
@@ -1661,7 +1696,7 @@ html[data-app="crew"] body { background: var(--bg); }
       if (S.aiErr) h += '<div class="banner warn">' + icon('alert', 22) + '<div>' + esc(S.aiErr) + '</div></div>';
       h += aiResults();
       foot = '<button type="button" class="btn ghost" data-act="aiRestart">' + T('aiRestart') + '</button>' +
-        '<button type="button" class="btn" data-act="aiGo"' + (S.aiOff ? ' disabled' : '') + '>' + icon('sparkle', 20) + T('aiAgain') + '</button>';
+        '<button type="button" class="btn" data-act="aiGo">' + icon('sparkle', 20) + T('aiAgain') + '</button>';
     } else {
       h += '<div class="progress" aria-hidden="true"><span style="width:' + Math.round(((idx + 1) / steps.length) * 100) + '%"></span></div>' +
         '<p class="eyebrow">' + esc(T('aiStep')(idx + 1, steps.length)) + '</p><h3 class="quiz-q">' + esc(st.q[L]) + '</h3>';
@@ -1676,7 +1711,7 @@ html[data-app="crew"] body { background: var(--bg); }
       }
       if (S.aiErr) h += '<div class="banner warn">' + icon('alert', 22) + '<div>' + esc(S.aiErr) + '</div></div>';
       var back = idx > 0 ? '<button type="button" class="btn ghost" data-act="quizBack">' + T('aiBack') + '</button>' : '';
-      if (st.text) foot = back + '<button type="button" class="btn" data-act="aiGo"' + (S.aiOff ? ' disabled' : '') + '>' + icon('sparkle', 20) + T('aiGo') + '</button>';
+      if (st.text) foot = back + '<button type="button" class="btn" data-act="aiGo">' + icon('sparkle', 20) + T('aiGo') + '</button>';
       else if (st.multi) foot = back + '<button type="button" class="btn" data-act="quizNext">' + ((Array.isArray(S.quiz.a[st.k]) && S.quiz.a[st.k].length) ? T('aiNext') : T('aiSkip')) + '</button>';
       else if (idx === 0) foot = '<p class="hint" style="flex:1;margin:0">' + T('aiTapHint') + '</p>';
       else foot = back + '<button type="button" class="btn ghost" data-act="quizNext">' + (S.quiz.a[st.k] ? T('aiNext') : T('aiSkip')) + '</button>';
@@ -1713,7 +1748,7 @@ html[data-app="crew"] body { background: var(--bg); }
         '<button type="button" class="btn block" data-act="aiCreate">' + icon('plus', 20) + T('aiAdd') + '</button></div>';
     }
     if (r.picks.length) {
-      h += '<p class="eyebrow">' + T('aiPicks') + '</p><div class="list">' + r.picks.map(function (pk) {
+      h += '<p class="eyebrow">' + (c ? T('aiPicks') : (S.lang === 'hu' ? 'Ajánlásaink' : 'Our picks for you')) + '</p><div class="list">' + r.picks.map(function (pk) {
         var m = S.menu.filter(function (x) { return x.id === pk.id; })[0];
         if (!m) return '';
         return '<button type="button" class="row" data-act="aiPick" data-id="' + esc(m.id) + '">' + picto(m.cat, 38, 'lead') +
@@ -1773,8 +1808,76 @@ html[data-app="crew"] body { background: var(--bg); }
     if (!picks.length && !c) return null;
     return { intro: str(r.intro, 240), picks: picks, creation: c };
   }
+
+  /* drink finder when no AI is available (own website, one-file version): scores the real menu
+     against the guest's answers, so it always works and only suggests what the bar has */
+  var FLAV = {
+    fruity: ['fruit', 'berry', 'berries', 'strawberry', 'raspberry', 'cherry', 'pineapple', 'apple', 'pear', 'peach', 'passion', 'mango', 'plum', 'apricot', 'lychee', 'blackcurrant', 'cassis', 'rhubarb', 'quince'],
+    citrus: ['citrus', 'lemon', 'lime', 'grapefruit', 'orange', 'sour', 'zesty', 'bergamot', 'tart'],
+    sweet: ['sweet', 'honey', 'vanilla', 'caramel', 'chocolate', 'toffee', 'sugar', 'dessert', 'syrup'],
+    bitter: ['bitter', 'campari', 'aperol', 'amaro', 'quinine', 'gentian', 'vermouth', 'aperitivo'],
+    herbal: ['herb', 'herbal', 'basil', 'rosemary', 'mint', 'elderflower', 'botanical', 'juniper', 'thyme', 'tea', 'floral'],
+    smoky: ['smok', 'peat', 'mezcal', 'islay', 'charcoal'],
+    spicy: ['spice', 'spicy', 'ginger', 'pepper', 'cinnamon', 'clove', 'rye', 'fiery'],
+    creamy: ['cream', 'creamy', 'milk', 'foam', 'silky', 'velvety', 'egg white', 'smooth']
+  };
+  var BASE = { gin: ['gin'], vodka: ['vodka'], rum: ['rum'], agave: ['tequila', 'mezcal'], whisky: ['scotch', 'whiskey', 'bourbon', 'rye', 'japanese'], brandy: ['cognac', 'palinka'] };
+  var BASE_WORD = { gin: /\bgin\b/, vodka: /vodka/, rum: /\brum\b|cacha/, agave: /tequila|mezcal/, whisky: /whisk|bourbon|scotch/, brandy: /cognac|brandy|calvados|armagnac|p[aá]linka/ };
+  var ALG_WORDS = { dairy: ['milk', 'cream', 'baileys', 'butter'], eggs: ['egg'], nuts: ['nut', 'almond', 'hazelnut', 'amaretto', 'disaronno', 'frangelico', 'orgeat'], peanuts: ['peanut'], soy: ['soy'], gluten: ['beer', 'wheat', 'barley', 'lager', 'weissbier'], sulphites: ['wine', 'prosecco', 'champagne', 'vermouth', 'sherry'] };
+  var NEAT_CATS = { scotch: 1, whiskey: 1, bourbon: 1, rye: 1, japanese: 1, rum: 1, tequila: 1, mezcal: 1, cognac: 1, palinka: 1 };
+  function isAlcoholFree(m, t) { return m.cat === 'mocktail' || m.cat === 'soft' || /alcohol-free|alkoholmentes|\b0%|not (rum|gin)|this is not/.test(t); }
+  function localPicks() {
+    var a = S.quiz.a, L = S.lang === 'hu' ? 1 : 0, words = (S.aiText || '').toLowerCase().split(/[^a-zà-ſ]+/).filter(function (w) { return w.length >= 4; });
+    var flav = Array.isArray(a.flavour) ? a.flavour : [];
+    var avoid = [];
+    S.allergies.forEach(function (k) { (ALG_WORDS[k] || []).forEach(function (w) { avoid.push(w); }); });
+    var optLbl = function (k, v) { var st = QUIZ.filter(function (x) { return x.k === k; })[0], o = st && (st.o || []).filter(function (y) { return y[0] === v; })[0]; return o ? o[1 + L].toLowerCase() : v; };
+    var seen = S.aiSeen || {};
+    var scored = S.menu.filter(function (m) { return !m.off && m.cat !== 'food' && m.cat !== 'coffee' && !seen[m.id]; }).map(function (m) {
+      var t = (m.name + ' ' + (m.desc || '') + ' ' + m.cat).toLowerCase(), sc = 0, why = [];
+      var af = isAlcoholFree(m, t);
+      if (avoid.some(function (w) { return t.indexOf(w) > -1; })) return null;
+      if (a.alc === 'no' && !af) return null;
+      if (a.alc === 'yes' && (af || m.cat === 'soft')) return null;
+      if (a.alc === 'no' && m.cat === 'mocktail') sc += 3;
+      if (/^(still|sparkling) water|acqua|pellegrino|^ice$/.test(m.name.toLowerCase())) sc -= 5;
+      if (a.style === 'long' && (m.mods === 'highball' || /topped|soda|tonic|ginger beer|long|spritz|lemonade/.test(t))) { sc += 3; why.push(optLbl('style', 'long')); }
+      if (a.style === 'long' && m.mods === 'spirit') sc += 1;
+      if (a.style === 'short' && (m.cat === 'signature' || m.mods === 'martini') && !/topped|soda|tonic|spritz/.test(t)) { sc += 3; why.push(optLbl('style', 'short')); }
+      if (a.style === 'bubbly' && (m.cat === 'sparkling' || m.cat === 'champagne' || /prosecco|sparkling|fizz|soda|bubbl/.test(t))) { sc += 3; why.push(optLbl('style', 'bubbly')); }
+      if (a.style === 'neat' && (NEAT_CATS[m.cat] || m.mods === 'rocks')) { sc += 3; why.push(optLbl('style', 'neat')); }
+      if (a.style === 'neat' && !NEAT_CATS[m.cat] && m.mods !== 'rocks') sc -= 3;
+      flav.forEach(function (f) { if ((FLAV[f] || []).some(function (w) { return t.indexOf(w) > -1; })) { sc += 2; why.push(optLbl('flavour', f)); } });
+      if (a.base && a.base !== 'any') {
+        if ((BASE[a.base] || []).indexOf(m.cat) > -1 || BASE_WORD[a.base].test(t)) { sc += 3; why.push(optLbl('base', a.base)); }
+        else if (NEAT_CATS[m.cat] || m.cat === 'gin' || m.cat === 'vodka') sc -= 2;
+      }
+      if (a.strength === 'light' && (af || m.mods === 'highball' || /spritz|soda|prosecco|light/.test(t))) sc += 1;
+      if (a.strength === 'strong' && (NEAT_CATS[m.cat] || m.mods === 'martini' || /stirred|spirit-forward|bourbon|negroni/.test(t))) sc += 1;
+      if (a.strength === 'strong' && af) sc -= 2;
+      words.forEach(function (w) { if (t.indexOf(w) > -1) sc += 1; });
+      if (m.cat === 'signature' || m.cat === 'mocktail') sc += 1;
+      return { m: m, sc: sc, why: why };
+    }).filter(function (x) { return x && x.sc > 0; }).sort(function (x, y) { return y.sc - x.sc || (x.m.cat === 'signature' ? -1 : 0); });
+    var out = [], cats = {};
+    scored.forEach(function (x) { if (out.length < 3 && (cats[x.m.cat] || 0) < 2) { out.push(x); cats[x.m.cat] = (cats[x.m.cat] || 0) + 1; } });
+    return out.map(function (x) {
+      var uniq = x.why.filter(function (w, i) { return x.why.indexOf(w) === i; }).slice(0, 3);
+      var why = uniq.length ? (L ? 'Ezért ajánljuk: ' : 'Because you like: ') + uniq.join(', ') : (x.m.desc || '');
+      return { id: x.m.id, why: why.slice(0, 180) };
+    });
+  }
+  function localGo() {
+    var picks = localPicks();
+    if (!picks.length && S.aiSeen) { S.aiSeen = {}; picks = localPicks(); }
+    S.aiSeen = S.aiSeen || {};
+    picks.forEach(function (pk) { S.aiSeen[pk.id] = 1; });
+    if (!picks.length) { S.aiErr = T('aiFail'); S.aiState = 'idle'; render(); return; }
+    S.aiRes = { intro: S.lang === 'hu' ? 'Ezeket töltené Önnek ma este a bárunk:' : 'Here is what our bar would pour for you tonight:', picks: picks, creation: null };
+    S.aiErr = ''; S.aiState = 'done'; render();
+  }
   async function aiGo() {
-    if (!S.ai || S.aiOff) return;
+    if (!S.ai || S.aiOff) { localGo(); return; }
     if (S.aiCtl) S.aiCtl.abort();
     var ctl = new AbortController();
     S.aiCtl = ctl; S.aiState = 'thinking'; S.aiErr = '';
@@ -2068,7 +2171,8 @@ html[data-app="crew"] body { background: var(--bg); }
     return '<div class="pad"><div class="col wide"><div class="crew-top"><div class="crew-brand"><span class="crew-mark">LOUNGE</span><span class="crew-sub">Crew</span></div>' +
       '<span class="crew-clock" id="crew-clock">' + fmtTime(Date.now()) + '</span>' +
       '<button type="button" class="crew-icon" data-act="sound" aria-pressed="' + S.sound + '" aria-label="' + (S.sound ? 'Alerts on. Tap to turn off' : 'Alerts off. Tap to turn on') + '">' + icon(S.sound ? 'bell' : 'mute', 20) + '</button>' +
-      '<button type="button" class="crew-icon" data-act="crewExit" aria-label="Leave the crew app">' + icon('close', 20) + '</button></div>' +
+      (ROLE === 'both' ? '<button type="button" class="crew-icon" data-act="crewExit" aria-label="Leave the crew app">' + icon('close', 20) + '</button>'
+        : typeof window.__loungeSignIn === 'function' ? '<button type="button" class="crew-icon" data-act="crewSignIn" aria-label="Staff sign-in and sign-out">' + icon('keys', 20) + '</button>' : '') + '</div>' +
       '<div class="crew-tabs" role="tablist" aria-label="Crew">' +
       '<button type="button" role="tab" class="crew-tab" data-act="staffTab" data-v="req" aria-selected="' + (tab === 'req') + '">' + icon('bell', 20) + 'Orders' + (n ? '<span class="crew-n">' + n + '</span>' : '') + '</button>' +
       '<button type="button" role="tab" class="crew-tab" data-act="staffTab" data-v="pad" aria-selected="' + (tab === 'pad') + '">' + icon('note', 20) + 'Notepad' + (np ? '<span class="crew-n">' + np + '</span>' : '') + '</button>' +
@@ -2098,6 +2202,15 @@ html[data-app="crew"] body { background: var(--bg); }
     return '<section><h2 class="crew-h"><span class="dotc ' + cls + '"></span>' + title + '<span class="cnt">' + list.length + '</span></h2>' +
       (list.length ? '<div class="crew-list">' + list.map(crewTicket).join('') + '</div>' : '<p class="crew-empty">' + emptyText + '</p>') + '</section>';
   }
+  function crewNoticeCard() {
+    var cur = S.notice && S.notice.text;
+    return '<section class="crew-notice"><h2 class="crew-h"><span class="dotc on"></span>Guest notice' + (cur ? '<span class="cnt">Live</span>' : '') + '</h2>' +
+      (cur ? '<p class="crew-live">' + icon('alert', 18) + '<span>' + esc(cur) + '</span></p>' : '') +
+      '<label class="sr" for="f-crew-notice">Message for guests</label><textarea id="f-crew-notice" data-k="crewNotice" maxlength="200" rows="2" placeholder="e.g. Running low on Hendrick\'s tonight. Moonmilk is sold out.">' + esc(S.crewNotice || '') + '</textarea>' +
+      '<div class="tk-acts"><button type="button" class="crew-btn go" data-act="noticePost">' + icon('check', 18) + (cur ? 'Replace notice' : 'Post to guests') + '</button>' +
+      (cur ? '<button type="button" class="crew-btn" data-act="noticeClear">' + icon('close', 18) + 'Take down</button>' : '') + '</div>' +
+      '<p class="hint">Shows at the top of the guest menu until you take it down.</p></section>';
+  }
   function crewOrders() {
     var all = S.requests, oldest = function (a, b) { return (a.createdAt || 0) - (b.createdAt || 0); };
     var fresh = all.filter(function (r) { return r.status === 'new' || r.status === 'cancelled'; }).sort(function (a, b) { return ((a.status === 'cancelled') ? 0 : 1) - ((b.status === 'cancelled') ? 0 : 1) || oldest(a, b); });
@@ -2111,6 +2224,7 @@ html[data-app="crew"] body { background: var(--bg); }
       '<div class="cs"><b>' + onit.length + '</b><span>On it</span></div>' +
       '<div class="cs"><b>' + bills + '</b><span>Bills</span></div>' +
       '<div class="cs' + (late ? ' hot' : '') + '"><b>' + late + '</b><span>Late</span></div></div>';
+    h += crewNoticeCard();
     if (!S.sound) h += '<div class="crew-alert">' + icon('bell', 20) + '<span>Alerts are off. Turn them on to hear new orders.</span><button type="button" data-act="sound">Turn on</button></div>';
     h += '<div class="crew-cols">' +
       crewCol('new', 'New', fresh, 'Nothing new. Orders, bills and calls land here.') +
@@ -2122,7 +2236,8 @@ html[data-app="crew"] body { background: var(--bg); }
     if (!S.staff) {
       if (!S.userChecked) return '<div class="col wide"><div class="crew-lock"><p>Checking staff access…</p></div></div>';
       return '<div class="col wide"><div class="crew-lock"><h2>Staff only</h2><p>This phone is not signed in as staff, so the crew app stays locked.</p>' +
-        '<button type="button" class="crew-btn" data-act="crewExit">Open the guest menu</button></div></div>';
+        (typeof window.__loungeSignIn === 'function' ? '<button type="button" class="crew-btn go" data-act="crewSignIn">' + icon('keys', 18) + 'Sign in with the staff PIN</button>' : '') +
+        (ROLE === 'both' ? '<button type="button" class="crew-btn" data-act="crewExit">Open the guest menu</button>' : '') + '</div></div>';
     }
     return '<div class="col wide crew-wrap">' + (S.staffTab === 'pad' ? padView() : crewOrders()) + '</div>';
   }
@@ -2628,9 +2743,11 @@ html[data-app="crew"] body { background: var(--bg); }
   S.padLang = lsGet('lounge.padLang') === 'hu' ? 'hu' : (lsGet('lounge.padLang') === 'en' ? 'en' : S.lang);
   S.padView = 'ticket'; S.padQ = ''; S.padCat = ''; S.padText = ''; S.padInterim = ''; S.padRec = null; S.padMicErr = ''; S.padHeard = ''; S.padConfirm = ''; S.padHist = false; S.padReplace = '';
   S.padSel = ''; S.padSearch = false; S.padFlash = ''; S.padDictate = false;
-  S.padOnly = location.hash === '#pad' || PAD_ONLY_DEFAULT;
+  /* guest file: the guest app only. crew file: the staff app only. no role: both, as in the Claude page */
+  var ROLE = window.LOUNGE_ROLE === 'guest' || window.LOUNGE_ROLE === 'crew' ? window.LOUNGE_ROLE : 'both';
+  S.padOnly = ROLE === 'both' && (location.hash === '#pad' || PAD_ONLY_DEFAULT);
   /* #crew opens the separate staff app: Orders and Notepad only */
-  S.crew = location.hash === '#crew';
+  S.crew = ROLE === 'crew' || (ROLE === 'both' && location.hash === '#crew');
   if (S.crew) { S.mode = 'staff'; S.staffTab = 'req'; }
   if (S.padOnly) { S.mode = 'staff'; S.staffTab = 'pad'; }
   var PADU = [];
@@ -3149,6 +3266,8 @@ html[data-app="crew"] body { background: var(--bg); }
     try { if (a && typeof a.selectionStart === 'number') { s = a.selectionStart; e = a.selectionEnd; } } catch (_) {}
     document.documentElement.lang = S.lang;
     if (S.crew && S.mode === 'staff') document.documentElement.setAttribute('data-app', 'crew'); else document.documentElement.removeAttribute('data-app');
+    /* the crew app has its own night look; the guest's day/night choice applies to the guest app only */
+    if (S.theme && !(S.crew && S.mode === 'staff')) document.documentElement.setAttribute('data-theme', S.theme); else document.documentElement.removeAttribute('data-theme');
     renderTop(); renderMain(); renderDock(); renderSheet();
     if (S.scrollTo) { var stEl = document.getElementById(S.scrollTo); S.scrollTo = ''; if (stEl) { try { stEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (_) { stEl.scrollIntoView(); } stEl.classList.add('flash'); } }
     if (id) {
@@ -3199,7 +3318,7 @@ html[data-app="crew"] body { background: var(--bg); }
     }
     if (!S.db || !S.uid) { toast(T('noDb'), true); return false; }
     S.busy = true; render();
-    var req = Object.assign({ id: uid(), table: S.table.trim(), name: S.name.trim(), createdAt: Date.now(), lang: S.lang }, doc);
+    var req = Object.assign({ id: uid(), table: tableLabel(), name: S.name.trim(), createdAt: Date.now(), lang: S.lang }, doc);
     var ok = false, lastErr = null;
     for (var attempt = 0; attempt < 2 && !ok; attempt++) {
       try {
@@ -3240,7 +3359,7 @@ html[data-app="crew"] body { background: var(--bg); }
   }
 
   /* ---------- actions ---------- */
-  function openSeat() { S.seatTable = S.table; S.seatName = S.name; S.sheet = { kind: 'seat' }; render(); setTimeout(function () { var n = $('s-table'); if (n) n.focus(); }, 60); }
+  function openSeat() { S.seatTable = S.table; S.seatTable2 = S.table2 || ''; S.showT2 = !!S.seatTable2; S.seatName = S.name; S.sheet = { kind: 'seat' }; render(); setTimeout(function () { var n = $('s-table'); if (n) n.focus(); }, 60); }
   /* a mixer is charged in full, as its own line: one Coca-Cola, one tonic, one juice */
   var MIX_REF = { tonic: 'd05', fevertree: 'g138', soda: 'd10', fanta: 'd03', coke: 'd01', sprite: 'd04', apple: 'm05', orange: 'm07', pineapple: 'm08', cranberry: 'm09', beet: 'm06', gingerale: 'd06', gingerbeer: 'd07', redbull: 'd08' };
   function mixerItem(code) {
@@ -3293,8 +3412,9 @@ html[data-app="crew"] body { background: var(--bg); }
     if (k.indexOf('pl.') === 0) { if (S.sheet) S.sheet[k.slice(3)] = t.value; return; }
     S[k] = t.value;
     if (k === 'table') lsSet('lounge.table', S.table);
+    if (k === 'table2') lsSet('lounge.table2', S.table2);
     if (k === 'name') lsSet('lounge.name', S.name);
-    if ((k === 'table' || k === 'name') && S.started) {
+    if ((k === 'table' || k === 'table2' || k === 'name') && S.started) {
       renderTop();
       var sc2 = $('seat-card');
       if (sc2) { sc2.classList.toggle('need', !hasSeat()); var tg = sc2.querySelector('.card-head > span'); if (tg) tg.outerHTML = seatTag(); }
@@ -3337,12 +3457,13 @@ html[data-app="crew"] body { background: var(--bg); }
       case 'mode': padStopMic(); S.mode = S.mode === 'staff' ? 'guest' : 'staff'; window.scrollTo(0, 0); break;
       case 'start':
         if (!hasSeat()) { toast(T('needSeat'), true); var n = $('w-table'); if (n) n.focus(); return; }
-        S.table = S.table.trim(); S.name = S.name.trim(); lsSet('lounge.table', S.table); lsSet('lounge.name', S.name); S.started = true; S.tab = 'menu'; window.scrollTo(0, 0); break;
+        S.table = S.table.trim(); S.table2 = (S.table2 || '').trim(); S.name = S.name.trim(); lsSet('lounge.table', S.table); lsSet('lounge.table2', S.table2); lsSet('lounge.name', S.name); S.started = true; S.tab = 'menu'; window.scrollTo(0, 0); break;
       case 'editSeat': openSeat(); return;
       case 'saveSeat':
-        if (!S.seatTable.trim() && !S.seatName.trim()) { toast(T('needSeat'), true); return; }
-        S.table = S.seatTable.trim(); S.name = S.seatName.trim();
-        lsSet('lounge.table', S.table); lsSet('lounge.name', S.name); S.sheet = null; break;
+        if (!S.seatTable.trim() && !(S.seatTable2 || '').trim() && !S.seatName.trim()) { toast(T('needSeat'), true); return; }
+        S.table = S.seatTable.trim(); S.table2 = (S.seatTable2 || '').trim(); S.name = S.seatName.trim();
+        lsSet('lounge.table', S.table); lsSet('lounge.table2', S.table2); lsSet('lounge.name', S.name); S.sheet = null; break;
+      case 'addT2': S.showT2 = true; setTimeout(function () { var n2 = $(v + '-table2'); if (n2) n2.focus(); }, 60); break;
       case 'tab': if (v === 'menu' && S.tab === 'menu') S.cat = null; S.tab = v; S.q = ''; window.scrollTo(0, 0); break;
       case 'openCat': S.cat = v; S.activeSec = ''; S.q = ''; window.scrollTo(0, 0); break;
       case 'closeCat': S.cat = null; S.activeSec = ''; window.scrollTo(0, 0); break;
@@ -3402,6 +3523,7 @@ html[data-app="crew"] body { background: var(--bg); }
       case 'hsOther': b.classList.remove('wiggle'); b.getBoundingClientRect(); b.classList.add('wiggle'); return;
       case 'present': S.mode = 'guest'; S.sheet = null; render(); showHome(); return;
       case 'openAi': SFX.play('sparkle'); S.sheet = { kind: 'ai' }; break;
+      case 'theme': S.theme = isDark() ? 'light' : 'dark'; lsSet('lounge.theme', S.theme); break;
       case 'soundToggle': if (SFX.toggle()) SFX.play('click'); break;
       case 'quizPick': {
         var qk = b.getAttribute('data-g');
@@ -3421,7 +3543,7 @@ html[data-app="crew"] body { background: var(--bg); }
       }
       case 'quizNext': S.quiz.step = Math.min(Math.min(S.quiz.step, quizSteps().length - 1) + 1, quizSteps().length - 1); S.aiErr = ''; break;
       case 'quizBack': S.quiz.step = Math.max(0, Math.min(S.quiz.step, quizSteps().length - 1) - 1); S.aiErr = ''; break;
-      case 'aiRestart': if (S.aiCtl) S.aiCtl.abort(); S.quiz = { step: 0, a: {} }; S.aiText = ''; S.aiRes = null; S.aiErr = ''; S.aiState = 'idle'; break;
+      case 'aiRestart': if (S.aiCtl) S.aiCtl.abort(); S.aiSeen = {}; S.quiz = { step: 0, a: {} }; S.aiText = ''; S.aiRes = null; S.aiErr = ''; S.aiState = 'idle'; break;
       case 'aiGo': aiGo(); return;
       case 'aiStop': if (S.aiCtl) S.aiCtl.abort(); return;
       case 'aiPick': {
@@ -3455,7 +3577,10 @@ html[data-app="crew"] body { background: var(--bg); }
       case 'undo': if (S.undo) { S.cart = S.undo; S.undo = null; saveCart(); clearTimeout(toastTimer); $('toast').innerHTML = ''; } break;
       case 'newVisit':
         if (S.confirm !== 'nv') { S.confirm = 'nv'; break; }
-        newVisit(true); window.scrollTo(0, 0); toast(T('newVisitDone')); break;
+        newVisit(true); window.scrollTo(0, 0);
+        /* on its own website or in the one-file version the phone also forgets its guest id, so nothing is left behind */
+        if (typeof window.__loungeForget === 'function') { try { window.__loungeForget(); } catch (_) {} return; }
+        toast(T('newVisitDone')); break;
       case 'cancelReq':
         if (S.confirm !== 'cx-' + id) { S.confirm = 'cx-' + id; break; }
         S.confirm = ''; cancelReq(id); return;
@@ -3513,6 +3638,18 @@ html[data-app="crew"] body { background: var(--bg); }
       case 'sndReset': if (S.db) dbDo(function () { return S.db.doc('sounds/' + v).delete().then(function () { SFX.removeSample(v); toast('Back to the built-in sound'); }); }); return;
       case 'seen': if (S.db) dbDo(function () { return S.db.doc('status/' + id).set({ state: 'seen', seenAt: Date.now() }); }); return;
       case 'staffTab': if (v !== 'pad') padStopMic(); S.staffTab = v; S.confirm = ''; window.scrollTo(0, 0); break;
+      case 'noticePost': {
+        var nt = (S.crewNotice || '').trim().slice(0, 200);
+        if (!nt) { toast('Type the message for guests first.', true); return; }
+        if (!S.db) { toast('No connection to the menu right now.', true); return; }
+        dbDo(function () { return S.db.doc('menu/_notice').set({ text: nt, at: Date.now() }).then(function () { S.notice = { id: '_notice', text: nt }; S.crewNotice = ''; toast('Posted to guests'); render(); }); });
+        return;
+      }
+      case 'noticeClear':
+        if (!S.db) return;
+        dbDo(function () { return S.db.doc('menu/_notice').delete().then(function () { S.notice = null; toast('Notice taken down'); render(); }); });
+        return;
+      case 'crewSignIn': if (typeof window.__loungeSignIn === 'function') window.__loungeSignIn(); return;
       case 'crewOpen': padStopMic(); S.crew = true; S.mode = 'staff'; S.staffTab = 'req'; try { history.replaceState(null, '', location.pathname + location.search + '#crew'); } catch (_) {} window.scrollTo(0, 0); break;
       case 'crewExit': padStopMic(); S.crew = false; S.mode = 'guest'; try { history.replaceState(null, '', location.pathname + location.search); } catch (_) {} window.scrollTo(0, 0); break;
       case 'toggleOff': {
@@ -3632,7 +3769,7 @@ html[data-app="crew"] body { background: var(--bg); }
   }
   async function boot() {
     render();
-    if (location.hash === '#demo') showHome();
+    if (location.hash === '#demo' && ROLE === 'both') showHome();
     else if (S.padOnly || S.crew) { /* straight to the notepad or the crew app */ }
     else { var seenSplash = false; try { seenSplash = sessionStorage.getItem('lounge.splashed') === '1'; } catch (e) {} if (!seenSplash) showSplash(false); }
     var db = null, user = null;
@@ -3641,6 +3778,7 @@ html[data-app="crew"] body { background: var(--bg); }
     try { user = await claude.use('user'); } catch (_) {}
     S.db = db;
     try { S.staff = !!(user && (await user.canEdit())); } catch (_) { S.staff = false; }
+    if (ROLE === 'guest') S.staff = false;
     S.userChecked = true;
     try { S.uid = user ? await user.id() : null; } catch (_) { S.uid = null; }
     if (!db) {
@@ -3650,7 +3788,9 @@ html[data-app="crew"] body { background: var(--bg); }
     }
     var guestDocs = [];
     db.collection('menu').orderBy('createdAt', 'asc').limit(1000).onSnapshot(function (snap) {
-      S.menu = rows(snap).filter(function (m) { return m && m.name; });
+      var allRows = rows(snap), nd = allRows.filter(function (m) { return m && m.id === '_notice'; })[0];
+      S.notice = nd && nd.text ? nd : null;
+      S.menu = allRows.filter(function (m) { return m && m.name; });
       S.dbState = 'ok';
       if (S.mode === 'staff' && (padBusy() || (document.activeElement && /^f-m|^f-staffq|^f-ed|^f-pad|^pl-/.test(document.activeElement.id)))) { renderTop(); renderDock(); return; }
       render();
@@ -3690,11 +3830,12 @@ html[data-app="crew"] body { background: var(--bg); }
   }
   setInterval(function () { if (S.mode === 'staff' && !document.hidden && !S.sheet && !padBusy() && !(document.activeElement && /^f-m|^mods-|^f-staffq|^f-ed|^f-pad|^pl-/.test(document.activeElement.id))) withFocus(renderMain); }, 30000);
   window.addEventListener('hashchange', function () {
+    if (ROLE !== 'both') { if (ROLE === 'guest') { var mg = /^#t([A-Za-z0-9]{1,6})$/.exec(location.hash || ''); if (mg) { if (mg[1] !== S.table) newVisit(true); S.table = mg[1]; S.started = true; lsSet('lounge.table', S.table); render(); } } return; }
     if (location.hash === '#demo') { showHome(); return; }
     if (location.hash === '#pad') { S.padOnly = true; S.mode = 'staff'; S.staffTab = 'pad'; render(); return; }
     if (location.hash === '#crew') { S.crew = true; S.mode = 'staff'; if (S.staffTab !== 'pad') S.staffTab = 'req'; render(); return; }
     var m = /^#t([A-Za-z0-9]{1,6})$/.exec(location.hash || '');
-    if (m) { if (m[1] !== S.table) newVisit(true); S.table = m[1]; S.started = true; lsSet('lounge.table', S.table); render(); }
+    if (m && ROLE !== 'crew') { if (m[1] !== S.table) newVisit(true); S.table = m[1]; S.started = true; lsSet('lounge.table', S.table); render(); }
   });
   boot();
 })();

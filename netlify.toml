@@ -24,6 +24,17 @@
     Cache-Control = "no-cache"
 
 [[headers]]
+  for = "/crew.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
   for = "/shim.js"
   [headers.values]
     Cache-Control = "no-cache"
+
+# the staff app has its own address: /crew
+[[redirects]]
+  from = "/crew"
+  to = "/crew.html"
+  status = 200
