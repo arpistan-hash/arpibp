@@ -162,7 +162,8 @@
       '<button type="submit">' + (token ? 'Done' : 'Sign in') + '</button></div></form>';
     document.body.appendChild(wrap);
     var form = wrap.querySelector('form'), input = document.getElementById('lounge-pin-in'), err = document.getElementById('lounge-pin-err');
-    function leave(reload) { wrap.remove(); try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} if (reload) location.reload(); }
+    // the crew app keeps its address so the phone lands back in it after signing in
+    function leave(reload) { wrap.remove(); var keep = location.hash === '#crew' && reload; try { history.replaceState(null, '', location.pathname + location.search + (keep ? '#crew' : '')); } catch (e) {} if (reload) location.reload(); }
     document.getElementById('lounge-pin-x').onclick = function () { if (token) { lsSet('lounge.staffToken', null); leave(true); } else leave(false); };
     form.onsubmit = function (e) {
       e.preventDefault();
@@ -179,7 +180,7 @@
     };
     if (input) setTimeout(function () { input.focus(); }, 50);
   }
-  function checkHash() { if (location.hash === '#staff') pinScreen(); }
+  function checkHash() { if (location.hash === '#staff' || (location.hash === '#crew' && !token)) pinScreen(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', checkHash); else checkHash();
   window.addEventListener('hashchange', checkHash);
 })();

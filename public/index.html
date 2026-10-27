@@ -501,6 +501,82 @@ nav.bottom .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr
 .pos-go { flex: none; min-height: 54px; padding: 0 16px; white-space: nowrap; }
 @media (max-width: 360px) { .pos-go { padding: 0 12px; } .pos-icon { width: 48px; } }
 
+
+/* ===== Crew: the separate staff app (open the site with #crew) =====
+   Back-of-house look: near-black, amber, big tickets, two tabs (Orders, Notepad). */
+html[data-app="crew"] {
+  --bg: #0B0F0E; --surface: #141A18; --raised: #1C2422; --fg: #F2EFE8; --muted: #9AA6A1; --line: #29332F;
+  --accent: #E8B04B; --accent-fg: #1A1206; --accent-soft: #2B2314; --brass: #E8B04B;
+  --alert: #FF7A59; --alert-soft: #3A1F17; --ok: #5FD08A; --ok-soft: #14301F;
+  --glass: #C9D8D3; --glass-fill: rgba(200, 230, 222, .10); --scrim: rgba(0, 0, 0, .66); --shadow: 0 10px 30px rgba(0, 0, 0, .5);
+  --display: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --g-cock: #E8B04B; --g-wine: #E491A3; --g-fizz: #E2C27A; --g-beer: #F0B070; --g-spirit: #9DB8D6; --g-soft: #7FD0D8; --g-coffee: #CBA88A; --g-food: #BFD07A; --g-quick: #9DADA7; --gc-fg: #0B1513;
+  color-scheme: dark;
+}
+html[data-app="crew"] body { background: var(--bg); }
+.crew-top { display: flex; align-items: center; gap: 12px; min-height: 58px; }
+.crew-brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.crew-mark { font-weight: 800; font-size: 15px; letter-spacing: .3em; }
+.crew-sub { font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); padding: 4px 8px; border: 1px solid var(--accent); border-radius: 6px; }
+.crew-clock { margin-left: auto; font-size: 18px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+.crew-icon { flex: none; width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); }
+.crew-icon[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+.crew-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 0 0 12px; }
+.crew-tab { min-height: 54px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); font-size: 16px; font-weight: 800; letter-spacing: .02em; }
+.crew-tab[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+.crew-n { min-width: 24px; height: 24px; padding: 0 7px; border-radius: 999px; background: var(--alert); color: #fff; font-size: 13px; display: inline-flex; align-items: center; justify-content: center; font-variant-numeric: tabular-nums; }
+.crew-tab[aria-selected="true"] .crew-n { background: var(--accent-fg); color: var(--accent); }
+.crew-wrap { display: flex; flex-direction: column; gap: 16px; }
+.crew-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.cs { display: flex; flex-direction: column; gap: 4px; padding: 12px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); min-width: 0; }
+.cs b { font-size: 30px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.cs span { font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cs.hot b { color: var(--alert); }
+.crew-alert { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: var(--accent-soft); font-size: 14px; }
+.crew-alert .ico { flex: none; color: var(--accent); }
+.crew-alert span { flex: 1; min-width: 0; }
+.crew-alert button { flex: none; min-height: 38px; padding: 0 12px; border-radius: 10px; border: 0; background: var(--accent); color: var(--accent-fg); font-weight: 800; }
+.crew-cols { display: grid; gap: 18px; }
+@media (min-width: 900px) { .crew-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; } }
+.crew-h { display: flex; align-items: center; gap: 8px; margin: 0 0 8px; font-size: 12px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.crew-h .cnt { margin-left: auto; font-size: 13px; letter-spacing: 0; color: var(--fg); font-variant-numeric: tabular-nums; }
+.dotc { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.dotc.new { background: var(--alert); } .dotc.on { background: var(--accent); } .dotc.done { background: var(--ok); }
+.crew-list { display: flex; flex-direction: column; gap: 10px; }
+.crew-empty { padding: 18px 14px; border: 1px dashed var(--line); border-radius: 14px; color: var(--muted); text-align: center; font-size: 14px; }
+.tk { display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 16px; border: 1px solid var(--line); border-left: 6px solid var(--muted); background: var(--surface); }
+.tk-order { border-left-color: var(--accent); } .tk-check { border-left-color: #7FB8FF; } .tk-call { border-left-color: #C9A0F0; }
+.tk.hot { box-shadow: inset 0 0 0 1px var(--alert); }
+.tk.cx { border-color: var(--alert); }
+.tk.cx .tk-body { text-decoration: line-through; opacity: .7; }
+.tk.done { opacity: .62; }
+.tk-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.tk-who { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.tk-t { flex: none; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 56px; height: 56px; padding: 0 8px; border-radius: 12px; border: 1px solid var(--line); background: var(--raised); }
+.tk-t small { font-size: 9px; font-weight: 800; letter-spacing: .14em; color: var(--muted); }
+.tk-t b { font-size: 24px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.tk-name { min-width: 0; font-size: 16px; font-weight: 700; overflow-wrap: anywhere; }
+.tk-meta { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.tk-kind { font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.tk-kind.cx { color: var(--alert); }
+.tk-age { padding: 3px 9px; border-radius: 999px; background: var(--raised); font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.tk.warm .tk-age { color: var(--accent); }
+.tk.hot .tk-age { background: var(--alert); color: #fff; }
+.tk-body { display: flex; flex-direction: column; gap: 6px; font-size: 15px; }
+.tk-body ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.tk-body li { font-size: 17px; line-height: 1.3; overflow-wrap: anywhere; }
+.tk-body li strong { color: var(--accent); margin-right: 2px; }
+.tk-body .mod { display: block; margin-top: 2px; font-size: 13px; color: var(--muted); }
+.tk-acts { display: flex; gap: 8px; }
+.crew-btn { flex: 1; min-height: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 0 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--raised); color: var(--fg); font-size: 15px; font-weight: 800; }
+.crew-btn.go { background: var(--ok); border-color: var(--ok); color: #08170E; }
+.crew-btn.warn { background: var(--alert); border-color: var(--alert); color: #fff; }
+.crew-btn:active, .crew-tab:active { transform: scale(.98); }
+.crew-lock { min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center; color: var(--muted); }
+.crew-lock h2 { margin: 0; color: var(--fg); font-size: 24px; }
+.crew-lock .crew-btn { flex: none; min-width: 200px; }
+@media (max-width: 380px) { .cs { padding: 10px 8px; } .cs b { font-size: 24px; } .crew-mark { letter-spacing: .22em; } }
+
 /* staff POS */
 .staff-head { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
 .seg { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); flex: 1 1 320px; max-width: 520px; padding: 4px; gap: 4px; border-radius: 14px; background: var(--accent-soft); }
@@ -1248,6 +1324,7 @@ nav.bottom .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr
 
   /* ---------- guest: top bar ---------- */
   function renderTop() {
+    if (S.crew && S.mode === 'staff') { $('top').innerHTML = crewTop(); return; }
     var staffMode = S.mode === 'staff';
     var h = '<div class="pad"><div class="col' + (staffMode ? ' wide' : '') + '"><div class="topline">' +
       '<h1 class="brand">Lounge<small>' + (staffMode ? (S.padOnly && !S.staff ? 'Notepad' : 'Staff board') : T('sub')) + '</small></h1><div class="top-actions">';
@@ -1974,7 +2051,8 @@ nav.bottom .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr
       [['req', 'Live', open.length], ['tables', 'Tables', tables.length], ['pad', 'Notepad', padCount() || null], ['menu', 'Menu', null]].map(function (t) {
         return '<button type="button" role="tab" class="seg-btn" data-act="staffTab" data-v="' + t[0] + '" aria-selected="' + (tab === t[0] || (t[0] === 'menu' && tab === 'sounds')) + '">' + t[1] + (t[2] != null ? '<span class="seg-n">' + t[2] + '</span>' : '') + '</button>';
       }).join('') + '</div><span class="kinds"><button type="button" class="pill-btn" data-act="present">' + icon('phone', 16) + ' Presentation</button>' +
-      '<button type="button" class="pill-btn" data-act="sound" aria-pressed="' + S.sound + '">' + icon('bell', 16) + ' Alerts ' + (S.sound ? 'on' : 'off') + '</button></span></div>';
+      '<button type="button" class="pill-btn" data-act="sound" aria-pressed="' + S.sound + '">' + icon('bell', 16) + ' Alerts ' + (S.sound ? 'on' : 'off') + '</button>' +
+      '<button type="button" class="pill-btn" data-act="crewOpen">' + icon('note', 16) + ' Crew app</button></span></div>';
     if (tab === 'tables') h += tablesView(tables);
     else if (tab === 'pad') h += padView();
     else if (tab === 'menu') h += menuAdmin();
@@ -1982,6 +2060,73 @@ nav.bottom .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr
     else h += requestsView(open);
     return h + '</div>';
   }
+
+  /* ---------- crew: the separate staff app ---------- */
+  function crewOpenCount() { return S.requests.filter(function (r) { return r.status === 'new' || r.status === 'cancelled'; }).length; }
+  function crewTop() {
+    var tab = S.staffTab === 'pad' ? 'pad' : 'req', n = crewOpenCount(), np = padCount();
+    return '<div class="pad"><div class="col wide"><div class="crew-top"><div class="crew-brand"><span class="crew-mark">LOUNGE</span><span class="crew-sub">Crew</span></div>' +
+      '<span class="crew-clock" id="crew-clock">' + fmtTime(Date.now()) + '</span>' +
+      '<button type="button" class="crew-icon" data-act="sound" aria-pressed="' + S.sound + '" aria-label="' + (S.sound ? 'Alerts on. Tap to turn off' : 'Alerts off. Tap to turn on') + '">' + icon(S.sound ? 'bell' : 'mute', 20) + '</button>' +
+      '<button type="button" class="crew-icon" data-act="crewExit" aria-label="Leave the crew app">' + icon('close', 20) + '</button></div>' +
+      '<div class="crew-tabs" role="tablist" aria-label="Crew">' +
+      '<button type="button" role="tab" class="crew-tab" data-act="staffTab" data-v="req" aria-selected="' + (tab === 'req') + '">' + icon('bell', 20) + 'Orders' + (n ? '<span class="crew-n">' + n + '</span>' : '') + '</button>' +
+      '<button type="button" role="tab" class="crew-tab" data-act="staffTab" data-v="pad" aria-selected="' + (tab === 'pad') + '">' + icon('note', 20) + 'Notepad' + (np ? '<span class="crew-n">' + np + '</span>' : '') + '</button>' +
+      '</div></div></div>';
+  }
+  function crewAge(ts) {
+    var m = Math.max(0, Math.floor((Date.now() - (ts || Date.now())) / 60000));
+    return { text: m < 1 ? 'now' : m + ' min', lvl: m >= 10 ? 'hot' : m >= 5 ? 'warm' : '' };
+  }
+  function crewTicket(r) {
+    var st = r.status, done = st === 'done', cx = st === 'cancelled', on = st === 'seen';
+    var kind = r.type === 'order' ? 'Order' : r.type === 'check' ? 'Bill' : 'Call';
+    var a = crewAge(r.createdAt), lvl = (!done && !cx) ? a.lvl : '';
+    var doneLabel = r.type === 'order' ? 'Served' : 'Done', acts;
+    if (done) acts = '<button type="button" class="crew-btn" data-act="reopen" data-id="' + esc(r.id) + '">Reopen</button>';
+    else if (cx) acts = '<button type="button" class="crew-btn warn" data-act="done" data-id="' + esc(r.id) + '">' + icon('check', 18) + 'Got it, remove</button>';
+    else if (on) acts = '<button type="button" class="crew-btn go" data-act="done" data-id="' + esc(r.id) + '">' + icon('check', 18) + doneLabel + '</button>';
+    else acts = '<button type="button" class="crew-btn" data-act="seen" data-id="' + esc(r.id) + '">' + icon('hand', 18) + 'On it</button><button type="button" class="crew-btn go" data-act="done" data-id="' + esc(r.id) + '">' + icon('check', 18) + doneLabel + '</button>';
+    var who = r.table ? '<span class="tk-t"><small>TABLE</small><b>' + esc(r.table) + '</b></span>' + (r.name ? '<span class="tk-name">' + esc(r.name) + '</span>' : '')
+      : '<span class="tk-name">' + esc(r.name || 'Guest') + '</span>';
+    return '<article class="tk tk-' + esc(r.type) + (on ? ' on' : '') + (cx ? ' cx' : '') + (done ? ' done' : '') + (lvl ? ' ' + lvl : '') + '">' +
+      '<header class="tk-head"><div class="tk-who">' + who + '</div><div class="tk-meta"><span class="tk-kind' + (cx ? ' cx' : '') + '">' + (cx ? 'Cancelled' : kind) + '</span>' +
+      '<span class="tk-age">' + (done ? fmtTime(r.doneAt || r.createdAt) : a.text) + '</span></div></header>' +
+      '<div class="tk-body">' + reqBody(r) + '</div><div class="tk-acts">' + acts + '</div></article>';
+  }
+  function crewCol(cls, title, list, emptyText) {
+    return '<section><h2 class="crew-h"><span class="dotc ' + cls + '"></span>' + title + '<span class="cnt">' + list.length + '</span></h2>' +
+      (list.length ? '<div class="crew-list">' + list.map(crewTicket).join('') + '</div>' : '<p class="crew-empty">' + emptyText + '</p>') + '</section>';
+  }
+  function crewOrders() {
+    var all = S.requests, oldest = function (a, b) { return (a.createdAt || 0) - (b.createdAt || 0); };
+    var fresh = all.filter(function (r) { return r.status === 'new' || r.status === 'cancelled'; }).sort(function (a, b) { return ((a.status === 'cancelled') ? 0 : 1) - ((b.status === 'cancelled') ? 0 : 1) || oldest(a, b); });
+    var onit = all.filter(function (r) { return r.status === 'seen'; }).sort(oldest);
+    var done = all.filter(function (r) { return r.status === 'done'; }).sort(function (a, b) { return (b.doneAt || 0) - (a.doneAt || 0); }).slice(0, 8);
+    var open = all.filter(function (r) { return r.status !== 'done'; });
+    var bills = open.filter(function (r) { return r.type === 'check'; }).length, calls = open.filter(function (r) { return r.type === 'call'; }).length;
+    var late = open.filter(function (r) { return r.status !== 'cancelled' && crewAge(r.createdAt).lvl === 'hot'; }).length;
+    var h = '<div class="crew-stats">' +
+      '<div class="cs' + (fresh.length ? ' hot' : '') + '"><b>' + fresh.length + '</b><span>New</span></div>' +
+      '<div class="cs"><b>' + onit.length + '</b><span>On it</span></div>' +
+      '<div class="cs"><b>' + bills + '</b><span>Bills</span></div>' +
+      '<div class="cs' + (late ? ' hot' : '') + '"><b>' + late + '</b><span>Late</span></div></div>';
+    if (!S.sound) h += '<div class="crew-alert">' + icon('bell', 20) + '<span>Alerts are off. Turn them on to hear new orders.</span><button type="button" data-act="sound">Turn on</button></div>';
+    h += '<div class="crew-cols">' +
+      crewCol('new', 'New', fresh, 'Nothing new. Orders, bills and calls land here.') +
+      crewCol('on', 'On it', onit, 'Tap “On it” on a ticket to move it here.') +
+      crewCol('done', 'Done', done, 'Served orders show here for a while.') + '</div>';
+    return h;
+  }
+  function crewView() {
+    if (!S.staff) {
+      if (!S.userChecked) return '<div class="col wide"><div class="crew-lock"><p>Checking staff access…</p></div></div>';
+      return '<div class="col wide"><div class="crew-lock"><h2>Staff only</h2><p>This phone is not signed in as staff, so the crew app stays locked.</p>' +
+        '<button type="button" class="crew-btn" data-act="crewExit">Open the guest menu</button></div></div>';
+    }
+    return '<div class="col wide crew-wrap">' + (S.staffTab === 'pad' ? padView() : crewOrders()) + '</div>';
+  }
+
   function requestsView(open) {
     var counts = { all: open.length, order: 0, check: 0, call: 0 };
     open.forEach(function (r) { counts[r.type] = (counts[r.type] || 0) + 1; });
@@ -2484,6 +2629,9 @@ nav.bottom .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr
   S.padView = 'ticket'; S.padQ = ''; S.padCat = ''; S.padText = ''; S.padInterim = ''; S.padRec = null; S.padMicErr = ''; S.padHeard = ''; S.padConfirm = ''; S.padHist = false; S.padReplace = '';
   S.padSel = ''; S.padSearch = false; S.padFlash = ''; S.padDictate = false;
   S.padOnly = location.hash === '#pad' || PAD_ONLY_DEFAULT;
+  /* #crew opens the separate staff app: Orders and Notepad only */
+  S.crew = location.hash === '#crew';
+  if (S.crew) { S.mode = 'staff'; S.staffTab = 'req'; }
   if (S.padOnly) { S.mode = 'staff'; S.staffTab = 'pad'; }
   var PADU = [];
 
@@ -2982,7 +3130,7 @@ nav.bottom .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr
   function renderMain() {
     var M = $('main'), staffMode = S.mode === 'staff';
     M.className = 'pad' + (staffMode ? ' staff' : '') + (staffMode && S.staffTab === 'pad' && S.padView !== 'micros' ? ' pos-on' + (S.padSel && padLine(S.padSel) && padLine(S.padSel).preset ? ' tray-on' : '') : '');
-    if (staffMode) M.innerHTML = staffView();
+    if (staffMode) M.innerHTML = S.crew ? crewView() : staffView();
     else if (!S.started) M.innerHTML = welcome();
     else M.innerHTML = '<div class="col">' + (S.tab === 'menu' ? menuTab() : S.tab === 'order' ? orderTab() : S.tab === 'bill' ? billTab() : helpTab()) + '</div>';
     setupSpy();
@@ -3000,6 +3148,7 @@ nav.bottom .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr
     var a = document.activeElement, id = a && a.id, s = null, e = null;
     try { if (a && typeof a.selectionStart === 'number') { s = a.selectionStart; e = a.selectionEnd; } } catch (_) {}
     document.documentElement.lang = S.lang;
+    if (S.crew && S.mode === 'staff') document.documentElement.setAttribute('data-app', 'crew'); else document.documentElement.removeAttribute('data-app');
     renderTop(); renderMain(); renderDock(); renderSheet();
     if (S.scrollTo) { var stEl = document.getElementById(S.scrollTo); S.scrollTo = ''; if (stEl) { try { stEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (_) { stEl.scrollIntoView(); } stEl.classList.add('flash'); } }
     if (id) {
@@ -3364,6 +3513,8 @@ nav.bottom .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr
       case 'sndReset': if (S.db) dbDo(function () { return S.db.doc('sounds/' + v).delete().then(function () { SFX.removeSample(v); toast('Back to the built-in sound'); }); }); return;
       case 'seen': if (S.db) dbDo(function () { return S.db.doc('status/' + id).set({ state: 'seen', seenAt: Date.now() }); }); return;
       case 'staffTab': if (v !== 'pad') padStopMic(); S.staffTab = v; S.confirm = ''; window.scrollTo(0, 0); break;
+      case 'crewOpen': padStopMic(); S.crew = true; S.mode = 'staff'; S.staffTab = 'req'; try { history.replaceState(null, '', location.pathname + location.search + '#crew'); } catch (_) {} window.scrollTo(0, 0); break;
+      case 'crewExit': padStopMic(); S.crew = false; S.mode = 'guest'; try { history.replaceState(null, '', location.pathname + location.search); } catch (_) {} window.scrollTo(0, 0); break;
       case 'toggleOff': {
         var tm = S.menu.filter(function (x) { return x.id === id; })[0];
         if (tm && S.db) { var nowOff = !tm.off; dbDo(function () { return S.db.doc('menu/' + id).update({ off: nowOff }).then(function () { toast(tm.name + (nowOff ? ' is off tonight' : ' is back on the menu')); }); }); }
@@ -3482,7 +3633,7 @@ nav.bottom .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr
   async function boot() {
     render();
     if (location.hash === '#demo') showHome();
-    else if (S.padOnly) { /* straight to the notepad */ }
+    else if (S.padOnly || S.crew) { /* straight to the notepad or the crew app */ }
     else { var seenSplash = false; try { seenSplash = sessionStorage.getItem('lounge.splashed') === '1'; } catch (e) {} if (!seenSplash) showSplash(false); }
     var db = null, user = null;
     try { claude.use('sample').then(function (fn) { S.ai = (typeof fn === 'function' && typeof fn.json === 'function') ? fn : null; render(); }, function () {}); } catch (_) {}
@@ -3490,6 +3641,7 @@ nav.bottom .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr
     try { user = await claude.use('user'); } catch (_) {}
     S.db = db;
     try { S.staff = !!(user && (await user.canEdit())); } catch (_) { S.staff = false; }
+    S.userChecked = true;
     try { S.uid = user ? await user.id() : null; } catch (_) { S.uid = null; }
     if (!db) {
       // a copy opened outside the app still has the menu, so the notepad works on its own
@@ -3540,6 +3692,7 @@ nav.bottom .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr
   window.addEventListener('hashchange', function () {
     if (location.hash === '#demo') { showHome(); return; }
     if (location.hash === '#pad') { S.padOnly = true; S.mode = 'staff'; S.staffTab = 'pad'; render(); return; }
+    if (location.hash === '#crew') { S.crew = true; S.mode = 'staff'; if (S.staffTab !== 'pad') S.staffTab = 'req'; render(); return; }
     var m = /^#t([A-Za-z0-9]{1,6})$/.exec(location.hash || '');
     if (m) { if (m[1] !== S.table) newVisit(true); S.table = m[1]; S.started = true; lsSet('lounge.table', S.table); render(); }
   });
