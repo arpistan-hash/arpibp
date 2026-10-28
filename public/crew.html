@@ -1,9 +1,7 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0B0F0E"><meta name="robots" content="noindex"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><script>window.LOUNGE_ROLE="crew";</script><script src="/shim.js"></script>
 <title>Lounge Crew</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
+<style>@font-face{font-family:"Bodoni Moda";src:url(/fonts/bodoni-moda.woff) format("woff");font-weight:500 700;font-style:normal;font-display:swap}@font-face{font-family:"Hanken Grotesk";src:url(/fonts/hanken-grotesk.woff) format("woff");font-weight:400 800;font-style:normal;font-display:swap}</style>
 <style>
 /* Layout: phone-first app shell. Sticky top bar (seat + categories), scrolling menu,
    floating "View order" bar, fixed bottom navigation, bottom sheets for item options. */
@@ -595,6 +593,16 @@ html[data-app="crew"] body { background: var(--bg); }
 .host-row { display: flex; gap: 8px; }
 .host-row input { flex: 1; min-width: 0; background: var(--raised); color: var(--fg); border-color: var(--line); }
 .host-row .crew-btn { flex: none; padding: 0 18px; }
+.safe-card h3 { display: flex; align-items: center; gap: 8px; }
+.safe-card h3 .ico { color: var(--ok); }
+.safe-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.safe-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; line-height: 1.4; }
+.safe-list li .ico { flex: none; margin-top: 2px; color: var(--ok); }
+.safe-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.safe-links a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--raised); color: var(--accent); font-weight: 700; font-size: 14px; text-decoration: none; }
+.safe-fine { font-size: 12px; }
+.safe-line { display: flex; gap: 8px; align-items: flex-start; justify-content: center; margin: 0; padding: 0 6px; font-size: 13px; line-height: 1.4; color: var(--muted); text-align: left; }
+.safe-line .ico { flex: none; margin-top: 1px; color: var(--ok); }
 .review-stars { display: flex; gap: 3px; color: var(--brass); }
 .leave-card .btn.warn { background: var(--alert); color: #fff; border-color: var(--alert); }
 .crew-notice { display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface); }
@@ -787,7 +795,10 @@ html[data-app="crew"] body { background: var(--bg); }
       noDb: 'Ordering is not available on this link right now. Please wave your server over.',
       noWrite: 'This link cannot send requests. Ask your server for the ordering link.',
       failed: 'That did not go through. Check your connection and try again.',
-      order_t: 'Order', check_t: 'Bill', call_t: 'Server call', staff: 'Staff', guest: 'Guest view', soundOn: 'Sound on, tap to mute', soundOff: 'Sound off, tap to turn on', room: 'Room charge', roomNo: 'Room number (optional)', roomHint: 'We will let your server know you are charging it to your room.', roomSent: 'Your server knows you are charging it to your room.', clearOrder: 'Clear order', removedToast: 'Removed', clearedToast: 'Order cleared', undo: 'Undo', cancelReq: 'Cancel', cancelConfirm: 'Tap again to cancel', cancelled: 'Cancelled', cancelledToast: 'Cancelled. Your server can see it.', lastOrder: 'Your last order', teamLine: 'Your hosts: the Lounge team', offline: 'You are offline. Reconnect to send requests.', onWay: 'On its way', seenToast: 'Your server is on it.', doneToast: 'Served. Enjoy!', offTonight: 'Not available tonight', offInCart: 'Something in your order is not available tonight. Remove it to send.', yourTab: 'Your tab', total: 'Total', tabHint: 'Your server confirms the final bill.', yourTable: 'Your table', seatOk: 'Saved', addTable: 'Add table', nightMode: 'Switch to night mode', dayMode: 'Switch to day mode', newVisit: 'Finish and clear this phone', addT2: 'Big group? Add a second table', table2: 'Second table', leaveTitle: 'Leaving?', noticeEyebrow: 'From the bar', revT: 'Enjoyed your visit?', revSub: 'Tell the world! Leave us a quick review on Google Maps. Thank you!', revBtn: 'Rate us on Google', hostT: 'Your host today is', newVisitConfirm: 'Tap again to clear everything', newVisitHint: 'Clears your table, order, allergies and requests from this phone, so the next guest starts fresh.', newVisitDone: 'Fresh start. Previous orders are cleared from this phone.', spTap: 'Tap to begin', hsHint: 'Tap to open', nextCat: 'Next', aiEntry: 'A few quick questions, then your perfect drink.', nItems: function (n) { return n + (n === 1 ? ' item' : ' items'); },
+      order_t: 'Order', check_t: 'Bill', call_t: 'Server call', staff: 'Staff', guest: 'Guest view', soundOn: 'Sound on, tap to mute', soundOff: 'Sound off, tap to turn on', room: 'Room charge', roomNo: 'Room number (optional)', roomHint: 'We will let your server know you are charging it to your room.', roomSent: 'Your server knows you are charging it to your room.', clearOrder: 'Clear order', removedToast: 'Removed', clearedToast: 'Order cleared', undo: 'Undo', cancelReq: 'Cancel', cancelConfirm: 'Tap again to cancel', cancelled: 'Cancelled', cancelledToast: 'Cancelled. Your server can see it.', lastOrder: 'Your last order', teamLine: 'Your hosts: the Lounge team', offline: 'You are offline. Reconnect to send requests.', onWay: 'On its way', seenToast: 'Your server is on it.', doneToast: 'Served. Enjoy!', offTonight: 'Not available tonight', offInCart: 'Something in your order is not available tonight. Remove it to send.', yourTab: 'Your tab', total: 'Total', tabHint: 'Your server confirms the final bill.', yourTable: 'Your table', seatOk: 'Saved', addTable: 'Add table', nightMode: 'Switch to night mode', dayMode: 'Switch to day mode', newVisit: 'Finish and clear this phone', addT2: 'Big group? Add a second table', table2: 'Second table', leaveTitle: 'Leaving?', noticeEyebrow: 'From the bar', revT: 'Enjoyed your visit?', revSub: 'Tell the world! Leave us a quick review on Google Maps. Thank you!', revBtn: 'Rate us on Google', hostT: 'Your host today is', safeT: 'Safe and private', safeLine: 'Secure page · no sign-in · we never ask for card details or passwords',
+      safe1: 'No sign-in and no app. We never ask for card numbers, bank details or passwords.', safe2: 'We only use your table number, and a name if you give one, to bring your order. Allergies you mention go only to your server.',
+      safe3: 'No ads and no tracking. Orders are deleted from our system automatically after 36 hours.', safe4: '“Finish and clear this phone” removes everything from your phone.',
+      safe5: 'Secure, encrypted connection (HTTPS).', safeCheck: 'Check this page yourself with independent checkers:', safeHost: 'Hosted on Netlify. Live updates use Ably, which never receives your order.', newVisitConfirm: 'Tap again to clear everything', newVisitHint: 'Clears your table, order, allergies and requests from this phone, so the next guest starts fresh.', newVisitDone: 'Fresh start. Previous orders are cleared from this phone.', spTap: 'Tap to begin', hsHint: 'Tap to open', nextCat: 'Next', aiEntry: 'A few quick questions, then your perfect drink.', nItems: function (n) { return n + (n === 1 ? ' item' : ' items'); },
       aiTitle: 'What should I drink?', aiLede: 'Answer a few quick questions. We will find your drink, or invent one just for you.',
       aiStep: function (n, t) { return 'Question ' + n + ' of ' + t; }, aiTapHint: 'Tap an answer to continue.',
       aiNext: 'Next', aiBack: 'Back', aiSkip: 'Skip', aiOptional: 'Optional, in your own words', aiPh: 'e.g. not too sweet, I love ginger, something to celebrate',
@@ -827,7 +838,10 @@ html[data-app="crew"] body { background: var(--bg); }
       noDb: 'Ezen a linken most nem lehet rendelni. Kérjük, intsen a pincérnek.',
       noWrite: 'Erről a linkről nem lehet kérést küldeni. Kérje el a pincértől a rendelési linket.',
       failed: 'Nem sikerült elküldeni. Ellenőrizze a kapcsolatot, és próbálja újra.',
-      order_t: 'Rendelés', check_t: 'Számla', call_t: 'Pincérhívás', staff: 'Személyzet', guest: 'Vendég nézet', soundOn: 'Hang bekapcsolva, koppintson a némításhoz', soundOff: 'Hang kikapcsolva, koppintson a bekapcsoláshoz', room: 'Szobaszámla', roomNo: 'Szobaszám (nem kötelező)', roomHint: 'Szólunk a pincérnek, hogy a szobaszámlájára kéri.', roomSent: 'A pincér tudja, hogy a szobaszámlájára kéri.', clearOrder: 'Rendelés törlése', removedToast: 'Törölve', clearedToast: 'Rendelés törölve', undo: 'Visszavonás', cancelReq: 'Lemondás', cancelConfirm: 'Koppintson újra a lemondáshoz', cancelled: 'Lemondva', cancelledToast: 'Lemondva. A pincér látja.', lastOrder: 'Legutóbbi rendelése', teamLine: 'Vendéglátói: a Lounge csapata', offline: 'Nincs internetkapcsolat. Csatlakozzon újra a küldéshez.', onWay: 'Úton van', seenToast: 'A pincér már intézi.', doneToast: 'Kész. Egészségére!', offTonight: 'Ma este nem elérhető', offInCart: 'A rendelése egyik tétele ma este nem elérhető. Törölje, hogy elküldhesse.', yourTab: 'Fogyasztása', total: 'Összesen', tabHint: 'A végleges számlát a pincér hozza.', yourTable: 'Az Ön asztala', seatOk: 'Mentve', addTable: 'Asztal', nightMode: 'Éjszakai mód', dayMode: 'Nappali mód', newVisit: 'Befejezés és a telefon törlése', addT2: 'Nagy társaság? Második asztal hozzáadása', table2: 'Második asztal', leaveTitle: 'Távozik?', noticeEyebrow: 'A bártól', revT: 'Jól érezte magát?', revSub: 'Mondja el a világnak! Írjon nekünk egy rövid értékelést a Google Térképen. Köszönjük!', revBtn: 'Értékelés a Google-ön', hostT: 'Mai házigazdája', newVisitConfirm: 'Koppintson újra, és mindent törlünk', newVisitHint: 'Törli az asztalt, a rendelést, az allergiákat és a kéréseket erről a telefonról, így a következő vendég tiszta lappal kezd.', newVisitDone: 'Tiszta lap. A korábbi rendelések törölve erről a telefonról.', spTap: 'Koppintson a kezdéshez', hsHint: 'Koppintson a megnyitáshoz', nextCat: 'Következő', aiEntry: 'Néhány gyors kérdés, és megvan a tökéletes itala.', nItems: function (n) { return n + ' tétel'; },
+      order_t: 'Rendelés', check_t: 'Számla', call_t: 'Pincérhívás', staff: 'Személyzet', guest: 'Vendég nézet', soundOn: 'Hang bekapcsolva, koppintson a némításhoz', soundOff: 'Hang kikapcsolva, koppintson a bekapcsoláshoz', room: 'Szobaszámla', roomNo: 'Szobaszám (nem kötelező)', roomHint: 'Szólunk a pincérnek, hogy a szobaszámlájára kéri.', roomSent: 'A pincér tudja, hogy a szobaszámlájára kéri.', clearOrder: 'Rendelés törlése', removedToast: 'Törölve', clearedToast: 'Rendelés törölve', undo: 'Visszavonás', cancelReq: 'Lemondás', cancelConfirm: 'Koppintson újra a lemondáshoz', cancelled: 'Lemondva', cancelledToast: 'Lemondva. A pincér látja.', lastOrder: 'Legutóbbi rendelése', teamLine: 'Vendéglátói: a Lounge csapata', offline: 'Nincs internetkapcsolat. Csatlakozzon újra a küldéshez.', onWay: 'Úton van', seenToast: 'A pincér már intézi.', doneToast: 'Kész. Egészségére!', offTonight: 'Ma este nem elérhető', offInCart: 'A rendelése egyik tétele ma este nem elérhető. Törölje, hogy elküldhesse.', yourTab: 'Fogyasztása', total: 'Összesen', tabHint: 'A végleges számlát a pincér hozza.', yourTable: 'Az Ön asztala', seatOk: 'Mentve', addTable: 'Asztal', nightMode: 'Éjszakai mód', dayMode: 'Nappali mód', newVisit: 'Befejezés és a telefon törlése', addT2: 'Nagy társaság? Második asztal hozzáadása', table2: 'Második asztal', leaveTitle: 'Távozik?', noticeEyebrow: 'A bártól', revT: 'Jól érezte magát?', revSub: 'Mondja el a világnak! Írjon nekünk egy rövid értékelést a Google Térképen. Köszönjük!', revBtn: 'Értékelés a Google-ön', hostT: 'Mai házigazdája', safeT: 'Biztonságos és privát', safeLine: 'Biztonságos oldal · nincs bejelentkezés · soha nem kérünk kártyaadatot vagy jelszót',
+      safe1: 'Nincs bejelentkezés és nincs alkalmazás. Soha nem kérünk kártyaszámot, bankadatot vagy jelszót.', safe2: 'Csak az asztalszámot – és ha megadja, a nevét – használjuk, hogy kihozzuk a rendelést. Az allergiákról csak a pincér értesül.',
+      safe3: 'Nincs reklám és nincs követés. A rendeléseket 36 óra után automatikusan töröljük a rendszerből.', safe4: 'A „Befejezés és a telefon törlése” mindent töröl a telefonjáról.',
+      safe5: 'Biztonságos, titkosított kapcsolat (HTTPS).', safeCheck: 'Ellenőrizze az oldalt független ellenőrzőkkel:', safeHost: 'Tárhely: Netlify. Az élő frissítéseket az Ably végzi, amely soha nem kapja meg a rendelését.', newVisitConfirm: 'Koppintson újra, és mindent törlünk', newVisitHint: 'Törli az asztalt, a rendelést, az allergiákat és a kéréseket erről a telefonról, így a következő vendég tiszta lappal kezd.', newVisitDone: 'Tiszta lap. A korábbi rendelések törölve erről a telefonról.', spTap: 'Koppintson a kezdéshez', hsHint: 'Koppintson a megnyitáshoz', nextCat: 'Következő', aiEntry: 'Néhány gyors kérdés, és megvan a tökéletes itala.', nItems: function (n) { return n + ' tétel'; },
       aiTitle: 'Mit igyak?', aiLede: 'Válaszoljon néhány gyors kérdésre. Megtaláljuk az italát, vagy kitalálunk egyet kifejezetten Önnek.',
       aiStep: function (n, t) { return n + '. kérdés / ' + t; }, aiTapHint: 'Koppintson egy válaszra a folytatáshoz.',
       aiNext: 'Tovább', aiBack: 'Vissza', aiSkip: 'Kihagyom', aiOptional: 'Nem kötelező, a saját szavaival', aiPh: 'pl. ne legyen túl édes, szeretem a gyömbért, ünneplünk',
@@ -928,6 +942,7 @@ html[data-app="crew"] body { background: var(--bg); }
     edit: 'M4 20h4L19 9l-4-4L4 16v4z',
     close: 'M6 6l12 12 M18 6L6 18',
     check: 'M5 12.5l4.5 4.5L19 7',
+    shield: 'M12 3l7.5 3v5.6c0 4.6-3.2 8.2-7.5 9.4-4.3-1.2-7.5-4.8-7.5-9.4V6z M8.6 12.2l2.4 2.4 4.4-4.6',
     plus: 'M12 5v14 M5 12h14',
     minus: 'M5 12h14',
     card: 'M3 6h18v12H3z M3 10h18 M7 15h3',
@@ -1642,6 +1657,7 @@ html[data-app="crew"] body { background: var(--bg); }
     }).join('') + '</div><button type="button" class="btn block" data-act="sendCall"' + (S.busy ? ' disabled' : '') + '>' + icon('bell', 20) + (S.busy ? T('sending') : T('callBtn')) + '</button></section>';
     h += reviewCard();
     h += leaveCard();
+    h += safeCard();
     return h + '</div>';
   }
 
@@ -1663,6 +1679,19 @@ html[data-app="crew"] body { background: var(--bg); }
     return '<section class="host-card' + (art ? ' has-art' : '') + '">' + (art ? '<span class="host-art">' + art + '</span>' : '') +
       '<div><p class="eyebrow">' + T('hostT') + '</p><p class="host-name">' + esc(n) + '</p></div></section>';
   }
+  /* "Safe and private": what this page does and does not do, plus independent checks anyone can run */
+  var WEB_HOST = /(^|\.)pleasedrop\.me$/.test(location.hostname) || /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'pleasedrop.me' : '';
+  function safeCard() {
+    if (!WEB_HOST) return '';
+    var li = function (t) { return '<li>' + icon('check', 18) + '<span>' + T(t) + '</span></li>'; };
+    var h = encodeURIComponent(WEB_HOST);
+    var links = [['Google Safe Browsing', 'https://transparencyreport.google.com/safe-browsing/search?url=' + h],
+      ['Mozilla Observatory', 'https://developer.mozilla.org/en-US/observatory/analyze?host=' + h],
+      ['VirusTotal', 'https://www.virustotal.com/gui/domain/' + h]];
+    return '<section class="card safe-card"><h3>' + icon('shield', 24) + T('safeT') + '</h3><ul class="safe-list">' + li('safe1') + li('safe2') + li('safe3') + li('safe4') + li('safe5') + '</ul>' +
+      '<p class="hint">' + T('safeCheck') + '</p><div class="safe-links">' + links.map(function (l) { return '<a href="' + l[1] + '" target="_blank" rel="noopener">' + esc(l[0]) + '</a>'; }).join('') + '</div>' +
+      '<p class="hint safe-fine">' + T('safeHost') + '</p></section>';
+  }
   function leaveCard() {
     return '<section class="card leave-card"><h3>' + T('leaveTitle') + '</h3><p class="hint">' + T('newVisitHint') + '</p>' +
       '<button type="button" class="btn ghost block' + (S.confirm === 'nv' ? ' warn' : '') + '" data-act="newVisit">' + icon('trash', 18) + (S.confirm === 'nv' ? T('newVisitConfirm') : T('newVisit')) + '</button></section>';
@@ -1679,7 +1708,8 @@ html[data-app="crew"] body { background: var(--bg); }
       '<div class="card"><div class="seatgrid">' +
       '<div class="field"><label for="w-table">' + T('table') + '</label><input type="text" id="w-table" class="bigin" data-k="table" value="' + esc(S.table) + '" maxlength="6" inputmode="numeric" autocomplete="off"></div>' +
       '<div class="field"><label for="w-name">' + T('name') + '</label><input type="text" id="w-name" data-k="name" value="' + esc(S.name) + '" maxlength="60" placeholder="' + esc(T('namePh')) + '" autocomplete="off"></div>' +
-      '</div>' + t2Field('w', 'table2', S.table2) + '<p class="hint">' + T('seatHint') + '</p><button type="button" class="btn block" data-act="start">' + T('start') + '</button></div></div>';
+      '</div>' + t2Field('w', 'table2', S.table2) + '<p class="hint">' + T('seatHint') + '</p><button type="button" class="btn block" data-act="start">' + T('start') + '</button></div>' +
+      (WEB_HOST ? '<p class="safe-line">' + icon('shield', 18) + '<span>' + T('safeLine') + '</span></p>' : '') + '</div>';
   }
 
   /* ---------- sheets ---------- */
