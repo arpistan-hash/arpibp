@@ -615,6 +615,10 @@ html[data-app="crew"] body { background: var(--bg); }
 #alert-flash.go { animation: alertFlash 1.8s ease-out 1; }
 @keyframes alertFlash { 0%, 30%, 60% { opacity: .55; } 15%, 45%, 100% { opacity: 0; } }
 .tk.fresh { animation: tkPulse 1.4s ease-in-out infinite; }
+.crew-wait { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 50px; margin: 10px 0 2px; padding: 8px 14px; border: 0; border-radius: 12px; background: var(--alert); color: #1A0A05; font-size: 16px; font-weight: 800; line-height: 1.25; text-align: left; animation: waitPulse 1s ease-in-out infinite; }
+.crew-wait .ico { flex: none; }
+@keyframes waitPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 122, 89, .6); } 50% { box-shadow: 0 0 0 6px rgba(255, 122, 89, 0); filter: brightness(1.15); } }
+@media (prefers-reduced-motion: reduce) { .crew-wait { animation: none; } }
 @keyframes tkPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(232, 176, 75, .55); } 50% { box-shadow: 0 0 0 7px rgba(232, 176, 75, 0); } }
 @media (prefers-reduced-motion: reduce) { #alert-flash.go { animation-duration: 3s; } .tk.fresh { animation: none; outline: 2px solid var(--accent); } }
 /* staff POS */
@@ -2274,7 +2278,15 @@ html[data-app="crew"] body { background: var(--bg); }
       '<div class="crew-tabs" role="tablist" aria-label="Crew">' +
       '<button type="button" role="tab" class="crew-tab" data-act="staffTab" data-v="req" aria-selected="' + (tab === 'req') + '">' + icon('bell', 20) + 'Orders' + (n ? '<span class="crew-n">' + n + '</span>' : '') + '</button>' +
       '<button type="button" role="tab" class="crew-tab" data-act="staffTab" data-v="pad" aria-selected="' + (tab === 'pad') + '">' + icon('note', 20) + 'Notepad' + (np ? '<span class="crew-n">' + np + '</span>' : '') + '</button>' +
-      '</div></div></div>';
+      '</div>' + crewWaitBar() + '</div></div>';
+  }
+  function crewWaitBar() {
+    var w = waitingReqs(), cx = w.filter(function (r) { return r.status === 'cancelled'; }).length, nw = w.length - cx;
+    if (!w.length) return '';
+    var what = nw && !cx ? nw + ' new waiting · tap \u201cOn it\u201d to stop the alarm'
+      : !nw ? cx + ' cancelled · tap \u201cGot it, remove\u201d to stop the alarm'
+      : w.length + ' waiting · tap \u201cOn it\u201d or \u201cGot it\u201d to stop the alarm';
+    return '<button type="button" class="crew-wait" data-act="crewJump" role="alert">' + icon('alert', 20) + '<span>' + what + '</span></button>';
   }
   function crewAge(ts) {
     var m = Math.max(0, Math.floor((Date.now() - (ts || Date.now())) / 60000));
@@ -3518,6 +3530,28 @@ html[data-app="crew"] body { background: var(--bg); }
     }
   }
   document.addEventListener('visibilitychange', function () { if (!document.hidden && titleTimer) { clearInterval(titleTimer); titleTimer = 0; document.title = titleBase; } });
+  /* the alarm keeps going (every 8 s: sound, buzz, flash, flashlight) until someone taps "On it" or Served/Done
+     on every waiting ticket, or "Got it" on a cancellation. Any crew phone answering stops it on all of them. */
+  var NAG_MS = 8000, nagTimer = 0;
+  function waitingReqs() { return (S.requests || []).filter(function (r) { return r.status === 'new' || r.status === 'cancelled'; }); }
+  function crewWatching() { return S.mode === 'staff' && S.staff; }
+  function nagSync() {
+    var n = crewWatching() ? waitingReqs().length : 0;
+    if (n && !nagTimer) nagTimer = setInterval(function () { if (!crewWatching() || !waitingReqs().length) { nagSync(); return; } staffAlert(); }, NAG_MS);
+    if (!n && nagTimer) {
+      clearInterval(nagTimer); nagTimer = 0;
+      if (titleTimer) { clearInterval(titleTimer); titleTimer = 0; document.title = titleBase; }
+      try { if (navigator.vibrate) navigator.vibrate(0); } catch (_) {}
+    }
+  }
+  // answer at once on this phone, before the server confirms, so the alarm stops the moment the button is tapped
+  function markLocal(id, act) {
+    (S.requests || []).forEach(function (r) {
+      if (r.id !== id) return;
+      r.status = act === 'done' ? 'done' : act === 'reopen' ? (r.cancelled ? 'cancelled' : 'new') : (r.cancelled ? 'cancelled' : 'seen');
+    });
+    nagSync(); if (S.crew && S.mode === 'staff') renderTop();
+  }
   S.torch = lsGet('lounge.torch') === 'on';
   function torchSupported() { try { return !!(navigator.mediaDevices && navigator.mediaDevices.getSupportedConstraints && navigator.mediaDevices.getSupportedConstraints().torch); } catch (_) { return false; } }
   var torchBusy = false;
@@ -3793,7 +3827,11 @@ html[data-app="crew"] body { background: var(--bg); }
       case 'wakeSound': SFX.unlock(); SFX.play('notify', null, true); keepAwake(true); break;
       case 'sndPlay': SFX.play(v, null, true); return;
       case 'sndReset': if (S.db) dbDo(function () { return S.db.doc('sounds/' + v).delete().then(function () { SFX.removeSample(v); toast('Back to the built-in sound'); }); }); return;
-      case 'seen': if (S.db) dbDo(function () { return S.db.doc('status/' + id).set({ state: 'seen', seenAt: Date.now() }); }); return;
+      case 'seen': markLocal(id, 'seen'); if (S.db) dbDo(function () { return S.db.doc('status/' + id).set({ state: 'seen', seenAt: Date.now() }); }); return;
+      case 'crewJump': // the red banner: straight to the first ticket that is waiting
+        padStopMic(); S.staffTab = 'req'; S.confirm = ''; render();
+        setTimeout(function () { var el = document.querySelector('.tk.fresh, .tk.cx'); if (el) { try { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (_) { el.scrollIntoView(); } } }, 30);
+        return;
       case 'staffTab': if (v !== 'pad') padStopMic(); S.staffTab = v; S.confirm = ''; window.scrollTo(0, 0); break;
       case 'noticePost': {
         var nt = (S.crewNotice || '').trim().slice(0, 200);
@@ -3873,8 +3911,8 @@ html[data-app="crew"] body { background: var(--bg); }
         })();
         break;
       }
-      case 'done': if (S.db) dbDo(function () { return S.db.doc('status/' + id).set({ state: 'done', doneAt: Date.now() }); }); return;
-      case 'reopen': if (S.db) dbDo(function () { return S.db.doc('status/' + id).delete(); }); return;
+      case 'done': markLocal(id, 'done'); if (S.db) dbDo(function () { return S.db.doc('status/' + id).set({ state: 'done', doneAt: Date.now() }); }); return;
+      case 'reopen': markLocal(id, 'reopen'); if (S.db) dbDo(function () { return S.db.doc('status/' + id).delete(); }); return;
       case 'clearDone':
         if (S.confirm !== 'clearDone') { S.confirm = 'clearDone'; break; }
         S.confirm = '';
@@ -3934,6 +3972,7 @@ html[data-app="crew"] body { background: var(--bg); }
     });
     S.requests = flat;
     if (fresh) staffAlert();
+    nagSync();
   }
   async function boot() {
     render();
