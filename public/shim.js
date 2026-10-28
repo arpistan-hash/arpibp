@@ -83,7 +83,7 @@
     menu: new Poller('/menu', 600000),         // the drinks rarely change (notices come with the quick checks); also refreshed when a phone wakes
     sounds: new Poller('/sounds', 300000),
     guest: new Poller('/guest?uid=' + uid, guestEvery),
-    staff: new Poller('/staff', function () { return RT.on ? 20000 : 2500; }) // instant with Ably, else within 3 s
+    staff: new Poller('/staff', function () { return RT.on ? 20000 : 10000; }) // instant with Ably, else within 10 s (the owner's choice, to save server use)
   };
   document.addEventListener('visibilitychange', function () { if (!document.hidden) Object.keys(P).forEach(function (k) { P[k].now(); }); });
 
