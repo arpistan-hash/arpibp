@@ -815,7 +815,7 @@ html[data-app="crew"] body { background: var(--bg); }
       ageNote: 'We serve alcohol only to guests aged 18 and over. Please drink responsibly.',
       aiCheck: 'An idea from our drink helper. Your bartender checks every ingredient against your allergies before making it.',
       dupCall: 'Your server is already on the way. No need to call again.', dupBill: 'You have already asked for the bill. It is on its way.', noAlc: 'ALCOHOL-FREE requested',
-      cats: { classic: 'Classic cocktails', signature: 'Signature cocktails', mocktail: 'Alcohol-free cocktails', white: 'White', rose: 'Rosé', red: 'Red', coffee: 'Coffee & tea', wine: 'Wine by the glass', sparkling: 'Sparkling wine', champagne: 'Champagne', dessert: 'Dessert wine', beer: 'Beer', draft: 'Draft', bottled: 'Bottled', soft: 'Juices & soft drinks', spirits: 'Spirits', vodka: 'Vodka', gin: 'Gin', tequila: 'Tequila', rum: 'Rum', mezcal: 'Mezcal', scotch: 'Scotch whisky', bourbon: 'Bourbon', rye: 'Rye whiskey', japanese: 'Japanese whisky', whiskey: 'Irish & other whiskey', cognac: 'Cognac', palinka: 'Pálinka', liqueur: 'Liqueurs & bitters', food: 'Short food menu', other: 'Other' },
+      cats: { classic: 'Classic cocktails', signature: 'Signature cocktails', mocktail: 'Alcohol-free cocktails', white: 'White', rose: 'Rosé', red: 'Red', coffee: 'Coffee & tea', wine: 'Wine', glass: 'By the glass', sparkling: 'Sparkling wine', champagne: 'Champagne', dessert: 'Dessert wine', beer: 'Beer', draft: 'Draft', bottled: 'Bottled', soft: 'Juices & soft drinks', spirits: 'Spirits', vodka: 'Vodka', gin: 'Gin', tequila: 'Tequila', rum: 'Rum', mezcal: 'Mezcal', scotch: 'Scotch whisky', bourbon: 'Bourbon', rye: 'Rye whiskey', japanese: 'Japanese whisky', whiskey: 'Irish & other whiskey', cognac: 'Cognac', palinka: 'Pálinka', liqueur: 'Liqueurs & bitters', food: 'Short food menu', other: 'Other' },
       q: { still: 'Still water', sparkling: 'Sparkling water', round: 'Another round', ice: 'Ice', napkins: 'Napkins' }
     },
     hu: {
@@ -858,7 +858,7 @@ html[data-app="crew"] body { background: var(--bg); }
       ageNote: 'Alkoholt csak 18 éven felüli vendégeinknek szolgálunk fel. Kérjük, fogyasszon felelősen.',
       aiCheck: 'Az italajánló ötlete. A bárpultos elkészítés előtt minden hozzávalót egyeztet az Ön allergiáival.',
       dupCall: 'A pincér már úton van, nem kell újra hívnia.', dupBill: 'A számlát már kérte, a pincér hamarosan hozza.',
-      cats: { classic: 'Klasszikus koktélok', signature: 'Signature koktélok', mocktail: 'Alkoholmentes koktélok', white: 'Fehérbor', rose: 'Rozé', red: 'Vörösbor', coffee: 'Kávé és tea', wine: 'Borok pohárban', sparkling: 'Habzóbor', champagne: 'Champagne', dessert: 'Desszertbor', beer: 'Sör', draft: 'Csapolt', bottled: 'Palackos', soft: 'Gyümölcslevek és üdítők', spirits: 'Égetett szeszek', vodka: 'Vodka', gin: 'Gin', tequila: 'Tequila', rum: 'Rum', mezcal: 'Mezcal', scotch: 'Skót whisky', bourbon: 'Bourbon', rye: 'Rozswhiskey', japanese: 'Japán whisky', whiskey: 'Ír és egyéb whiskey', cognac: 'Konyak', palinka: 'Pálinka', liqueur: 'Likőrök és keserűk', food: 'Rövid étlap', other: 'Egyéb' },
+      cats: { classic: 'Klasszikus koktélok', signature: 'Signature koktélok', mocktail: 'Alkoholmentes koktélok', white: 'Fehérbor', rose: 'Rozé', red: 'Vörösbor', coffee: 'Kávé és tea', wine: 'Borok', glass: 'Pohárral', sparkling: 'Habzóbor', champagne: 'Champagne', dessert: 'Desszertbor', beer: 'Sör', draft: 'Csapolt', bottled: 'Palackos', soft: 'Gyümölcslevek és üdítők', spirits: 'Égetett szeszek', vodka: 'Vodka', gin: 'Gin', tequila: 'Tequila', rum: 'Rum', mezcal: 'Mezcal', scotch: 'Skót whisky', bourbon: 'Bourbon', rye: 'Rozswhiskey', japanese: 'Japán whisky', whiskey: 'Ír és egyéb whiskey', cognac: 'Konyak', palinka: 'Pálinka', liqueur: 'Likőrök és keserűk', food: 'Rövid étlap', other: 'Egyéb' },
       q: { still: 'Szénsavmentes víz', sparkling: 'Szénsavas víz', round: 'Még egy kör', ice: 'Jég', napkins: 'Szalvéta' }
     }
   };
@@ -866,7 +866,7 @@ html[data-app="crew"] body { background: var(--bg); }
   /* ---------- menu structure ---------- */
   var CATS = [
     { k: 'signature' }, { k: 'classic' }, { k: 'mocktail' },
-    { k: 'white', g: 'wine' }, { k: 'rose', g: 'wine' }, { k: 'red', g: 'wine' },
+    { k: 'glass', g: 'wine' }, { k: 'white', g: 'wine' }, { k: 'rose', g: 'wine' }, { k: 'red', g: 'wine' },
     { k: 'sparkling' }, { k: 'champagne' }, { k: 'dessert' },
     { k: 'draft', g: 'beer' }, { k: 'bottled', g: 'beer' },
     { k: 'vodka', g: 'spirits' }, { k: 'gin', g: 'spirits' }, { k: 'rum', g: 'spirits' }, { k: 'tequila', g: 'spirits' }, { k: 'mezcal', g: 'spirits' }, { k: 'scotch', g: 'spirits' }, { k: 'bourbon', g: 'spirits' }, { k: 'rye', g: 'spirits' }, { k: 'japanese', g: 'spirits' }, { k: 'whiskey', g: 'spirits' }, { k: 'cognac', g: 'spirits' }, { k: 'palinka', g: 'spirits' }, { k: 'liqueur', g: 'spirits' },
@@ -906,6 +906,7 @@ html[data-app="crew"] body { background: var(--bg); }
     classic: 'M4 4h16l-8 9.5L4 4z M12 13.5V20 M8 20h8',
     signature: 'M4 6h16c0 4-3.5 7-8 7S4 10 4 6z M12 13v7 M8 20h8 M15 3l-2 3',
     wine: 'M7 3h10c0 5-1.5 8-5 8S7 8 7 3z M12 11v9 M8 20h8',
+    glass: 'M7 3h10c0 5-1.5 8-5 8S7 8 7 3z M12 11v9 M8 20h8 M7.6 6.5h8.8',
     white: 'M7 3h10c0 5-1.5 8-5 8S7 8 7 3z M12 11v9 M8 20h8',
     rose: 'M7 3h10c0 5-1.5 8-5 8S7 8 7 3z M12 11v9 M8 20h8 M8 6h8',
     red: 'M7 3h10c0 5-1.5 8-5 8S7 8 7 3z M12 11v9 M8 20h8 M7.5 6h9',
@@ -1022,7 +1023,7 @@ html[data-app="crew"] body { background: var(--bg); }
         cube(17, 21, 7.5, -10) + cube(24, 28, 7, 12) + '<path d="M28.5 2.5L25 31" stroke="#E0475A" stroke-width="2.2" stroke-linecap="round"/>' +
         '<circle cx="33.5" cy="11" r="5.2" fill="#C8E07A" stroke="#6E9B2E" stroke-width="1.2"/><path d="M33.5 6.6V15.4M29.4 11H37.6M30.6 8.1L36.4 13.9M36.4 8.1L30.6 13.9" stroke="#6E9B2E" stroke-width=".7"/>' +
         '<path d="M15 9Q11 4 17 3Q18 7 15 9Z" fill="#3E9B4F"/>',
-      wine: wine('#7A1F2B'), red: wine('#7A1F2B'), white: wine('#E9D27A'), rose: wine('#F09AA6'),
+      wine: wine('#7A1F2B'), glass: wine('#9C2A3A'), red: wine('#7A1F2B'), white: wine('#E9D27A'), rose: wine('#F09AA6'),
       sparkling: '<path d="M19 4H29L28 24Q24 27 20 24Z" ' + G + '/><path d="M19.3 9H28.7L28 23.4Q24 26 20 23.4Z" fill="#F1D77E"/>' +
         bubbles([[22, 20], [25.4, 16.5], [22.8, 13], [26, 11], [24, 21.8, 0.7]]) + stem(26, 41, 7),
       champagne: bottle('#1F3A2E', '#D4A63A', '#F3EBDD') + '<path d="M21 3H27V15Q24 17 21 15Z" fill="#D4A63A"/><path d="M19.6 30H28.4" stroke="#D4A63A" stroke-width="1.2"/>' +
@@ -1293,7 +1294,7 @@ html[data-app="crew"] body { background: var(--bg); }
       return 'shake';
     }
     if (cat === 'sparkling' || cat === 'champagne') return 'pop';
-    if (cat === 'white' || cat === 'red' || cat === 'rose' || cat === 'dessert') return 'wine';
+    if (cat === 'glass' || cat === 'white' || cat === 'red' || cat === 'rose' || cat === 'dessert') return 'wine';
     if (cat === 'draft') return 'draft';
     if (cat === 'bottled') return 'bottle';
     if (cat === 'soft') return /juice|lemonade|iced tea/i.test(nm) ? 'juice' : 'can';
@@ -1456,11 +1457,11 @@ html[data-app="crew"] body { background: var(--bg); }
   }
   function flagOf(c) { return String.fromCodePoint.apply(null, String(c).toUpperCase().split('').map(function (ch) { return 127397 + ch.charCodeAt(0); })); }
   function itemRow(m) {
-    if (m.off) return '<div class="row off" aria-disabled="true"><span class="row-open">' + picto(m.cat, 38, 'lead') + '<span class="row-main"><span class="row-name">' + esc(m.name) + '</span><span class="row-sub">' + esc(T('offTonight')) + '</span></span></span><span class="add-dot off-dot" aria-hidden="true">' + icon('minus', 18) + '</span></div>';
+    if (m.off) return '<div class="row off" aria-disabled="true"><span class="row-open">' + picto(m.pic || m.cat, 38, 'lead') + '<span class="row-main"><span class="row-name">' + esc(m.name) + '</span><span class="row-sub">' + esc(T('offTonight')) + '</span></span></span><span class="add-dot off-dot" aria-hidden="true">' + icon('minus', 18) + '</span></div>';
     var inCart = S.cart.filter(function (l) { return l.src === 'm' && l.ref === m.id; }).reduce(function (n, l) { return n + l.qty; }, 0);
     var sub = '';
     var quick = !PRESETS[m.mods];
-    return '<div class="row"><button type="button" class="row-open" data-act="info" aria-expanded="' + !!(S.info && S.info[m.id]) + '" data-id="' + esc(m.id) + '">' + picto(m.cat, 38, 'lead') +
+    return '<div class="row"><button type="button" class="row-open" data-act="info" aria-expanded="' + !!(S.info && S.info[m.id]) + '" data-id="' + esc(m.id) + '">' + picto(m.pic || m.cat, 38, 'lead') +
       '<span class="row-main"><span class="row-name">' + (m.origin ? '<span class="flag" aria-hidden="true">' + flagOf(m.origin) + '</span>' : '') + esc(m.name) + '</span>' + (S.info && S.info[m.id] && m.desc ? '<span class="row-info">' + esc(m.desc) + '</span>' : '') + (sub ? '<span class="row-sub">' + esc(sub) + '</span>' : '') + '</span></button>' +
       '<button type="button" class="add-dot' + (inCart ? ' has' : '') + '" data-act="' + (quick ? 'quickAdd' : 'openItem') + '" data-id="' + esc(m.id) + '" aria-label="' + esc(T('add') + ': ' + m.name) + '">' + (inCart ? inCart : icon('plus', 20)) + '</button></div>';
   }
@@ -2457,10 +2458,10 @@ html[data-app="crew"] body { background: var(--bg); }
       egy: 1, ket: 2, ketto: 2, par: 2, harom: 3, negy: 4, ot: 5, hat: 6, het: 7, nyolc: 8, kilenc: 9, tiz: 10, tizenegy: 11, tizenketto: 12 };
     CATW = { vodka: 'vodka', gin: 'gin', rum: 'rum', tequila: 'tequila', mezcal: 'mezcal', whisky: 'scotch', whiskey: 'whiskey', scotch: 'scotch', bourbon: 'bourbon', rye: 'rye',
       cognac: 'cognac', konyak: 'cognac', brandy: 'cognac', palinka: 'palinka', beer: 'draft', sor: 'draft', champagne: 'champagne', pezsgo: 'champagne', coffee: 'coffee', kave: 'coffee', tea: 'coffee',
-      wine: 'wine', bor: 'wine', white: 'white', feher: 'white', red: 'red', voros: 'red', feherbor: 'white', vorosbor: 'red', roze: 'rose', rose: 'rose' };
+      wine: 'wine', bor: 'wine', white: 'white', feher: 'white', red: 'red', voros: 'red', feherbor: 'white', vorosbor: 'red', roze: 'rose', rose: 'rose', glass: 'glass', pohar: 'glass', poharral: 'glass' };
     var HOUSE = { vodka: 'House vodka', gin: 'House gin', rum: 'House rum', tequila: 'House tequila', mezcal: 'House mezcal', scotch: 'House whisky', whiskey: 'House whiskey', bourbon: 'House bourbon', rye: 'House rye',
       cognac: 'House cognac', palinka: 'House pálinka', draft: 'Beer', champagne: 'Champagne', coffee: 'Coffee', wine: 'Glass of wine', white: 'White wine', red: 'Red wine', rose: 'Rosé wine' };
-    var WINE = { wine: 1, white: 1, red: 1, rose: 1 };
+    var WINE = { wine: 1, glass: 1, white: 1, red: 1, rose: 1 };
     function sameKind(a, b) {
       var fam = function (c) { return SPIRIT_CATS[c] ? 's' : (WINE[c] || c === 'sparkling' || c === 'champagne' || c === 'dessert') ? 'w' : (c === 'draft' || c === 'bottled') ? 'b' : c; };
       return fam(a) === fam(b);
@@ -2845,7 +2846,7 @@ html[data-app="crew"] body { background: var(--bg); }
   /* the Micros-style screens: colour family, which menu sections they hold */
   var PAD_CATS = [
     { k: 'sig', n: 'Signature', cats: ['signature'], g: 'cock' }, { k: 'cls', n: 'Classics', cats: ['classic'], g: 'cock' }, { k: 'nol', n: 'No alcohol', cats: ['mocktail'], g: 'soft' },
-    { k: 'fizz', n: 'Bubbles', cats: ['sparkling', 'champagne'], g: 'fizz' }, { k: 'wine', n: 'Wine', cats: ['white', 'rose', 'red'], g: 'wine' }, { k: 'beer', n: 'Beer', cats: ['draft', 'bottled'], g: 'beer' },
+    { k: 'fizz', n: 'Bubbles', cats: ['sparkling', 'champagne'], g: 'fizz' }, { k: 'wine', n: 'Wine', cats: ['glass', 'white', 'rose', 'red'], g: 'wine' }, { k: 'beer', n: 'Beer', cats: ['draft', 'bottled'], g: 'beer' },
     { k: 'vodka', n: 'Vodka', cats: ['vodka'], g: 'spirit' }, { k: 'gin', n: 'Gin', cats: ['gin'], g: 'spirit' }, { k: 'rum', n: 'Rum', cats: ['rum'], g: 'spirit' },
     { k: 'agave', n: 'Tequila · Mezcal', cats: ['tequila', 'mezcal'], g: 'spirit' }, { k: 'whisky', n: 'Whisky', cats: ['scotch', 'japanese', 'bourbon', 'rye', 'whiskey'], g: 'spirit' }, { k: 'brandy', n: 'Cognac · Pálinka', cats: ['cognac', 'palinka'], g: 'spirit' },
     { k: 'liq', n: 'Liqueurs', cats: ['liqueur'], g: 'spirit' }, { k: 'dessert', n: 'Dessert wine', cats: ['dessert'], g: 'wine' }, { k: 'soft', n: 'Soft · Juice', cats: ['soft'], g: 'soft' },

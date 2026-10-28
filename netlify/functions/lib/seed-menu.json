@@ -1,1 +1,3293 @@
-{"b04": {"cat": "bottled", "createdAt": 1761490500004, "desc": "A premium German lager with a crisp, clean taste and a light, dry finish.", "mods": null, "name": "Noam Lager (0.34 l)", "origin": "DE"}, "d01": {"cat": "soft", "createdAt": 1761490600001, "desc": "The original cola: sweet, caramel and spice. Served ice-cold.", "mods": null, "name": "Coca-Cola", "origin": "US"}, "d02": {"cat": "soft", "createdAt": 1761490600002, "desc": "Coca-Cola with zero sugar and the same classic cola taste.", "mods": null, "name": "Coca-Cola Zero", "origin": "US"}, "d03": {"cat": "soft", "createdAt": 1761490600003, "desc": "Orange soda with a bright, fruity taste. Refreshing and sweet.", "mods": null, "name": "Fanta", "origin": "DE"}, "d04": {"cat": "soft", "createdAt": 1761490600004, "desc": "Sprite Zero: a crisp lemon-lime soda with zero sugar.", "mods": null, "name": "Sprite Zero", "origin": "US"}, "d05": {"cat": "soft", "createdAt": 1761490600005, "desc": "Three Cents tonic: dry and botanical with a bitter-citrus finish. Our everyday gin mixer.", "mods": null, "name": "Three Cents Tonic Water (Dry / Aegean)", "origin": "DE"}, "d06": {"cat": "soft", "createdAt": 1761490600006, "desc": "Kinley ginger ale: a clean, gently spicy ginger soda. A classic with whisky.", "mods": null, "name": "Kinley Ginger Ale"}, "d07": {"cat": "soft", "createdAt": 1761490600007, "desc": "Three Cents ginger beer: spicy and fiery, with a real ginger bite.", "mods": null, "name": "Three Cents Ginger Beer", "origin": "DE"}, "d08": {"cat": "soft", "createdAt": 1761490600008, "desc": "Energy drink with caffeine, taurine and B-vitamins. Sweet, citrusy and sharp.", "mods": null, "name": "Red Bull", "origin": "AT"}, "d09": {"cat": "soft", "createdAt": 1761490600009, "desc": "House lemonade with forest fruits, passion fruit and mango. Fresh, sweet and tangy.", "mods": null, "name": "Homemade lemonade"}, "d10": {"cat": "soft", "desc": "Chilled sparkling water with fine, lively bubbles. Clean and neutral, a good partner for spirits.", "mods": null, "name": "Soda water", "off": false, "pos": ""}, "f01": {"cat": "food", "createdAt": 1761491000001, "desc": "Marinated olives served with a handful of mixed nuts.", "mods": null, "name": "Marinated olives & mixed nuts"}, "f03": {"cat": "food", "createdAt": 1761491000003, "desc": "Beetroot baked in salt for a concentrated sweetness, with goat cheese mousse and beetroot gel.", "mods": null, "name": "Salt Baked Beetroot Salad"}, "f04": {"cat": "food", "createdAt": 1761491000004, "desc": "Crab stick, avocado and cucumber roll with daikon and a wasabi salsa. Mild and fresh.", "mods": null, "name": "California Roll Maki (8 pc)", "origin": "US"}, "f05": {"cat": "food", "createdAt": 1761491000005, "desc": "Maki with spicy tuna tartare, pickled cucumber and avocado, topped with crispy shallots.", "mods": null, "name": "Spicy Tuna Tartare Maki (8 pc)", "origin": "JP"}, "f06": {"cat": "food", "createdAt": 1761491000006, "desc": "Hungarian fried flatbread with foie gras, sour cream, summer truffle, Trappista cheese and parsley emulsion.", "mods": null, "name": "Lángos", "origin": "HU"}, "f07": {"cat": "food", "createdAt": 1761491000007, "desc": "Aged beef patty with sweet onion relish, American cheese, baby gem, tomato and sriracha mayo, served with fries.", "mods": null, "name": "Bar & Grill Burger with fries"}, "g001": {"cat": "signature", "desc": "Absolut Vanilla, amaretto and strawberry with citrus, chocolate, apple and soy milk. Creamy and dessert-like.", "name": "Moonmilk", "off": false}, "g002": {"cat": "signature", "desc": "Codigo Blanco tequila with grapefruit, Campari and citrus, topped with grapefruit soda. Bright and bittersweet.", "name": "Ocaso", "off": false}, "g003": {"cat": "signature", "desc": "Bulleit bourbon, Hennessy VSOP and vermouth with citrus and apple. Stirred-style, rich and warm.", "name": "The Old Man", "off": false}, "g004": {"cat": "signature", "desc": "Ketel One vodka with elderflower, strawberry and basil. Fresh and summery.", "name": "Strawberry & Basil Martini", "off": false}, "g005": {"cat": "signature", "desc": "Italicus, rosemary and honey with Prosecco and soda. Light, floral and sparkling.", "name": "Bloom of Arles", "off": false}, "g006": {"cat": "signature", "desc": "Campari lifted with Sauvignon Blanc and soda. Dry, bitter and easy.", "name": "Terazza", "off": false}, "g007": {"cat": "mocktail", "desc": "Red berry tea with citrus, sparkling or still water. Fruity and light.", "name": "First Bloom", "off": false}, "g008": {"cat": "mocktail", "desc": "Earl Grey tea with citrus and sparkling water. Fragrant, fizzy and refreshing.", "name": "The Fifth Leaf", "off": false}, "g009": {"cat": "mocktail", "desc": "Knut Hansen 0% gin with hibiscus, citrus, sugar and soda. Tart and floral.", "name": "Rosella", "off": false}, "g010": {"cat": "mocktail", "desc": "Grapefruit, Campari, citrus and grapefruit soda. Bittersweet and fizzy.", "name": "Salida del Sol", "off": false}, "g011": {"cat": "vodka", "desc": "Texan corn vodka, distilled in small batches. Soft and clean.", "mods": "spirit", "name": "Tito's Handmade", "off": false, "origin": "US"}, "g012": {"cat": "vodka", "desc": "Swedish wheat vodka with vanilla. Sweet and smooth.", "mods": "spirit", "name": "Absolut Vanilla", "off": false, "origin": "SE"}, "g013": {"cat": "vodka", "desc": "Hungarian vodka infused with pineapple. Fresh and tropical.", "mods": "spirit", "name": "Tenebris Pineapple", "off": false, "origin": "HU"}, "g014": {"cat": "vodka", "desc": "Italian wheat vodka from Puglia. Smooth and mellow.", "mods": "spirit", "name": "Altamura", "off": false, "origin": "IT"}, "g015": {"cat": "vodka", "desc": "Hungarian vodka made from Furmint grapes. Clean with a light fruit note.", "mods": "spirit", "name": "Seven Hills Tokaj Furmint Vodka", "off": false, "origin": "HU"}, "g016": {"cat": "vodka", "desc": "Polish rye vodka from the Smogory Forest range. Soft and earthy.", "mods": "spirit", "name": "Belvedere Smogory Forest", "off": false, "origin": "PL"}, "g017": {"cat": "vodka", "desc": "Premium vodka from Montenegro. Smooth and refined.", "mods": "spirit", "name": "Beluga Gold Line", "off": false, "origin": "ME"}, "g018": {"cat": "gin", "desc": "Dutch genever: malty and botanical, between gin and whisky. Good in a simple tonic.", "mods": "spirit", "name": "Bols Genever", "off": false, "origin": "NL"}, "g019": {"cat": "gin", "desc": "Hungarian gin with Tokaj-region botanicals. Clean and aromatic.", "mods": "spirit", "name": "Seven Hills Tokaj Gin", "off": false, "origin": "HU"}, "g020": {"cat": "gin", "desc": "Japanese gin with a delicate, clean botanical profile. Lime wedge and tonic.", "mods": "spirit", "name": "Etsu Pacific Ocean Water Japan", "off": false, "origin": "JP"}, "g021": {"cat": "gin", "desc": "London dry gin with grapefruit and juniper: bright and classic.", "mods": "spirit", "name": "No. 3 London Dry", "off": false, "origin": "GB"}, "g022": {"cat": "gin", "desc": "Norwegian pink gin with raspberry and botanicals. Fruity and soft.", "mods": "spirit", "name": "Harahorn Pink Gin", "off": false, "origin": "NO"}, "g023": {"cat": "gin", "desc": "Italian sloe gin: sweet, fruity and rich, made with sloe berries.", "mods": "spirit", "name": "Rivo Sloe Gin", "off": false, "origin": "IT"}, "g024": {"cat": "gin", "desc": "Scottish gin from the Isle of Harris, with local botanicals. Smooth and floral.", "mods": "spirit", "name": "Isle of Harris Gin", "off": false, "origin": "GB"}, "g025": {"cat": "gin", "desc": "Galician gin with Atlantic botanicals and citrus: bright and salty.", "mods": "spirit", "name": "Nordés", "off": false, "origin": "ES"}, "g026": {"cat": "gin", "desc": "Hungarian craft gin: fresh and crisp.", "mods": "spirit", "name": "Misi's Gin", "off": false, "origin": "HU"}, "g027": {"cat": "rum", "desc": "Light blend of Caribbean rums. Crisp and clean.", "mods": "spirit", "name": "Planteray 3 Stars", "off": false}, "g028": {"cat": "rum", "desc": "Dark blend of Caribbean rums with molasses and spice.", "mods": "spirit", "name": "Planteray Original Dark", "off": false}, "g029": {"cat": "rum", "desc": "Bermudan dark rum with molasses and spice. The classic in a Dark 'n' Stormy.", "mods": "spirit", "name": "Gosling's Black Seal", "off": false, "origin": "BM"}, "g030": {"cat": "rum", "desc": "Venezuelan aged rum: smooth, with caramel and oak.", "mods": "spirit", "name": "Pampero Añejo Especial", "off": false, "origin": "VE"}, "g031": {"cat": "rum", "desc": "Brazilian cachaça, grassy and bright. The base for a caipirinha.", "mods": "spirit", "name": "Ypióca Cachaça", "off": false, "origin": "BR"}, "g032": {"cat": "rum", "desc": "Guyanese rum aged 15 years. Rich with molasses and vanilla.", "mods": "rocks", "name": "El Dorado 15 Years", "off": false, "origin": "GY"}, "g033": {"cat": "rum", "desc": "Colombian rum aged 20 years. Deep and smooth, with dried fruit.", "mods": "rocks", "name": "Dictador 20 Years", "off": false, "origin": "CO"}, "g034": {"cat": "rum", "desc": "High-proof Jamaican rum with bold, funky tropical flavour.", "mods": "rocks", "name": "Hampden Estate Overproof", "off": false, "origin": "JM"}, "g035": {"cat": "rum", "desc": "A rich, luxurious Guatemalan rum, aged for many years. For slow sipping.", "mods": "rocks", "name": "Zacapa Centenario Royal", "off": false, "origin": "GT"}, "g036": {"cat": "rum", "desc": "Colombian rum finished in Tokaji casks: honeyed and intense. For slow sipping. 20 ml.", "mods": "rocks", "name": "Dictador 2 Masters Royal Tokaji (20 ml)", "off": false, "origin": "CO"}, "g037": {"cat": "rum", "desc": "Colombian rum finished in Tokaji casks: honeyed and intense. For slow sipping. 40 ml.", "mods": "rocks", "name": "Dictador 2 Masters Royal Tokaji (40 ml)", "off": false, "origin": "CO"}, "g038": {"cat": "tequila", "desc": "Blanco tequila with bright agave, citrus and pepper.", "mods": "spirit", "name": "Código 1530 Blanco", "off": false, "origin": "MX"}, "g039": {"cat": "tequila", "desc": "Blanco tequila from a family distillery. Fresh, vegetal agave with citrus.", "mods": "spirit", "name": "Mijenta Blanco", "off": false, "origin": "MX"}, "g040": {"cat": "tequila", "desc": "Rosé-coloured tequila rested in casks. Floral agave with berry notes.", "mods": "spirit", "name": "Código 1530 Rosa", "off": false, "origin": "MX"}, "g041": {"cat": "tequila", "desc": "Reposado rested in oak. Vanilla, caramel and agave.", "mods": "rocks", "name": "Código 1530 Reposado", "off": false, "origin": "MX"}, "g042": {"cat": "tequila", "desc": "Premium blanco tequila: silky, fruity and sweet.", "mods": "rocks", "name": "Casa Dragones Blanco", "off": false, "origin": "MX"}, "g043": {"cat": "tequila", "desc": "Reposado aged in oak. Honeyed agave with vanilla and soft spice. 20 ml.", "mods": "rocks", "name": "Clase Azul Reposado (20 ml)", "off": false, "origin": "MX"}, "g044": {"cat": "tequila", "desc": "Añejo aged for several years. Rich vanilla and toffee. 20 ml.", "mods": "rocks", "name": "Don Julio 1942 (20 ml)", "off": false, "origin": "MX"}, "g045": {"cat": "tequila", "desc": "Extra añejo with caramel, cocoa and oak. 20 ml.", "mods": "rocks", "name": "Código 1530 Origen Extra Añejo (20 ml)", "off": false, "origin": "MX"}, "g046": {"cat": "tequila", "desc": "Extra añejo with caramel, cocoa and oak. 40 ml.", "mods": "rocks", "name": "Código 1530 Origen Extra Añejo (40 ml)", "off": false, "origin": "MX"}, "g047": {"cat": "tequila", "desc": "Añejo aged in oak: smooth and rich with chocolate and vanilla. 20 ml.", "mods": "rocks", "name": "Clase Azul Añejo (20 ml)", "off": false, "origin": "MX"}, "g048": {"cat": "tequila", "desc": "Añejo aged in oak: smooth and rich with chocolate and vanilla. 40 ml.", "mods": "rocks", "name": "Clase Azul Añejo (40 ml)", "off": false, "origin": "MX"}, "g049": {"cat": "mezcal", "desc": "Espadín mezcal: smoky and bold. For sipping.", "mods": "rocks", "name": "Don Ramón Espadín Black", "off": false, "origin": "MX"}, "g050": {"cat": "mezcal", "desc": "Artisanal mezcal with smoke and sweet agave. Complex.", "mods": "rocks", "name": "Código 1530 Artesanal", "off": false, "origin": "MX"}, "g051": {"cat": "mezcal", "desc": "Mezcal from Guerrero: smoky and rich, a premium sipper. 20 ml.", "mods": "rocks", "name": "Clase Azul Mezcal Guerrero (20 ml)", "off": false, "origin": "MX"}, "g052": {"cat": "mezcal", "desc": "Mezcal from Guerrero: smoky and rich, a premium sipper. 40 ml.", "mods": "rocks", "name": "Clase Azul Mezcal Guerrero (40 ml)", "off": false, "origin": "MX"}, "g053": {"cat": "scotch", "desc": "Blended Scotch aged 18 years, with dried fruit and vanilla.", "mods": "rocks", "name": "Chivas Regal 18 Year Old", "off": false, "origin": "GB"}, "g054": {"cat": "scotch", "desc": "Luxury blend aged 25 years. Deep and smooth. 20 ml.", "mods": "rocks", "name": "Chivas Regal 25 Year Old (20 ml)", "off": false, "origin": "GB"}, "g055": {"cat": "scotch", "desc": "Luxury blend aged 25 years. Deep and smooth. 40 ml.", "mods": "rocks", "name": "Chivas Regal 25 Year Old (40 ml)", "off": false, "origin": "GB"}, "g056": {"cat": "scotch", "desc": "Light island malt: fresh and fruity.", "mods": "rocks", "name": "Arran 10", "off": false, "origin": "GB"}, "g057": {"cat": "scotch", "desc": "Light Highland malt with citrus, vanilla and floral notes.", "mods": "rocks", "name": "Glenmorangie 12 Original", "off": false, "origin": "GB"}, "g058": {"cat": "scotch", "desc": "Triple-distilled Lowland malt. Smooth and mellow.", "mods": "rocks", "name": "Auchentoshan 12", "off": false, "origin": "GB"}, "g059": {"cat": "scotch", "desc": "Smoky Islay malt with sea salt and peat.", "mods": "rocks", "name": "Caol Ila 12", "off": false, "origin": "GB"}, "g060": {"cat": "scotch", "desc": "Rich Highland malt with orange and dark chocolate notes.", "mods": "rocks", "name": "Dalmore 12", "off": false, "origin": "GB"}, "g061": {"cat": "scotch", "desc": "Aged in French oak: fruity, vanilla-rich and smooth.", "mods": "rocks", "name": "Glenlivet 15 French Oak Reserve", "off": false, "origin": "GB"}, "g062": {"cat": "scotch", "desc": "Heavily peated Islay malt with a sherry-influenced richness.", "mods": "rocks", "name": "Ardbeg Uigeadail", "off": false, "origin": "GB"}, "g063": {"cat": "scotch", "desc": "Finished in Montilla casks. Honeyed and rich.", "mods": "rocks", "name": "Balvenie 12 Montilla Cask", "off": false, "origin": "GB"}, "g064": {"cat": "scotch", "desc": "One of the most heavily peated whiskies: bold and intense. 20 ml.", "mods": "rocks", "name": "Bruichladdich Octomore 16.1 (20 ml)", "off": false, "origin": "GB"}, "g065": {"cat": "scotch", "desc": "One of the most heavily peated whiskies: bold and intense. 40 ml.", "mods": "rocks", "name": "Bruichladdich Octomore 16.1 (40 ml)", "off": false, "origin": "GB"}, "g066": {"cat": "scotch", "desc": "18-year-old sherry-matured Speyside malt, deep and complex. 20 ml.", "mods": "rocks", "name": "Macallan 18 Sherry Oak (20 ml)", "off": false, "origin": "GB"}, "g067": {"cat": "scotch", "desc": "Premium sherry-cask Macallan: dark fruit and oak. 20 ml.", "mods": "rocks", "name": "Macallan Rare Cask Black (20 ml)", "off": false, "origin": "GB"}, "g068": {"cat": "scotch", "desc": "Premium sherry-cask Macallan: dark fruit and oak. 40 ml.", "mods": "rocks", "name": "Macallan Rare Cask Black (40 ml)", "off": false, "origin": "GB"}, "g069": {"cat": "bourbon", "desc": "American whiskey, complex and smooth.", "mods": "rocks", "name": "Michter's US*1 Unblended American", "off": false, "origin": "US"}, "g070": {"cat": "bourbon", "desc": "The original single-barrel bourbon, rich in caramel and spice.", "mods": "rocks", "name": "Blanton's Single Barrel", "off": false, "origin": "US"}, "g071": {"cat": "whiskey", "desc": "Canadian whisky, light and smooth. Ideal with soda or ginger.", "mods": "spirit", "name": "Canadian Club", "off": false, "origin": "CA"}, "g072": {"cat": "japanese", "desc": "12-year-old Japanese single malt: fruity and floral. 20 ml.", "mods": "rocks", "name": "Yamazaki 12 Year Old (20 ml)", "off": false, "origin": "JP"}, "g073": {"cat": "cognac", "desc": "Young Calvados with fresh apple and pear and a light oak finish.", "mods": "rocks", "name": "Calvados Morin Sélection", "off": false, "origin": "FR"}, "g074": {"cat": "cognac", "desc": "VSOP Calvados with baked apple, spice and oak.", "mods": "rocks", "name": "Christian Drouin VSOP Calvados", "off": false, "origin": "FR"}, "g075": {"cat": "cognac", "desc": "XO Armagnac, rich with dried fruit and spice.", "mods": "rocks", "name": "Bas-Armagnac Dartigalongue XO", "off": false, "origin": "FR"}, "g076": {"cat": "cognac", "desc": "VSOP cognac, floral and fruity with spice.", "mods": "rocks", "name": "Godet VSOP", "off": false, "origin": "FR"}, "g077": {"cat": "cognac", "desc": "Cognac chilled and frozen for a smooth, fresh and zesty taste.", "mods": "rocks", "name": "Godet Antarctica Iced Cognac", "off": false, "origin": "FR"}, "g078": {"cat": "cognac", "desc": "15-year Calvados with deep apple, dried fruit and oak.", "mods": "rocks", "name": "Calvados Morin Hors d'Âge 15 Ans", "off": false, "origin": "FR"}, "g079": {"cat": "cognac", "desc": "Cognac blended from aged eaux-de-vie. Rich and elegant.", "mods": "rocks", "name": "Tesseron Lot N°90 XO Ovation", "off": false, "origin": "FR"}, "g080": {"cat": "cognac", "desc": "Grande Champagne cognac of exceptional age: very smooth and complex. 20 ml.", "mods": "rocks", "name": "Godet Renaissance Grande Champagne (20 ml)", "off": false, "origin": "FR"}, "g081": {"cat": "cognac", "desc": "Grande Champagne cognac of exceptional age: very smooth and complex. 40 ml.", "mods": "rocks", "name": "Godet Renaissance Grande Champagne (40 ml)", "off": false, "origin": "FR"}, "g082": {"cat": "palinka", "desc": "Hungarian plum pálinka: fresh and fruity.", "mods": "rocks", "name": "Árpád Lepotica Plum", "off": false, "origin": "HU"}, "g083": {"cat": "palinka", "desc": "Grappa from Moscato pomace: floral and grapey.", "mods": "rocks", "name": "Marolo Grappa di Moscato", "off": false, "origin": "IT"}, "g084": {"cat": "palinka", "desc": "Pear pálinka: delicate and perfumed.", "mods": "rocks", "name": "Árpád Williams Pear", "off": false, "origin": "HU"}, "g085": {"cat": "palinka", "desc": "Quince pálinka: aromatic and honeyed.", "mods": "rocks", "name": "Árpád Quince", "off": false, "origin": "HU"}, "g086": {"cat": "palinka", "desc": "Grappa from Amarone pomace: rich and dried-fruit.", "mods": "rocks", "name": "Marolo Grappa di Amarone", "off": false, "origin": "IT"}, "g087": {"cat": "palinka", "desc": "Apricot pálinka: intense and fruity.", "mods": "rocks", "name": "Árpád Double-Bedded Apricot", "off": false, "origin": "HU"}, "g088": {"cat": "palinka", "desc": "Raspberry pálinka: bright and fruity.", "mods": "rocks", "name": "Árpád Raspberry", "off": false, "origin": "HU"}, "g089": {"cat": "liqueur", "desc": "Dry vermouth from Piedmont. Herbal and light.", "mods": "rocks", "name": "Cocchi Extra Dry Piemontese", "off": false, "origin": "IT"}, "g090": {"cat": "liqueur", "desc": "Sweet vermouth from Turin, rich with herbs and spice.", "mods": "rocks", "name": "Cocchi Storico Vermouth di Torino", "off": false, "origin": "IT"}, "g091": {"cat": "liqueur", "desc": "Bianco aperitivo with gentian and orange. Light and floral.", "mods": "rocks", "name": "Cocchi Americano Bianco", "off": false, "origin": "IT"}, "g092": {"cat": "liqueur", "desc": "Hungarian vermouth. Herbal and balanced.", "mods": "rocks", "name": "Moena", "off": false, "origin": "HU"}, "g093": {"cat": "liqueur", "desc": "Cherry-blossom vermouth from Italy. Floral and light.", "mods": "rocks", "name": "Mancino Sakura", "off": false, "origin": "IT"}, "g094": {"cat": "liqueur", "desc": "Quinine-spiced wine from Piedmont. Bitter and herbal.", "mods": "rocks", "name": "Cocchi Barolo Chinato", "off": false, "origin": "IT"}, "g095": {"cat": "liqueur", "desc": "Cherry liqueur from Zara. Sweet and nutty.", "mods": "rocks", "name": "Luxardo Maraschino", "off": false, "origin": "IT"}, "g096": {"cat": "liqueur", "desc": "Danish cherry liqueur. Sweet and fruity.", "mods": "rocks", "name": "Cherry Heering", "off": false, "origin": "DK"}, "g097": {"cat": "liqueur", "desc": "Gentian aperitif from France. Bitter and earthy.", "mods": "rocks", "name": "Suze", "off": false, "origin": "FR"}, "g098": {"cat": "liqueur", "desc": "Sweet herbal liqueur from France.", "mods": "rocks", "name": "La Gauloise Yellow", "off": false, "origin": "FR"}, "g099": {"cat": "liqueur", "desc": "Green herbal liqueur from France. Intense and herbal.", "mods": "rocks", "name": "La Gauloise Green", "off": false, "origin": "FR"}, "g100": {"cat": "liqueur", "desc": "Bergamot liqueur with herbs. Floral and bright.", "mods": "rocks", "name": "Italicus Rosolio di Bergamotto", "off": false, "origin": "IT"}, "g101": {"cat": "liqueur", "desc": "Unicum with coffee: bitter-sweet, with coffee notes.", "mods": "rocks", "name": "Zwack Unicum Barista", "off": false, "origin": "HU"}, "g102": {"cat": "liqueur", "desc": "Unicum with plum or orange: fruity and bitter.", "mods": "rocks", "name": "Zwack Unicum Plum / Orange", "off": false, "origin": "HU"}, "g103": {"cat": "liqueur", "desc": "Premium aged Unicum digestif: rich and complex.", "mods": "rocks", "name": "Zwack Trésor XO", "off": false, "origin": "HU"}, "g104": {"cat": "liqueur", "desc": "Lychee liqueur from Dijon. Floral and sweet.", "mods": "rocks", "name": "Briottet Liqueur de Litchi", "off": false, "origin": "FR"}, "g105": {"cat": "liqueur", "desc": "Blackcurrant liqueur from Dijon. Rich and fruity.", "mods": "rocks", "name": "Briottet Crème de Cassis", "off": false, "origin": "FR"}, "g106": {"cat": "liqueur", "desc": "Rhubarb liqueur from Dijon. Tart and fresh.", "mods": "rocks", "name": "Briottet Liqueur de Rhubarbe", "off": false, "origin": "FR"}, "g107": {"cat": "liqueur", "desc": "Peach liqueur from Dijon. Sweet and fragrant.", "mods": "rocks", "name": "Briottet Pêche de Vigne", "off": false, "origin": "FR"}, "g108": {"cat": "liqueur", "desc": "Violet liqueur from Dijon. Floral and delicate.", "mods": "rocks", "name": "Briottet Liqueur de Violette", "off": false, "origin": "FR"}, "g109": {"cat": "liqueur", "desc": "Passion fruit liqueur from Dijon. Tropical and tart.", "mods": "rocks", "name": "Briottet Liqueur de Fruit de la Passion", "off": false, "origin": "FR"}, "g110": {"cat": "other", "desc": "Junmai ginjo sake from Yamagata: fruity and fragrant. 0.72 l bottle.", "name": "Dewazakura Dewasansan (0.72 l)", "off": false, "origin": "JP"}, "g111": {"cat": "other", "desc": "Junmai ginjo sake from Yamagata: fruity and fragrant. 0.1 l.", "name": "Dewazakura Dewasansan (0.1 l)", "off": false, "origin": "JP"}, "g112": {"cat": "other", "desc": "Junmai daiginjo sake: delicate, aromatic and clean. 0.5 l.", "name": "Hoyo Kura no Hana (0.5 l)", "off": false, "origin": "JP"}, "g113": {"cat": "other", "desc": "Junmai daiginjo sake: delicate, aromatic and clean. 0.1 l.", "name": "Hoyo Kura no Hana (0.1 l)", "off": false, "origin": "JP"}, "g114": {"cat": "bottled", "desc": "Belgian kriek: a sweet-sour cherry beer with a light fruit aroma.", "name": "Mort Subite Kriek (0.25 l)", "off": false, "origin": "BE"}, "g115": {"cat": "bottled", "desc": "Alcohol-free lager from Dreher: malty and light.", "name": "Dreher 24 Zero (0.33 l)", "off": false, "origin": "HU"}, "g116": {"cat": "bottled", "desc": "Dry Normandy cider from the Drouin family: crisp and apple-led. 0.25 l.", "name": "Christian Drouin Cider (0.25 l)", "off": false, "origin": "FR"}, "g117": {"cat": "bottled", "desc": "Dry Normandy cider from the Drouin family: crisp and apple-led. 0.75 l.", "name": "Christian Drouin Cider (0.75 l)", "off": false, "origin": "FR"}, "g118": {"cat": "sparkling", "desc": "Alcohol-free sparkling wine with fresh apple and pear. 0.75 l.", "name": "Alcohol-free prosecco (0.75 l)", "off": false, "origin": "IT"}, "g119": {"cat": "sparkling", "desc": "Alcohol-free sparkling wine with fresh apple and pear. 0.15 l.", "name": "Alcohol-free prosecco (0.15 l)", "off": false, "origin": "IT"}, "g120": {"cat": "sparkling", "desc": "Sparkling tea with Riesling-style flavour: dry, floral and fruity. 0.75 l.", "name": "Vervaine Riesling (0.75 l)", "off": false, "origin": "DE"}, "g121": {"cat": "sparkling", "desc": "Sparkling tea with Riesling-style flavour: dry, floral and fruity. 0.15 l.", "name": "Vervaine Riesling (0.15 l)", "off": false, "origin": "DE"}, "g122": {"cat": "sparkling", "desc": "Sparkling Darjeeling tea: delicate, floral and rosy. 0.75 l.", "name": "Rose Darjeeling (0.75 l)", "off": false, "origin": "DE"}, "g123": {"cat": "sparkling", "desc": "Sparkling Darjeeling tea: delicate, floral and rosy. 0.15 l.", "name": "Rose Darjeeling (0.15 l)", "off": false, "origin": "DE"}, "g124": {"cat": "mocktail", "desc": "Alcohol-free rum alternative with warm spice and caramel.", "mods": "spirit", "name": "Undone No. 1 This Is Not Rum", "off": false, "origin": "DE"}, "g125": {"cat": "mocktail", "desc": "Alcohol-free gin alternative with juniper and citrus.", "mods": "spirit", "name": "Undone No. 2 This Is Not Gin", "off": false, "origin": "DE"}, "g126": {"cat": "mocktail", "desc": "Alcohol-free mezcal alternative with smoky, earthy notes.", "mods": "spirit", "name": "Undone No. 4 This Is Not Mezcal", "off": false, "origin": "DE"}, "g127": {"cat": "mocktail", "desc": "Herbal, bitter aperitivo alternative for spritz-style drinks.", "mods": "spirit", "name": "Undone No. 5 This Is Not Aperitivo", "off": false, "origin": "DE"}, "g128": {"cat": "mocktail", "desc": "Alcohol-free orange bitters: bright and aromatic.", "mods": "spirit", "name": "Undone No. 7 This Is Not Orange Bitter", "off": false, "origin": "DE"}, "g129": {"cat": "mocktail", "desc": "Alcohol-free vermouth alternative with herbal, wine-like notes.", "mods": "spirit", "name": "Undone No. 8 This Is Not Vermouth", "off": false, "origin": "DE"}, "g130": {"cat": "mocktail", "desc": "Alcohol-free gin with juniper and citrus. Made in Germany.", "mods": "spirit", "name": "Knut Hansen 0% Gin", "off": false, "origin": "DE"}, "g131": {"cat": "soft", "desc": "Still natural mineral water from Tuscany: soft and light.", "name": "Acqua Panna still (250 ml)", "off": false, "origin": "IT"}, "g132": {"cat": "soft", "desc": "Still natural mineral water from Tuscany, in the large bottle.", "name": "Acqua Panna still (750 ml)", "off": false, "origin": "IT"}, "g133": {"cat": "soft", "desc": "Sparkling natural mineral water from Lombardy, with a fine, lively bubble.", "name": "San Pellegrino sparkling (250 ml)", "off": false, "origin": "IT"}, "g134": {"cat": "soft", "desc": "Sparkling natural mineral water from Lombardy, in the large bottle.", "name": "San Pellegrino sparkling (750 ml)", "off": false, "origin": "IT"}, "g135": {"cat": "soft", "desc": "Lemon-lime soda: crisp, light and sweet.", "name": "Sprite", "off": false, "origin": "US"}, "g136": {"cat": "soft", "desc": "Cherry soda from Three Cents: tart, bright and fruity.", "name": "Three Cents Cherry Soda", "off": false, "origin": "DE"}, "g137": {"cat": "soft", "desc": "Grapefruit soda from Three Cents: dry, zesty and refreshing.", "name": "Three Cents Grapefruit Soda", "off": false, "origin": "DE"}, "g138": {"cat": "soft", "desc": "Fever-Tree tonic: light, crisp and balanced, with a fine quinine bitterness.", "name": "Fever-Tree Tonic (Premium Indian or Refreshingly Light)", "off": false, "origin": "GB"}, "g139": {"cat": "soft", "desc": "Sugar-free Red Bull: the same energy, with no sugar.", "name": "Red Bull Sugar-free", "off": false, "origin": "AT"}, "g140": {"cat": "coffee", "desc": "A shorter, more intense espresso with a sweeter, fuller taste.", "name": "Ristretto", "off": false, "origin": "IT"}, "g141": {"cat": "coffee", "desc": "Espresso cut with an equal amount of warm milk. Smooth and strong.", "name": "Cortado", "off": false, "origin": "ES"}, "g142": {"cat": "coffee", "desc": "Japanese matcha whisked with steamed milk. Earthy, green and creamy.", "name": "Matcha latte", "off": false, "origin": "JP"}, "g143": {"cat": "coffee", "desc": "Yellow Gold oolong: light and creamy, with floral and fruity notes.", "name": "Jing Oolong · Yellow Gold (Huangjin Gui)", "off": false, "origin": "CN"}, "g144": {"cat": "coffee", "desc": "Yunnan White Peony: a delicate white tea with honeyed sweetness.", "name": "Jing White · Yunnan White Peony", "off": false, "origin": "CN"}, "g145": {"cat": "coffee", "desc": "Orientaleaf white tea: floral, soft and gently sweet.", "name": "Jing White · Orientaleaf", "off": false, "origin": "CN"}, "g146": {"cat": "coffee", "desc": "Rooibos, a naturally caffeine-free red bush tea. Mellow, sweet and smooth.", "name": "Jing Rooibos", "off": false, "origin": "ZA"}, "g147": {"cat": "coffee", "desc": "Herbal infusion of lemongrass and fresh ginger. Zesty and warming.", "name": "Jing Lemongrass & Ginger", "off": false}, "g148": {"cat": "coffee", "desc": "Herbal infusion of whole pink rosebuds. Light, floral and delicate.", "name": "Jing Whole Pink Rosebuds", "off": false}, "g149": {"cat": "coffee", "desc": "Blackcurrant and hibiscus infusion. Tart, fruity and bright red.", "name": "Jing Blackcurrant & Hibiscus", "off": false}, "g150": {"cat": "food", "desc": "Six fresh oysters with ponzu dressing and sliced scallions. Bright, salty and clean.", "name": "Half a dozen oysters", "off": false}, "g151": {"cat": "food", "desc": "Crispy romaine, Caesar dressing, croutons, parmesan and anchovies.", "name": "Classic Caesar Salad", "off": false}, "g152": {"cat": "food", "desc": "Grilled chicken added to the Caesar salad.", "name": "Add chicken to Caesar salad", "off": false}, "g153": {"cat": "soft", "desc": "Pressed apple, carrot and beetroot. Fresh, earthy and naturally sweet.", "name": "Apple, Carrot & Beetroot juice", "off": false}, "g155": {"cat": "coffee", "desc": "Green tea with fresh Moroccan mint. Bright, cooling and refreshing.", "name": "Jing Green · Moroccan Mint", "off": false, "origin": "CN"}, "k01": {"cat": "coffee", "createdAt": 1761490700001, "desc": "A short, concentrated shot of coffee with a thick crema.", "mods": null, "name": "Espresso", "origin": "IT"}, "k03": {"cat": "coffee", "createdAt": 1761490700003, "desc": "Espresso topped up with hot water. Smooth and long.", "mods": null, "name": "Americano", "origin": "IT"}, "k04": {"cat": "coffee", "createdAt": 1761490700004, "desc": "Espresso with steamed milk and a thick, velvety foam.", "mods": "coffee", "name": "Cappuccino", "origin": "IT"}, "k05": {"cat": "coffee", "createdAt": 1761490700005, "desc": "Espresso with velvety microfoam milk. Rich, silky and balanced.", "mods": "coffee", "name": "Flat white", "origin": "AU"}, "k06": {"cat": "coffee", "createdAt": 1761490700006, "desc": "Espresso with plenty of steamed milk and a thin layer of foam.", "mods": "coffee", "name": "Caffè latte", "origin": "IT"}, "k07": {"cat": "coffee", "createdAt": 1761490700007, "desc": "Rich, creamy hot chocolate.", "mods": "coffee", "name": "Hot chocolate"}, "k08": {"cat": "coffee", "createdAt": 1761490700008, "desc": "Strong Assam black tea with a malty, brisk taste. Good with milk.", "mods": null, "name": "Jing Black · Assam Breakfast", "origin": "CN"}, "k09": {"cat": "coffee", "createdAt": 1761490700009, "desc": "Black tea scented with bergamot: citrusy, floral and fragrant.", "mods": null, "name": "Jing Black · Earl Grey", "origin": "CN"}, "k10": {"cat": "coffee", "createdAt": 1761490700010, "desc": "Jade Sword green tea: fresh, grassy and lightly sweet.", "mods": null, "name": "Jing Green · Jade Sword (Mao Jian)", "origin": "CN"}, "l01": {"cat": "liqueur", "createdAt": 1761490100001, "desc": "Lighter, sweet-bitter orange aperitivo. The base of a spritz.", "mods": "rocks", "name": "Aperol", "origin": "IT"}, "l02": {"cat": "liqueur", "createdAt": 1761490100002, "desc": "Floral, lightly bitter French aperitif wine.", "mods": "rocks", "name": "Lillet Blanc", "origin": "FR"}, "l06": {"cat": "liqueur", "createdAt": 1761490100006, "desc": "Very bitter herbal amaro from Milan. A bar classic.", "mods": "rocks", "name": "Fernet-Branca", "origin": "IT"}, "l07": {"cat": "liqueur", "createdAt": 1761490100007, "desc": "German herbal liqueur with 56 herbs. Spiced and sweet.", "mods": "rocks", "name": "Jägermeister", "origin": "DE"}, "l08": {"cat": "liqueur", "createdAt": 1761490100008, "desc": "Orange liqueur blended with cognac. Sweet and aromatic.", "mods": "rocks", "name": "Grand Marnier", "origin": "FR"}, "l09": {"cat": "liqueur", "createdAt": 1761490100009, "desc": "Elderflower liqueur from France. Floral and fresh.", "mods": "rocks", "name": "St-Germain", "origin": "FR"}, "l10": {"cat": "liqueur", "createdAt": 1761490100010, "desc": "Black raspberry liqueur from France. Sweet and fruity.", "mods": "rocks", "name": "Chambord", "origin": "FR"}, "l11": {"cat": "liqueur", "createdAt": 1761490100011, "desc": "Hazelnut liqueur from Piedmont. Sweet and nutty.", "mods": "rocks", "name": "Frangelico", "origin": "IT"}, "l12": {"cat": "liqueur", "createdAt": 1761490100012, "desc": "Coffee liqueur from Mexico. Sweet and rich.", "mods": "rocks", "name": "Kahlúa", "origin": "MX"}, "l14": {"cat": "liqueur", "createdAt": 1761490100014, "desc": "Lemon liqueur from Campania. Sweet and bright.", "mods": null, "name": "Limoncello", "origin": "IT"}, "l15": {"cat": "liqueur", "createdAt": 1761490100015, "desc": "Italian anise liqueur: sweet and sharp.", "mods": null, "name": "Sambuca", "origin": "IT"}, "m01": {"cat": "draft", "createdAt": 1761489000001, "desc": "Italy's classic lager from Padua: light, crisp and gently bitter. Served fresh from the draught line.", "name": "Peroni Nastro Azzurro draft (0.3 l)", "origin": "IT"}, "m02": {"cat": "draft", "createdAt": 1761489000002, "desc": "Italy's classic lager from Padua: light, crisp and gently bitter. Served fresh from the draught line.", "name": "Peroni Nastro Azzurro draft (0.5 l)", "origin": "IT"}, "m03": {"cat": "bottled", "createdAt": 1761489000003, "desc": "Hungarian golden lager from Dreher: malty, balanced and clean-finishing.", "name": "Dreher Gold (0.33 l)", "origin": "HU"}, "m04": {"cat": "bottled", "createdAt": 1761489000004, "desc": "A cloudy German wheat beer with banana and clove aromas. Soft, refreshing and easy to drink.", "name": "Wildbräu Weissbier (0.5 l)", "origin": "DE"}, "m05": {"cat": "soft", "createdAt": 1761489000005, "desc": "Pressed apple juice: sweet, clean and refreshing.", "name": "Apple juice"}, "m06": {"cat": "soft", "createdAt": 1761489000006, "desc": "Pressed beetroot juice: earthy, sweet and full of colour.", "name": "Beetroot juice"}, "m07": {"cat": "soft", "createdAt": 1761489000007, "desc": "Freshly pressed orange juice, bright and naturally sweet.", "name": "Orange juice"}, "m08": {"cat": "soft", "createdAt": 1761489000008, "desc": "Pressed pineapple juice: sweet and tropical. A good partner for rum and spirits.", "name": "Pineapple juice"}, "m09": {"cat": "soft", "createdAt": 1761489000009, "desc": "Tart cranberry juice. Pairs well with vodka and gin, with a bright, sharp finish.", "name": "Cranberry juice"}, "m10": {"cat": "signature", "createdAt": 1761489000010, "desc": "Bulleit bourbon, cherry, sherry and citrus, shaken with vegan egg white. Deep, fruity and silky.", "mods": null, "name": "Red Cask"}, "m11": {"cat": "signature", "createdAt": 1761489000011, "desc": "Ki No Tea gin with ume and plum, a sour with matcha foam on top. Tart, sweet and green.", "mods": null, "name": "Tsukimi"}, "m12": {"cat": "signature", "createdAt": 1761489000012, "desc": "Tanqueray gin with Campari and vermouth: bittersweet and herbal, with a hint of hops.", "mods": null, "name": "Beyond Torino"}, "m13": {"cat": "signature", "createdAt": 1761489000013, "desc": "Ketel One vodka, espresso, Kahlúa and Baileys, shaken hard for a foamy top. Creamy and coffee-led.", "mods": null, "name": "Baileys Espresso Martini"}, "m14": {"cat": "signature", "createdAt": 1761489000014, "desc": "Tenebris pineapple vodka and Chambord with citrus and sugar, finished with pineapple foam. Tropical and floral.", "mods": null, "name": "Fleur de Nuit"}, "m15": {"cat": "signature", "createdAt": 1761489000015, "desc": "Calvados and St-Germain elderflower with apple and Prosecco. Elegant and apple-led.", "mods": null, "name": "Normandy"}, "m17": {"cat": "signature", "createdAt": 1761489000017, "desc": "Ketel One vodka with pear, rhubarb and Aperol, topped with ginger beer. A fresh twist on a Moscow mule.", "mods": null, "name": "Pear & Rhubarb Mule"}, "s02": {"cat": "vodka", "createdAt": 1761490000002, "desc": "French wheat vodka, smooth and light. A clean base for mixed drinks.", "mods": "spirit", "name": "Grey Goose", "origin": "FR"}, "s03": {"cat": "vodka", "createdAt": 1761490000003, "desc": "Polish rye vodka: creamy and smooth.", "mods": "spirit", "name": "Belvedere", "origin": "PL"}, "s05": {"cat": "gin", "createdAt": 1761490000005, "desc": "London dry gin with juniper and citrus, light and balanced. Best with tonic and a lime wedge.", "mods": "spirit", "name": "Bombay Sapphire", "origin": "GB"}, "s06": {"cat": "gin", "createdAt": 1761490000006, "desc": "Classic London dry gin with bold juniper. Pairs with tonic and a crisp lime wheel.", "mods": "spirit", "name": "Tanqueray", "origin": "GB"}, "s07": {"cat": "gin", "createdAt": 1761490000007, "desc": "Scottish gin infused with cucumber and rose. Pairs with cucumber ribbon and pink peppercorns.", "mods": "spirit", "name": "Hendrick's", "origin": "GB"}, "s08": {"cat": "gin", "createdAt": 1761490000008, "desc": "German dry gin with 47 botanicals: complex and aromatic. Pairs with blackberries and rosemary.", "mods": "spirit", "name": "Monkey 47", "origin": "DE"}, "s09": {"cat": "rum", "createdAt": 1761490000009, "desc": "Light Puerto Rican rum: clean and easy to mix.", "mods": "spirit", "name": "Bacardí Carta Blanca", "origin": "PR"}, "s100": {"cat": "gin", "createdAt": 1761490000100, "desc": "Tanqueray with Seville orange and a bitter-orange finish. Good with tonic and an orange wheel.", "mods": "spirit", "name": "Tanqueray Flor de Sevilla", "origin": "GB"}, "s104": {"cat": "rum", "createdAt": 1761490000104, "desc": "Philippine rum aged on Negros island. Vanilla and dried fruit.", "mods": "rocks", "name": "Don Papa", "origin": "PH"}, "s11": {"cat": "rum", "createdAt": 1761490000011, "desc": "Venezuelan rum aged in oak, with caramel and vanilla.", "mods": "rocks", "name": "Diplomático Reserva Exclusiva", "origin": "VE"}, "s111": {"cat": "mezcal", "createdAt": 1761490000111, "desc": "Single-village mezcal from Chichicapa. Earthy and complex.", "mods": "rocks", "name": "Del Maguey Chichicapa", "origin": "MX"}, "s118": {"cat": "scotch", "createdAt": 1761490000118, "desc": "Sherry-matured Speyside malt with rich dried fruit and spice.", "mods": "rocks", "name": "The Macallan 15 Double Cask", "origin": "GB"}, "s12": {"cat": "rum", "createdAt": 1761490000012, "desc": "Guatemalan rum aged in a solera system. Rich with toffee and dried fruit.", "mods": "rocks", "name": "Ron Zacapa 23 Solera", "origin": "GT"}, "s120": {"cat": "bourbon", "createdAt": 1761490000120, "desc": "High-rye bourbon with spice and boldness. Great in classic cocktails.", "mods": "spirit", "name": "Bulleit Bourbon", "origin": "US"}, "s130": {"cat": "whiskey", "createdAt": 1761490000130, "desc": "Pot-still Irish whiskey: rich, creamy and spicy.", "mods": "rocks", "name": "Writers' Tears Copper Pot", "origin": "IE"}, "s138": {"cat": "liqueur", "createdAt": 1761490000138, "desc": "Hungarian herbal digestif aged in oak. Bitter and intense.", "mods": "rocks", "name": "Zwack Unicum Riserva", "origin": "HU"}, "s140": {"cat": "liqueur", "createdAt": 1761490000140, "desc": "Herbal French liqueur with 27 botanicals. Sweet and spiced.", "mods": "rocks", "name": "Bénédictine", "origin": "FR"}, "s141": {"cat": "liqueur", "createdAt": 1761490000141, "desc": "Spanish liqueur with vanilla and citrus. Sweet and smooth.", "mods": "rocks", "name": "Licor 43", "origin": "ES"}, "s143": {"cat": "liqueur", "createdAt": 1761490000143, "desc": "Italian amaro with orange and floral notes. Smooth and sweet.", "mods": "rocks", "name": "Amaro Montenegro", "origin": "IT"}, "s17": {"cat": "mezcal", "createdAt": 1761490000017, "desc": "Joven mezcal from Oaxaca. Smoky and earthy, best sipped neat.", "mods": "rocks", "name": "Del Maguey Vida", "origin": "MX"}, "s19": {"cat": "scotch", "createdAt": 1761490000019, "desc": "Blended Scotch with smoke, honey and dried fruit. The everyday classic.", "mods": "spirit", "name": "Johnnie Walker Black Label", "origin": "GB"}, "s20": {"cat": "scotch", "createdAt": 1761490000020, "desc": "Blended malt Scotch from three malts. Sweet, smooth and easy.", "mods": "spirit", "name": "Monkey Shoulder", "origin": "GB"}, "s21": {"cat": "scotch", "createdAt": 1761490000021, "desc": "Fresh, pear-led Speyside malt. Easy and fruity.", "mods": "rocks", "name": "Glenfiddich 12", "origin": "GB"}, "s22": {"cat": "scotch", "createdAt": 1761490000022, "desc": "Sherry-matured Speyside malt, rich with dried fruit and spice.", "mods": "rocks", "name": "The Macallan 12 Double Cask", "origin": "GB"}, "s23": {"cat": "scotch", "createdAt": 1761490000023, "desc": "Big, peaty Islay malt with dried fruit and sea salt.", "mods": "rocks", "name": "Lagavulin 16", "origin": "GB"}, "s24": {"cat": "bourbon", "createdAt": 1761490000024, "desc": "Tennessee whiskey filtered through maple charcoal. Rich, smooth and single-barrel.", "mods": "spirit", "name": "Jack Daniel's Single Barrel", "origin": "US"}, "s25": {"cat": "bourbon", "createdAt": 1761490000025, "desc": "Soft wheated bourbon with caramel and vanilla.", "mods": "spirit", "name": "Maker's Mark", "origin": "US"}, "s26": {"cat": "bourbon", "createdAt": 1761490000026, "desc": "Smooth bourbon with orange peel, spice and toffee.", "mods": "spirit", "name": "Woodford Reserve", "origin": "US"}, "s30": {"cat": "japanese", "createdAt": 1761490000030, "desc": "Blended Japanese whisky bottled at barrel strength. Bold and fruity.", "mods": "rocks", "name": "Nikka From the Barrel", "origin": "JP"}, "s31": {"cat": "japanese", "createdAt": 1761490000031, "desc": "Blended whisky with delicate fruit, honey and spice.", "mods": "rocks", "name": "Suntory Hibiki Japanese Harmony", "origin": "JP"}, "s32": {"cat": "whiskey", "createdAt": 1761490000032, "desc": "Irish blend, smooth and light with vanilla and a soft finish.", "mods": "spirit", "name": "Jameson", "origin": "IE"}, "s33": {"cat": "cognac", "createdAt": 1761490000033, "desc": "Young cognac of fruit and freshness. Bright and smooth.", "mods": "rocks", "name": "Hennessy VS", "origin": "FR"}, "s35": {"cat": "cognac", "createdAt": 1761490000035, "desc": "XO cognac with dried fruit, vanilla and spice.", "mods": "rocks", "name": "Hennessy XO", "origin": "FR"}, "s39": {"cat": "liqueur", "createdAt": 1761490000039, "desc": "Hungarian herbal digestif with a bitter, medicinal character.", "mods": "rocks", "name": "Unicum", "origin": "HU"}, "s40": {"cat": "liqueur", "createdAt": 1761490000040, "desc": "Bitter aperitivo from Milan. Herbal and bright.", "mods": "spirit", "name": "Campari", "origin": "IT"}, "s41": {"cat": "liqueur", "createdAt": 1761490000041, "desc": "Irish cream liqueur: whiskey with cream and chocolate.", "mods": "rocks", "name": "Baileys", "origin": "IE"}, "s42": {"cat": "liqueur", "createdAt": 1761490000042, "desc": "Amaretto from Saronno with almond and apricot notes.", "mods": "rocks", "name": "Disaronno Originale", "origin": "IT"}, "s43": {"cat": "liqueur", "createdAt": 1761490000043, "desc": "Orange-led triple sec. Clean and bright.", "mods": "rocks", "name": "Cointreau", "origin": "FR"}, "s44": {"cat": "vodka", "createdAt": 1761490000044, "desc": "Dutch wheat vodka: clean and crisp.", "mods": "spirit", "name": "Ketel One", "origin": "NL"}, "s46": {"cat": "vodka", "createdAt": 1761490000046, "desc": "French grape vodka: smooth and fruity.", "mods": "spirit", "name": "Cîroc", "origin": "FR"}, "s48": {"cat": "gin", "createdAt": 1761490000048, "desc": "Citrus-forward premium gin. Pairs with tonic and a ruby grapefruit twist.", "mods": "spirit", "name": "Tanqueray No. Ten", "origin": "GB"}, "s49": {"cat": "gin", "createdAt": 1761490000049, "desc": "Mediterranean gin with basil, thyme and olive notes. Pairs with rosemary and orange peel.", "mods": "spirit", "name": "Gin Mare", "origin": "ES"}, "s59": {"cat": "tequila", "createdAt": 1761490000059, "desc": "Reposado aged in oak. Honeyed agave with vanilla and soft spice. 40 ml.", "mods": "rocks", "name": "Clase Azul Reposado", "origin": "MX"}, "s60": {"cat": "tequila", "createdAt": 1761490000060, "desc": "Añejo aged for several years. Rich vanilla and toffee. 40 ml.", "mods": "rocks", "name": "Don Julio 1942", "origin": "MX"}, "s66": {"cat": "scotch", "createdAt": 1761490000066, "desc": "Peaty maritime island malt with smoke and pepper.", "mods": "rocks", "name": "Talisker 10", "origin": "GB"}, "s67": {"cat": "scotch", "createdAt": 1761490000067, "desc": "Smoky Islay malt with medicinal peat and iodine.", "mods": "rocks", "name": "Laphroaig 10", "origin": "GB"}, "s68": {"cat": "scotch", "createdAt": 1761490000068, "desc": "Coastal Highland malt with honey and spice.", "mods": "rocks", "name": "Oban 14", "origin": "GB"}, "s70": {"cat": "scotch", "createdAt": 1761490000070, "desc": "18-year-old sherry-matured Speyside malt, deep and complex. 40 ml.", "mods": "rocks", "name": "The Macallan 18 Sherry Oak", "origin": "GB"}, "s71": {"cat": "scotch", "createdAt": 1761490000071, "desc": "Premium blended Scotch: rich and silky with honey and smoke.", "mods": "rocks", "name": "Johnnie Walker Blue Label", "origin": "GB"}, "s76": {"cat": "rye", "createdAt": 1761490000076, "desc": "Spicy rye whiskey with pepper and dried fruit.", "mods": "spirit", "name": "Woodford Reserve Rye", "origin": "US"}, "s81": {"cat": "japanese", "createdAt": 1761490000081, "desc": "12-year-old Japanese single malt: fruity and floral. A classic. 40 ml.", "mods": "rocks", "name": "Yamazaki 12", "origin": "JP"}, "s82": {"cat": "whiskey", "createdAt": 1761490000082, "desc": "Small-batch Irish whiskey: sweet and fruity with a spicy finish.", "mods": "spirit", "name": "Teeling Small Batch", "origin": "IE"}, "s84": {"cat": "whiskey", "createdAt": 1761490000084, "desc": "Pot-still Irish whiskey aged 12 years. Spicy and full-bodied.", "mods": "rocks", "name": "Redbreast 12", "origin": "IE"}, "s86": {"cat": "cognac", "createdAt": 1761490000086, "desc": "Fine cognac with floral and dried fruit notes.", "mods": "rocks", "name": "Martell Cordon Bleu", "origin": "FR"}, "s95": {"cat": "gin", "createdAt": 1761490000095, "desc": "Japanese dry gin with tea and citrus. Light and fresh, with a ginger slice.", "mods": "spirit", "name": "KI NO TEA Kyoto Dry Gin", "origin": "JP"}, "w18": {"cat": "sparkling", "createdAt": 1761490399990, "desc": "Kreinbacher Prestige Brut NV (non-vintage), made in the traditional method in Hungary. Fresh green apple and citrus with a biscuity hint, fine persistent bubbles and a dry, crisp finish.", "mods": null, "name": "Kreinbacher Brut (house sparkling)", "origin": "HU"}, "w30": {"cat": "sparkling", "createdAt": 1761490399991, "desc": "Kreinbacher Rosé Brut, a Hungarian traditional-method sparkling. Red berry and strawberry notes, fresh acidity, fine bubbles and a dry finish.", "mods": null, "name": "Kreinbacher Rosé Brut (house sparkling)", "origin": "HU"}}
+{
+ "_seed": {
+  "v": 2
+ },
+ "b04": {
+  "cat": "bottled",
+  "createdAt": 1761490500004,
+  "desc": "A premium German lager with a crisp, clean taste and a light, dry finish.",
+  "mods": null,
+  "name": "Noam Lager (0.34 l)",
+  "origin": "DE"
+ },
+ "d01": {
+  "cat": "soft",
+  "createdAt": 1761490600001,
+  "desc": "The original cola: sweet, caramel and spice. Served ice-cold.",
+  "mods": null,
+  "name": "Coca-Cola",
+  "origin": "US"
+ },
+ "d02": {
+  "cat": "soft",
+  "createdAt": 1761490600002,
+  "desc": "Coca-Cola with zero sugar and the same classic cola taste.",
+  "mods": null,
+  "name": "Coca-Cola Zero",
+  "origin": "US"
+ },
+ "d03": {
+  "cat": "soft",
+  "createdAt": 1761490600003,
+  "desc": "Orange soda with a bright, fruity taste. Refreshing and sweet.",
+  "mods": null,
+  "name": "Fanta",
+  "origin": "DE"
+ },
+ "d04": {
+  "cat": "soft",
+  "createdAt": 1761490600004,
+  "desc": "Sprite Zero: a crisp lemon-lime soda with zero sugar.",
+  "mods": null,
+  "name": "Sprite Zero",
+  "origin": "US"
+ },
+ "d05": {
+  "cat": "soft",
+  "createdAt": 1761490600005,
+  "desc": "Three Cents tonic: dry and botanical with a bitter-citrus finish. Our everyday gin mixer.",
+  "mods": null,
+  "name": "Three Cents Tonic Water (Dry / Aegean)",
+  "origin": "DE"
+ },
+ "d06": {
+  "cat": "soft",
+  "createdAt": 1761490600006,
+  "desc": "Kinley ginger ale: a clean, gently spicy ginger soda. A classic with whisky.",
+  "mods": null,
+  "name": "Kinley Ginger Ale"
+ },
+ "d07": {
+  "cat": "soft",
+  "createdAt": 1761490600007,
+  "desc": "Three Cents ginger beer: spicy and fiery, with a real ginger bite.",
+  "mods": null,
+  "name": "Three Cents Ginger Beer",
+  "origin": "DE"
+ },
+ "d08": {
+  "cat": "soft",
+  "createdAt": 1761490600008,
+  "desc": "Energy drink with caffeine, taurine and B-vitamins. Sweet, citrusy and sharp.",
+  "mods": null,
+  "name": "Red Bull",
+  "origin": "AT"
+ },
+ "d09": {
+  "cat": "soft",
+  "createdAt": 1761490600009,
+  "desc": "House lemonade with forest fruits, passion fruit and mango. Fresh, sweet and tangy.",
+  "mods": null,
+  "name": "Homemade lemonade"
+ },
+ "d10": {
+  "cat": "soft",
+  "desc": "Chilled sparkling water with fine, lively bubbles. Clean and neutral, a good partner for spirits.",
+  "mods": null,
+  "name": "Soda water",
+  "off": false,
+  "pos": ""
+ },
+ "f01": {
+  "cat": "food",
+  "createdAt": 1761491000001,
+  "desc": "Marinated olives served with a handful of mixed nuts.",
+  "mods": null,
+  "name": "Marinated olives & mixed nuts"
+ },
+ "f03": {
+  "cat": "food",
+  "createdAt": 1761491000003,
+  "desc": "Beetroot baked in salt for a concentrated sweetness, with goat cheese mousse and beetroot gel.",
+  "mods": null,
+  "name": "Salt Baked Beetroot Salad"
+ },
+ "f04": {
+  "cat": "food",
+  "createdAt": 1761491000004,
+  "desc": "Crab stick, avocado and cucumber roll with daikon and a wasabi salsa. Mild and fresh.",
+  "mods": null,
+  "name": "California Roll Maki (8 pc)",
+  "origin": "US"
+ },
+ "f05": {
+  "cat": "food",
+  "createdAt": 1761491000005,
+  "desc": "Maki with spicy tuna tartare, pickled cucumber and avocado, topped with crispy shallots.",
+  "mods": null,
+  "name": "Spicy Tuna Tartare Maki (8 pc)",
+  "origin": "JP"
+ },
+ "f06": {
+  "cat": "food",
+  "createdAt": 1761491000006,
+  "desc": "Hungarian fried flatbread with foie gras, sour cream, summer truffle, Trappista cheese and parsley emulsion.",
+  "mods": null,
+  "name": "Lángos",
+  "origin": "HU"
+ },
+ "f07": {
+  "cat": "food",
+  "createdAt": 1761491000007,
+  "desc": "Aged beef patty with sweet onion relish, American cheese, baby gem, tomato and sriracha mayo, served with fries.",
+  "mods": null,
+  "name": "Bar & Grill Burger with fries"
+ },
+ "g001": {
+  "cat": "signature",
+  "desc": "Absolut Vanilla, amaretto and strawberry with citrus, chocolate, apple and soy milk. Creamy and dessert-like.",
+  "name": "Moonmilk",
+  "off": false
+ },
+ "g002": {
+  "cat": "signature",
+  "desc": "Codigo Blanco tequila with grapefruit, Campari and citrus, topped with grapefruit soda. Bright and bittersweet.",
+  "name": "Ocaso",
+  "off": false
+ },
+ "g003": {
+  "cat": "signature",
+  "desc": "Bulleit bourbon, Hennessy VSOP and vermouth with citrus and apple. Stirred-style, rich and warm.",
+  "name": "The Old Man",
+  "off": false
+ },
+ "g004": {
+  "cat": "signature",
+  "desc": "Ketel One vodka with elderflower, strawberry and basil. Fresh and summery.",
+  "name": "Strawberry & Basil Martini",
+  "off": false
+ },
+ "g005": {
+  "cat": "signature",
+  "desc": "Italicus, rosemary and honey with Prosecco and soda. Light, floral and sparkling.",
+  "name": "Bloom of Arles",
+  "off": false
+ },
+ "g006": {
+  "cat": "signature",
+  "desc": "Campari lifted with Sauvignon Blanc and soda. Dry, bitter and easy.",
+  "name": "Terazza",
+  "off": false
+ },
+ "g007": {
+  "cat": "mocktail",
+  "desc": "Red berry tea with citrus, sparkling or still water. Fruity and light.",
+  "name": "First Bloom",
+  "off": false
+ },
+ "g008": {
+  "cat": "mocktail",
+  "desc": "Earl Grey tea with citrus and sparkling water. Fragrant, fizzy and refreshing.",
+  "name": "The Fifth Leaf",
+  "off": false
+ },
+ "g009": {
+  "cat": "mocktail",
+  "desc": "Knut Hansen 0% gin with hibiscus, citrus, sugar and soda. Tart and floral.",
+  "name": "Rosella",
+  "off": false
+ },
+ "g010": {
+  "cat": "mocktail",
+  "desc": "Grapefruit, Campari, citrus and grapefruit soda. Bittersweet and fizzy.",
+  "name": "Salida del Sol",
+  "off": false
+ },
+ "g011": {
+  "cat": "vodka",
+  "desc": "Texan corn vodka, distilled in small batches. Soft and clean.",
+  "mods": "spirit",
+  "name": "Tito's Handmade",
+  "off": false,
+  "origin": "US"
+ },
+ "g012": {
+  "cat": "vodka",
+  "desc": "Swedish wheat vodka with vanilla. Sweet and smooth.",
+  "mods": "spirit",
+  "name": "Absolut Vanilla",
+  "off": false,
+  "origin": "SE"
+ },
+ "g013": {
+  "cat": "vodka",
+  "desc": "Hungarian vodka infused with pineapple. Fresh and tropical.",
+  "mods": "spirit",
+  "name": "Tenebris Pineapple",
+  "off": false,
+  "origin": "HU"
+ },
+ "g014": {
+  "cat": "vodka",
+  "desc": "Italian wheat vodka from Puglia. Smooth and mellow.",
+  "mods": "spirit",
+  "name": "Altamura",
+  "off": false,
+  "origin": "IT"
+ },
+ "g015": {
+  "cat": "vodka",
+  "desc": "Hungarian vodka made from Furmint grapes. Clean with a light fruit note.",
+  "mods": "spirit",
+  "name": "Seven Hills Tokaj Furmint Vodka",
+  "off": false,
+  "origin": "HU"
+ },
+ "g016": {
+  "cat": "vodka",
+  "desc": "Polish rye vodka from the Smogory Forest range. Soft and earthy.",
+  "mods": "spirit",
+  "name": "Belvedere Smogory Forest",
+  "off": false,
+  "origin": "PL"
+ },
+ "g017": {
+  "cat": "vodka",
+  "desc": "Premium vodka from Montenegro. Smooth and refined.",
+  "mods": "spirit",
+  "name": "Beluga Gold Line",
+  "off": false,
+  "origin": "ME"
+ },
+ "g018": {
+  "cat": "gin",
+  "desc": "Dutch genever: malty and botanical, between gin and whisky. Good in a simple tonic.",
+  "mods": "spirit",
+  "name": "Bols Genever",
+  "off": false,
+  "origin": "NL"
+ },
+ "g019": {
+  "cat": "gin",
+  "desc": "Hungarian gin with Tokaj-region botanicals. Clean and aromatic.",
+  "mods": "spirit",
+  "name": "Seven Hills Tokaj Gin",
+  "off": false,
+  "origin": "HU"
+ },
+ "g020": {
+  "cat": "gin",
+  "desc": "Japanese gin with a delicate, clean botanical profile. Lime wedge and tonic.",
+  "mods": "spirit",
+  "name": "Etsu Pacific Ocean Water Japan",
+  "off": false,
+  "origin": "JP"
+ },
+ "g021": {
+  "cat": "gin",
+  "desc": "London dry gin with grapefruit and juniper: bright and classic.",
+  "mods": "spirit",
+  "name": "No. 3 London Dry",
+  "off": false,
+  "origin": "GB"
+ },
+ "g022": {
+  "cat": "gin",
+  "desc": "Norwegian pink gin with raspberry and botanicals. Fruity and soft.",
+  "mods": "spirit",
+  "name": "Harahorn Pink Gin",
+  "off": false,
+  "origin": "NO"
+ },
+ "g023": {
+  "cat": "gin",
+  "desc": "Italian sloe gin: sweet, fruity and rich, made with sloe berries.",
+  "mods": "spirit",
+  "name": "Rivo Sloe Gin",
+  "off": false,
+  "origin": "IT"
+ },
+ "g024": {
+  "cat": "gin",
+  "desc": "Scottish gin from the Isle of Harris, with local botanicals. Smooth and floral.",
+  "mods": "spirit",
+  "name": "Isle of Harris Gin",
+  "off": false,
+  "origin": "GB"
+ },
+ "g025": {
+  "cat": "gin",
+  "desc": "Galician gin with Atlantic botanicals and citrus: bright and salty.",
+  "mods": "spirit",
+  "name": "Nordés",
+  "off": false,
+  "origin": "ES"
+ },
+ "g026": {
+  "cat": "gin",
+  "desc": "Hungarian craft gin: fresh and crisp.",
+  "mods": "spirit",
+  "name": "Misi's Gin",
+  "off": false,
+  "origin": "HU"
+ },
+ "g027": {
+  "cat": "rum",
+  "desc": "Light blend of Caribbean rums. Crisp and clean.",
+  "mods": "spirit",
+  "name": "Planteray 3 Stars",
+  "off": false
+ },
+ "g028": {
+  "cat": "rum",
+  "desc": "Dark blend of Caribbean rums with molasses and spice.",
+  "mods": "spirit",
+  "name": "Planteray Original Dark",
+  "off": false
+ },
+ "g029": {
+  "cat": "rum",
+  "desc": "Bermudan dark rum with molasses and spice. The classic in a Dark 'n' Stormy.",
+  "mods": "spirit",
+  "name": "Gosling's Black Seal",
+  "off": false,
+  "origin": "BM"
+ },
+ "g030": {
+  "cat": "rum",
+  "desc": "Venezuelan aged rum: smooth, with caramel and oak.",
+  "mods": "spirit",
+  "name": "Pampero Añejo Especial",
+  "off": false,
+  "origin": "VE"
+ },
+ "g031": {
+  "cat": "rum",
+  "desc": "Brazilian cachaça, grassy and bright. The base for a caipirinha.",
+  "mods": "spirit",
+  "name": "Ypióca Cachaça",
+  "off": false,
+  "origin": "BR"
+ },
+ "g032": {
+  "cat": "rum",
+  "desc": "Guyanese rum aged 15 years. Rich with molasses and vanilla.",
+  "mods": "rocks",
+  "name": "El Dorado 15 Years",
+  "off": false,
+  "origin": "GY"
+ },
+ "g033": {
+  "cat": "rum",
+  "desc": "Colombian rum aged 20 years. Deep and smooth, with dried fruit.",
+  "mods": "rocks",
+  "name": "Dictador 20 Years",
+  "off": false,
+  "origin": "CO"
+ },
+ "g034": {
+  "cat": "rum",
+  "desc": "High-proof Jamaican rum with bold, funky tropical flavour.",
+  "mods": "rocks",
+  "name": "Hampden Estate Overproof",
+  "off": false,
+  "origin": "JM"
+ },
+ "g035": {
+  "cat": "rum",
+  "desc": "A rich, luxurious Guatemalan rum, aged for many years. For slow sipping.",
+  "mods": "rocks",
+  "name": "Zacapa Centenario Royal",
+  "off": false,
+  "origin": "GT"
+ },
+ "g036": {
+  "cat": "rum",
+  "desc": "Colombian rum finished in Tokaji casks: honeyed and intense. For slow sipping. 20 ml.",
+  "mods": "rocks",
+  "name": "Dictador 2 Masters Royal Tokaji (20 ml)",
+  "off": false,
+  "origin": "CO"
+ },
+ "g037": {
+  "cat": "rum",
+  "desc": "Colombian rum finished in Tokaji casks: honeyed and intense. For slow sipping. 40 ml.",
+  "mods": "rocks",
+  "name": "Dictador 2 Masters Royal Tokaji (40 ml)",
+  "off": false,
+  "origin": "CO"
+ },
+ "g038": {
+  "cat": "tequila",
+  "desc": "Blanco tequila with bright agave, citrus and pepper.",
+  "mods": "spirit",
+  "name": "Código 1530 Blanco",
+  "off": false,
+  "origin": "MX"
+ },
+ "g039": {
+  "cat": "tequila",
+  "desc": "Blanco tequila from a family distillery. Fresh, vegetal agave with citrus.",
+  "mods": "spirit",
+  "name": "Mijenta Blanco",
+  "off": false,
+  "origin": "MX"
+ },
+ "g040": {
+  "cat": "tequila",
+  "desc": "Rosé-coloured tequila rested in casks. Floral agave with berry notes.",
+  "mods": "spirit",
+  "name": "Código 1530 Rosa",
+  "off": false,
+  "origin": "MX"
+ },
+ "g041": {
+  "cat": "tequila",
+  "desc": "Reposado rested in oak. Vanilla, caramel and agave.",
+  "mods": "rocks",
+  "name": "Código 1530 Reposado",
+  "off": false,
+  "origin": "MX"
+ },
+ "g042": {
+  "cat": "tequila",
+  "desc": "Premium blanco tequila: silky, fruity and sweet.",
+  "mods": "rocks",
+  "name": "Casa Dragones Blanco",
+  "off": false,
+  "origin": "MX"
+ },
+ "g043": {
+  "cat": "tequila",
+  "desc": "Reposado aged in oak. Honeyed agave with vanilla and soft spice. 20 ml.",
+  "mods": "rocks",
+  "name": "Clase Azul Reposado (20 ml)",
+  "off": false,
+  "origin": "MX"
+ },
+ "g044": {
+  "cat": "tequila",
+  "desc": "Añejo aged for several years. Rich vanilla and toffee. 20 ml.",
+  "mods": "rocks",
+  "name": "Don Julio 1942 (20 ml)",
+  "off": false,
+  "origin": "MX"
+ },
+ "g045": {
+  "cat": "tequila",
+  "desc": "Extra añejo with caramel, cocoa and oak. 20 ml.",
+  "mods": "rocks",
+  "name": "Código 1530 Origen Extra Añejo (20 ml)",
+  "off": false,
+  "origin": "MX"
+ },
+ "g046": {
+  "cat": "tequila",
+  "desc": "Extra añejo with caramel, cocoa and oak. 40 ml.",
+  "mods": "rocks",
+  "name": "Código 1530 Origen Extra Añejo (40 ml)",
+  "off": false,
+  "origin": "MX"
+ },
+ "g047": {
+  "cat": "tequila",
+  "desc": "Añejo aged in oak: smooth and rich with chocolate and vanilla. 20 ml.",
+  "mods": "rocks",
+  "name": "Clase Azul Añejo (20 ml)",
+  "off": false,
+  "origin": "MX"
+ },
+ "g048": {
+  "cat": "tequila",
+  "desc": "Añejo aged in oak: smooth and rich with chocolate and vanilla. 40 ml.",
+  "mods": "rocks",
+  "name": "Clase Azul Añejo (40 ml)",
+  "off": false,
+  "origin": "MX"
+ },
+ "g049": {
+  "cat": "mezcal",
+  "desc": "Espadín mezcal: smoky and bold. For sipping.",
+  "mods": "rocks",
+  "name": "Don Ramón Espadín Black",
+  "off": false,
+  "origin": "MX"
+ },
+ "g050": {
+  "cat": "mezcal",
+  "desc": "Artisanal mezcal with smoke and sweet agave. Complex.",
+  "mods": "rocks",
+  "name": "Código 1530 Artesanal",
+  "off": false,
+  "origin": "MX"
+ },
+ "g051": {
+  "cat": "mezcal",
+  "desc": "Mezcal from Guerrero: smoky and rich, a premium sipper. 20 ml.",
+  "mods": "rocks",
+  "name": "Clase Azul Mezcal Guerrero (20 ml)",
+  "off": false,
+  "origin": "MX"
+ },
+ "g052": {
+  "cat": "mezcal",
+  "desc": "Mezcal from Guerrero: smoky and rich, a premium sipper. 40 ml.",
+  "mods": "rocks",
+  "name": "Clase Azul Mezcal Guerrero (40 ml)",
+  "off": false,
+  "origin": "MX"
+ },
+ "g053": {
+  "cat": "scotch",
+  "desc": "Blended Scotch aged 18 years, with dried fruit and vanilla.",
+  "mods": "rocks",
+  "name": "Chivas Regal 18 Year Old",
+  "off": false,
+  "origin": "GB"
+ },
+ "g054": {
+  "cat": "scotch",
+  "desc": "Luxury blend aged 25 years. Deep and smooth. 20 ml.",
+  "mods": "rocks",
+  "name": "Chivas Regal 25 Year Old (20 ml)",
+  "off": false,
+  "origin": "GB"
+ },
+ "g055": {
+  "cat": "scotch",
+  "desc": "Luxury blend aged 25 years. Deep and smooth. 40 ml.",
+  "mods": "rocks",
+  "name": "Chivas Regal 25 Year Old (40 ml)",
+  "off": false,
+  "origin": "GB"
+ },
+ "g056": {
+  "cat": "scotch",
+  "desc": "Light island malt: fresh and fruity.",
+  "mods": "rocks",
+  "name": "Arran 10",
+  "off": false,
+  "origin": "GB"
+ },
+ "g057": {
+  "cat": "scotch",
+  "desc": "Light Highland malt with citrus, vanilla and floral notes.",
+  "mods": "rocks",
+  "name": "Glenmorangie 12 Original",
+  "off": false,
+  "origin": "GB"
+ },
+ "g058": {
+  "cat": "scotch",
+  "desc": "Triple-distilled Lowland malt. Smooth and mellow.",
+  "mods": "rocks",
+  "name": "Auchentoshan 12",
+  "off": false,
+  "origin": "GB"
+ },
+ "g059": {
+  "cat": "scotch",
+  "desc": "Smoky Islay malt with sea salt and peat.",
+  "mods": "rocks",
+  "name": "Caol Ila 12",
+  "off": false,
+  "origin": "GB"
+ },
+ "g060": {
+  "cat": "scotch",
+  "desc": "Rich Highland malt with orange and dark chocolate notes.",
+  "mods": "rocks",
+  "name": "Dalmore 12",
+  "off": false,
+  "origin": "GB"
+ },
+ "g061": {
+  "cat": "scotch",
+  "desc": "Aged in French oak: fruity, vanilla-rich and smooth.",
+  "mods": "rocks",
+  "name": "Glenlivet 15 French Oak Reserve",
+  "off": false,
+  "origin": "GB"
+ },
+ "g062": {
+  "cat": "scotch",
+  "desc": "Heavily peated Islay malt with a sherry-influenced richness.",
+  "mods": "rocks",
+  "name": "Ardbeg Uigeadail",
+  "off": false,
+  "origin": "GB"
+ },
+ "g063": {
+  "cat": "scotch",
+  "desc": "Finished in Montilla casks. Honeyed and rich.",
+  "mods": "rocks",
+  "name": "Balvenie 12 Montilla Cask",
+  "off": false,
+  "origin": "GB"
+ },
+ "g064": {
+  "cat": "scotch",
+  "desc": "One of the most heavily peated whiskies: bold and intense. 20 ml.",
+  "mods": "rocks",
+  "name": "Bruichladdich Octomore 16.1 (20 ml)",
+  "off": false,
+  "origin": "GB"
+ },
+ "g065": {
+  "cat": "scotch",
+  "desc": "One of the most heavily peated whiskies: bold and intense. 40 ml.",
+  "mods": "rocks",
+  "name": "Bruichladdich Octomore 16.1 (40 ml)",
+  "off": false,
+  "origin": "GB"
+ },
+ "g066": {
+  "cat": "scotch",
+  "desc": "18-year-old sherry-matured Speyside malt, deep and complex. 20 ml.",
+  "mods": "rocks",
+  "name": "Macallan 18 Sherry Oak (20 ml)",
+  "off": false,
+  "origin": "GB"
+ },
+ "g067": {
+  "cat": "scotch",
+  "desc": "Premium sherry-cask Macallan: dark fruit and oak. 20 ml.",
+  "mods": "rocks",
+  "name": "Macallan Rare Cask Black (20 ml)",
+  "off": false,
+  "origin": "GB"
+ },
+ "g068": {
+  "cat": "scotch",
+  "desc": "Premium sherry-cask Macallan: dark fruit and oak. 40 ml.",
+  "mods": "rocks",
+  "name": "Macallan Rare Cask Black (40 ml)",
+  "off": false,
+  "origin": "GB"
+ },
+ "g069": {
+  "cat": "bourbon",
+  "desc": "American whiskey, complex and smooth.",
+  "mods": "rocks",
+  "name": "Michter's US*1 Unblended American",
+  "off": false,
+  "origin": "US"
+ },
+ "g070": {
+  "cat": "bourbon",
+  "desc": "The original single-barrel bourbon, rich in caramel and spice.",
+  "mods": "rocks",
+  "name": "Blanton's Single Barrel",
+  "off": false,
+  "origin": "US"
+ },
+ "g071": {
+  "cat": "whiskey",
+  "desc": "Canadian whisky, light and smooth. Ideal with soda or ginger.",
+  "mods": "spirit",
+  "name": "Canadian Club",
+  "off": false,
+  "origin": "CA"
+ },
+ "g072": {
+  "cat": "japanese",
+  "desc": "12-year-old Japanese single malt: fruity and floral. 20 ml.",
+  "mods": "rocks",
+  "name": "Yamazaki 12 Year Old (20 ml)",
+  "off": false,
+  "origin": "JP"
+ },
+ "g073": {
+  "cat": "cognac",
+  "desc": "Young Calvados with fresh apple and pear and a light oak finish.",
+  "mods": "rocks",
+  "name": "Calvados Morin Sélection",
+  "off": false,
+  "origin": "FR"
+ },
+ "g074": {
+  "cat": "cognac",
+  "desc": "VSOP Calvados with baked apple, spice and oak.",
+  "mods": "rocks",
+  "name": "Christian Drouin VSOP Calvados",
+  "off": false,
+  "origin": "FR"
+ },
+ "g075": {
+  "cat": "cognac",
+  "desc": "XO Armagnac, rich with dried fruit and spice.",
+  "mods": "rocks",
+  "name": "Bas-Armagnac Dartigalongue XO",
+  "off": false,
+  "origin": "FR"
+ },
+ "g076": {
+  "cat": "cognac",
+  "desc": "VSOP cognac, floral and fruity with spice.",
+  "mods": "rocks",
+  "name": "Godet VSOP",
+  "off": false,
+  "origin": "FR"
+ },
+ "g077": {
+  "cat": "cognac",
+  "desc": "Cognac chilled and frozen for a smooth, fresh and zesty taste.",
+  "mods": "rocks",
+  "name": "Godet Antarctica Iced Cognac",
+  "off": false,
+  "origin": "FR"
+ },
+ "g078": {
+  "cat": "cognac",
+  "desc": "15-year Calvados with deep apple, dried fruit and oak.",
+  "mods": "rocks",
+  "name": "Calvados Morin Hors d'Âge 15 Ans",
+  "off": false,
+  "origin": "FR"
+ },
+ "g079": {
+  "cat": "cognac",
+  "desc": "Cognac blended from aged eaux-de-vie. Rich and elegant.",
+  "mods": "rocks",
+  "name": "Tesseron Lot N°90 XO Ovation",
+  "off": false,
+  "origin": "FR"
+ },
+ "g080": {
+  "cat": "cognac",
+  "desc": "Grande Champagne cognac of exceptional age: very smooth and complex. 20 ml.",
+  "mods": "rocks",
+  "name": "Godet Renaissance Grande Champagne (20 ml)",
+  "off": false,
+  "origin": "FR"
+ },
+ "g081": {
+  "cat": "cognac",
+  "desc": "Grande Champagne cognac of exceptional age: very smooth and complex. 40 ml.",
+  "mods": "rocks",
+  "name": "Godet Renaissance Grande Champagne (40 ml)",
+  "off": false,
+  "origin": "FR"
+ },
+ "g082": {
+  "cat": "palinka",
+  "desc": "Hungarian plum pálinka: fresh and fruity.",
+  "mods": "rocks",
+  "name": "Árpád Lepotica Plum",
+  "off": false,
+  "origin": "HU"
+ },
+ "g083": {
+  "cat": "palinka",
+  "desc": "Grappa from Moscato pomace: floral and grapey.",
+  "mods": "rocks",
+  "name": "Marolo Grappa di Moscato",
+  "off": false,
+  "origin": "IT"
+ },
+ "g084": {
+  "cat": "palinka",
+  "desc": "Pear pálinka: delicate and perfumed.",
+  "mods": "rocks",
+  "name": "Árpád Williams Pear",
+  "off": false,
+  "origin": "HU"
+ },
+ "g085": {
+  "cat": "palinka",
+  "desc": "Quince pálinka: aromatic and honeyed.",
+  "mods": "rocks",
+  "name": "Árpád Quince",
+  "off": false,
+  "origin": "HU"
+ },
+ "g086": {
+  "cat": "palinka",
+  "desc": "Grappa from Amarone pomace: rich and dried-fruit.",
+  "mods": "rocks",
+  "name": "Marolo Grappa di Amarone",
+  "off": false,
+  "origin": "IT"
+ },
+ "g087": {
+  "cat": "palinka",
+  "desc": "Apricot pálinka: intense and fruity.",
+  "mods": "rocks",
+  "name": "Árpád Double-Bedded Apricot",
+  "off": false,
+  "origin": "HU"
+ },
+ "g088": {
+  "cat": "palinka",
+  "desc": "Raspberry pálinka: bright and fruity.",
+  "mods": "rocks",
+  "name": "Árpád Raspberry",
+  "off": false,
+  "origin": "HU"
+ },
+ "g089": {
+  "cat": "liqueur",
+  "desc": "Dry vermouth from Piedmont. Herbal and light.",
+  "mods": "rocks",
+  "name": "Cocchi Extra Dry Piemontese",
+  "off": false,
+  "origin": "IT"
+ },
+ "g090": {
+  "cat": "liqueur",
+  "desc": "Sweet vermouth from Turin, rich with herbs and spice.",
+  "mods": "rocks",
+  "name": "Cocchi Storico Vermouth di Torino",
+  "off": false,
+  "origin": "IT"
+ },
+ "g091": {
+  "cat": "liqueur",
+  "desc": "Bianco aperitivo with gentian and orange. Light and floral.",
+  "mods": "rocks",
+  "name": "Cocchi Americano Bianco",
+  "off": false,
+  "origin": "IT"
+ },
+ "g092": {
+  "cat": "liqueur",
+  "desc": "Hungarian vermouth. Herbal and balanced.",
+  "mods": "rocks",
+  "name": "Moena",
+  "off": false,
+  "origin": "HU"
+ },
+ "g093": {
+  "cat": "liqueur",
+  "desc": "Cherry-blossom vermouth from Italy. Floral and light.",
+  "mods": "rocks",
+  "name": "Mancino Sakura",
+  "off": false,
+  "origin": "IT"
+ },
+ "g094": {
+  "cat": "liqueur",
+  "desc": "Quinine-spiced wine from Piedmont. Bitter and herbal.",
+  "mods": "rocks",
+  "name": "Cocchi Barolo Chinato",
+  "off": false,
+  "origin": "IT"
+ },
+ "g095": {
+  "cat": "liqueur",
+  "desc": "Cherry liqueur from Zara. Sweet and nutty.",
+  "mods": "rocks",
+  "name": "Luxardo Maraschino",
+  "off": false,
+  "origin": "IT"
+ },
+ "g096": {
+  "cat": "liqueur",
+  "desc": "Danish cherry liqueur. Sweet and fruity.",
+  "mods": "rocks",
+  "name": "Cherry Heering",
+  "off": false,
+  "origin": "DK"
+ },
+ "g097": {
+  "cat": "liqueur",
+  "desc": "Gentian aperitif from France. Bitter and earthy.",
+  "mods": "rocks",
+  "name": "Suze",
+  "off": false,
+  "origin": "FR"
+ },
+ "g098": {
+  "cat": "liqueur",
+  "desc": "Sweet herbal liqueur from France.",
+  "mods": "rocks",
+  "name": "La Gauloise Yellow",
+  "off": false,
+  "origin": "FR"
+ },
+ "g099": {
+  "cat": "liqueur",
+  "desc": "Green herbal liqueur from France. Intense and herbal.",
+  "mods": "rocks",
+  "name": "La Gauloise Green",
+  "off": false,
+  "origin": "FR"
+ },
+ "g100": {
+  "cat": "liqueur",
+  "desc": "Bergamot liqueur with herbs. Floral and bright.",
+  "mods": "rocks",
+  "name": "Italicus Rosolio di Bergamotto",
+  "off": false,
+  "origin": "IT"
+ },
+ "g101": {
+  "cat": "liqueur",
+  "desc": "Unicum with coffee: bitter-sweet, with coffee notes.",
+  "mods": "rocks",
+  "name": "Zwack Unicum Barista",
+  "off": false,
+  "origin": "HU"
+ },
+ "g102": {
+  "cat": "liqueur",
+  "desc": "Unicum with plum or orange: fruity and bitter.",
+  "mods": "rocks",
+  "name": "Zwack Unicum Plum / Orange",
+  "off": false,
+  "origin": "HU"
+ },
+ "g103": {
+  "cat": "liqueur",
+  "desc": "Premium aged Unicum digestif: rich and complex.",
+  "mods": "rocks",
+  "name": "Zwack Trésor XO",
+  "off": false,
+  "origin": "HU"
+ },
+ "g104": {
+  "cat": "liqueur",
+  "desc": "Lychee liqueur from Dijon. Floral and sweet.",
+  "mods": "rocks",
+  "name": "Briottet Liqueur de Litchi",
+  "off": false,
+  "origin": "FR"
+ },
+ "g105": {
+  "cat": "liqueur",
+  "desc": "Blackcurrant liqueur from Dijon. Rich and fruity.",
+  "mods": "rocks",
+  "name": "Briottet Crème de Cassis",
+  "off": false,
+  "origin": "FR"
+ },
+ "g106": {
+  "cat": "liqueur",
+  "desc": "Rhubarb liqueur from Dijon. Tart and fresh.",
+  "mods": "rocks",
+  "name": "Briottet Liqueur de Rhubarbe",
+  "off": false,
+  "origin": "FR"
+ },
+ "g107": {
+  "cat": "liqueur",
+  "desc": "Peach liqueur from Dijon. Sweet and fragrant.",
+  "mods": "rocks",
+  "name": "Briottet Pêche de Vigne",
+  "off": false,
+  "origin": "FR"
+ },
+ "g108": {
+  "cat": "liqueur",
+  "desc": "Violet liqueur from Dijon. Floral and delicate.",
+  "mods": "rocks",
+  "name": "Briottet Liqueur de Violette",
+  "off": false,
+  "origin": "FR"
+ },
+ "g109": {
+  "cat": "liqueur",
+  "desc": "Passion fruit liqueur from Dijon. Tropical and tart.",
+  "mods": "rocks",
+  "name": "Briottet Liqueur de Fruit de la Passion",
+  "off": false,
+  "origin": "FR"
+ },
+ "g110": {
+  "cat": "other",
+  "desc": "Junmai ginjo sake from Yamagata: fruity and fragrant. 0.72 l bottle.",
+  "name": "Dewazakura Dewasansan (0.72 l)",
+  "off": false,
+  "origin": "JP"
+ },
+ "g111": {
+  "cat": "other",
+  "desc": "Junmai ginjo sake from Yamagata: fruity and fragrant. 0.1 l.",
+  "name": "Dewazakura Dewasansan (0.1 l)",
+  "off": false,
+  "origin": "JP"
+ },
+ "g112": {
+  "cat": "other",
+  "desc": "Junmai daiginjo sake: delicate, aromatic and clean. 0.5 l.",
+  "name": "Hoyo Kura no Hana (0.5 l)",
+  "off": false,
+  "origin": "JP"
+ },
+ "g113": {
+  "cat": "other",
+  "desc": "Junmai daiginjo sake: delicate, aromatic and clean. 0.1 l.",
+  "name": "Hoyo Kura no Hana (0.1 l)",
+  "off": false,
+  "origin": "JP"
+ },
+ "g114": {
+  "cat": "bottled",
+  "desc": "Belgian kriek: a sweet-sour cherry beer with a light fruit aroma.",
+  "name": "Mort Subite Kriek (0.25 l)",
+  "off": false,
+  "origin": "BE"
+ },
+ "g115": {
+  "cat": "bottled",
+  "desc": "Alcohol-free lager from Dreher: malty and light.",
+  "name": "Dreher 24 Zero (0.33 l)",
+  "off": false,
+  "origin": "HU"
+ },
+ "g116": {
+  "cat": "bottled",
+  "desc": "Dry Normandy cider from the Drouin family: crisp and apple-led. 0.25 l.",
+  "name": "Christian Drouin Cider (0.25 l)",
+  "off": false,
+  "origin": "FR"
+ },
+ "g117": {
+  "cat": "bottled",
+  "desc": "Dry Normandy cider from the Drouin family: crisp and apple-led. 0.75 l.",
+  "name": "Christian Drouin Cider (0.75 l)",
+  "off": false,
+  "origin": "FR"
+ },
+ "g124": {
+  "cat": "mocktail",
+  "desc": "Alcohol-free rum alternative with warm spice and caramel.",
+  "mods": "spirit",
+  "name": "Undone No. 1 This Is Not Rum",
+  "off": false,
+  "origin": "DE"
+ },
+ "g125": {
+  "cat": "mocktail",
+  "desc": "Alcohol-free gin alternative with juniper and citrus.",
+  "mods": "spirit",
+  "name": "Undone No. 2 This Is Not Gin",
+  "off": false,
+  "origin": "DE"
+ },
+ "g126": {
+  "cat": "mocktail",
+  "desc": "Alcohol-free mezcal alternative with smoky, earthy notes.",
+  "mods": "spirit",
+  "name": "Undone No. 4 This Is Not Mezcal",
+  "off": false,
+  "origin": "DE"
+ },
+ "g127": {
+  "cat": "mocktail",
+  "desc": "Herbal, bitter aperitivo alternative for spritz-style drinks.",
+  "mods": "spirit",
+  "name": "Undone No. 5 This Is Not Aperitivo",
+  "off": false,
+  "origin": "DE"
+ },
+ "g128": {
+  "cat": "mocktail",
+  "desc": "Alcohol-free orange bitters: bright and aromatic.",
+  "mods": "spirit",
+  "name": "Undone No. 7 This Is Not Orange Bitter",
+  "off": false,
+  "origin": "DE"
+ },
+ "g129": {
+  "cat": "mocktail",
+  "desc": "Alcohol-free vermouth alternative with herbal, wine-like notes.",
+  "mods": "spirit",
+  "name": "Undone No. 8 This Is Not Vermouth",
+  "off": false,
+  "origin": "DE"
+ },
+ "g130": {
+  "cat": "mocktail",
+  "desc": "Alcohol-free gin with juniper and citrus. Made in Germany.",
+  "mods": "spirit",
+  "name": "Knut Hansen 0% Gin",
+  "off": false,
+  "origin": "DE"
+ },
+ "g131": {
+  "cat": "soft",
+  "desc": "Still natural mineral water from Tuscany: soft and light.",
+  "name": "Acqua Panna still (250 ml)",
+  "off": false,
+  "origin": "IT"
+ },
+ "g132": {
+  "cat": "soft",
+  "desc": "Still natural mineral water from Tuscany, in the large bottle.",
+  "name": "Acqua Panna still (750 ml)",
+  "off": false,
+  "origin": "IT"
+ },
+ "g133": {
+  "cat": "soft",
+  "desc": "Sparkling natural mineral water from Lombardy, with a fine, lively bubble.",
+  "name": "San Pellegrino sparkling (250 ml)",
+  "off": false,
+  "origin": "IT"
+ },
+ "g134": {
+  "cat": "soft",
+  "desc": "Sparkling natural mineral water from Lombardy, in the large bottle.",
+  "name": "San Pellegrino sparkling (750 ml)",
+  "off": false,
+  "origin": "IT"
+ },
+ "g135": {
+  "cat": "soft",
+  "desc": "Lemon-lime soda: crisp, light and sweet.",
+  "name": "Sprite",
+  "off": false,
+  "origin": "US"
+ },
+ "g136": {
+  "cat": "soft",
+  "desc": "Cherry soda from Three Cents: tart, bright and fruity.",
+  "name": "Three Cents Cherry Soda",
+  "off": false,
+  "origin": "DE"
+ },
+ "g137": {
+  "cat": "soft",
+  "desc": "Grapefruit soda from Three Cents: dry, zesty and refreshing.",
+  "name": "Three Cents Grapefruit Soda",
+  "off": false,
+  "origin": "DE"
+ },
+ "g138": {
+  "cat": "soft",
+  "desc": "Fever-Tree tonic: light, crisp and balanced, with a fine quinine bitterness.",
+  "name": "Fever-Tree Tonic (Premium Indian or Refreshingly Light)",
+  "off": false,
+  "origin": "GB"
+ },
+ "g139": {
+  "cat": "soft",
+  "desc": "Sugar-free Red Bull: the same energy, with no sugar.",
+  "name": "Red Bull Sugar-free",
+  "off": false,
+  "origin": "AT"
+ },
+ "g140": {
+  "cat": "coffee",
+  "desc": "A shorter, more intense espresso with a sweeter, fuller taste.",
+  "name": "Ristretto",
+  "off": false,
+  "origin": "IT"
+ },
+ "g141": {
+  "cat": "coffee",
+  "desc": "Espresso cut with an equal amount of warm milk. Smooth and strong.",
+  "name": "Cortado",
+  "off": false,
+  "origin": "ES"
+ },
+ "g142": {
+  "cat": "coffee",
+  "desc": "Japanese matcha whisked with steamed milk. Earthy, green and creamy.",
+  "name": "Matcha latte",
+  "off": false,
+  "origin": "JP"
+ },
+ "g143": {
+  "cat": "coffee",
+  "desc": "Yellow Gold oolong: light and creamy, with floral and fruity notes.",
+  "name": "Jing Oolong · Yellow Gold (Huangjin Gui)",
+  "off": false,
+  "origin": "CN"
+ },
+ "g144": {
+  "cat": "coffee",
+  "desc": "Yunnan White Peony: a delicate white tea with honeyed sweetness.",
+  "name": "Jing White · Yunnan White Peony",
+  "off": false,
+  "origin": "CN"
+ },
+ "g145": {
+  "cat": "coffee",
+  "desc": "Orientaleaf white tea: floral, soft and gently sweet.",
+  "name": "Jing White · Orientaleaf",
+  "off": false,
+  "origin": "CN"
+ },
+ "g146": {
+  "cat": "coffee",
+  "desc": "Rooibos, a naturally caffeine-free red bush tea. Mellow, sweet and smooth.",
+  "name": "Jing Rooibos",
+  "off": false,
+  "origin": "ZA"
+ },
+ "g147": {
+  "cat": "coffee",
+  "desc": "Herbal infusion of lemongrass and fresh ginger. Zesty and warming.",
+  "name": "Jing Lemongrass & Ginger",
+  "off": false
+ },
+ "g148": {
+  "cat": "coffee",
+  "desc": "Herbal infusion of whole pink rosebuds. Light, floral and delicate.",
+  "name": "Jing Whole Pink Rosebuds",
+  "off": false
+ },
+ "g149": {
+  "cat": "coffee",
+  "desc": "Blackcurrant and hibiscus infusion. Tart, fruity and bright red.",
+  "name": "Jing Blackcurrant & Hibiscus",
+  "off": false
+ },
+ "g150": {
+  "cat": "food",
+  "desc": "Six fresh oysters with ponzu dressing and sliced scallions. Bright, salty and clean.",
+  "name": "Half a dozen oysters",
+  "off": false
+ },
+ "g151": {
+  "cat": "food",
+  "desc": "Crispy romaine, Caesar dressing, croutons, parmesan and anchovies.",
+  "name": "Classic Caesar Salad",
+  "off": false
+ },
+ "g152": {
+  "cat": "food",
+  "desc": "Grilled chicken added to the Caesar salad.",
+  "name": "Add chicken to Caesar salad",
+  "off": false
+ },
+ "g153": {
+  "cat": "soft",
+  "desc": "Pressed apple, carrot and beetroot. Fresh, earthy and naturally sweet.",
+  "name": "Apple, Carrot & Beetroot juice",
+  "off": false
+ },
+ "g155": {
+  "cat": "coffee",
+  "desc": "Green tea with fresh Moroccan mint. Bright, cooling and refreshing.",
+  "name": "Jing Green · Moroccan Mint",
+  "off": false,
+  "origin": "CN"
+ },
+ "k01": {
+  "cat": "coffee",
+  "createdAt": 1761490700001,
+  "desc": "A short, concentrated shot of coffee with a thick crema.",
+  "mods": null,
+  "name": "Espresso",
+  "origin": "IT"
+ },
+ "k03": {
+  "cat": "coffee",
+  "createdAt": 1761490700003,
+  "desc": "Espresso topped up with hot water. Smooth and long.",
+  "mods": null,
+  "name": "Americano",
+  "origin": "IT"
+ },
+ "k04": {
+  "cat": "coffee",
+  "createdAt": 1761490700004,
+  "desc": "Espresso with steamed milk and a thick, velvety foam.",
+  "mods": "coffee",
+  "name": "Cappuccino",
+  "origin": "IT"
+ },
+ "k05": {
+  "cat": "coffee",
+  "createdAt": 1761490700005,
+  "desc": "Espresso with velvety microfoam milk. Rich, silky and balanced.",
+  "mods": "coffee",
+  "name": "Flat white",
+  "origin": "AU"
+ },
+ "k06": {
+  "cat": "coffee",
+  "createdAt": 1761490700006,
+  "desc": "Espresso with plenty of steamed milk and a thin layer of foam.",
+  "mods": "coffee",
+  "name": "Caffè latte",
+  "origin": "IT"
+ },
+ "k07": {
+  "cat": "coffee",
+  "createdAt": 1761490700007,
+  "desc": "Rich, creamy hot chocolate.",
+  "mods": "coffee",
+  "name": "Hot chocolate"
+ },
+ "k08": {
+  "cat": "coffee",
+  "createdAt": 1761490700008,
+  "desc": "Strong Assam black tea with a malty, brisk taste. Good with milk.",
+  "mods": null,
+  "name": "Jing Black · Assam Breakfast",
+  "origin": "CN"
+ },
+ "k09": {
+  "cat": "coffee",
+  "createdAt": 1761490700009,
+  "desc": "Black tea scented with bergamot: citrusy, floral and fragrant.",
+  "mods": null,
+  "name": "Jing Black · Earl Grey",
+  "origin": "CN"
+ },
+ "k10": {
+  "cat": "coffee",
+  "createdAt": 1761490700010,
+  "desc": "Jade Sword green tea: fresh, grassy and lightly sweet.",
+  "mods": null,
+  "name": "Jing Green · Jade Sword (Mao Jian)",
+  "origin": "CN"
+ },
+ "l01": {
+  "cat": "liqueur",
+  "createdAt": 1761490100001,
+  "desc": "Lighter, sweet-bitter orange aperitivo. The base of a spritz.",
+  "mods": "rocks",
+  "name": "Aperol",
+  "origin": "IT"
+ },
+ "l02": {
+  "cat": "liqueur",
+  "createdAt": 1761490100002,
+  "desc": "Floral, lightly bitter French aperitif wine.",
+  "mods": "rocks",
+  "name": "Lillet Blanc",
+  "origin": "FR"
+ },
+ "l06": {
+  "cat": "liqueur",
+  "createdAt": 1761490100006,
+  "desc": "Very bitter herbal amaro from Milan. A bar classic.",
+  "mods": "rocks",
+  "name": "Fernet-Branca",
+  "origin": "IT"
+ },
+ "l07": {
+  "cat": "liqueur",
+  "createdAt": 1761490100007,
+  "desc": "German herbal liqueur with 56 herbs. Spiced and sweet.",
+  "mods": "rocks",
+  "name": "Jägermeister",
+  "origin": "DE"
+ },
+ "l08": {
+  "cat": "liqueur",
+  "createdAt": 1761490100008,
+  "desc": "Orange liqueur blended with cognac. Sweet and aromatic.",
+  "mods": "rocks",
+  "name": "Grand Marnier",
+  "origin": "FR"
+ },
+ "l09": {
+  "cat": "liqueur",
+  "createdAt": 1761490100009,
+  "desc": "Elderflower liqueur from France. Floral and fresh.",
+  "mods": "rocks",
+  "name": "St-Germain",
+  "origin": "FR"
+ },
+ "l10": {
+  "cat": "liqueur",
+  "createdAt": 1761490100010,
+  "desc": "Black raspberry liqueur from France. Sweet and fruity.",
+  "mods": "rocks",
+  "name": "Chambord",
+  "origin": "FR"
+ },
+ "l11": {
+  "cat": "liqueur",
+  "createdAt": 1761490100011,
+  "desc": "Hazelnut liqueur from Piedmont. Sweet and nutty.",
+  "mods": "rocks",
+  "name": "Frangelico",
+  "origin": "IT"
+ },
+ "l12": {
+  "cat": "liqueur",
+  "createdAt": 1761490100012,
+  "desc": "Coffee liqueur from Mexico. Sweet and rich.",
+  "mods": "rocks",
+  "name": "Kahlúa",
+  "origin": "MX"
+ },
+ "l14": {
+  "cat": "liqueur",
+  "createdAt": 1761490100014,
+  "desc": "Lemon liqueur from Campania. Sweet and bright.",
+  "mods": null,
+  "name": "Limoncello",
+  "origin": "IT"
+ },
+ "l15": {
+  "cat": "liqueur",
+  "createdAt": 1761490100015,
+  "desc": "Italian anise liqueur: sweet and sharp.",
+  "mods": null,
+  "name": "Sambuca",
+  "origin": "IT"
+ },
+ "m01": {
+  "cat": "draft",
+  "createdAt": 1761489000001,
+  "desc": "Italy's classic lager from Padua: light, crisp and gently bitter. Served fresh from the draught line.",
+  "name": "Peroni Nastro Azzurro draft (0.3 l)",
+  "origin": "IT"
+ },
+ "m02": {
+  "cat": "draft",
+  "createdAt": 1761489000002,
+  "desc": "Italy's classic lager from Padua: light, crisp and gently bitter. Served fresh from the draught line.",
+  "name": "Peroni Nastro Azzurro draft (0.5 l)",
+  "origin": "IT"
+ },
+ "m03": {
+  "cat": "bottled",
+  "createdAt": 1761489000003,
+  "desc": "Hungarian golden lager from Dreher: malty, balanced and clean-finishing.",
+  "name": "Dreher Gold (0.33 l)",
+  "origin": "HU"
+ },
+ "m04": {
+  "cat": "bottled",
+  "createdAt": 1761489000004,
+  "desc": "A cloudy German wheat beer with banana and clove aromas. Soft, refreshing and easy to drink.",
+  "name": "Wildbräu Weissbier (0.5 l)",
+  "origin": "DE"
+ },
+ "m05": {
+  "cat": "soft",
+  "createdAt": 1761489000005,
+  "desc": "Pressed apple juice: sweet, clean and refreshing.",
+  "name": "Apple juice"
+ },
+ "m06": {
+  "cat": "soft",
+  "createdAt": 1761489000006,
+  "desc": "Pressed beetroot juice: earthy, sweet and full of colour.",
+  "name": "Beetroot juice"
+ },
+ "m07": {
+  "cat": "soft",
+  "createdAt": 1761489000007,
+  "desc": "Freshly pressed orange juice, bright and naturally sweet.",
+  "name": "Orange juice"
+ },
+ "m08": {
+  "cat": "soft",
+  "createdAt": 1761489000008,
+  "desc": "Pressed pineapple juice: sweet and tropical. A good partner for rum and spirits.",
+  "name": "Pineapple juice"
+ },
+ "m09": {
+  "cat": "soft",
+  "createdAt": 1761489000009,
+  "desc": "Tart cranberry juice. Pairs well with vodka and gin, with a bright, sharp finish.",
+  "name": "Cranberry juice"
+ },
+ "m10": {
+  "cat": "signature",
+  "createdAt": 1761489000010,
+  "desc": "Bulleit bourbon, cherry, sherry and citrus, shaken with vegan egg white. Deep, fruity and silky.",
+  "mods": null,
+  "name": "Red Cask"
+ },
+ "m11": {
+  "cat": "signature",
+  "createdAt": 1761489000011,
+  "desc": "Ki No Tea gin with ume and plum, a sour with matcha foam on top. Tart, sweet and green.",
+  "mods": null,
+  "name": "Tsukimi"
+ },
+ "m12": {
+  "cat": "signature",
+  "createdAt": 1761489000012,
+  "desc": "Tanqueray gin with Campari and vermouth: bittersweet and herbal, with a hint of hops.",
+  "mods": null,
+  "name": "Beyond Torino"
+ },
+ "m13": {
+  "cat": "signature",
+  "createdAt": 1761489000013,
+  "desc": "Ketel One vodka, espresso, Kahlúa and Baileys, shaken hard for a foamy top. Creamy and coffee-led.",
+  "mods": null,
+  "name": "Baileys Espresso Martini"
+ },
+ "m14": {
+  "cat": "signature",
+  "createdAt": 1761489000014,
+  "desc": "Tenebris pineapple vodka and Chambord with citrus and sugar, finished with pineapple foam. Tropical and floral.",
+  "mods": null,
+  "name": "Fleur de Nuit"
+ },
+ "m15": {
+  "cat": "signature",
+  "createdAt": 1761489000015,
+  "desc": "Calvados and St-Germain elderflower with apple and Prosecco. Elegant and apple-led.",
+  "mods": null,
+  "name": "Normandy"
+ },
+ "m17": {
+  "cat": "signature",
+  "createdAt": 1761489000017,
+  "desc": "Ketel One vodka with pear, rhubarb and Aperol, topped with ginger beer. A fresh twist on a Moscow mule.",
+  "mods": null,
+  "name": "Pear & Rhubarb Mule"
+ },
+ "s02": {
+  "cat": "vodka",
+  "createdAt": 1761490000002,
+  "desc": "French wheat vodka, smooth and light. A clean base for mixed drinks.",
+  "mods": "spirit",
+  "name": "Grey Goose",
+  "origin": "FR"
+ },
+ "s03": {
+  "cat": "vodka",
+  "createdAt": 1761490000003,
+  "desc": "Polish rye vodka: creamy and smooth.",
+  "mods": "spirit",
+  "name": "Belvedere",
+  "origin": "PL"
+ },
+ "s05": {
+  "cat": "gin",
+  "createdAt": 1761490000005,
+  "desc": "London dry gin with juniper and citrus, light and balanced. Best with tonic and a lime wedge.",
+  "mods": "spirit",
+  "name": "Bombay Sapphire",
+  "origin": "GB"
+ },
+ "s06": {
+  "cat": "gin",
+  "createdAt": 1761490000006,
+  "desc": "Classic London dry gin with bold juniper. Pairs with tonic and a crisp lime wheel.",
+  "mods": "spirit",
+  "name": "Tanqueray",
+  "origin": "GB"
+ },
+ "s07": {
+  "cat": "gin",
+  "createdAt": 1761490000007,
+  "desc": "Scottish gin infused with cucumber and rose. Pairs with cucumber ribbon and pink peppercorns.",
+  "mods": "spirit",
+  "name": "Hendrick's",
+  "origin": "GB"
+ },
+ "s08": {
+  "cat": "gin",
+  "createdAt": 1761490000008,
+  "desc": "German dry gin with 47 botanicals: complex and aromatic. Pairs with blackberries and rosemary.",
+  "mods": "spirit",
+  "name": "Monkey 47",
+  "origin": "DE"
+ },
+ "s09": {
+  "cat": "rum",
+  "createdAt": 1761490000009,
+  "desc": "Light Puerto Rican rum: clean and easy to mix.",
+  "mods": "spirit",
+  "name": "Bacardí Carta Blanca",
+  "origin": "PR"
+ },
+ "s100": {
+  "cat": "gin",
+  "createdAt": 1761490000100,
+  "desc": "Tanqueray with Seville orange and a bitter-orange finish. Good with tonic and an orange wheel.",
+  "mods": "spirit",
+  "name": "Tanqueray Flor de Sevilla",
+  "origin": "GB"
+ },
+ "s104": {
+  "cat": "rum",
+  "createdAt": 1761490000104,
+  "desc": "Philippine rum aged on Negros island. Vanilla and dried fruit.",
+  "mods": "rocks",
+  "name": "Don Papa",
+  "origin": "PH"
+ },
+ "s11": {
+  "cat": "rum",
+  "createdAt": 1761490000011,
+  "desc": "Venezuelan rum aged in oak, with caramel and vanilla.",
+  "mods": "rocks",
+  "name": "Diplomático Reserva Exclusiva",
+  "origin": "VE"
+ },
+ "s111": {
+  "cat": "mezcal",
+  "createdAt": 1761490000111,
+  "desc": "Single-village mezcal from Chichicapa. Earthy and complex.",
+  "mods": "rocks",
+  "name": "Del Maguey Chichicapa",
+  "origin": "MX"
+ },
+ "s118": {
+  "cat": "scotch",
+  "createdAt": 1761490000118,
+  "desc": "Sherry-matured Speyside malt with rich dried fruit and spice.",
+  "mods": "rocks",
+  "name": "The Macallan 15 Double Cask",
+  "origin": "GB"
+ },
+ "s12": {
+  "cat": "rum",
+  "createdAt": 1761490000012,
+  "desc": "Guatemalan rum aged in a solera system. Rich with toffee and dried fruit.",
+  "mods": "rocks",
+  "name": "Ron Zacapa 23 Solera",
+  "origin": "GT"
+ },
+ "s120": {
+  "cat": "bourbon",
+  "createdAt": 1761490000120,
+  "desc": "High-rye bourbon with spice and boldness. Great in classic cocktails.",
+  "mods": "spirit",
+  "name": "Bulleit Bourbon",
+  "origin": "US"
+ },
+ "s130": {
+  "cat": "whiskey",
+  "createdAt": 1761490000130,
+  "desc": "Pot-still Irish whiskey: rich, creamy and spicy.",
+  "mods": "rocks",
+  "name": "Writers' Tears Copper Pot",
+  "origin": "IE"
+ },
+ "s138": {
+  "cat": "liqueur",
+  "createdAt": 1761490000138,
+  "desc": "Hungarian herbal digestif aged in oak. Bitter and intense.",
+  "mods": "rocks",
+  "name": "Zwack Unicum Riserva",
+  "origin": "HU"
+ },
+ "s140": {
+  "cat": "liqueur",
+  "createdAt": 1761490000140,
+  "desc": "Herbal French liqueur with 27 botanicals. Sweet and spiced.",
+  "mods": "rocks",
+  "name": "Bénédictine",
+  "origin": "FR"
+ },
+ "s141": {
+  "cat": "liqueur",
+  "createdAt": 1761490000141,
+  "desc": "Spanish liqueur with vanilla and citrus. Sweet and smooth.",
+  "mods": "rocks",
+  "name": "Licor 43",
+  "origin": "ES"
+ },
+ "s143": {
+  "cat": "liqueur",
+  "createdAt": 1761490000143,
+  "desc": "Italian amaro with orange and floral notes. Smooth and sweet.",
+  "mods": "rocks",
+  "name": "Amaro Montenegro",
+  "origin": "IT"
+ },
+ "s17": {
+  "cat": "mezcal",
+  "createdAt": 1761490000017,
+  "desc": "Joven mezcal from Oaxaca. Smoky and earthy, best sipped neat.",
+  "mods": "rocks",
+  "name": "Del Maguey Vida",
+  "origin": "MX"
+ },
+ "s19": {
+  "cat": "scotch",
+  "createdAt": 1761490000019,
+  "desc": "Blended Scotch with smoke, honey and dried fruit. The everyday classic.",
+  "mods": "spirit",
+  "name": "Johnnie Walker Black Label",
+  "origin": "GB"
+ },
+ "s20": {
+  "cat": "scotch",
+  "createdAt": 1761490000020,
+  "desc": "Blended malt Scotch from three malts. Sweet, smooth and easy.",
+  "mods": "spirit",
+  "name": "Monkey Shoulder",
+  "origin": "GB"
+ },
+ "s21": {
+  "cat": "scotch",
+  "createdAt": 1761490000021,
+  "desc": "Fresh, pear-led Speyside malt. Easy and fruity.",
+  "mods": "rocks",
+  "name": "Glenfiddich 12",
+  "origin": "GB"
+ },
+ "s22": {
+  "cat": "scotch",
+  "createdAt": 1761490000022,
+  "desc": "Sherry-matured Speyside malt, rich with dried fruit and spice.",
+  "mods": "rocks",
+  "name": "The Macallan 12 Double Cask",
+  "origin": "GB"
+ },
+ "s23": {
+  "cat": "scotch",
+  "createdAt": 1761490000023,
+  "desc": "Big, peaty Islay malt with dried fruit and sea salt.",
+  "mods": "rocks",
+  "name": "Lagavulin 16",
+  "origin": "GB"
+ },
+ "s24": {
+  "cat": "bourbon",
+  "createdAt": 1761490000024,
+  "desc": "Tennessee whiskey filtered through maple charcoal. Rich, smooth and single-barrel.",
+  "mods": "spirit",
+  "name": "Jack Daniel's Single Barrel",
+  "origin": "US"
+ },
+ "s25": {
+  "cat": "bourbon",
+  "createdAt": 1761490000025,
+  "desc": "Soft wheated bourbon with caramel and vanilla.",
+  "mods": "spirit",
+  "name": "Maker's Mark",
+  "origin": "US"
+ },
+ "s26": {
+  "cat": "bourbon",
+  "createdAt": 1761490000026,
+  "desc": "Smooth bourbon with orange peel, spice and toffee.",
+  "mods": "spirit",
+  "name": "Woodford Reserve",
+  "origin": "US"
+ },
+ "s30": {
+  "cat": "japanese",
+  "createdAt": 1761490000030,
+  "desc": "Blended Japanese whisky bottled at barrel strength. Bold and fruity.",
+  "mods": "rocks",
+  "name": "Nikka From the Barrel",
+  "origin": "JP"
+ },
+ "s31": {
+  "cat": "japanese",
+  "createdAt": 1761490000031,
+  "desc": "Blended whisky with delicate fruit, honey and spice.",
+  "mods": "rocks",
+  "name": "Suntory Hibiki Japanese Harmony",
+  "origin": "JP"
+ },
+ "s32": {
+  "cat": "whiskey",
+  "createdAt": 1761490000032,
+  "desc": "Irish blend, smooth and light with vanilla and a soft finish.",
+  "mods": "spirit",
+  "name": "Jameson",
+  "origin": "IE"
+ },
+ "s33": {
+  "cat": "cognac",
+  "createdAt": 1761490000033,
+  "desc": "Young cognac of fruit and freshness. Bright and smooth.",
+  "mods": "rocks",
+  "name": "Hennessy VS",
+  "origin": "FR"
+ },
+ "s35": {
+  "cat": "cognac",
+  "createdAt": 1761490000035,
+  "desc": "XO cognac with dried fruit, vanilla and spice.",
+  "mods": "rocks",
+  "name": "Hennessy XO",
+  "origin": "FR"
+ },
+ "s39": {
+  "cat": "liqueur",
+  "createdAt": 1761490000039,
+  "desc": "Hungarian herbal digestif with a bitter, medicinal character.",
+  "mods": "rocks",
+  "name": "Unicum",
+  "origin": "HU"
+ },
+ "s40": {
+  "cat": "liqueur",
+  "createdAt": 1761490000040,
+  "desc": "Bitter aperitivo from Milan. Herbal and bright.",
+  "mods": "spirit",
+  "name": "Campari",
+  "origin": "IT"
+ },
+ "s41": {
+  "cat": "liqueur",
+  "createdAt": 1761490000041,
+  "desc": "Irish cream liqueur: whiskey with cream and chocolate.",
+  "mods": "rocks",
+  "name": "Baileys",
+  "origin": "IE"
+ },
+ "s42": {
+  "cat": "liqueur",
+  "createdAt": 1761490000042,
+  "desc": "Amaretto from Saronno with almond and apricot notes.",
+  "mods": "rocks",
+  "name": "Disaronno Originale",
+  "origin": "IT"
+ },
+ "s43": {
+  "cat": "liqueur",
+  "createdAt": 1761490000043,
+  "desc": "Orange-led triple sec. Clean and bright.",
+  "mods": "rocks",
+  "name": "Cointreau",
+  "origin": "FR"
+ },
+ "s44": {
+  "cat": "vodka",
+  "createdAt": 1761490000044,
+  "desc": "Dutch wheat vodka: clean and crisp.",
+  "mods": "spirit",
+  "name": "Ketel One",
+  "origin": "NL"
+ },
+ "s46": {
+  "cat": "vodka",
+  "createdAt": 1761490000046,
+  "desc": "French grape vodka: smooth and fruity.",
+  "mods": "spirit",
+  "name": "Cîroc",
+  "origin": "FR"
+ },
+ "s48": {
+  "cat": "gin",
+  "createdAt": 1761490000048,
+  "desc": "Citrus-forward premium gin. Pairs with tonic and a ruby grapefruit twist.",
+  "mods": "spirit",
+  "name": "Tanqueray No. Ten",
+  "origin": "GB"
+ },
+ "s49": {
+  "cat": "gin",
+  "createdAt": 1761490000049,
+  "desc": "Mediterranean gin with basil, thyme and olive notes. Pairs with rosemary and orange peel.",
+  "mods": "spirit",
+  "name": "Gin Mare",
+  "origin": "ES"
+ },
+ "s59": {
+  "cat": "tequila",
+  "createdAt": 1761490000059,
+  "desc": "Reposado aged in oak. Honeyed agave with vanilla and soft spice. 40 ml.",
+  "mods": "rocks",
+  "name": "Clase Azul Reposado",
+  "origin": "MX"
+ },
+ "s60": {
+  "cat": "tequila",
+  "createdAt": 1761490000060,
+  "desc": "Añejo aged for several years. Rich vanilla and toffee. 40 ml.",
+  "mods": "rocks",
+  "name": "Don Julio 1942",
+  "origin": "MX"
+ },
+ "s66": {
+  "cat": "scotch",
+  "createdAt": 1761490000066,
+  "desc": "Peaty maritime island malt with smoke and pepper.",
+  "mods": "rocks",
+  "name": "Talisker 10",
+  "origin": "GB"
+ },
+ "s67": {
+  "cat": "scotch",
+  "createdAt": 1761490000067,
+  "desc": "Smoky Islay malt with medicinal peat and iodine.",
+  "mods": "rocks",
+  "name": "Laphroaig 10",
+  "origin": "GB"
+ },
+ "s68": {
+  "cat": "scotch",
+  "createdAt": 1761490000068,
+  "desc": "Coastal Highland malt with honey and spice.",
+  "mods": "rocks",
+  "name": "Oban 14",
+  "origin": "GB"
+ },
+ "s70": {
+  "cat": "scotch",
+  "createdAt": 1761490000070,
+  "desc": "18-year-old sherry-matured Speyside malt, deep and complex. 40 ml.",
+  "mods": "rocks",
+  "name": "The Macallan 18 Sherry Oak",
+  "origin": "GB"
+ },
+ "s71": {
+  "cat": "scotch",
+  "createdAt": 1761490000071,
+  "desc": "Premium blended Scotch: rich and silky with honey and smoke.",
+  "mods": "rocks",
+  "name": "Johnnie Walker Blue Label",
+  "origin": "GB"
+ },
+ "s76": {
+  "cat": "rye",
+  "createdAt": 1761490000076,
+  "desc": "Spicy rye whiskey with pepper and dried fruit.",
+  "mods": "spirit",
+  "name": "Woodford Reserve Rye",
+  "origin": "US"
+ },
+ "s81": {
+  "cat": "japanese",
+  "createdAt": 1761490000081,
+  "desc": "12-year-old Japanese single malt: fruity and floral. A classic. 40 ml.",
+  "mods": "rocks",
+  "name": "Yamazaki 12",
+  "origin": "JP"
+ },
+ "s82": {
+  "cat": "whiskey",
+  "createdAt": 1761490000082,
+  "desc": "Small-batch Irish whiskey: sweet and fruity with a spicy finish.",
+  "mods": "spirit",
+  "name": "Teeling Small Batch",
+  "origin": "IE"
+ },
+ "s84": {
+  "cat": "whiskey",
+  "createdAt": 1761490000084,
+  "desc": "Pot-still Irish whiskey aged 12 years. Spicy and full-bodied.",
+  "mods": "rocks",
+  "name": "Redbreast 12",
+  "origin": "IE"
+ },
+ "s86": {
+  "cat": "cognac",
+  "createdAt": 1761490000086,
+  "desc": "Fine cognac with floral and dried fruit notes.",
+  "mods": "rocks",
+  "name": "Martell Cordon Bleu",
+  "origin": "FR"
+ },
+ "s95": {
+  "cat": "gin",
+  "createdAt": 1761490000095,
+  "desc": "Japanese dry gin with tea and citrus. Light and fresh, with a ginger slice.",
+  "mods": "spirit",
+  "name": "KI NO TEA Kyoto Dry Gin",
+  "origin": "JP"
+ },
+ "w-kclassic-g": {
+  "cat": "glass",
+  "createdAt": 1761490700000,
+  "desc": "Traditional-method sparkling from the Kreinbacher estate on Somló, one of Hungary's smallest wine regions and an extinct volcano. Crisp green apple, citrus and a light brioche note, with fine bubbles and a dry, mineral finish. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Kreinbacher Classic Brut NV (glass)",
+  "origin": "HU",
+  "pic": "sparkling"
+ },
+ "w-krose-g": {
+  "cat": "glass",
+  "createdAt": 1761490700001,
+  "desc": "Kreinbacher's traditional-method rosé from Somló. Fresh strawberry and red-currant fruit, lively acidity and fine, creamy bubbles. Dry and elegant, a great aperitif. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Kreinbacher Rosé Brut NV (glass)",
+  "origin": "HU",
+  "pic": "sparkling"
+ },
+ "w-polroger-g": {
+  "cat": "glass",
+  "createdAt": 1761490700002,
+  "desc": "Pol Roger's house Champagne, a near-equal blend of Pinot Noir, Pinot Meunier and Chardonnay. Ripe apple, brioche and a touch of honey, beautifully balanced. Pol Roger was Winston Churchill's favourite Champagne house. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Pol Roger Brut Réserve NV (glass)",
+  "origin": "FR",
+  "pic": "sparkling"
+ },
+ "w-cseri-g": {
+  "cat": "glass",
+  "createdAt": 1761490700003,
+  "desc": "Cseri cellar, Pannonhalma · Rajnai Rizling (Riesling). Young and vibrant: green apple, lime and white peach with racy acidity. Pannonhalma's cool, breezy hills are made for crisp, aromatic whites. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Cseri \"Secundus\" Rajnai Rizling 2025 (glass)",
+  "origin": "HU",
+  "pic": "white"
+ },
+ "w-figula-g": {
+  "cat": "glass",
+  "createdAt": 1761490700004,
+  "desc": "Figula family, Balatonfüred-Csopak · Olaszrizling from the Sóskút vineyard. Fresh and zesty, with citrus, green herbs and the variety's classic bitter-almond finish. Olaszrizling is Hungary's most widely planted white grape. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Figula Sóskút Olaszrizling 2025 (glass)",
+  "origin": "HU",
+  "pic": "white"
+ },
+ "w-kacsa-g": {
+  "cat": "glass",
+  "createdAt": 1761490700005,
+  "desc": "Balassa, Tokaj · Furmint. 'Kacsa' means duck: this is István Balassa's fresh, unoaked Furmint. Quince, pear and lemon zest, bright acidity and a salty, volcanic finish. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Balassa \"KACSA\" Furmint 2025 (glass)",
+  "origin": "HU",
+  "pic": "white"
+ },
+ "w-kekny24-g": {
+  "cat": "glass",
+  "createdAt": 1761490700006,
+  "desc": "Válibor, Badacsony · Kéknyelű ('blue stalk'), a rare native grape of the Balaton volcanoes. Smoky minerality, quince and citrus with a long, salty finish. The vine has only female flowers, so it needs a partner variety planted next to it. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Válibor Kéknyelű 2024 (glass)",
+  "origin": "HU",
+  "pic": "white"
+ },
+ "w-matacs-g": {
+  "cat": "glass",
+  "createdAt": 1761490700007,
+  "desc": "Kislaki, South Balaton · Chardonnay from the Matacs parcel. Ripe yellow apple, citrus and gentle toasty oak, with a creamy texture kept fresh by lively acidity. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Kislaki Chardonnay Parcel Selection Matacs 2025 (glass)",
+  "origin": "HU",
+  "pic": "white"
+ },
+ "w-barat-g": {
+  "cat": "glass",
+  "createdAt": 1761490700008,
+  "desc": "Gizella cellar, Tokaj · Hárslevelű from the Barát vineyard. 'Hárslevelű' means linden leaf: aromatic and gently spicy, with linden blossom, honeyed pear and a long, dry, mineral finish. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Gizella Barát Hárslevelű 2023 (glass)",
+  "origin": "HU",
+  "pic": "white"
+ },
+ "w-sancerre-g": {
+  "cat": "glass",
+  "createdAt": 1761490700009,
+  "desc": "Domaine Vacheron, Sancerre, Loire Valley · Sauvignon Blanc. A biodynamic family estate. Citrus, gooseberry and fresh-cut herbs over a chalky, flinty minerality. Precise and refreshing. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Domaine Vacheron Sancerre 2024 (glass)",
+  "origin": "FR",
+  "pic": "white"
+ },
+ "w-chablis-g": {
+  "cat": "glass",
+  "createdAt": 1761490700010,
+  "desc": "Droin, Chablis Premier Cru Montmains · Chardonnay. Unoaked purity from Chablis' famous fossil-rich Kimmeridgian limestone: lemon, green apple and oyster-shell minerality with a long, saline finish. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Droin Chablis 1er Cru Montmains 2024 (glass)",
+  "origin": "FR",
+  "pic": "white"
+ },
+ "w-szel-g": {
+  "cat": "glass",
+  "createdAt": 1761490700011,
+  "desc": "Sebestyén, Szekszárd · rosé. 'Szél' means wind. Light, fresh and fruity: strawberry, raspberry and pink grapefruit, with a crisp, dry finish. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Sebestyén Szél Rosé 2025 (glass)",
+  "origin": "HU",
+  "pic": "rose"
+ },
+ "w-angel-g": {
+  "cat": "glass",
+  "createdAt": 1761490700012,
+  "desc": "Château d'Esclans, Provence · the world-famous Whispering Angel. Pale and delicate, mainly Grenache: fresh strawberry, peach and citrus, light-bodied and bone-dry. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Château d'Esclans Whispering Angel Rosé 2025 (glass)",
+  "origin": "FR",
+  "pic": "rose"
+ },
+ "w-genus-g": {
+  "cat": "glass",
+  "createdAt": 1761490700013,
+  "desc": "Gallay, Bükk · red blend of Zweigelt, Turán and Kékfrankos. Juicy dark cherry and plum with soft spice and smooth tannins. Turán is a Hungarian grape with red flesh, which gives the deep colour. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Gallay Genus 2021 (glass)",
+  "origin": "HU",
+  "pic": "red"
+ },
+ "w-hkadarka-g": {
+  "cat": "glass",
+  "createdAt": 1761490700014,
+  "desc": "Heimann & Sons, Szekszárd · Kadarka. A light, silky red with sour cherry, red berries and a peppery-paprika spice. Kadarka came to Hungary from the Balkans and is often compared to Pinot Noir. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Heimann & Fiai Kadarka 2025 (glass)",
+  "origin": "HU",
+  "pic": "red"
+ },
+ "w-nag-g": {
+  "cat": "glass",
+  "createdAt": 1761490700015,
+  "desc": "NAG 'Föld és Ég' (Earth and Sky), Mátra · Syrah. Dark berries, black pepper and violets, medium-bodied and fresh. Mátra's volcanic slopes give this Syrah lift rather than heaviness. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "NAG Föld és Ég Syrah 2024 (glass)",
+  "origin": "HU",
+  "pic": "red"
+ },
+ "w-valpinot-g": {
+  "cat": "glass",
+  "createdAt": 1761490700016,
+  "desc": "Válibor, Badacsony · Pinot Noir. Grown on the volcanic slopes above Lake Balaton: red cherry, strawberry and a hint of earth, light tannins and fresh acidity. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Válibor Pinot Noir 2023 (glass)",
+  "origin": "HU",
+  "pic": "red"
+ },
+ "w-merengo-g": {
+  "cat": "glass",
+  "createdAt": 1761490700017,
+  "desc": "St. Andrea, Eger · Bikavér Superior 'Merengő' (Daydreaming). Eger's famous 'Bull's Blood' blend, led by Kékfrankos: black cherry, plum and spice with polished tannins. A modern classic from one of Eger's top estates. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "St Andrea Merengő Bikavér Superior 2022 (glass)",
+  "origin": "HU",
+  "pic": "red"
+ },
+ "w-pava-g": {
+  "cat": "glass",
+  "createdAt": 1761490700018,
+  "desc": "Konyári, Balatonlelle · 'Páva' (Peacock), Cabernet Sauvignon and Cabernet Franc. The estate's flagship from the southern shore of Lake Balaton: blackcurrant, cedar and dark chocolate, full-bodied with firm, ripe tannins. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Konyári Páva 2022 (glass)",
+  "origin": "HU",
+  "pic": "red"
+ },
+ "w-murrieta18-g": {
+  "cat": "glass",
+  "createdAt": 1761490700019,
+  "desc": "Marqués de Murrieta, Rioja · Tempranillo-led Gran Reserva. Aged for years in oak and bottle before release: dried cherry, fig, tobacco and vanilla, silky and savoury. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Marqués de Murrieta Gran Reserva 2018 (glass)",
+  "origin": "ES",
+  "pic": "red"
+ },
+ "w-ilblu-g": {
+  "cat": "glass",
+  "createdAt": 1761490700020,
+  "desc": "Brancaia, Tuscany · 'Il Blu', Merlot, Sangiovese and Cabernet Sauvignon. The estate's flagship, named for its blue label: plush black fruit, cocoa and sweet spice, velvety and long. Served by the glass (0.15 l).",
+  "mods": null,
+  "name": "Brancaia Il Blu 2020 (glass)",
+  "origin": "IT",
+  "pic": "red"
+ },
+ "w-3gracia25-g": {
+  "cat": "glass",
+  "createdAt": 1761490700021,
+  "desc": "Tokaj · a young, sweet Tokaji. Honeyed apricot, ripe peach and orange blossom, with fresh acidity that keeps it light. Lovely with dessert or blue cheese. Served by the glass (0.1 l).",
+  "mods": null,
+  "name": "Három Grácia Édes 2025 (glass)",
+  "origin": "HU",
+  "pic": "dessert"
+ },
+ "w-patszam-g": {
+  "cat": "glass",
+  "createdAt": 1761490700022,
+  "desc": "Patricius, Tokaj · sweet Szamorodni. The name comes from Polish, 'as it was grown': whole bunches, botrytised berries included, are pressed together. Dried apricot, honey and quince, with a nutty touch. Served by the glass (0.1 l).",
+  "mods": null,
+  "name": "Patricius Szamorodni 2017/2021 (glass)",
+  "origin": "HU",
+  "pic": "dessert"
+ },
+ "w-oremus-g": {
+  "cat": "glass",
+  "createdAt": 1761490700023,
+  "desc": "Oremus, Tokaj · 5 puttonyos Aszú from 2000, a rare mature vintage. The estate belongs to the family behind Spain's Vega Sicilia. After 25 years: dried apricot, orange marmalade, honey and caramel, with Tokaj's bright acidity keeping it fresh. Served by the glass (0.1 l).",
+  "mods": null,
+  "name": "Oremus 5 Puttonyos Aszú 2000 (glass)",
+  "origin": "HU",
+  "pic": "dessert"
+ },
+ "w-polroger": {
+  "cat": "champagne",
+  "createdAt": 1761490700024,
+  "desc": "Pol Roger's house Champagne, a near-equal blend of Pinot Noir, Pinot Meunier and Chardonnay. Ripe apple, brioche and a touch of honey, beautifully balanced. Pol Roger was Winston Churchill's favourite Champagne house.",
+  "mods": null,
+  "name": "Pol Roger Brut Réserve NV",
+  "origin": "FR"
+ },
+ "w-veuveyl": {
+  "cat": "champagne",
+  "createdAt": 1761490700025,
+  "desc": "Veuve Clicquot's signature, Pinot Noir-led for structure. Ripe pear, brioche and vanilla with a fresh, toasty finish. Madame Clicquot took over the house as a 27-year-old widow in 1805.",
+  "mods": null,
+  "name": "Veuve Clicquot Brut \"Yellow Label\" NV",
+  "origin": "FR"
+ },
+ "w-moetbi": {
+  "cat": "champagne",
+  "createdAt": 1761490700026,
+  "desc": "The world's best-known Champagne: Pinot Noir, Pinot Meunier and Chardonnay. Bright green apple, white flowers and a hint of brioche, generous and easy to love.",
+  "mods": null,
+  "name": "Moët & Chandon Brut Impérial NV",
+  "origin": "FR"
+ },
+ "w-ruinartbdb": {
+  "cat": "champagne",
+  "createdAt": 1761490700027,
+  "desc": "100% Chardonnay from Ruinart, founded in 1729 and the oldest Champagne house. Citrus, white flowers and fresh almond, creamy bubbles and great finesse.",
+  "mods": null,
+  "name": "Ruinart Blanc de Blancs NV",
+  "origin": "FR"
+ },
+ "w-krugcg": {
+  "cat": "champagne",
+  "createdAt": 1761490700028,
+  "desc": "Krug's prestige cuvée, blended from well over a hundred wines across many years. Toasted nuts, gingerbread, citrus and honey, rich yet precise. Each bottle carries an 'Édition' number.",
+  "mods": null,
+  "name": "Krug Grande Cuvée NV",
+  "origin": "FR"
+ },
+ "w-veuverose": {
+  "cat": "champagne",
+  "createdAt": 1761490700029,
+  "desc": "Yellow Label blended with red Pinot Noir wine. Madame Clicquot created the first blended rosé Champagne in 1818. Strawberry, cherry and biscuit, round and fruity.",
+  "mods": null,
+  "name": "Veuve Clicquot Rosé NV",
+  "origin": "FR"
+ },
+ "w-ruinartrose": {
+  "cat": "champagne",
+  "createdAt": 1761490700030,
+  "desc": "Chardonnay and Pinot Noir from the oldest Champagne house. Raspberry, cherry and pink grapefruit with a hint of fresh mint, silky and vibrant.",
+  "mods": null,
+  "name": "Ruinart Rosé NV",
+  "origin": "FR"
+ },
+ "w-krugrose": {
+  "cat": "champagne",
+  "createdAt": 1761490700031,
+  "desc": "Krug's rare multi-vintage rosé. Wild strawberry, rose hip, spice and toasted brioche, powerful and gastronomic. Made to be enjoyed with food as much as on its own.",
+  "mods": null,
+  "name": "Krug Rosé NV",
+  "origin": "FR"
+ },
+ "w-mandois18m": {
+  "cat": "champagne",
+  "createdAt": 1761490700032,
+  "desc": "Family house Mandois, 100% Chardonnay from the generous, sunny 2018 vintage. Lemon curd, white peach and brioche, creamy and fresh. A magnum ages more slowly and gracefully.",
+  "mods": null,
+  "name": "Mandois Blanc de Blancs Magnum (1.5 l) 2018",
+  "origin": "FR"
+ },
+ "w-hugotm": {
+  "cat": "champagne",
+  "createdAt": 1761490700033,
+  "desc": "Grower Champagne from Grand Cru Chardonnay, extra brut, so very little added sugar. Chalky, saline and citrussy, with fine, tight bubbles. Pure and precise.",
+  "mods": null,
+  "name": "Damien Hugot Grand Cru Blanc de Blancs Extra Brut Magnum (1.5 l) NV",
+  "origin": "FR"
+ },
+ "w-piperessm": {
+  "cat": "champagne",
+  "createdAt": 1761490700034,
+  "desc": "Pinot Noir-led and aged longer than the house's standard Brut, with lower sugar. Ripe pear, citrus peel and toasted almond, vibrant and dry.",
+  "mods": null,
+  "name": "Piper-Heidsieck Essentiel Cuvée Brut Magnum (1.5 l) NV",
+  "origin": "FR"
+ },
+ "w-roed13m": {
+  "cat": "champagne",
+  "createdAt": 1761490700035,
+  "desc": "Pinot Noir-dominant vintage Champagne from a late, cool year that gave fresh, chiselled wines. Citrus, white cherry, toasted brioche and chalky minerality, now gaining honeyed depth.",
+  "mods": null,
+  "name": "Louis Roederer Vintage Brut Magnum (1.5 l) 2013",
+  "origin": "FR"
+ },
+ "w-moetgv15": {
+  "cat": "champagne",
+  "createdAt": 1761490700036,
+  "desc": "Moët's vintage Champagne from the warm, sunny 2015 harvest. Ripe yellow fruit, apricot and brioche with a smoky, toasty note, generous and round.",
+  "mods": null,
+  "name": "Moët & Chandon Grand Vintage 2015",
+  "origin": "FR"
+ },
+ "w-pouillon16": {
+  "cat": "champagne",
+  "createdAt": 1761490700037,
+  "desc": "A single-vineyard Grand Cru from the grower family Pouillon, with very little added sugar. Chalky, precise and saline, with lemon, white flowers and a fine, long finish.",
+  "mods": null,
+  "name": "Pouillon & Fils Les Valnons Extra Brut Grand Cru 2016",
+  "origin": "FR"
+ },
+ "w-deutzbdb17": {
+  "cat": "champagne",
+  "createdAt": 1761490700038,
+  "desc": "100% Chardonnay from the Aÿ house of Deutz. Lemon, white peach and fresh hazelnut, very fine bubbles and a crisp, elegant finish.",
+  "mods": null,
+  "name": "Deutz Blanc de Blancs 2017",
+  "origin": "FR"
+ },
+ "w-billecartnf08": {
+  "cat": "champagne",
+  "createdAt": 1761490700039,
+  "desc": "Billecart-Salmon's prestige cuvée, named after the house's founder, from 2008, one of the great Champagne vintages of the century. Grand Cru Pinot Noir and Chardonnay: citrus, honey, toasted nuts and endless freshness.",
+  "mods": null,
+  "name": "Billecart-Salmon Cuvée Nicolas François 2008",
+  "origin": "FR"
+ },
+ "w-lbmeunier16": {
+  "cat": "champagne",
+  "createdAt": 1761490700040,
+  "desc": "Rare Champagne made only from Pinot Meunier by the biodynamic house Leclerc Briant. Red apple, plum and spice, round and juicy with a fresh, chalky finish.",
+  "mods": null,
+  "name": "Leclerc Briant Blanc de Meuniers 2016",
+  "origin": "FR"
+ },
+ "w-bereche15": {
+  "cat": "champagne",
+  "createdAt": 1761490700041,
+  "desc": "Bérêche, one of Champagne's most admired grower families, from the Grand Cru village of Aÿ, Pinot Noir country. Red apple, cherry, brioche and spice, powerful and vinous.",
+  "mods": null,
+  "name": "Bérêche & Fils Aÿ Grand Cru 2015",
+  "origin": "FR"
+ },
+ "w-hemera06": {
+  "cat": "champagne",
+  "createdAt": 1761490700042,
+  "desc": "Henriot's prestige cuvée of Grand Cru Chardonnay and Pinot Noir, released after long ageing in the cellar. Candied lemon, honey, toasted almonds and mushroom, mature and complex.",
+  "mods": null,
+  "name": "Henriot Cuvée Hemera 2006",
+  "origin": "FR"
+ },
+ "w-lgd15": {
+  "cat": "champagne",
+  "createdAt": 1761490700043,
+  "desc": "Veuve Clicquot's prestige cuvée, named for Madame Clicquot herself and led by Grand Cru Pinot Noir. Ripe peach, red fruit, brioche and a chalky backbone. Rich, silky and long.",
+  "mods": null,
+  "name": "Veuve Clicquot La Grande Dame 2015",
+  "origin": "FR"
+ },
+ "w-bollga15": {
+  "cat": "champagne",
+  "createdAt": 1761490700044,
+  "desc": "Bollinger's vintage Champagne, Pinot Noir-led and fermented in oak barrels. Baked apple, honey, roasted nuts and spice, powerful and complex. Bollinger is James Bond's Champagne of choice.",
+  "mods": null,
+  "name": "Bollinger La Grande Année 2015",
+  "origin": "FR"
+ },
+ "w-amour11": {
+  "cat": "champagne",
+  "createdAt": 1761490700045,
+  "desc": "Deutz's prestige Blanc de Blancs, 100% Chardonnay. Lemon blossom, white peach and almond, creamy and delicate, with a fine thread of freshness.",
+  "mods": null,
+  "name": "Deutz \"Amour de Deutz\" 2011",
+  "origin": "FR"
+ },
+ "w-abyss17": {
+  "cat": "champagne",
+  "createdAt": 1761490700046,
+  "desc": "Aged at the bottom of the sea, around 60 metres down off the coast of Brittany, in cold, dark and pressure-steady water. Saline and mineral, with citrus, white flowers and fine, persistent bubbles. A real conversation piece.",
+  "mods": null,
+  "name": "Leclerc Briant Cuvée Abyss 2017",
+  "origin": "FR"
+ },
+ "w-rare13": {
+  "cat": "champagne",
+  "createdAt": 1761490700047,
+  "desc": "Piper-Heidsieck's prestige vintage, Chardonnay-led. Exotic fruit, mandarin, vanilla and toasted hazelnut, rich yet fresh from the cool 2013 season.",
+  "mods": null,
+  "name": "Piper-Heidsieck RARE Millésime 2013",
+  "origin": "FR"
+ },
+ "w-dp1315": {
+  "cat": "champagne",
+  "createdAt": 1761490700048,
+  "desc": "Dom Pérignon, named after the 17th-century Benedictine monk, from Chardonnay and Pinot Noir, vintage only. Citrus, white flowers, toasted brioche and a smoky, mineral finish. Ask your server which vintage is open.",
+  "mods": null,
+  "name": "Dom Pérignon 2013/2015",
+  "origin": "FR"
+ },
+ "w-comtes12": {
+  "cat": "champagne",
+  "createdAt": 1761490700049,
+  "desc": "Taittinger's prestige cuvée, 100% Grand Cru Chardonnay from the Côte des Blancs, from the outstanding 2012 vintage. Lemon, white flowers, toasted brioche and hazelnut, creamy and very long.",
+  "mods": null,
+  "name": "Taittinger \"Comtes de Champagne\" Blanc de Blancs Brut 2012",
+  "origin": "FR"
+ },
+ "w-rarerose12": {
+  "cat": "champagne",
+  "createdAt": 1761490700050,
+  "desc": "The rosé version of Piper-Heidsieck's prestige cuvée. Blood orange, wild strawberry, rose and spice, elegant and complex.",
+  "mods": null,
+  "name": "Piper-Heidsieck RARE Millésime Rosé 2012",
+  "origin": "FR"
+ },
+ "w-alexandra04": {
+  "cat": "champagne",
+  "createdAt": 1761490700051,
+  "desc": "Laurent-Perrier's rare vintage prestige rosé, named after the daughter of the house's patriarch Bernard de Nonancourt. After two decades: wild strawberry, blood orange, spice and toasted notes, refined and silky.",
+  "mods": null,
+  "name": "Laurent-Perrier Alexandra Grande Cuvée 2004",
+  "origin": "FR"
+ },
+ "w-dprose08": {
+  "cat": "champagne",
+  "createdAt": 1761490700052,
+  "desc": "Dom Pérignon's rosé from the celebrated, high-acid 2008 vintage. Red berries, blood orange, rose, spice and cocoa, intense and vibrant. Built to age for decades.",
+  "mods": null,
+  "name": "Dom Pérignon Rosé 2008",
+  "origin": "FR"
+ },
+ "w-egly13": {
+  "cat": "champagne",
+  "createdAt": 1761490700053,
+  "desc": "Cult grower Egly-Ouriet from Ambonnay, Pinot Noir-rich and long-aged on the lees, with very little added sugar. Red fruit, brioche, spice and chalky power. A wine-lover's Champagne.",
+  "mods": null,
+  "name": "Egly-Ouriet Millésimé Extra Brut Grand Cru 2013",
+  "origin": "FR"
+ },
+ "w-cristal14": {
+  "cat": "champagne",
+  "createdAt": 1761490700054,
+  "desc": "Created in 1876 for Tsar Alexander II, who wanted a clear crystal bottle. Pinot Noir and Chardonnay: citrus, white flowers, toasted almond and a silky, chalky finish. Precise and endlessly elegant.",
+  "mods": null,
+  "name": "Louis Roederer Cristal 2014",
+  "origin": "FR"
+ },
+ "w-crayeres82": {
+  "cat": "champagne",
+  "createdAt": 1761490700055,
+  "desc": "A rare library release aged for decades in Charles Heidsieck's Gallo-Roman chalk cellars ('crayères') under Reims. Mature and complex: candied citrus, honey, coffee, toasted nuts and gentle, fine bubbles.",
+  "mods": null,
+  "name": "Charles Heidsieck Collection Crayères Vintage 1982",
+  "origin": "FR"
+ },
+ "w-cristalrose15": {
+  "cat": "champagne",
+  "createdAt": 1761490700056,
+  "desc": "The rarest Cristal, made only in great years. Wild strawberry, citrus, white flowers and chalky minerality, creamy, ethereal and very long.",
+  "mods": null,
+  "name": "Louis Roederer Cristal Rosé 2015",
+  "origin": "FR"
+ },
+ "w-horsserie82": {
+  "cat": "champagne",
+  "createdAt": 1761490700057,
+  "desc": "A very limited late release of the 1982 vintage, kept in the cellars for decades. Honey, dried fruit, brioche and mocha, with soft, fine bubbles. A collector's bottle.",
+  "mods": null,
+  "name": "Piper-Heidsieck Hors-Série 1982",
+  "origin": "FR"
+ },
+ "w18": {
+  "cat": "sparkling",
+  "createdAt": 1761490700058,
+  "desc": "Traditional-method sparkling from the Kreinbacher estate on Somló, one of Hungary's smallest wine regions and an extinct volcano. Crisp green apple, citrus and a light brioche note, with fine bubbles and a dry, mineral finish.",
+  "mods": null,
+  "name": "Kreinbacher Classic Brut NV",
+  "origin": "HU"
+ },
+ "w30": {
+  "cat": "sparkling",
+  "createdAt": 1761490700059,
+  "desc": "Kreinbacher's traditional-method rosé from Somló. Fresh strawberry and red-currant fruit, lively acidity and fine, creamy bubbles. Dry and elegant, a great aperitif.",
+  "mods": null,
+  "name": "Kreinbacher Rosé Brut NV",
+  "origin": "HU"
+ },
+ "w-krose19m": {
+  "cat": "sparkling",
+  "createdAt": 1761490700060,
+  "desc": "Kreinbacher's traditional-method rosé from Somló, vintage 2019 in magnum. Red berries, cherry and toasty brioche, creamy and fine. Perfect for a table to share.",
+  "mods": null,
+  "name": "Kreinbacher Rosé Brut Magnum (1.5 l) 2019",
+  "origin": "HU"
+ },
+ "w-kprestige19m": {
+  "cat": "sparkling",
+  "createdAt": 1761490700061,
+  "desc": "Kreinbacher's top traditional-method sparkling from Somló, vintage 2019 in magnum. Ripe apple, citrus, brioche and nutty depth from long lees ageing, with volcanic minerality.",
+  "mods": null,
+  "name": "Kreinbacher Prestige Brut Magnum (1.5 l) 2019",
+  "origin": "HU"
+ },
+ "w-figula": {
+  "cat": "white",
+  "createdAt": 1761490700062,
+  "desc": "Figula family, Balatonfüred-Csopak · Olaszrizling from the Sóskút vineyard. Fresh and zesty, with citrus, green herbs and the variety's classic bitter-almond finish. Olaszrizling is Hungary's most widely planted white grape.",
+  "mods": null,
+  "name": "Figula Sóskút Olaszrizling 2025",
+  "origin": "HU"
+ },
+ "w-kalikovek": {
+  "cat": "white",
+  "createdAt": 1761490700063,
+  "desc": "Káli Kövek, Káli Basin by Lake Balaton · Olaszrizling. Grown among the basin's basalt 'stone seas': citrus, white flowers and almond, with a smoky, mineral finish.",
+  "mods": null,
+  "name": "Káli Kövek Köveskál Olaszrizling 2024",
+  "origin": "HU"
+ },
+ "w-gyorgykovacs": {
+  "cat": "white",
+  "createdAt": 1761490700064,
+  "desc": "Györgykovács, Somló · Olaszrizling. A cult small producer on the volcanic Somló hill. Full-bodied and powerful: ripe pear, chamomile, almond and a salty, smoky finish. Ages beautifully.",
+  "mods": null,
+  "name": "Györgykovács Olaszrizling 2021",
+  "origin": "HU"
+ },
+ "w-kacsa": {
+  "cat": "white",
+  "createdAt": 1761490700065,
+  "desc": "Balassa, Tokaj · Furmint. 'Kacsa' means duck: this is István Balassa's fresh, unoaked Furmint. Quince, pear and lemon zest, bright acidity and a salty, volcanic finish.",
+  "mods": null,
+  "name": "Balassa \"KACSA\" Furmint 2025",
+  "origin": "HU"
+ },
+ "w-omlas": {
+  "cat": "white",
+  "createdAt": 1761490700066,
+  "desc": "Préselő, Tokaj · Furmint from the Omlás vineyard. Some bottle age adds depth: quince, ripe apple, honey and toasted notes, with Furmint's firm acidity.",
+  "mods": null,
+  "name": "Préselő Omlás Furmint 2020",
+  "origin": "HU"
+ },
+ "w-csontos": {
+  "cat": "white",
+  "createdAt": 1761490700067,
+  "desc": "Bott, Tokaj · single-vineyard Furmint from Csontos. Precise and mineral: lemon, quince, white pepper and a flinty, smoky finish from volcanic soils.",
+  "mods": null,
+  "name": "Bott Pince Csontos Furmint 2022",
+  "origin": "HU"
+ },
+ "w-profundum": {
+  "cat": "white",
+  "createdAt": 1761490700068,
+  "desc": "Patricius, Tokaj · 'Profundum', a selection of the estate's best Furmint. Rich and layered: ripe pear, quince, honey and spice, with a long mineral finish.",
+  "mods": null,
+  "name": "Patrícius Profundum Furmint 2022",
+  "origin": "HU"
+ },
+ "w-uragya": {
+  "cat": "white",
+  "createdAt": 1761490700069,
+  "desc": "Lenkey, Mád, Tokaj · Furmint from Úrágya, one of Mád's historic first-class vineyards. Long ageing gives depth: dried apricot, honey, beeswax and smoky minerality. Serious and long.",
+  "mods": null,
+  "name": "Lenkey Úrágya Furmint 2018",
+  "origin": "HU"
+ },
+ "w-urban73": {
+  "cat": "white",
+  "createdAt": 1761490700070,
+  "desc": "István Szepsy, Mád, Tokaj · single-vineyard Furmint from Urbán. Szepsy is Hungary's most celebrated winemaker. Quince, lemon, white flowers and salty minerality, intense and very long.",
+  "mods": null,
+  "name": "Szepsy Urbán \"73\" Furmint 2020",
+  "origin": "HU"
+ },
+ "w-szenttamas46": {
+  "cat": "white",
+  "createdAt": 1761490700071,
+  "desc": "István Szepsy, Mád, Tokaj · Furmint from Szent Tamás, one of Tokaj's greatest vineyards. Concentrated and precise: citrus, quince, smoke and a stony, almost endless finish. A benchmark Hungarian white.",
+  "mods": null,
+  "name": "Szepsy Szent Tamás \"46\" Furmint 2021",
+  "origin": "HU"
+ },
+ "w-barakonyi": {
+  "cat": "white",
+  "createdAt": 1761490700072,
+  "desc": "Tokaj Nobilis, Tokaj · Hárslevelű from the Barakonyi vineyard. Floral and spicy: linden blossom, ripe pear and honey with a fresh, dry finish.",
+  "mods": null,
+  "name": "Tokaj Nobilis Barakonyi Hárslevelű 2023",
+  "origin": "HU"
+ },
+ "w-barat": {
+  "cat": "white",
+  "createdAt": 1761490700073,
+  "desc": "Gizella cellar, Tokaj · Hárslevelű from the Barát vineyard. 'Hárslevelű' means linden leaf: aromatic and gently spicy, with linden blossom, honeyed pear and a long, dry, mineral finish.",
+  "mods": null,
+  "name": "Gizella Barát Hárslevelű 2023",
+  "origin": "HU"
+ },
+ "w-bukhars": {
+  "cat": "white",
+  "createdAt": 1761490700074,
+  "desc": "Bukolyi, Eger · Hárslevelű. Fresh and aromatic: white flowers, lime and yellow plum with a soft, spicy finish.",
+  "mods": null,
+  "name": "Bukolyi Hárslevelű 2024",
+  "origin": "HU"
+ },
+ "w-spiegel13": {
+  "cat": "white",
+  "createdAt": 1761490700075,
+  "desc": "Spiegelberg, Somló · Hárslevelű with over a decade of age. Golden and complex: honey, dried apricot, beeswax and Somló's smoky, salty minerality.",
+  "mods": null,
+  "name": "Spiegelberg Hárslevelű 2013",
+  "origin": "HU"
+ },
+ "w-cseri": {
+  "cat": "white",
+  "createdAt": 1761490700076,
+  "desc": "Cseri cellar, Pannonhalma · Rajnai Rizling (Riesling). Young and vibrant: green apple, lime and white peach with racy acidity. Pannonhalma's cool, breezy hills are made for crisp, aromatic whites.",
+  "mods": null,
+  "name": "Cseri \"Secundus\" Barni's Rajnai Rizling 2025",
+  "origin": "HU"
+ },
+ "w-prior": {
+  "cat": "white",
+  "createdAt": 1761490700077,
+  "desc": "The winery of the 1,000-year-old Benedictine Archabbey of Pannonhalma, a UNESCO World Heritage site · Riesling. Peach, lime and white flowers with crisp acidity.",
+  "mods": null,
+  "name": "Pannonhalmi Főapátság Prior Rajnai Rizling 2024",
+  "origin": "HU"
+ },
+ "w-bukspring": {
+  "cat": "white",
+  "createdAt": 1761490700078,
+  "desc": "Bukolyi, Eger · Riesling. Young and zesty: green apple, lime and blossom, light and refreshing.",
+  "mods": null,
+  "name": "Bukolyi Spring Riesling 2025",
+  "origin": "HU"
+ },
+ "w-kislakiriz": {
+  "cat": "white",
+  "createdAt": 1761490700079,
+  "desc": "Kislaki, South Balaton · Riesling selection with some bottle age. Ripe peach, citrus and the first honeyed, petrol-like hints of mature Riesling, still fresh.",
+  "mods": null,
+  "name": "Kislaki Rizling Válogatás 2019",
+  "origin": "HU"
+ },
+ "w-busch": {
+  "cat": "white",
+  "createdAt": 1761490700080,
+  "desc": "Clemens Busch, Mosel · Riesling 'from grey slate'. An organic family estate on the steep slopes of the Mosel: peach, lime and smoky slate minerality, dry and vibrant.",
+  "mods": null,
+  "name": "Clemens Busch Riesling vom grauen Schiefer 2024",
+  "origin": "DE"
+ },
+ "w-brundlmayer": {
+  "cat": "white",
+  "createdAt": 1761490700081,
+  "desc": "Bründlmayer, Kamptal, Austria · organic Riesling from terraced vineyards. Apricot, citrus and white flowers, crisp and precise with a mineral finish.",
+  "mods": null,
+  "name": "Bründlmayer Riesling Kamptaler Terrassen Bio 2024",
+  "origin": "AT"
+ },
+ "w-elodchard": {
+  "cat": "white",
+  "createdAt": 1761490700082,
+  "desc": "Szijjártó Előd, Etyek · Chardonnay. Etyek, just outside Budapest, is one of Hungary's coolest regions. Green apple, citrus and a light, creamy texture.",
+  "mods": null,
+  "name": "Szijjártó Előd Chardonnay 2024",
+  "origin": "HU"
+ },
+ "w-matacs": {
+  "cat": "white",
+  "createdAt": 1761490700083,
+  "desc": "Kislaki, South Balaton · Chardonnay from the Matacs parcel. Ripe yellow apple, citrus and gentle toasty oak, with a creamy texture kept fresh by lively acidity.",
+  "mods": null,
+  "name": "Kislaki Chardonnay Parcel Selection Matacs 2025",
+  "origin": "HU"
+ },
+ "w-chablis": {
+  "cat": "white",
+  "createdAt": 1761490700084,
+  "desc": "Droin, Chablis Premier Cru Montmains · Chardonnay. Unoaked purity from Chablis' famous fossil-rich Kimmeridgian limestone: lemon, green apple and oyster-shell minerality with a long, saline finish.",
+  "mods": null,
+  "name": "Droin Chablis 1er Cru Montmains 2024",
+  "origin": "FR"
+ },
+ "w-montillepm": {
+  "cat": "white",
+  "createdAt": 1761490700085,
+  "desc": "Domaine de Montille, Burgundy · Chardonnay from Puligny-Montrachet, home of some of the world's greatest white wines. White peach, citrus, hazelnut and fine oak, elegant and mineral.",
+  "mods": null,
+  "name": "Domaine de Montille Puligny-Montrachet 2023",
+  "origin": "FR"
+ },
+ "w-meursault": {
+  "cat": "white",
+  "createdAt": 1761490700086,
+  "desc": "Vincent Girardin, Burgundy · old-vine Chardonnay from Meursault. Rich and creamy: ripe pear, hazelnut, butter and toasted oak, balanced by fresh acidity.",
+  "mods": null,
+  "name": "Vincent Girardin Meursault \"Vieilles Vignes\" 2022",
+  "origin": "FR"
+ },
+ "w-elodsauv": {
+  "cat": "white",
+  "createdAt": 1761490700087,
+  "desc": "Szijjártó Előd, Etyek · Sauvignon Blanc. Fresh and aromatic: gooseberry, elderflower, lime and green pepper.",
+  "mods": null,
+  "name": "Szijjártó Előd Sauvignon Blanc 2025",
+  "origin": "HU"
+ },
+ "w-sancerre": {
+  "cat": "white",
+  "createdAt": 1761490700088,
+  "desc": "Domaine Vacheron, Sancerre, Loire Valley · Sauvignon Blanc. A biodynamic family estate. Citrus, gooseberry and fresh-cut herbs over a chalky, flinty minerality. Precise and refreshing.",
+  "mods": null,
+  "name": "Domaine Vacheron Sancerre 2024",
+  "origin": "FR"
+ },
+ "w-cloudybay": {
+  "cat": "white",
+  "createdAt": 1761490700089,
+  "desc": "Cloudy Bay, Marlborough, New Zealand · the Sauvignon Blanc that made New Zealand famous. Passion fruit, lime, grapefruit and fresh-cut grass, vibrant and zesty.",
+  "mods": null,
+  "name": "Cloudy Bay Sauvignon Blanc 2025",
+  "origin": "NZ"
+ },
+ "w-marcellkoves": {
+  "cat": "white",
+  "createdAt": 1761490700090,
+  "desc": "Bukolyi, Eger · white blend in Grand Superior, the top tier of Eger's quality ladder. 'Köves' means stony: ripe stone fruit, white flowers and a mineral finish.",
+  "mods": null,
+  "name": "Bukolyi Marcell Köves Grand Superior 2022",
+  "origin": "HU"
+ },
+ "w-stamaria": {
+  "cat": "white",
+  "createdAt": 1761490700091,
+  "desc": "St. Andrea, Eger · 'Mária', a white blend from one of Eger's leading estates. Peach, citrus and blossom with a rounded, spicy texture.",
+  "mods": null,
+  "name": "St Andrea Mária 2024",
+  "origin": "HU"
+ },
+ "w-figulakoves": {
+  "cat": "white",
+  "createdAt": 1761490700092,
+  "desc": "Figula, Balaton · 'Köves' (stony), the family's flagship white from stony Balaton-uplands vineyards. Rich and mineral: ripe pear, almond, honey and smoke, with some bottle age.",
+  "mods": null,
+  "name": "Figula Köves 2020",
+  "origin": "HU"
+ },
+ "w-vistamare": {
+  "cat": "white",
+  "createdAt": 1761490700093,
+  "desc": "Gaja's coastal Tuscan estate Ca' Marcanda, in Bolgheri · Vermentino-based white. 'Vistamare' means sea view: white peach, citrus, herbs and a saline freshness.",
+  "mods": null,
+  "name": "Gaja Ca' Marcanda Vistamare Bianco 2022",
+  "origin": "IT"
+ },
+ "w-zenit": {
+  "cat": "white",
+  "createdAt": 1761490700094,
+  "desc": "Gallay, Bükk · Zenit, a Hungarian grape bred from Ezerjó and Bouvier. Delicate and floral: pear, white flowers and a soft, mineral finish.",
+  "mods": null,
+  "name": "Gallay Nyékládháza Zenit 2021",
+  "origin": "HU"
+ },
+ "w-kekny23": {
+  "cat": "white",
+  "createdAt": 1761490700095,
+  "desc": "Válibor, Badacsony · Kéknyelű ('blue stalk'), a rare native grape of the Balaton volcanoes. Smoky minerality, quince and citrus with a long, salty finish. The vine has only female flowers, so it needs a partner variety planted next to it.",
+  "mods": null,
+  "name": "Válibor Kéknyelű 2023",
+  "origin": "HU"
+ },
+ "w-juhfark": {
+  "cat": "white",
+  "createdAt": 1761490700096,
+  "desc": "Kreinbacher, Somló · Juhfark ('sheep's tail', from the shape of its bunches), Somló's signature grape. Smoky, salty and full-bodied with citrus and white pepper. Local legend says it was drunk on the wedding night to have a son.",
+  "mods": null,
+  "name": "Kreinbacher Juhfark Selection 2021",
+  "origin": "HU"
+ },
+ "w-albarino": {
+  "cat": "white",
+  "createdAt": 1761490700097,
+  "desc": "Marco Real, Rías Baixas, Spain · Albariño aged on its lees for extra texture. Peach, apricot and citrus with an Atlantic, salty freshness. A natural partner for seafood.",
+  "mods": null,
+  "name": "Marco Real Albariño Lías 2023",
+  "origin": "ES"
+ },
+ "w-soave": {
+  "cat": "white",
+  "createdAt": 1761490700098,
+  "desc": "Le Battistelle, Veneto · Garganega from steep, terraced volcanic slopes in Soave Classico. Almond, white flowers, pear and a gentle mineral finish.",
+  "mods": null,
+  "name": "Le Battistelle Soave Classico Roccolo del Durlo 2022",
+  "origin": "IT"
+ },
+ "w-prager": {
+  "cat": "white",
+  "createdAt": 1761490700099,
+  "desc": "Prager, Wachau, Austria · Grüner Veltliner. 'Federspiel' is the Wachau's middle-weight style: fresh, dry and elegant. Green apple, citrus and the grape's signature white pepper.",
+  "mods": null,
+  "name": "Prager Grüner Veltliner Hinter der Burg Federspiel 2024",
+  "origin": "AT"
+ },
+ "w-szel": {
+  "cat": "rose",
+  "createdAt": 1761490700100,
+  "desc": "Sebestyén, Szekszárd · rosé. 'Szél' means wind. Light, fresh and fruity: strawberry, raspberry and pink grapefruit, with a crisp, dry finish.",
+  "mods": null,
+  "name": "Sebestyén Szél Rosé 2025",
+  "origin": "HU"
+ },
+ "w-angel": {
+  "cat": "rose",
+  "createdAt": 1761490700101,
+  "desc": "Château d'Esclans, Provence · the world-famous Whispering Angel. Pale and delicate, mainly Grenache: fresh strawberry, peach and citrus, light-bodied and bone-dry.",
+  "mods": null,
+  "name": "Château d'Esclans Whispering Angel Rosé 2025",
+  "origin": "FR"
+ },
+ "w-hkadarka": {
+  "cat": "red",
+  "createdAt": 1761490700102,
+  "desc": "Heimann & Sons, Szekszárd · Kadarka. A light, silky red with sour cherry, red berries and a peppery-paprika spice. Kadarka came to Hungary from the Balkans and is often compared to Pinot Noir.",
+  "mods": null,
+  "name": "Heimann és Fiai Kadarka 2025",
+  "origin": "HU"
+ },
+ "w-bonsai": {
+  "cat": "red",
+  "createdAt": 1761490700103,
+  "desc": "Vida, Szekszárd · old-vine ('öregtőkés') Kadarka from small, low-yielding vines. More depth than young Kadarka: sour cherry, red berries, paprika spice and silky tannins.",
+  "mods": null,
+  "name": "Vida \"Bonsai\" Öregtőkés Kadarka 2024",
+  "origin": "HU"
+ },
+ "w-weninger": {
+  "cat": "red",
+  "createdAt": 1761490700104,
+  "desc": "Weninger, Burgenland, Austria · Blaufränkisch, the same grape as Hungary's Kékfrankos. A biodynamic family estate: dark cherry, blackberry and pepper, fresh and juicy.",
+  "mods": null,
+  "name": "Weninger Blaufränkisch 2022",
+  "origin": "AT"
+ },
+ "w-zweigelt": {
+  "cat": "red",
+  "createdAt": 1761490700105,
+  "desc": "Sándor Zsolt, Bükk · Zweigelt, a cross of Kékfrankos (Blaufränkisch) and St. Laurent. Juicy cherry, plum and a hint of spice, soft and easy-drinking.",
+  "mods": null,
+  "name": "Sándor Zsolt Zweigelt Selection 2020",
+  "origin": "HU"
+ },
+ "w-losonci": {
+  "cat": "red",
+  "createdAt": 1761490700106,
+  "desc": "Losonci, Mátra · natural Kékfrankos, made with minimal intervention. Wild berries, sour cherry, earthy spice and a vibrant, slightly rustic charm.",
+  "mods": null,
+  "name": "Losonci Kékfrankos Natural Wine 2019",
+  "origin": "HU"
+ },
+ "w-magma": {
+  "cat": "red",
+  "createdAt": 1761490700107,
+  "desc": "St. Donát, Csopak, Lake Balaton · Kékfrankos. Fresh and peppery: black cherry, blackberry and spice with lively acidity and soft tannins.",
+  "mods": null,
+  "name": "St Donát Magma Kékfrankos 2024",
+  "origin": "HU"
+ },
+ "w-batikereszt": {
+  "cat": "red",
+  "createdAt": 1761490700108,
+  "desc": "Heimann & Sons, Szekszárd · single-vineyard Kékfrankos from Bati-kereszt. Dark cherry, plum, pepper and fine oak, structured and elegant.",
+  "mods": null,
+  "name": "Heimann & Fiai Bati-Kereszt Kékfrankos 2021",
+  "origin": "HU"
+ },
+ "w-ivanvolgy": {
+  "cat": "red",
+  "createdAt": 1761490700109,
+  "desc": "Sebestyén, Szekszárd · Bikavér ('Bull's Blood') from the Iván valley. A Kékfrankos-based blend: ripe cherry, plum, spice and velvety tannins.",
+  "mods": null,
+  "name": "Sebestyén Iván-völgyi Bikavér 2020",
+  "origin": "HU"
+ },
+ "w-merengo": {
+  "cat": "red",
+  "createdAt": 1761490700110,
+  "desc": "St. Andrea, Eger · Bikavér Superior 'Merengő' (Daydreaming). Eger's famous 'Bull's Blood' blend, led by Kékfrankos: black cherry, plum and spice with polished tannins. A modern classic from one of Eger's top estates.",
+  "mods": null,
+  "name": "St Andrea Merengő Bikavér Superior 2022",
+  "origin": "HU"
+ },
+ "w-agape16": {
+  "cat": "red",
+  "createdAt": 1761490700111,
+  "desc": "St. Andrea, Eger · Grand Superior Bikavér from the steep Nagy-Eged hill, one of Eger's most famous vineyards. Mature and layered: black cherry, plum, tobacco and spice with silky tannins.",
+  "mods": null,
+  "name": "St Andrea Agapé Nagy-Eged-hegy Bikavér Grand Superior 2016",
+  "origin": "HU"
+ },
+ "w-valpinot": {
+  "cat": "red",
+  "createdAt": 1761490700112,
+  "desc": "Válibor, Badacsony · Pinot Noir. Grown on the volcanic slopes above Lake Balaton: red cherry, strawberry and a hint of earth, light tannins and fresh acidity.",
+  "mods": null,
+  "name": "Válibor Pinot Noir 2023",
+  "origin": "HU"
+ },
+ "w-elodpinot": {
+  "cat": "red",
+  "createdAt": 1761490700113,
+  "desc": "Szijjártó Előd, Etyek · Pinot Noir from cool-climate Etyek. Fresh red cherry, raspberry and a floral lift, light and silky.",
+  "mods": null,
+  "name": "Szijjártó Előd Pinot Noir 2024",
+  "origin": "HU"
+ },
+ "w-tolnaypinot": {
+  "cat": "red",
+  "createdAt": 1761490700114,
+  "desc": "Villa Tolnay, Csobánc hill, Balaton · unfiltered Pinot Noir from volcanic soils. Red cherry, forest floor and spice, with texture and depth.",
+  "mods": null,
+  "name": "Villa Tolnay Pinot Noir Unfiltered 2022",
+  "origin": "HU"
+ },
+ "w-lescras": {
+  "cat": "red",
+  "createdAt": 1761490700115,
+  "desc": "Domaine de Montille, Burgundy · Pinot Noir from Pommard, known for its firm, deep reds. Dark cherry, plum, earthy spice and fine tannins.",
+  "mods": null,
+  "name": "Domaine de Montille Pommard \"Les Cras\" 2023",
+  "origin": "FR"
+ },
+ "w-auxreas": {
+  "cat": "red",
+  "createdAt": 1761490700116,
+  "desc": "Thibault Liger-Belair, Burgundy · Pinot Noir from Vosne-Romanée, the village of Romanée-Conti. Red cherry, rose, spice and silky texture from the small, fragrant 2021 vintage.",
+  "mods": null,
+  "name": "Thibault Liger-Belair Vosne-Romanée \"Aux Réas\" 2021",
+  "origin": "FR"
+ },
+ "w-caillerets": {
+  "cat": "red",
+  "createdAt": 1761490700117,
+  "desc": "Domaine Marquis d'Angerville, Burgundy · Premier Cru Volnay from Caillerets, one of the village's finest sites. Perfumed and elegant: raspberry, red cherry, violets and fine tannins.",
+  "mods": null,
+  "name": "Marquis d'Angerville Volnay 1er Cru \"Caillerets\" 2023",
+  "origin": "FR"
+ },
+ "w-tolnayfranc": {
+  "cat": "red",
+  "createdAt": 1761490700118,
+  "desc": "Villa Tolnay, Csobánc, Balaton · Cabernet Franc. Red berries, bell pepper, graphite and spice, medium-bodied and fresh.",
+  "mods": null,
+  "name": "Villa Tolnay Cabernet Franc 2021",
+  "origin": "HU"
+ },
+ "w-attilafranc": {
+  "cat": "red",
+  "createdAt": 1761490700119,
+  "desc": "Eger · Cabernet Franc with some bottle age. Blackcurrant, red pepper, herbs and spice, with smooth, rounded tannins.",
+  "mods": null,
+  "name": "Attila Pince Cabernet Franc 2019",
+  "origin": "HU"
+ },
+ "w-sauskafranc": {
+  "cat": "red",
+  "createdAt": 1761490700120,
+  "desc": "Sauska, Villány · 'Villányi Franc' is Villány's own name for its top Cabernet Franc. Blackberry, cassis, cedar and sweet spice, ripe and polished.",
+  "mods": null,
+  "name": "Sauska Villányi Franc Prémium 2019",
+  "origin": "HU"
+ },
+ "w-sauskacs": {
+  "cat": "red",
+  "createdAt": 1761490700121,
+  "desc": "Sauska, Villány · Cabernet Sauvignon from Hungary's warm south. Blackcurrant, mint, cedar and dark chocolate, full-bodied with firm tannins.",
+  "mods": null,
+  "name": "Sauska Cabernet Sauvignon Prémium 2019",
+  "origin": "HU"
+ },
+ "w-solus": {
+  "cat": "red",
+  "createdAt": 1761490700122,
+  "desc": "Gere Attila, Villány · 'Solus', the estate's top single-vineyard Merlot. Plum, black cherry, chocolate and vanilla, plush and velvety.",
+  "mods": null,
+  "name": "Gere Solus Merlot 2023",
+  "origin": "HU"
+ },
+ "w-desiderio": {
+  "cat": "red",
+  "createdAt": 1761490700123,
+  "desc": "Avignonesi, Tuscany · Merlot. Ripe plum, blackberry, cocoa and sweet spice, rich and round with soft tannins.",
+  "mods": null,
+  "name": "Avignonesi Desiderio Merlot 2021",
+  "origin": "IT"
+ },
+ "w-nag": {
+  "cat": "red",
+  "createdAt": 1761490700124,
+  "desc": "NAG 'Föld és Ég' (Earth and Sky), Mátra · Syrah. Dark berries, black pepper and violets, medium-bodied and fresh. Mátra's volcanic slopes give this Syrah lift rather than heaviness.",
+  "mods": null,
+  "name": "NAG Föld és Ég Syrah 2024",
+  "origin": "HU"
+ },
+ "w-primarius": {
+  "cat": "red",
+  "createdAt": 1761490700125,
+  "desc": "Takler, Szekszárd · Syrah. Blackberry, black olive, pepper and smoky oak, with some bottle age smoothing the tannins.",
+  "mods": null,
+  "name": "Takler Primarius Syrah 2019",
+  "origin": "HU"
+ },
+ "w-ksyrah": {
+  "cat": "red",
+  "createdAt": 1761490700126,
+  "desc": "Kreinbacher, Somló · a rare red from a white-wine hill. Dark berries, pepper, violets and smoky volcanic minerality, with some bottle age.",
+  "mods": null,
+  "name": "Kreinbacher Syrah 2018",
+  "origin": "HU"
+ },
+ "w-chiantiriserva": {
+  "cat": "red",
+  "createdAt": 1761490700127,
+  "desc": "Antinori, Tuscany · Sangiovese-based Chianti Classico Riserva from the family that has made wine for over 600 years. Cherry, violet, herbs and spice, with firm, fine tannins.",
+  "mods": null,
+  "name": "Marchese Antinori Chianti Classico Riserva 2022",
+  "origin": "IT"
+ },
+ "w-brunello": {
+  "cat": "red",
+  "createdAt": 1761490700128,
+  "desc": "Máté, Montalcino, Tuscany · 100% Sangiovese, from an estate founded by Hungarian-born writer Ferenc Máté. Sour cherry, leather, dried herbs and earth, structured and long.",
+  "mods": null,
+  "name": "Máté Brunello di Montalcino 2018",
+  "origin": "IT"
+ },
+ "w-barolo": {
+  "cat": "red",
+  "createdAt": 1761490700129,
+  "desc": "Vietti, Piedmont · Nebbiolo blended from several Barolo villages. Rose, tar, red cherry and liquorice, with Barolo's firm, noble tannins.",
+  "mods": null,
+  "name": "Vietti Barolo Castiglione 2021",
+  "origin": "IT"
+ },
+ "w-murrieta16": {
+  "cat": "red",
+  "createdAt": 1761490700130,
+  "desc": "Marqués de Murrieta, Rioja · Tempranillo-led Gran Reserva from one of Rioja's founding estates. Long ageing in oak and bottle: dried cherry, fig, leather, tobacco and vanilla.",
+  "mods": null,
+  "name": "Marqués de Murrieta Gran Reserva 2016",
+  "origin": "ES"
+ },
+ "w-valbuena": {
+  "cat": "red",
+  "createdAt": 1761490700131,
+  "desc": "Vega Sicilia, Ribera del Duero · Spain's most famous estate. Valbuena is released in its fifth year, hence '5°'. Tempranillo-led: black cherry, plum, spice and cedar, elegant and deep.",
+  "mods": null,
+  "name": "Vega Sicilia Valbuena 5° 2020",
+  "origin": "ES"
+ },
+ "w-genus": {
+  "cat": "red",
+  "createdAt": 1761490700132,
+  "desc": "Gallay, Bükk · red blend of Zweigelt, Turán and Kékfrankos. Juicy dark cherry and plum with soft spice and smooth tannins. Turán is a Hungarian grape with red flesh, which gives the deep colour.",
+  "mods": null,
+  "name": "Gallay Genus 2021",
+  "origin": "HU"
+ },
+ "w-terratartaro": {
+  "cat": "red",
+  "createdAt": 1761490700133,
+  "desc": "Heumann, Villány · Cabernet Sauvignon, Merlot and Cabernet Franc. Blackcurrant, plum, cedar and spice, ripe and structured, with some bottle age.",
+  "mods": null,
+  "name": "Heumann Terra Tartaro 2018",
+  "origin": "HU"
+ },
+ "w-pava": {
+  "cat": "red",
+  "createdAt": 1761490700134,
+  "desc": "Konyári, Balatonlelle · 'Páva' (Peacock), Cabernet Sauvignon and Cabernet Franc. The estate's flagship from the southern shore of Lake Balaton: blackcurrant, cedar and dark chocolate, full-bodied with firm, ripe tannins.",
+  "mods": null,
+  "name": "Konyári Páva 2022",
+  "origin": "HU"
+ },
+ "w-barbar": {
+  "cat": "red",
+  "createdAt": 1761490700135,
+  "desc": "Heimann, Szekszárd · 'Barbár', the family's flagship blend of Kékfrankos, Cabernet Franc and Merlot. Black cherry, blackberry, spice and chocolate, full-bodied and polished.",
+  "mods": null,
+  "name": "Heimann Barbár 2020",
+  "origin": "HU"
+ },
+ "w-infusio": {
+  "cat": "red",
+  "createdAt": 1761490700136,
+  "desc": "Pannonhalma Archabbey winery · Merlot and Cabernet Franc. Plum, red berries and herbs, medium-bodied and smooth.",
+  "mods": null,
+  "name": "Pannonhalmi Főapátság Infusio 2023",
+  "origin": "HU"
+ },
+ "w-taklergrand": {
+  "cat": "red",
+  "createdAt": 1761490700137,
+  "desc": "Takler, Szekszárd · a five-grape blend of Kékfrankos, Cabernet Franc, Cabernet Sauvignon, Merlot and Syrah. Dark fruit, spice, tobacco and cedar, rich and mature.",
+  "mods": null,
+  "name": "Takler Grand 2017",
+  "origin": "HU"
+ },
+ "w-ilblu": {
+  "cat": "red",
+  "createdAt": 1761490700138,
+  "desc": "Brancaia, Tuscany · 'Il Blu', Merlot, Sangiovese and Cabernet Sauvignon. The estate's flagship, named for its blue label: plush black fruit, cocoa and sweet spice, velvety and long.",
+  "mods": null,
+  "name": "Brancaia Il Blu 2020",
+  "origin": "IT"
+ },
+ "w-gereattila": {
+  "cat": "red",
+  "createdAt": 1761490700139,
+  "desc": "Gere Attila, Villány · the estate's namesake flagship of Cabernet Franc, Merlot and Cabernet Sauvignon. Blackcurrant, plum, cedar and chocolate, powerful and refined.",
+  "mods": null,
+  "name": "Gere Attila Cuvée 2021",
+  "origin": "HU"
+ },
+ "w-telegramme": {
+  "cat": "red",
+  "createdAt": 1761490700140,
+  "desc": "Vieux Télégraphe, Rhône · the estate's younger-vine Châteauneuf-du-Pape, mostly Grenache. Named after an old optical telegraph tower on the plateau. Raspberry, kirsch, garrigue herbs and spice.",
+  "mods": null,
+  "name": "Domaine du Vieux Télégraphe Télégramme Châteauneuf-du-Pape 2022",
+  "origin": "FR"
+ },
+ "w-cuvee5": {
+  "cat": "red",
+  "createdAt": 1761490700141,
+  "desc": "Sauska, Villány · Cabernet Franc, Cabernet Sauvignon and Merlot. Blackberry, cassis, cedar and sweet spice, plush and harmonious.",
+  "mods": null,
+  "name": "Sauska Cuvée 5 2018",
+  "origin": "HU"
+ },
+ "w-comtesse18": {
+  "cat": "red",
+  "createdAt": 1761490700142,
+  "desc": "The second wine of Château Pichon-Longueville Comtesse de Lalande, Bordeaux, from the outstanding 2018 vintage. Blackcurrant, cedar, graphite and silky tannins.",
+  "mods": null,
+  "name": "Château Pichon-Longueville Réserve de la Comtesse 2018, Pauillac",
+  "origin": "FR"
+ },
+ "w-tignanello": {
+  "cat": "red",
+  "createdAt": 1761490700143,
+  "desc": "Antinori, Tuscany · Sangiovese with Cabernet Sauvignon and Cabernet Franc, one of the original 'Super Tuscans'. Cherry, blackcurrant, spice and fine oak, elegant and long.",
+  "mods": null,
+  "name": "Antinori Tignanello 2023",
+  "origin": "IT"
+ },
+ "w-alterego": {
+  "cat": "red",
+  "createdAt": 1761490700144,
+  "desc": "The second wine of Château Palmer, Margaux, Bordeaux. Merlot and Cabernet Sauvignon: dark berries, violets, spice and silky tannins, approachable young.",
+  "mods": null,
+  "name": "Alter Ego de Palmer 2023, Margaux",
+  "origin": "FR"
+ },
+ "w-carillon": {
+  "cat": "red",
+  "createdAt": 1761490700145,
+  "desc": "The second wine of Château Angélus, Saint-Émilion, named for the bells of the Angelus prayer. Merlot and Cabernet Franc: plum, blackberry, cocoa and spice, plush and velvety.",
+  "mods": null,
+  "name": "Carillon d'Angélus 2022, Saint-Émilion",
+  "origin": "FR"
+ },
+ "w-lynchbages": {
+  "cat": "red",
+  "createdAt": 1761490700146,
+  "desc": "Château Lynch-Bages, Pauillac, Bordeaux · Cabernet Sauvignon-led, from the superb 2016 vintage. Blackcurrant, cedar, tobacco and graphite, powerful and long-lived.",
+  "mods": null,
+  "name": "Château Lynch-Bages 2016, Pauillac",
+  "origin": "FR"
+ },
+ "w-opusone": {
+  "cat": "red",
+  "createdAt": 1761490700147,
+  "desc": "Opus One, Napa Valley · founded by Robert Mondavi and Baron Philippe de Rothschild of Château Mouton Rothschild. A Bordeaux-style blend: blackcurrant, black cherry, cocoa and cedar, opulent and polished.",
+  "mods": null,
+  "name": "Opus One 2022",
+  "origin": "US"
+ },
+ "w-cuvee7m": {
+  "cat": "red",
+  "createdAt": 1761490700148,
+  "desc": "Sauska, Villány · Bordeaux-style blend in magnum, a big bottle for the table. Dark berries, cedar, spice and chocolate, smooth and mature.",
+  "mods": null,
+  "name": "Sauska Cuvée 7 Magnum (1.5 l) 2017",
+  "origin": "HU"
+ },
+ "w-sauskamerlotm": {
+  "cat": "red",
+  "createdAt": 1761490700149,
+  "desc": "Sauska, Villány · Merlot in magnum with ten years of age. Plum, dark cherry, cocoa and leather, soft and harmonious.",
+  "mods": null,
+  "name": "Sauska Merlot Magnum (1.5 l) 2015",
+  "origin": "HU"
+ },
+ "w-3gracia24": {
+  "cat": "dessert",
+  "createdAt": 1761490700150,
+  "desc": "Tokaj · a sweet Tokaji in a full 0.75 l bottle. Honeyed apricot, peach and orange blossom, with fresh acidity balancing the sweetness.",
+  "mods": null,
+  "name": "Három Grácia Édes 2024",
+  "origin": "HU"
+ },
+ "w-stillaaurea": {
+  "cat": "dessert",
+  "createdAt": 1761490700151,
+  "desc": "Patricius, Tokaj · sweet Szamorodni. The name comes from Polish, 'as it was grown': whole bunches, botrytised berries included, are pressed together. Dried apricot, honey, quince and a nutty finish.",
+  "mods": null,
+  "name": "Patricius Stilla Aurea Tokaiensis Szamorodni (0.5 l) 2021",
+  "origin": "HU"
+ },
+ "w-gizellaszam": {
+  "cat": "dessert",
+  "createdAt": 1761490700152,
+  "desc": "Gizella, Tokaj · sweet Szamorodni. Apricot jam, orange peel, honey and gentle spice, rich but fresh.",
+  "mods": null,
+  "name": "Gizella Édes Szamorodni (0.5 l) 2022",
+  "origin": "HU"
+ },
+ "w-oremus": {
+  "cat": "dessert",
+  "createdAt": 1761490700153,
+  "desc": "Oremus, Tokaj · 5 puttonyos Aszú from 2000, a rare mature vintage. The estate belongs to the family behind Spain's Vega Sicilia. After 25 years: dried apricot, orange marmalade, honey and caramel, with Tokaj's bright acidity keeping it fresh.",
+  "mods": null,
+  "name": "Oremus 5 Puttonyos Aszú (0.5 l) 2000",
+  "origin": "HU"
+ },
+ "w-barta13": {
+  "cat": "dessert",
+  "createdAt": 1761490700154,
+  "desc": "Barta, Mád, Tokaj · 6 puttonyos Aszú from the steep Öreg Király vineyard. Very sweet and intense: apricot, mango, honey and saffron, with electric acidity.",
+  "mods": null,
+  "name": "Barta 6 Puttonyos Aszú (0.375 l) 2013",
+  "origin": "HU"
+ },
+ "w-szepsyaszu17": {
+  "cat": "dessert",
+  "createdAt": 1761490700155,
+  "desc": "István Szepsy, Mád, Tokaj · 6 puttonyos Aszú from Hungary's most celebrated winemaker. Apricot, candied citrus, honey and spice, luscious yet perfectly balanced.",
+  "mods": null,
+  "name": "Szepsy 6 Puttonyos Aszú (0.5 l) 2017",
+  "origin": "HU"
+ },
+ "w-esszencia03": {
+  "cat": "dessert",
+  "createdAt": 1761490700156,
+  "desc": "Patricius, Tokaj · Esszencia, the free-run nectar that drips from aszú berries under their own weight. Extraordinarily sweet, very low in alcohol and able to age for centuries. Traditionally sipped from a spoon.",
+  "mods": null,
+  "name": "Patricius Esszencia (0.375 l) 2003",
+  "origin": "HU"
+ },
+ "g118": {
+  "cat": "sparkling",
+  "desc": "Alcohol-free sparkling wine with fresh apple and pear. 0.75 l.",
+  "name": "Alcohol-free prosecco (0.75 l)",
+  "off": false,
+  "origin": "IT",
+  "createdAt": 1761490700157
+ },
+ "g119": {
+  "cat": "sparkling",
+  "desc": "Alcohol-free sparkling wine with fresh apple and pear. 0.15 l.",
+  "name": "Alcohol-free prosecco (0.15 l)",
+  "off": false,
+  "origin": "IT",
+  "createdAt": 1761490700158
+ },
+ "g120": {
+  "cat": "sparkling",
+  "desc": "Sparkling tea with Riesling-style flavour: dry, floral and fruity. 0.75 l.",
+  "name": "Vervaine Riesling (0.75 l)",
+  "off": false,
+  "origin": "DE",
+  "createdAt": 1761490700159
+ },
+ "g121": {
+  "cat": "sparkling",
+  "desc": "Sparkling tea with Riesling-style flavour: dry, floral and fruity. 0.15 l.",
+  "name": "Vervaine Riesling (0.15 l)",
+  "off": false,
+  "origin": "DE",
+  "createdAt": 1761490700160
+ },
+ "g122": {
+  "cat": "sparkling",
+  "desc": "Sparkling Darjeeling tea: delicate, floral and rosy. 0.75 l.",
+  "name": "Rose Darjeeling (0.75 l)",
+  "off": false,
+  "origin": "DE",
+  "createdAt": 1761490700161
+ },
+ "g123": {
+  "cat": "sparkling",
+  "desc": "Sparkling Darjeeling tea: delicate, floral and rosy. 0.15 l.",
+  "name": "Rose Darjeeling (0.15 l)",
+  "off": false,
+  "origin": "DE",
+  "createdAt": 1761490700162
+ }
+}

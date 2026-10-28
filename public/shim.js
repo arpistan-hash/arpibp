@@ -80,7 +80,7 @@
     return open ? 6000 : 15000;
   }
   var P = {
-    menu: new Poller('/menu', function () { return RT.on ? 300000 : 60000; }), // the drinks themselves rarely change
+    menu: new Poller('/menu', 600000),         // the drinks rarely change (notices come with the quick checks); also refreshed when a phone wakes
     sounds: new Poller('/sounds', 300000),
     guest: new Poller('/guest?uid=' + uid, guestEvery),
     staff: new Poller('/staff', function () { return RT.on ? 20000 : 2500; }) // instant with Ably, else within 3 s

@@ -49,9 +49,22 @@ async function readPrefix(s, prefix) {
   }));
   return out;
 }
+// the menu lives in a blob once anything was saved; a deploy with a newer seed ("_seed.v") replaces its items,
+// keeping "off tonight" marks and anything staff added (ids starting with "n")
+const SEED_V = (SEED._seed && SEED._seed.v) || 1;
 async function readMenu(s) {
   const m = await s.get("menu", { type: "json" }).catch(() => null);
-  return m && typeof m === "object" ? m : SEED;
+  if (!m || typeof m !== "object") return SEED;
+  if (((m._seed && m._seed.v) || 1) >= SEED_V) return m;
+  const next = structuredClone(SEED);
+  for (const [k, v] of Object.entries(m)) {
+    if (!v || typeof v !== "object") continue;
+    if (k.charAt(0) === "n" && v.name) next[k] = v;
+    else if (next[k] && v.off) next[k].off = v.off;
+    else if (k.charAt(0) === "_" && k !== "_seed" && !next[k]) next[k] = v;
+  }
+  await s.setJSON("menu", next).catch((e) => console.error("menu upgrade failed", e && e.message));
+  return next;
 }
 // menu edits are rare and staff-only; a conditional write keeps two phones from erasing each other
 async function editMenu(s, change) {
