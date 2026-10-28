@@ -2274,7 +2274,7 @@ html[data-app="crew"] body { background: var(--bg); }
     var cur = S.notice && S.notice.text;
     return '<section class="crew-notice"><h2 class="crew-h"><span class="dotc on"></span>Guest notice' + (cur ? '<span class="cnt">Live</span>' : '') + '</h2>' +
       (cur ? '<p class="crew-live">' + icon('alert', 18) + '<span>' + esc(cur) + '</span></p>' : '') +
-      '<label class="sr" for="f-crew-notice">Message for guests</label><textarea id="f-crew-notice" data-k="crewNotice" maxlength="200" rows="2" placeholder="e.g. Running low on Hendrick\'s tonight. Moonmilk is sold out.">' + esc(S.crewNotice || '') + '</textarea>' +
+      '<label class="sr" for="f-crew-notice">Message for guests</label><textarea id="f-crew-notice" data-k="crewNotice" maxlength="200" rows="2" placeholder="' + (cur ? 'Type a new message, or tap Replace notice to edit this one.' : 'e.g. Running low on Hendrick\'s tonight. Moonmilk is sold out.') + '">' + esc(S.crewNotice || '') + '</textarea>' +
       '<div class="tk-acts"><button type="button" class="crew-btn go" data-act="noticePost">' + icon('check', 18) + (cur ? 'Replace notice' : 'Post to guests') + '</button>' +
       (cur ? '<button type="button" class="crew-btn" data-act="noticeClear">' + icon('close', 18) + 'Take down</button>' : '') + '</div>' +
       '<p class="hint">Shows at the top of the guest menu until you take it down.</p></section>';
@@ -3767,6 +3767,11 @@ html[data-app="crew"] body { background: var(--bg); }
       case 'staffTab': if (v !== 'pad') padStopMic(); S.staffTab = v; S.confirm = ''; window.scrollTo(0, 0); break;
       case 'noticePost': {
         var nt = (S.crewNotice || '').trim().slice(0, 200);
+        if (!nt && S.notice && S.notice.text) { // nothing typed: open the live notice for editing instead of an error
+          S.crewNotice = S.notice.text; render();
+          var nf = $('f-crew-notice'); if (nf) { try { nf.focus(); nf.setSelectionRange(nf.value.length, nf.value.length); } catch (_) {} }
+          toast('Change the message, then tap Replace notice.'); return;
+        }
         if (!nt) { toast('Type the message for guests first.', true); return; }
         if (!S.db) { toast('No connection to the menu right now.', true); return; }
         dbDo(function () { return S.db.doc('menu/_notice').set({ text: nt, at: Date.now() }).then(function () { S.notice = { id: '_notice', text: nt }; S.crewNotice = ''; toast('Posted to guests'); render(); }); });

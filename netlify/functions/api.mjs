@@ -90,6 +90,45 @@ function liveDocs(live) {
   if (live && live.host) out.push({ id: "_host", data: live.host });
   return out;
 }
+/* ---------- instant updates through Ably (only when the ABLY_KEY environment variable is set) ----------
+   Phones listen on a channel; every change sends a tiny "check now" signal with no order details in it,
+   and the phone then fetches what changed from this API as usual. Without the key, phones simply poll. */
+const ABLY_HOST = () => Netlify.env.get("ABLY_HOST") || "https://main.realtime.ably.net";
+const RT = { crew: "lounge-crew", guest: "lounge-guest" };
+function ablyKey() {
+  const k = String(Netlify.env.get("ABLY_KEY") || "").trim();
+  return /^[\w-]+\.[\w-]+:\S+$/.test(k) ? k : "";
+}
+async function rtSend(channels, name, data) {
+  const key = ablyKey();
+  if (!key) return;
+  const body = JSON.stringify({ name, data: JSON.stringify(data || {}) });
+  await Promise.all(channels.map(async (ch) => {
+    try {
+      const r = await fetch(ABLY_HOST() + "/channels/" + encodeURIComponent(ch) + "/messages", {
+        method: "POST", headers: { authorization: "Basic " + btoa(key), "content-type": "application/json" }, body,
+      });
+      if (!r.ok) console.error("realtime send failed", ch, r.status, (await r.text().catch(() => "")).slice(0, 200));
+    } catch (e) { console.error("realtime send error", ch, e && e.message); }
+  }));
+}
+// one listen-only pass per role, shared by all phones and renewed well before it runs out
+const rtTokens = {};
+async function rtToken(role) {
+  const key = ablyKey();
+  if (!key) return null;
+  const have = rtTokens[role];
+  if (have && have.expires - Date.now() > 3600 * 1000) return have;
+  const keyName = key.split(":")[0], ch = RT[role];
+  const r = await fetch(ABLY_HOST() + "/keys/" + encodeURIComponent(keyName) + "/requestToken", {
+    method: "POST", headers: { authorization: "Basic " + btoa(key), "content-type": "application/json" },
+    body: JSON.stringify({ keyName, ttl: 8 * 3600 * 1000, capability: JSON.stringify({ [ch]: ["subscribe"] }), timestamp: Date.now(), nonce: crypto.randomUUID().replace(/-/g, "") }),
+  });
+  if (!r.ok) { console.error("realtime token failed", r.status, (await r.text().catch(() => "")).slice(0, 200)); return null; }
+  const t = await r.json();
+  if (!t || !t.token) return null;
+  return (rtTokens[role] = { token: t.token, expires: t.expires || Date.now() + 8 * 3600 * 1000, channel: ch });
+}
 const docs = (map) => Object.keys(map).filter((id) => id !== "_spotlight").map((id) => ({ id, data: map[id] }));
 
 async function body(req, limit = MAX_BODY) {
@@ -125,6 +164,14 @@ export default async (req, context) => {
       return json({ docs: list.map((x) => ({ id: x.key.slice(7), data: x.v })) });
     }
 
+    /* ---- instant updates: a listen-only pass for this phone (or "off": keep polling) ---- */
+    if (res === "rt" && m === "GET") {
+      const role = url.searchParams.get("role") === "crew" ? "crew" : "guest";
+      const t = await rtToken(role).catch((e) => { console.error("realtime token error", e && e.message); return null; });
+      if (!t) return json({ on: false });
+      return json({ on: true, token: t.token, expires: t.expires, channel: t.channel, url: ABLY_HOST() + "/sse" });
+    }
+
     /* ---- guests: their own requests, plus the status of those requests ---- */
     if (res === "guest" && m === "GET") {
       const uid = url.searchParams.get("uid") || "";
@@ -146,6 +193,7 @@ export default async (req, context) => {
       if (!reqs) return fail("bad requests");
       const doc = { reqs, updatedAt: Date.now() };
       await s.setJSON("requests/" + uid, doc);
+      context.waitUntil(rtSend([RT.crew], "req", {}));
       return json({ ok: true });
     }
 
@@ -157,15 +205,21 @@ export default async (req, context) => {
         const text = String(b.text || "").trim().slice(0, 200);
         if (!text) return fail("empty notice");
         const live = await writeLive(s, (cur) => { cur.notice = { text, at: Date.now() }; return cur; });
+        context.waitUntil(rtSend([RT.crew, RT.guest], "live", { live }));
         return json({ ok: true, live });
       }
-      if (m === "DELETE") { const live = await writeLive(s, (cur) => { cur.notice = null; return cur; }); return json({ ok: true, live }); }
+      if (m === "DELETE") {
+        const live = await writeLive(s, (cur) => { cur.notice = null; return cur; });
+        context.waitUntil(rtSend([RT.crew, RT.guest], "live", { live }));
+        return json({ ok: true, live });
+      }
     }
     // "Your host today is …" under the review card, set by the crew for each shift
     if (res === "menu" && id === "_host" && m === "PUT") {
       const b = await body(req, 1024);
       const who = String(b.who || "").trim().slice(0, 40);
       const live = await writeLive(s, (cur) => { cur.host = { who, at: Date.now(), createdAt: 0 }; return cur; });
+      context.waitUntil(rtSend([RT.crew, RT.guest], "live", { live }));
       return json({ ok: true, live });
     }
     if (res === "staff" && m === "GET") {
@@ -183,13 +237,14 @@ export default async (req, context) => {
       return json({ requests, status, live });
     }
     if (res === "status" && id && ID.test(id)) {
-      if (m === "PUT") { const b = await body(req, 4096); await s.setJSON("status/" + id, b); return json({ ok: true }); }
-      if (m === "DELETE") { await s.delete("status/" + id); cache.delete("status/" + id); return json({ ok: true }); }
+      if (m === "PUT") { const b = await body(req, 4096); await s.setJSON("status/" + id, b); context.waitUntil(rtSend([RT.crew, RT.guest], "st", { id })); return json({ ok: true }); }
+      if (m === "DELETE") { await s.delete("status/" + id); cache.delete("status/" + id); context.waitUntil(rtSend([RT.crew, RT.guest], "st", { id })); return json({ ok: true }); }
     }
 
     /* ---- everything below is staff only (PIN) ---- */
     if (!(await isStaff(req))) return fail("staff only", 401);
 
+    if (res === "menu" && m !== "GET") context.waitUntil(rtSend([RT.crew, RT.guest], "menu", {}));
     if (res === "menu") {
       if (!id && m === "POST") {
         const b = await body(req);
@@ -223,5 +278,5 @@ export default async (req, context) => {
   }
 };
 
-export const config = { path: ["/api/menu", "/api/menu/*", "/api/sounds", "/api/sounds/*", "/api/guest", "/api/mine", "/api/staff", "/api/status/*"] };
+export const config = { path: ["/api/menu", "/api/menu/*", "/api/sounds", "/api/sounds/*", "/api/guest", "/api/mine", "/api/staff", "/api/status/*", "/api/rt"] };
 // The /api/pin GET check lives in pin.mjs together with the sign-in (it is rate limited there).

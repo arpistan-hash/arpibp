@@ -44,25 +44,33 @@
     if (!this.running) { this.running = true; this.tick(); }
     return function () { self.subs = self.subs.filter(function (x) { return x !== s; }); };
   };
-  Poller.prototype.tick = function () {
+  Poller.prototype.tick = function (force) {
     var self = this;
+    if (this.busy) { this.again = true; return; }   // never two loops: ask again when this one lands
     clearTimeout(this.timer);
-    if (document.hidden && this.data) { this.timer = setTimeout(function () { self.tick(); }, 3000); return; }
+    if (!force && document.hidden && this.data) { this.timer = setTimeout(function () { self.tick(); }, 3000); return; }
+    this.busy = true;
     call('GET', this.path).then(function (j) {
       var str = JSON.stringify(j);
       if (str !== self.last) { self.last = str; self.data = j; self.subs.forEach(function (s) { try { s.fn(j); } catch (e) { console.error(e); } }); }
     }, function (e) {
       if (!self.data) self.subs.forEach(function (s) { if (s.err) try { s.err(e); } catch (_) {} });
     }).then(function () {
+      self.busy = false;
+      if (self.again) { self.again = false; self.tick(true); return; }
       var ms = typeof self.every === 'function' ? self.every(self.data) : self.every;
+      clearTimeout(self.timer);
       self.timer = setTimeout(function () { self.tick(); }, ms);
     });
   };
-  Poller.prototype.now = function () { if (this.running) this.tick(); };
+  Poller.prototype.now = function (force) { if (this.running) this.tick(force); };
 
-  // a guest polls fast (6 s) while something they asked for is still open, otherwise every 15 s
+  // with instant updates on, polling is only a safety net. Without them a guest polls every 6 s while
+  // something they asked for is still open, otherwise every 15 s (for the bar's notice)
+  var RT = { on: false, es: null, timer: 0, wait: 2000 };
   function guestEvery(d) {
-    if (!d || !d.mine || !Array.isArray(d.mine.reqs)) return 15000; // still checks in, for the bar's notice
+    if (RT.on) return 30000;
+    if (!d || !d.mine || !Array.isArray(d.mine.reqs)) return 15000;
     var since = Date.now() - 4 * 3600 * 1000;
     var open = d.mine.reqs.some(function (r) {
       if (!r || r.cancelled || (r.createdAt || 0) < since) return false;
@@ -72,10 +80,10 @@
     return open ? 6000 : 15000;
   }
   var P = {
-    menu: new Poller('/menu', 60000),           // the drinks themselves rarely change
+    menu: new Poller('/menu', function () { return RT.on ? 300000 : 60000; }), // the drinks themselves rarely change
     sounds: new Poller('/sounds', 300000),
     guest: new Poller('/guest?uid=' + uid, guestEvery),
-    staff: new Poller('/staff', 2500)            // new orders reach the crew app within about 3 seconds
+    staff: new Poller('/staff', function () { return RT.on ? 20000 : 2500; }) // instant with Ably, else within 3 s
   };
   document.addEventListener('visibilitychange', function () { if (!document.hidden) Object.keys(P).forEach(function (k) { P[k].now(); }); });
 
@@ -97,6 +105,46 @@
     return out;
   }
   (ROLE === 'crew' ? P.staff : P.guest).on(function (j) { if (j && j.live) setLive(j.live); });
+
+  /* ---------- instant updates: Ably sends a "check now" signal on every change (no order details in it) ---------- */
+  function rtLater(ms) { clearTimeout(RT.timer); RT.timer = setTimeout(rtOpen, ms); }
+  function rtBackoff() { rtLater(RT.wait); RT.wait = Math.min(RT.wait * 2, 60000); }
+  function fastAgain() { ['menu', 'guest', 'staff'].forEach(function (k) { P[k].now(); }); }
+  function rtGot(m) {
+    var d = {};
+    try { d = typeof m.data === 'string' ? JSON.parse(m.data) : (m.data || {}); } catch (_) {}
+    if (m.name === 'live') { if (d.live) setLive(d.live); return; }
+    if (m.name === 'menu') { P.menu.now(true); return; }
+    if (ROLE === 'crew') { if (m.name === 'req' || m.name === 'st') P.staff.now(true); return; }
+    if (m.name === 'st') {
+      var g = P.guest.data, mine = g && g.mine && Array.isArray(g.mine.reqs) ? g.mine.reqs : [];
+      if (mine.some(function (r) { return r && r.id === d.id; })) P.guest.now(true);
+    }
+  }
+  function rtOpen() {
+    clearTimeout(RT.timer);
+    if (!window.EventSource) return;
+    call('GET', '/rt?role=' + ROLE).then(function (j) {
+      if (!j || !j.on || !j.token || !j.url) { rtLater(10 * 60000); return; } // not set up yet: keep polling, look again later
+      if (RT.es) { try { RT.es.close(); } catch (_) {} }
+      var es = new EventSource(j.url + '?v=1.2&channels=' + encodeURIComponent(j.channel) + '&accessToken=' + encodeURIComponent(j.token));
+      RT.es = es;
+      es.onopen = function () { if (RT.es !== es) return; RT.on = true; RT.wait = 2000; };
+      es.onmessage = function (e) { if (RT.es !== es) return; var m; try { m = JSON.parse(e.data); } catch (_) { return; } rtGot(m); };
+      es.addEventListener('error', function (e) {
+        if (RT.es !== es) return;
+        var was = RT.on;
+        RT.on = es.readyState === 1;
+        if (e && e.data) { try { es.close(); } catch (_) {} RT.on = false; rtLater(1500); } // pass expired or refused: get a new one
+        else if (es.readyState === 2) { RT.on = false; rtBackoff(); }                    // closed for good: reconnect
+        if (was && !RT.on) fastAgain();                                                  // poll fast until it is back
+      });
+      // a fresh pass well before this one runs out
+      rtLater(Math.max(60000, Math.min((j.expires || 0) - Date.now() - 10 * 60000, 6 * 3600 * 1000)));
+    }, rtBackoff);
+  }
+  rtOpen();
+  document.addEventListener('visibilitychange', function () { if (!document.hidden && (!RT.es || RT.es.readyState === 2)) rtOpen(); });
 
   /* ---------- the db surface the app uses ---------- */
   function collection(name) {
