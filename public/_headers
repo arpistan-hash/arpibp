@@ -1,5 +1,5 @@
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-+PFoCxZtLeqF7th2w/JF2BPQTVnXbjHpQgYUF5JsKQE=' 'sha256-cg8SA7w+lNnk4roNRhqwZBbc5sNUI6Utp1OEF+PqQqA=' 'sha256-jYjCfnZhSab+6sDbIeO3mBWNO2lYKm4GjXDUVkgDOSk='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://*.ably.net https://*.ably.io https://*.ably-realtime.com; media-src 'self' data: blob:; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-+PFoCxZtLeqF7th2w/JF2BPQTVnXbjHpQgYUF5JsKQE=' 'sha256-40lR1JeYia9+i1LgwisV8DwbmCC2wDhNV3BkRFxFYKU=' 'sha256-cg8SA7w+lNnk4roNRhqwZBbc5sNUI6Utp1OEF+PqQqA='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://*.ably.net https://*.ably.io https://*.ably-realtime.com; media-src 'self' data: blob:; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Frame-Options: DENY
   Cross-Origin-Opener-Policy: same-origin

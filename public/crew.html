@@ -698,6 +698,24 @@ html[data-app="crew"] body { background: var(--bg); }
 .pos-quick .pos-it { padding: 8px 8px 8px 10px; }
 .pos-quick .pos-it-n { font-size: 13.5px; line-height: 1.2; }
 .ai-entry .sub { font-size: 14px; color: var(--muted); }
+/* virtual sommelier and wine facts */
+:root { --wine-soft: #F7EAED; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --wine-soft: #2B1B20; } }
+:root[data-theme="dark"] { --wine-soft: #2B1B20; }
+.somm-entry { border-color: var(--g-wine); background: var(--wine-soft); }
+.somm-entry > .ico { color: var(--g-wine); }
+.wine-facts { display: flex; flex-direction: column; gap: 8px; }
+.wf-list { align-items: stretch; }
+.wf-card { flex: 0 0 min(80%, 272px); gap: 8px; }
+.wf-t { margin: 0; font-size: 14.5px; line-height: 1.45; }
+.wf-hero { border-color: var(--g-wine); background: var(--wine-soft); }
+.wf-num { font-family: var(--display); font-weight: 700; font-size: 46px; line-height: 1; color: var(--g-wine); }
+.wf-sub { margin: 0; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.somm-pick { align-items: flex-start; }
+.somm-pick .add-dot { margin-top: 2px; }
+.somm-why { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
+.somm-tag { font-size: 12px; font-weight: 700; line-height: 1.2; padding: 4px 9px; border-radius: 999px; background: var(--wine-soft); color: var(--g-wine); }
+.somm-note { margin-top: 6px; font-size: 13.5px; line-height: 1.42; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .eyebrow { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--brass); }
 .progress { height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
 .progress span { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
@@ -1331,7 +1349,7 @@ html[data-app="crew"] body { background: var(--bg); }
     S.allergies = []; lsSet('lounge.allergies', '[]');
     S.orderNote = ''; S.checkNote = ''; S.pay = 'card'; S.split = false; S.callReason = 'help';
     S.room = ''; lsSet('lounge.room', '');
-    S.quiz = { step: 0, a: {} }; S.aiText = ''; S.aiRes = null; S.aiErr = '';
+    S.quiz = { step: 0, a: {} }; S.aiText = ''; S.aiRes = null; S.aiErr = ''; S.somm = null;
     S.undo = null; S.cat = null; S.tab = 'menu'; S.q = ''; S.sheet = null; S.confirm = '';
     if (clearSeat) { S.table = ''; S.table2 = ''; S.name = ''; S.showT2 = false; lsSet('lounge.table', ''); lsSet('lounge.table2', ''); lsSet('lounge.name', ''); S.started = false; }
     S.since = Date.now(); lsSet('lounge.since', String(S.since));
@@ -1493,13 +1511,14 @@ html[data-app="crew"] body { background: var(--bg); }
     h += noticeCard();
     h += lastOrderCard();
     h += aiEntry();
+    h += sommEntry();
     h += '<section class="section"><p class="label">' + T('quick') + '</p><div class="quick">' + QUICK.map(function (x) {
       var l = S.cart.filter(function (c) { return c.key === x.id; })[0];
       return '<button type="button" class="qtile" data-act="quick" data-id="' + x.id + '">' + picto(x.id === 'q-sparkling' ? 'fizzy' : x.ic, 32) + '<span>' + esc(STR[S.lang].q[x.k]) + '</span>' + (l ? '<span class="count">' + l.qty + '</span>' : '') + '</button>';
     }).join('') + '</div></section>';
     /* bartender's picks: the signature cocktails as swipeable cards, one tap to see and order */
     var picks = S.menu.filter(function (m) { return m.cat === 'signature' && !m.off; }).slice(0, 8);
-    if (picks.length) h += '<section class="section"><p class="label">' + T('picks') + '</p><div class="picks">' + picks.map(function (m) {
+    if (picks.length) h += '<section class="section"><p class="label">' + T('picks') + '</p><div class="picks" data-keepx="picks">' + picks.map(function (m) {
       return '<button type="button" class="pick" data-act="openItem" data-id="' + esc(m.id) + '">' + picto(m.cat, 40) + '<span class="pick-name">' + esc(m.name) + '</span>' + (m.desc ? '<span class="pick-desc">' + esc(m.desc) + '</span>' : '') + '<span class="pick-go">' + icon('plus', 16) + '</span></button>';
     }).join('') + '</div></section>';
     h += '<section class="section"><p class="label">' + T('browse') + '</p>';
@@ -1523,6 +1542,7 @@ html[data-app="crew"] body { background: var(--bg); }
     var c = all[idx];
     var h = '<div class="stack">' + noticeCard() + '<div><button type="button" class="back" data-act="closeCat">' + icon('back', 20) + '<span>' + T('menu') + '</span></button></div>';
     h += '<div class="sec-head">' + picto(S.cat, 46) + '<h2>' + esc(catName(S.cat)) + '</h2></div>';
+    if (c && WINE_PAGES[S.cat]) h += sommEntry() + wineFacts();
     if (!c) return h + '<div class="empty">' + icon('book', 28) + '<span>' + esc(T('menuEmpty')) + '</span></div></div>';
     c.members.forEach(function (mc) {
       var items = S.menu.filter(function (m) { return m.cat === mc.k; });
@@ -1723,7 +1743,7 @@ html[data-app="crew"] body { background: var(--bg); }
     lockIfNeeded();
     if (!sh) { L.innerHTML = ''; sheetKey = ''; return; }
     var wasOpen = !!L.querySelector('.sheet'), oldBody = L.querySelector('.sheet-body'), oldTop = oldBody ? oldBody.scrollTop : 0;
-    var key = sh.kind + '|' + (sh.id || '') + '|' + (sh.kind === 'ai' ? S.quiz.step + S.aiState + (S.aiRes ? 'r' : '') : '');
+    var key = sh.kind + '|' + (sh.id || '') + '|' + (sh.kind === 'ai' ? S.quiz.step + S.aiState + (S.aiRes ? 'r' : '') : sh.kind === 'somm' ? SM().step + (SM().res ? 'r' + SM().res.map(function (x) { return x.id; }).join() : '') : '');
     if (sh.kind === 'sent') { clearTimeout(toastTimer); $('toast').innerHTML = ''; }
     var still = wasOpen ? ' still' : '';
     var h = '<div class="scrim' + still + '" data-act="closeSheet"></div><div class="sheet' + still + '" role="dialog" aria-modal="true" aria-labelledby="sh-title" tabindex="-1">';
@@ -1759,6 +1779,8 @@ html[data-app="crew"] body { background: var(--bg); }
       h += billSheet(sh);
     } else if (sh.kind === 'ai') {
       h += aiSheet();
+    } else if (sh.kind === 'somm') {
+      h += sommSheet();
     } else if (sh.kind === 'seat') {
       h += '<div class="sheet-head pad"><div style="flex:1"><h2 id="sh-title">' + T('seatTitle') + '</h2></div><button type="button" class="x" data-act="closeSheet" aria-label="' + T('close') + '">' + icon('close', 18) + '</button></div>' +
         '<div class="sheet-body pad"><div class="seatgrid"><div class="field"><label for="s-table">' + T('table') + '</label><input type="text" id="s-table" class="bigin" data-k="seatTable" value="' + esc(S.seatTable) + '" maxlength="6" inputmode="numeric" autocomplete="off"></div>' +
@@ -1778,7 +1800,7 @@ html[data-app="crew"] body { background: var(--bg); }
   }
 
   /* ---------- drink helper: short quiz, then Claude suggests (on the guest's own account) ---------- */
-  function closeSheet() { S.sheet = (S.sheet && S.sheet.back === 'ai') ? { kind: 'ai' } : (S.sheet && S.sheet.back === 'padcheck') ? { kind: 'padcheck' } : null; }
+  function closeSheet() { S.sheet = (S.sheet && S.sheet.back === 'ai') ? { kind: 'ai' } : (S.sheet && S.sheet.back === 'somm') ? { kind: 'somm' } : (S.sheet && S.sheet.back === 'padcheck') ? { kind: 'padcheck' } : null; }
   function quizSteps() { return QUIZ.filter(function (st) { return !(st.skipIf && S.quiz.a.alc === st.skipIf); }); }
   function quizOpts(st) { return (st.o || []).filter(function (o) { return !(o[3] === 'alc' && S.quiz.a.alc === 'no'); }); }
   function aiEntry() {
@@ -1909,6 +1931,237 @@ html[data-app="crew"] body { background: var(--bg); }
     }
     if (!picks.length && !c) return null;
     return { intro: str(r.intro, 240), picks: picks, creation: c };
+  }
+
+  /* ---------- virtual sommelier: a short wine quiz that picks only from the real wine list, and wine facts
+     for the wine pages. It works the same in every version (no AI needed) and updates itself when the list changes ---------- */
+  var WINE_CATS = { glass: 1, white: 1, rose: 1, red: 1, champagne: 1, sparkling: 1, dessert: 1 };
+  var WINE_PAGES = { wine: 1, champagne: 1, sparkling: 1, dessert: 1 };
+  /* each wine: colour (s bubbles, w white, p rosé, r red, d sweet), body 1 light to 3 full, n = Hungarian native grape, x = icon or rarity */
+  var SOMM_P = {"w-kclassic-g":"s1","w-krose-g":"s1","w-polroger-g":"s2","w-cseri-g":"w1","w-figula-g":"w1n","w-kacsa-g":"w1n","w-kekny24-g":"w2n","w-matacs-g":"w3","w-barat-g":"w2n","w-sancerre-g":"w1","w-chablis-g":"w2","w-szel-g":"p1","w-angel-g":"p1","w-genus-g":"r2n","w-hkadarka-g":"r1n","w-nag-g":"r2","w-valpinot-g":"r1","w-merengo-g":"r2n","w-pava-g":"r3","w-murrieta18-g":"r2","w-ilblu-g":"r3","w-3gracia25-g":"d2n","w-patszam-g":"d2n","w-oremus-g":"d3nx","w-polroger":"s2","w-veuveyl":"s2","w-moetbi":"s2","w-ruinartbdb":"s1","w-krugcg":"s3x","w-veuverose":"s2","w-ruinartrose":"s2","w-krugrose":"s3x","w-mandois18m":"s2","w-hugotm":"s1","w-piperessm":"s2","w-roed13m":"s2","w-moetgv15":"s2","w-pouillon16":"s2","w-deutzbdb17":"s1","w-billecartnf08":"s3x","w-lbmeunier16":"s2","w-bereche15":"s3","w-hemera06":"s3x","w-lgd15":"s2x","w-bollga15":"s3x","w-amour11":"s2x","w-abyss17":"s2x","w-rare13":"s2x","w-dp1315":"s2x","w-comtes12":"s2x","w-rarerose12":"s2x","w-alexandra04":"s2x","w-dprose08":"s3x","w-egly13":"s3x","w-cristal14":"s2x","w-crayeres82":"s3x","w-cristalrose15":"s2x","w-horsserie82":"s3x","w-krose19m":"s2","w-kprestige19m":"s2","w-figula":"w1n","w-kalikovek":"w2n","w-gyorgykovacs":"w3n","w-kacsa":"w1n","w-omlas":"w2n","w-csontos":"w2n","w-profundum":"w3n","w-uragya":"w3n","w-urban73":"w3nx","w-szenttamas46":"w3nx","w-barakonyi":"w2n","w-barat":"w2n","w-bukhars":"w1n","w-spiegel13":"w3n","w-cseri":"w1","w-prior":"w2","w-bukspring":"w1","w-kislakiriz":"w2","w-busch":"w2","w-brundlmayer":"w2","w-elodchard":"w2","w-matacs":"w3","w-chablis":"w2","w-montillepm":"w3x","w-meursault":"w3","w-elodsauv":"w1","w-sancerre":"w1","w-cloudybay":"w1","w-marcellkoves":"w3","w-stamaria":"w2","w-figulakoves":"w3","w-vistamare":"w2","w-zenit":"w1n","w-kekny23":"w2n","w-juhfark":"w3n","w-albarino":"w2","w-soave":"w2","w-prager":"w1","w-szel":"p1","w-angel":"p1","w-hkadarka":"r1n","w-bonsai":"r2n","w-weninger":"r2","w-zweigelt":"r2","w-losonci":"r2n","w-magma":"r1n","w-batikereszt":"r2n","w-ivanvolgy":"r2n","w-merengo":"r2n","w-agape16":"r3nx","w-valpinot":"r1","w-elodpinot":"r1","w-tolnaypinot":"r1","w-lescras":"r2","w-auxreas":"r2x","w-caillerets":"r1x","w-tolnayfranc":"r2","w-attilafranc":"r2","w-sauskafranc":"r3","w-sauskacs":"r3","w-solus":"r3x","w-desiderio":"r3","w-nag":"r2","w-primarius":"r3","w-ksyrah":"r3","w-chiantiriserva":"r2","w-brunello":"r3x","w-barolo":"r3x","w-murrieta16":"r2","w-valbuena":"r3x","w-genus":"r2n","w-terratartaro":"r3","w-pava":"r3","w-barbar":"r3n","w-infusio":"r2","w-taklergrand":"r3","w-ilblu":"r3","w-gereattila":"r3","w-telegramme":"r3","w-cuvee5":"r3","w-comtesse18":"r3x","w-tignanello":"r3x","w-alterego":"r2","w-carillon":"r2","w-lynchbages":"r3x","w-opusone":"r3x","w-cuvee7m":"r3","w-sauskamerlotm":"r3","w-3gracia24":"d2n","w-stillaaurea":"d2n","w-gizellaszam":"d2n","w-oremus":"d3nx","w-barta13":"d3n","w-szepsyaszu17":"d3nx","w-esszencia03":"d3nx","w18":"s1","w30":"s1"};
+  var SOMM_NOTES = {
+    fruity: /berr|cherr|plum|apricot|peach|pear\b|apple|currant|strawberr|raspberr|quince|mango|fruit|melon|\bfig/,
+    citrus: /citrus|lemon|lime\b|grapefruit|orange|zest|tangerine/,
+    floral: /flor|blossom|flower|violet|linden|aromatic|elderflower|rose petal|rose hip/,
+    mineral: /mineral|volcan|chalk|flint|slate|saline|salty|limestone|stony|oyster/,
+    spicy: /spic|pepper|paprika|clove|cinnamon|liquorice|licorice/,
+    toasty: /toast|brioche|oak|nutt|hazelnut|almond|vanilla|biscuit|smok|cedar|pastry|bread/,
+    earthy: /earth|leather|tobacco|truffle|forest floor|mushroom|graphite|savoury|olive/,
+    honey: /honey|caramel|marmalade|toffee|dried|candied|saffron/
+  };
+  var SOMM_NOTE_COL = { s: ['citrus', 'fruity', 'floral', 'mineral', 'toasty', 'honey'], w: ['citrus', 'fruity', 'floral', 'mineral', 'toasty', 'spicy'], r: ['fruity', 'spicy', 'earthy', 'toasty', 'floral'], d: ['fruity', 'citrus', 'honey'] };
+  var SOMM_COL = { bubbles: 's', white: 'w', rose: 'p', red: 'r', sweet: 'd' };
+  var SOMM_Q = [
+    { k: 'how', q: ['Glass or bottle?', 'Pohárral vagy palackban?'], o: [['glass', 'A glass for me', 'Egy pohárral kérek'], ['bottle', 'A bottle to share', 'Egy palackot a társaságnak'], ['any', 'Either is fine', 'Mindegy']] },
+    { k: 'col', q: ['What are you in the mood for?', 'Milyen borra vágyik?'], o: [['bubbles', 'Bubbles', 'Buborékosra'], ['white', 'White', 'Fehérre'], ['rose', 'Rosé', 'Rozéra'], ['red', 'Red', 'Vörösre'], ['sweet', 'Something sweet', 'Valami édesre'], ['any', 'Surprise me', 'Lepjen meg']] },
+    { k: 'body', skip: ['sweet', 'rose'], q: ['How should it feel?', 'Milyen legyen?'], o: [['light', 'Light and fresh', 'Könnyed, friss'], ['medium', 'Smooth and balanced', 'Lágy, kiegyensúlyozott'], ['full', 'Rich and full-bodied', 'Gazdag, testes']] },
+    { k: 'notes', multi: 2, skip: ['rose'], q: ['Which notes do you enjoy? Pick up to two.', 'Milyen jegyeket szeret? Legfeljebb kettőt válasszon.'], o: [['fruity', 'Fruity', 'Gyümölcsös'], ['citrus', 'Citrus and zesty', 'Citrusos, üde'], ['floral', 'Floral and aromatic', 'Virágos, illatos'], ['mineral', 'Mineral and volcanic', 'Ásványos, vulkáni'], ['spicy', 'Spicy and peppery', 'Fűszeres, borsos'], ['toasty', 'Toasty, oaky or nutty', 'Pirítósos, hordós, diós'], ['earthy', 'Earthy and savoury', 'Földes, dohányos'], ['honey', 'Honeyed', 'Mézes']] },
+    { k: 'when', q: ['What is the moment?', 'Mi az alkalom?'], o: [['aperitif', 'An aperitif', 'Aperitifnek'], ['food', 'With food', 'Ételhez'], ['celebrate', 'A celebration', 'Ünnepléshez'], ['after', 'After dinner', 'Vacsora után'], ['relax', 'Just to relax', 'Csak úgy, lazításhoz']] },
+    { k: 'from', q: ['Where shall we take you?', 'Merre kalauzoljuk?'], o: [['hu', 'Hungary, please', 'Magyar bort kérek'], ['native', 'A Hungarian grape I have never tried', 'Egy magyar szőlőfajtát, amit még nem kóstoltam'], ['classic', 'The great classics: France, Italy, Spain', 'A nagy klasszikusokat: francia, olasz, spanyol'], ['any', 'Surprise me', 'Lepjen meg']] }
+  ];
+  var COUNTRY = { HU: ['Hungary', 'Magyarország'], FR: ['France', 'Franciaország'], IT: ['Italy', 'Olaszország'], ES: ['Spain', 'Spanyolország'], AT: ['Austria', 'Ausztria'], DE: ['Germany', 'Németország'], NZ: ['New Zealand', 'Új-Zéland'], US: ['the USA', 'az USA'], PT: ['Portugal', 'Portugália'], AU: ['Australia', 'Ausztrália'], ZA: ['South Africa', 'Dél-Afrika'], AR: ['Argentina', 'Argentína'], CL: ['Chile', 'Chile'], GR: ['Greece', 'Görögország'], SI: ['Slovenia', 'Szlovénia'], HR: ['Croatia', 'Horvátország'], RO: ['Romania', 'Románia'], SK: ['Slovakia', 'Szlovákia'], GE: ['Georgia', 'Grúzia'], GB: ['England', 'Anglia'] };
+  var SOMM_STR = {
+    en: {
+      title: 'Virtual sommelier', entry: function (n) { return 'A few questions, then the right wine from our list of ' + n + '.'; },
+      intro: 'Here is what I would pour for you tonight:', more: 'Show me others',
+      none: 'Nothing on tonight\'s list fits all of that. Try another answer, or ask your waiter.',
+      foot: 'Tap a wine to read more and add it to your order. Your waiter is happy to advise too.',
+      sulph: 'You told us about a sulphite allergy. Every wine contains sulphites, so please check with your waiter first.',
+      chipGlass: 'By the glass', chipHu: 'Hungarian', chipNative: 'Hungarian grape', chipRare: 'A rare treat', chipPink: 'Rosé bubbles',
+      wAperitif: 'Lovely aperitif', wFood: 'Great with food', wCelebrate: 'Made for celebrating', wAfter: 'After dinner',
+      fLabel: 'Wine facts', fHu: 'Hungarian wine', fHero: 'of the bottles on our wine list are Hungarian.',
+      fHeroSub: function (hb, nb, hg, ng) { return hb + ' of ' + nb + ' bottles' + (ng ? ' · ' + hg + ' of ' + ng + ' by the glass' : ''); },
+      fHeroGlass: 'of our wines by the glass are Hungarian.',
+      fList: 'On our list', fDid: 'Did you know?', fTokaj: 'Tokaj', fFizz: 'Champagne',
+      fNonChamp: function (p) { return 'Leave the Champagnes aside and ' + p + '% of our bottles are Hungarian.'; },
+      fCountries: function (k, list) { return 'Our list travels to ' + k + ' countries: ' + list + '.'; },
+      fTokajN: function (t) { return t + ' of our bottles come from Tokaj, Hungary\'s most famous wine region.'; },
+      fOldest: function (y, names) { return (names.length > 1 ? 'Our oldest wines are from ' : 'Our oldest wine is from ') + y + ': ' + names.join(' and ') + '.'; },
+      fMagnum: function (k) { return k + ' of our bottles are magnums (1.5 l), made for sharing.'; }
+    },
+    hu: {
+      title: 'Virtuális sommelier', entry: function (n) { return 'Néhány kérdés, és kiválasztjuk az Önnek való bort a ' + n + ' tételes borlapunkról.'; },
+      intro: 'Ezeket tölteném Önnek ma este:', more: 'Mutasson mást',
+      none: 'Ma este semmi sem felel meg mindennek a listánkon. Próbáljon más választ, vagy kérdezze a pincért.',
+      foot: 'Koppintson egy borra a részletekért és a rendeléshez. Pincérünk is szívesen segít.',
+      sulph: 'Szulfitallergiát jelzett. Minden bor tartalmaz szulfitot, ezért kérjük, előbb egyeztessen a pincérrel.',
+      chipGlass: 'Pohárral', chipHu: 'Magyar', chipNative: 'Magyar fajta', chipRare: 'Ritkaság', chipPink: 'Rozé buborék',
+      wAperitif: 'Remek aperitif', wFood: 'Ételhez ideális', wCelebrate: 'Ünnepi pillanatokra', wAfter: 'Vacsora után',
+      fLabel: 'Borérdekességek', fHu: 'Magyar bor', fHero: 'Ennyi a magyar bor a palackos borlapunkon.',
+      fHeroSub: function (hb, nb, hg, ng) { return hb + ' / ' + nb + ' palack' + (ng ? ' · pohárral: ' + hg + ' / ' + ng : ''); },
+      fHeroGlass: 'Ennyi a magyar bor a pohárral kapható borok között.',
+      fList: 'A borlapunkon', fDid: 'Tudta?', fTokaj: 'Tokaj', fFizz: 'Champagne',
+      fNonChamp: function (p) { return 'A Champagne-okat nem számítva palackjaink ' + p + '%-a magyar.'; },
+      fCountries: function (k, list) { return 'Borlapunk ' + k + ' országot jár be: ' + list + '.'; },
+      fTokajN: function (t) { return 'Palackjaink közül ' + t + ' Tokajból, Magyarország leghíresebb borvidékéről érkezik.'; },
+      fOldest: function (y, names) { return 'Legidősebb ' + (names.length > 1 ? 'boraink' : 'borunk') + ' évjárata: ' + y + ' (' + names.join(', ') + ').'; },
+      fMagnum: function (k) { return k + ' palackunk magnum (1,5 l), közös koccintásra.'; }
+    }
+  };
+  function ST(k) { var d = SOMM_STR[S.lang === 'hu' ? 'hu' : 'en']; return d[k] != null ? d[k] : SOMM_STR.en[k]; }
+  /* fun facts, checked against sources; "need" shows a fact only while a matching wine is on the list */
+  var WINE_FACTS = [
+    { tag: 'tokaj', t: ['Tokaj\'s vineyards were first classified in 1730, more than a century before Bordeaux\'s famous classification of 1855.', 'Tokaj dűlőinek osztályozása már 1730-ban elkezdődött, több mint egy évszázaddal a híres, 1855-ös bordeaux-i besorolás előtt.'] },
+    { tag: 'fizz', t: ['A bottle of Champagne holds about 6 atmospheres of pressure, two to three times the pressure in a car tyre.', 'Egy üveg Champagne-ban nagyjából 6 atmoszféra a nyomás, egy autógumiénak két-háromszorosa.'] },
+    { tag: 'hu', need: /bikavér/i, t: ['Legend says Eger\'s defenders drank red wine during the siege of 1552, and the Ottoman army believed it was bull\'s blood. Hence Egri Bikavér, "Bull\'s Blood".', 'A legenda szerint Eger védői 1552-ben vörösbort ittak az ostrom alatt, a törökök pedig azt hitték, bikavér erősíti őket. Innen ered az Egri Bikavér neve.'] },
+    { tag: 'tokaj', t: ['Louis XIV of France is said to have called Tokaji "the Wine of Kings, the King of Wines".', 'A hagyomány szerint XIV. Lajos francia király nevezte a tokajit „a királyok borának, a borok királyának”.'] },
+    { tag: 'fizz', need: /clicquot/i, t: ['Madame Clicquot invented the riddling table in 1816 to clear Champagne of its sediment, and made the first known blended rosé Champagne in 1818.', 'Madame Clicquot 1816-ban feltalálta a remüázsasztalt, amellyel kitisztítható a pezsgő üledéke, 1818-ban pedig elkészítette az első ismert házasított rozé Champagne-t.'] },
+    { tag: 'hu', t: ['In Hungarian, wine is "bor", one of very few European words for wine that does not come from the Latin "vinum". A tip is "borravaló", literally "something for wine".', 'A „bor” azon kevés európai szó egyike, amely nem a latin „vinum”-ból ered. A „borravaló” pedig szó szerint azt jelenti: valami, ami borra való.'] },
+    { tag: 'tokaj', t: ['Hungary\'s national anthem sings of the nectar of Tokaj\'s vines.', 'A magyar Himnusz is megénekli: „Tokaj szőlővesszein nektárt csepegtettél”.'] },
+    { tag: 'hu', need: /kékfrankos/i, t: ['Kékfrankos, the same grape as Austria\'s Blaufränkisch, is Hungary\'s most planted variety, grown on almost 8,000 hectares.', 'A kékfrankos, az osztrák blaufränkischsel azonos fajta, Magyarország legelterjedtebb szőlője: közel 8000 hektáron termesztik.'] },
+    { tag: 'tokaj', need: /aszú/i, t: ['"Puttonyos" on a Tokaji Aszú label comes from the puttony, a harvest basket holding about 25 kg of shrivelled aszú berries.', 'A tokaji aszú „puttonyos” jelölése a puttonyból ered: ez a szüreti puttony nagyjából 25 kg töppedt aszúszemet fogott.'] },
+    { tag: 'fizz', need: /cristal/i, t: ['Cristal was created in 1876 for Tsar Alexander II of Russia, who wanted a clear crystal bottle.', 'A Cristalt 1876-ban II. Sándor orosz cár számára alkották meg, aki átlátszó, kristály palackot kívánt.'] },
+    { tag: 'hu', t: ['Hungary has 22 wine regions. Our list visits many of them, from Tokaj and Eger to Villány, Szekszárd and Lake Balaton.', 'Magyarországnak 22 borvidéke van. Borlapunk sokat bejár közülük, Tokajtól és Egertől Villányig, Szekszárdig és a Balatonig.'] },
+    { tag: 'tokaj', need: /esszencia|eszencia/i, t: ['Esszencia, the nectar that trickles from aszú berries under their own weight, can hold 500 to 700 grams of sugar per litre, yet barely reaches 5 to 6% alcohol.', 'Az eszencia, az aszúszemekből a saját súlyuk alatt kicsorgó nektár, literenként 500–700 gramm cukrot is tartalmazhat, alkoholtartalma mégis alig éri el az 5–6%-ot.'] },
+    { tag: 'fizz', need: /abyss/i, t: ['Leclerc Briant\'s Cuvée Abyss is aged on the seabed, around 60 metres down off the coast of Brittany.', 'A Leclerc Briant Cuvée Abyss a tengerfenéken érik, mintegy 60 méter mélyen, Bretagne partjainál.'] },
+    { tag: 'hu', need: /furmint/i, t: ['Furmint makes both Tokaj\'s bone-dry whites and its legendary sweet Aszú.', 'A furmintból készülnek Tokaj csontszáraz fehérborai és legendás édes aszúi is.'] },
+    { tag: 'tokaj', t: ['The Tokaj wine region has been a UNESCO World Heritage site since 2002.', 'A tokaji borvidék 2002 óta az UNESCO világörökség része.'] },
+    { tag: 'hu', need: /pannonhalm/i, t: ['Our list includes wines from the Benedictine Archabbey of Pannonhalma, founded in 996 and today a UNESCO World Heritage site.', 'Borlapunkon a 996-ban alapított Pannonhalmi Bencés Főapátság borai is szerepelnek; az apátság ma az UNESCO világörökség része.'] },
+    { tag: 'hu', need: /somló|badacsony/i, t: ['Somló, Badacsony and Tokaj grow their vines on volcanic soils, prized for wines with a salty, mineral edge.', 'Somló, Badacsony és Tokaj szőlői vulkanikus talajon nőnek, amelyről sós, ásványos jellegű borok születnek.'] }
+  ];
+  var FACT_ORDER = { wine: ['hu', 'tokaj', 'fizz'], champagne: ['fizz', 'hu', 'tokaj'], sparkling: ['fizz', 'hu', 'tokaj'], dessert: ['tokaj', 'hu', 'fizz'] };
+  function isWine(m) { return !!(m && WINE_CATS[m.cat]) && !/alcohol-free|alkoholmentes|\btea\b/i.test(m.name + ' ' + (m.desc || '')); }
+  function wineProf(m) {
+    var p = SOMM_P[m.id], t = (m.name + ' ' + (m.desc || '')).toLowerCase();
+    if (p) return { c: p.charAt(0), b: +p.charAt(1), n: p.indexOf('n') > 1, x: p.indexOf('x') > 1, t: t };
+    /* a wine the crew added: read its section and description */
+    var c = { champagne: 's', sparkling: 's', white: 'w', rose: 'p', red: 'r', dessert: 'd' }[m.cat];
+    if (!c) c = /aszú|aszu|szamorodni|esszencia|eszencia|\bsweet|édes|dessert/.test(t) ? 'd' : /champagne|sparkling|\bbrut\b|pezsg|bubbl|prosecco|cava\b|crémant/.test(t) ? 's' : /rosé|rozé/.test(t) ? 'p' : /\bred\b|pinot noir|cabernet|merlot|syrah|shiraz|kékfrankos|kadarka|bikavér|tannin|sangiovese|nebbiolo|tempranillo|zweigelt|blaufränkisch|malbec/.test(t) ? 'r' : 'w';
+    var b = /full-bodied|powerful|opulent|plush|\bbold|\brich\b|concentrated/.test(t) ? 3 : /\blight\b|delicate|crisp|zesty|\bfresh/.test(t) ? 1 : 2;
+    return { c: c, b: b, n: /furmint|hárslevelű|kéknyelű|juhfark|olaszrizling|kadarka|kékfrankos|bikavér|szamorodni|aszú|esszencia|eszencia|zenit|ezerjó|cserszegi|irsai|leányka|kövidinka|turán/.test(t), x: false, t: t };
+  }
+  function h01(s) { var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return ((h >>> 0) % 1000) / 1000; }
+  function sommNew() { return { step: 0, a: {}, res: null, seen: {}, seed: Date.now() % 100000 }; }
+  function SM() { if (!S.somm) S.somm = sommNew(); return S.somm; }
+  function sommSteps() { var col = SM().a.col; return SOMM_Q.filter(function (st) { return !(st.skip && st.skip.indexOf(col) > -1); }); }
+  function sommOpts(st) {
+    if (st.k !== 'notes') return st.o;
+    var keep = SOMM_NOTE_COL[SOMM_COL[SM().a.col]];
+    return keep ? keep.map(function (k) { return st.o.filter(function (o) { return o[0] === k; })[0]; }) : st.o;
+  }
+  function sommLbl(k, v) {
+    var st = SOMM_Q.filter(function (x) { return x.k === k; })[0], o = st && st.o.filter(function (y) { return y[0] === v; })[0];
+    return o ? o[S.lang === 'hu' ? 2 : 1] : v;
+  }
+  function sommRank(relax) {
+    var sm = SM(), a = sm.a, want = SOMM_COL[a.col], tb = { light: 1, medium: 2, full: 3 }[a.body];
+    return S.menu.filter(function (m) { return !m.off && isWine(m) && !sm.seen[m.id]; }).map(function (m) {
+      var p = wineProf(m), sc = 0, why = [], glass = m.cat === 'glass';
+      if (a.how === 'glass') { if (glass) why.push(ST('chipGlass')); else if (relax < 1) return null; else sc -= 3; }
+      else if (a.how === 'bottle' && glass) { if (relax < 1) return null; sc -= 3; }
+      /* a guest who asks for rosé is also happy with pink bubbles */
+      var pinkFizz = want === 'p' && p.c === 's' && /ros[ée]|rozé/i.test(m.name);
+      if (want) { if (p.c === want) sc += 6; else if (pinkFizz) { sc += 4; why.push(ST('chipPink')); } else if (relax < 2) return null; else sc -= 5; }
+      if (tb && a.col !== 'sweet' && a.col !== 'rose') { var d = Math.abs(tb - p.b); if (!d) { sc += 3; why.push(sommLbl('body', a.body)); } else if (d === 2) sc -= 3; }
+      (a.notes || []).forEach(function (n) { if (SOMM_NOTES[n] && SOMM_NOTES[n].test(p.t)) { sc += 2; why.push(sommLbl('notes', n)); } });
+      if (a.when === 'aperitif') { if (p.c === 's' || p.c === 'p' || (p.c === 'w' && p.b === 1)) { sc += 3; why.push(ST('wAperitif')); } else if (p.c === 'd' || (p.c === 'r' && p.b === 3)) sc -= 3; }
+      else if (a.when === 'food') { if ((p.c === 'w' || p.c === 'r') && p.b >= 2) { sc += 2; why.push(ST('wFood')); } }
+      else if (a.when === 'celebrate') { if (p.c === 's' || p.x) { sc += (p.c === 's' ? 3 : 0) + (p.x ? 3 : 0); why.push(p.x ? ST('chipRare') : ST('wCelebrate')); } if (/magnum/i.test(m.name) && a.how !== 'glass') sc += 1; }
+      else if (a.when === 'after') { if (p.c === 'd' || (p.c === 'r' && p.b === 3)) { sc += p.c === 'd' ? 4 : 2; why.push(ST('wAfter')); } else if (p.c === 's' && p.b === 1) sc -= 1; }
+      if (a.from === 'hu') { if (m.origin === 'HU') { sc += 4; why.push(ST('chipHu')); } else sc -= 3; }
+      else if (a.from === 'native') { if (p.n) { sc += 5; why.push(ST('chipNative')); } else if (m.origin === 'HU') sc += 1; else sc -= 3; }
+      else if (a.from === 'classic') { if (/^(FR|IT|ES)$/.test(m.origin || '')) { sc += 4; why.push(COUNTRY[m.origin][S.lang === 'hu' ? 1 : 0]); } else if (m.origin && m.origin !== 'HU') sc += 2; else sc -= 2; }
+      /* the icons are for a celebration or a guest who asks for the classics, not a quiet glass */
+      if (p.x && a.when !== 'celebrate' && a.from !== 'classic') sc -= 1;
+      sc += h01(m.id + '|' + sm.seed) * 1.5;
+      return { m: m, p: p, sc: sc, why: why };
+    }).filter(Boolean).sort(function (x, y) { return y.sc - x.sc; });
+  }
+  function sommPicks() {
+    var out = [], keys = {}, cols = {}, anyCol = !SOMM_COL[SM().a.col];
+    for (var relax = 0; relax < 3 && out.length < 3; relax++) {
+      sommRank(relax).forEach(function (x) {
+        if (out.length >= 3 || out.some(function (o) { return o.m.id === x.m.id; })) return;
+        /* one wine once (not its glass and its bottle), and a mix of colours when the guest left it open */
+        var words = x.m.name.toLowerCase().split(/\s+/), key = /^(château|chateau|domaine|st\.?|villa|marquis|marchese|le|la|the|tenuta|bodegas|maison|weingut)$/.test(words[0]) ? words.slice(0, 2).join(' ') : words[0];
+        if (keys[key] || (anyCol && (cols[x.p.c] || 0) >= 2)) return;
+        keys[key] = 1; cols[x.p.c] = (cols[x.p.c] || 0) + 1; out.push(x);
+      });
+    }
+    return out;
+  }
+  function sommGo() {
+    var sm = SM(), picks = sommPicks();
+    if (picks.length < 3 && Object.keys(sm.seen).length) { sm.seen = {}; picks = sommPicks(); }
+    picks.forEach(function (x) { sm.seen[x.m.id] = 1; });
+    sm.res = picks.map(function (x) { return { id: x.m.id, why: x.why.filter(function (w, i) { return x.why.indexOf(w) === i; }).slice(0, 3) }; });
+  }
+  function sommEntry() {
+    var n = S.menu.filter(isWine).length;
+    if (!n) return '';
+    return '<button type="button" class="ai-entry somm-entry" data-act="openSomm">' + picto('wine', 40) +
+      '<span class="ai-entry-text"><strong>' + esc(ST('title')) + '</strong><span class="sub">' + esc(ST('entry')(n)) + '</span></span>' + icon('chevron', 22) + '</button>';
+  }
+  function sommSheet() {
+    var L = S.lang === 'hu' ? 2 : 1, sm = SM(), steps = sommSteps(), idx = Math.min(sm.step, steps.length - 1), st = steps[idx];
+    var h = '<div class="sheet-head pad">' + picto('wine', 44) + '<div style="flex:1;min-width:0"><h2 id="sh-title">' + esc(ST('title')) + '</h2></div><button type="button" class="x" data-act="closeSheet" aria-label="' + T('close') + '">' + icon('close', 18) + '</button></div><div class="sheet-body pad">', foot = '';
+    if (S.allergies.indexOf('sulphites') > -1) h += '<div class="banner warn">' + icon('alert', 22) + '<div>' + esc(ST('sulph')) + '</div></div>';
+    if (sm.res) {
+      h += sommResults();
+      foot = '<button type="button" class="btn ghost" data-act="sommRestart">' + T('aiRestart') + '</button>' + (sm.res.length ? '<button type="button" class="btn" data-act="sommMore">' + esc(ST('more')) + '</button>' : '');
+    } else {
+      h += '<div class="progress" aria-hidden="true"><span style="width:' + Math.round(((idx + 1) / steps.length) * 100) + '%"></span></div>' +
+        '<p class="eyebrow">' + esc(T('aiStep')(idx + 1, steps.length)) + '</p><h3 class="quiz-q">' + esc(st.q[L - 1]) + '</h3>';
+      var cur = sm.a[st.k];
+      h += '<div class="' + (st.multi ? 'choice-grid' : 'choice-list') + '">' + sommOpts(st).map(function (o) {
+        var on = st.multi ? (Array.isArray(cur) && cur.indexOf(o[0]) > -1) : cur === o[0];
+        return '<button type="button" class="choice-btn" data-act="' + (st.multi ? 'sommToggle' : 'sommPick') + '" data-g="' + st.k + '" data-v="' + o[0] + '" aria-pressed="' + on + '"><span>' + esc(o[L]) + '</span>' + (on ? icon('check', 20) : '') + '</button>';
+      }).join('') + '</div>';
+      var back = idx > 0 ? '<button type="button" class="btn ghost" data-act="sommBack">' + T('aiBack') + '</button>' : '';
+      if (st.multi) foot = back + '<button type="button" class="btn" data-act="sommNext">' + ((Array.isArray(cur) && cur.length) ? T('aiNext') : T('aiSkip')) + '</button>';
+      else if (idx === 0) foot = '<p class="hint" style="flex:1;margin:0">' + T('aiTapHint') + '</p>';
+      else foot = back + '<button type="button" class="btn ghost" data-act="sommNext">' + (cur ? T('aiNext') : T('aiSkip')) + '</button>';
+    }
+    return h + '</div><div class="sheet-foot pad">' + foot + '</div>';
+  }
+  function sommResults() {
+    var sm = SM(), h = '<div id="somm-results" class="stack">', chips = [];
+    sommSteps().forEach(function (st) { var v = sm.a[st.k]; (Array.isArray(v) ? v : v ? [v] : []).forEach(function (x) { chips.push(sommLbl(st.k, x)); }); });
+    if (chips.length) h += '<div class="opts">' + chips.map(function (c) { return '<span class="chip">' + esc(c) + '</span>'; }).join('') + '</div>';
+    var rows = sm.res.map(function (pk) {
+      var m = S.menu.filter(function (x) { return x.id === pk.id; })[0];
+      if (!m) return '';
+      return '<button type="button" class="row somm-pick" data-act="sommItem" data-id="' + esc(m.id) + '">' + picto(m.pic || m.cat, 38, 'lead') +
+        '<span class="row-main"><span class="row-name">' + (m.origin ? '<span class="flag" aria-hidden="true">' + flagOf(m.origin) + '</span>' : '') + esc(m.name) + '</span>' +
+        (pk.why.length ? '<span class="somm-why">' + pk.why.map(function (w) { return '<span class="somm-tag">' + esc(w) + '</span>'; }).join('') + '</span>' : '') +
+        (m.desc ? '<span class="somm-note">' + esc(m.desc) + '</span>' : '') + '</span><span class="add-dot" aria-hidden="true">' + icon('plus', 20) + '</span></button>';
+    }).join('');
+    if (!rows) return h + '<div class="empty">' + picto('wine', 40) + '<span>' + esc(ST('none')) + '</span></div></div>';
+    return h + '<p class="ai-intro">' + esc(ST('intro')) + '</p><div class="list">' + rows + '</div><p class="hint">' + esc(ST('foot')) + '</p></div>';
+  }
+  function wineFacts() {
+    var L = S.lang === 'hu' ? 1 : 0, wines = S.menu.filter(isWine);
+    if (!wines.length) return '';
+    var hu = function (m) { return m.origin === 'HU'; };
+    var bottles = wines.filter(function (m) { return m.cat !== 'glass'; }), glasses = wines.filter(function (m) { return m.cat === 'glass'; });
+    var nb = bottles.length, hb = bottles.filter(hu).length, ng = glasses.length, hg = glasses.filter(hu).length;
+    var card = function (eb, text, cls) { return '<div class="pick wf-card' + (cls ? ' ' + cls : '') + '" role="listitem"><span class="eyebrow">' + esc(eb) + '</span><p class="wf-t">' + esc(text) + '</p></div>'; };
+    var cards = [], data = [], pct = 0;
+    if (nb || ng) {
+      pct = Math.round(100 * (nb ? hb / nb : hg / ng));
+      cards.push('<div class="pick wf-card wf-hero" role="listitem"><span class="eyebrow">' + flagOf('HU') + ' ' + esc(ST('fHu')) + '</span><span class="wf-num">' + pct + '%</span>' +
+        '<p class="wf-t"><strong>' + esc(nb ? ST('fHero') : ST('fHeroGlass')) + '</strong></p><p class="wf-sub">' + esc(nb ? ST('fHeroSub')(hb, nb, hg, ng) : hg + ' / ' + ng) + '</p></div>');
+    }
+    var nc = bottles.filter(function (m) { return m.cat !== 'champagne'; });
+    if (nc.length && nc.length < nb) { var p2 = Math.round(100 * nc.filter(hu).length / nc.length); if (p2 >= pct + 5) data.push(ST('fNonChamp')(p2)); }
+    var cc = {}; wines.forEach(function (m) { if (m.origin) cc[m.origin] = (cc[m.origin] || 0) + 1; });
+    var codes = Object.keys(cc).sort(function (x, y) { return cc[y] - cc[x]; });
+    if (codes.length >= 3) data.push(ST('fCountries')(codes.length, codes.map(function (c) { return flagOf(c) + ' ' + (COUNTRY[c] ? COUNTRY[c][L] : c); }).join(', ')));
+    var tk = bottles.filter(function (m) { return /tokaj/i.test(m.desc || ''); }).length;
+    if (tk >= 3) data.push(ST('fTokajN')(tk));
+    var yrs = []; bottles.forEach(function (m) { var y = String(m.name).match(/\b(19\d\d|20\d\d)\b/); if (y) yrs.push({ y: +y[1], n: m.name.replace(/\s*\b(19|20)\d\d\b/, '').replace(/,\s*$/, '').trim() }); });
+    if (yrs.length) { var oy = Math.min.apply(null, yrs.map(function (x) { return x.y; })); if (oy < 2005) data.push(ST('fOldest')(oy, yrs.filter(function (x) { return x.y === oy; }).map(function (x) { return x.n; }).slice(0, 3))); }
+    var mg = bottles.filter(function (m) { return /magnum/i.test(m.name); }).length;
+    if (mg >= 2) data.push(ST('fMagnum')(mg));
+    var text = wines.map(function (m) { return m.name + ' ' + (m.desc || ''); }).join(' ');
+    var order = FACT_ORDER[S.cat] || FACT_ORDER.wine;
+    var fun = WINE_FACTS.filter(function (f) { return !f.need || f.need.test(text); }).map(function (f, i) { return { f: f, r: order.indexOf(f.tag) * 100 + i }; })
+      .sort(function (x, y) { return x.r - y.r; }).map(function (x) { return card(x.f.tag === 'tokaj' ? ST('fTokaj') : x.f.tag === 'fizz' ? ST('fFizz') : ST('fDid'), x.f.t[L]); });
+    /* the list's own numbers and the fun facts take turns */
+    var di = 0;
+    fun.slice(0, 7).forEach(function (c, i) { if (i % 2 === 0 && di < data.length) cards.push(card(ST('fList'), data[di++])); cards.push(c); });
+    while (di < data.length) cards.push(card(ST('fList'), data[di++]));
+    return '<section class="wine-facts" aria-label="' + esc(ST('fLabel')) + '"><p class="label">' + esc(ST('fLabel')) + '</p><div class="picks wf-list" role="list" data-keepx="wf-' + esc(S.cat || '') + '">' + cards.join('') + '</div></section>';
   }
 
   /* drink finder when no AI is available (own website, one-file version): scores the real menu
@@ -3369,7 +3622,12 @@ html[data-app="crew"] body { background: var(--bg); }
     M.className = 'pad' + (staffMode ? ' staff' : '') + (staffMode && S.staffTab === 'pad' && S.padView !== 'micros' ? ' pos-on' + (S.padSel && padLine(S.padSel) && padLine(S.padSel).preset ? ' tray-on' : '') : '');
     if (staffMode) M.innerHTML = S.crew ? crewView() : staffView();
     else if (!S.started) M.innerHTML = welcome();
-    else M.innerHTML = '<div class="col">' + (S.tab === 'menu' ? menuTab() : S.tab === 'order' ? orderTab() : S.tab === 'bill' ? billTab() : helpTab()) + '</div>';
+    else {
+      var keepX = {};
+      Array.prototype.forEach.call(M.querySelectorAll('[data-keepx]'), function (el) { if (el.scrollLeft) keepX[el.getAttribute('data-keepx')] = el.scrollLeft; });
+      M.innerHTML = '<div class="col">' + (S.tab === 'menu' ? menuTab() : S.tab === 'order' ? orderTab() : S.tab === 'bill' ? billTab() : helpTab()) + '</div>';
+      Object.keys(keepX).forEach(function (k) { var el = M.querySelector('[data-keepx="' + k + '"]'); if (el) el.scrollLeft = keepX[k]; });
+    }
     setupSpy();
   }
   function withFocus(fn) {
@@ -3732,6 +3990,33 @@ html[data-app="crew"] body { background: var(--bg); }
         if (!pm) return;
         if (pm.off) { toast(T('offTonight'), true); return; }
         S.sheet = { kind: 'item', id: pm.id, name: pm.name, desc: pm.desc || '', cat: pm.cat, price: (typeof pm.price === 'number' ? pm.price : null), preset: pm.mods, sel: {}, text: '', qty: 1, back: 'ai' };
+        break;
+      }
+      case 'openSomm': SFX.play('sparkle'); SM(); S.sheet = { kind: 'somm' }; break;
+      case 'sommPick': {
+        var smk = b.getAttribute('data-g'), sma = SM().a;
+        sma[smk] = v;
+        if (smk === 'col') { delete sma.notes; if (v === 'sweet' || v === 'rose') delete sma.body; }
+        var sms = sommSteps(), smi = Math.min(S.somm.step, sms.length - 1);
+        if (smi >= sms.length - 1) { sommGo(); SFX.play('sparkle'); } else S.somm.step = smi + 1;
+        break;
+      }
+      case 'sommToggle': {
+        var stk = b.getAttribute('data-g'), sl2 = Array.isArray(SM().a[stk]) ? S.somm.a[stk].slice() : [];
+        var sti = sl2.indexOf(v);
+        if (sti > -1) sl2.splice(sti, 1); else { sl2.push(v); if (sl2.length > 2) sl2.shift(); }
+        S.somm.a[stk] = sl2;
+        break;
+      }
+      case 'sommNext': { var snl = sommSteps().length, sni = Math.min(SM().step, snl - 1); if (sni >= snl - 1) { sommGo(); SFX.play('sparkle'); } else S.somm.step = sni + 1; break; }
+      case 'sommBack': SM().step = Math.max(0, Math.min(S.somm.step, sommSteps().length - 1) - 1); break;
+      case 'sommRestart': S.somm = sommNew(); break;
+      case 'sommMore': sommGo(); SFX.play('click'); break;
+      case 'sommItem': {
+        var swm = S.menu.filter(function (x) { return x.id === id; })[0];
+        if (!swm) return;
+        if (swm.off) { toast(T('offTonight'), true); return; }
+        S.sheet = { kind: 'item', id: swm.id, name: swm.name, desc: swm.desc || '', cat: swm.cat, price: (typeof swm.price === 'number' ? swm.price : null), preset: swm.mods, sel: {}, text: '', qty: 1, back: 'somm' };
         break;
       }
       case 'aiCreate': {
