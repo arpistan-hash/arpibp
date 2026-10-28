@@ -60,31 +60,55 @@
   };
   Poller.prototype.now = function () { if (this.running) this.tick(); };
 
-  // a guest polls fast only while something they asked for is still open
+  // a guest polls fast (6 s) while something they asked for is still open, otherwise every 15 s
   function guestEvery(d) {
-    if (!d || !d.mine || !Array.isArray(d.mine.reqs)) return 45000;
+    if (!d || !d.mine || !Array.isArray(d.mine.reqs)) return 15000; // still checks in, for the bar's notice
     var since = Date.now() - 4 * 3600 * 1000;
     var open = d.mine.reqs.some(function (r) {
       if (!r || r.cancelled || (r.createdAt || 0) < since) return false;
       var st = d.status && d.status[r.id];
       return !st || st.state === 'seen';
     });
-    return open ? 6000 : 45000;
+    return open ? 6000 : 15000;
   }
   var P = {
-    menu: new Poller('/menu', 30000),           // also carries the bar's notice to guests
+    menu: new Poller('/menu', 60000),           // the drinks themselves rarely change
     sounds: new Poller('/sounds', 300000),
     guest: new Poller('/guest?uid=' + uid, guestEvery),
     staff: new Poller('/staff', 2500)            // new orders reach the crew app within about 3 seconds
   };
   document.addEventListener('visibilitychange', function () { if (!document.hidden) Object.keys(P).forEach(function (k) { P[k].now(); }); });
 
+  /* the bar's notice and today's host ride along with every guest poll (6-15 s) and crew poll (2.5 s),
+     so a notice goes up or comes down on guests' phones within seconds, not on the next menu refresh */
+  var live = null, liveSubs = [];
+  function setLive(l, quiet) {
+    if (!l || typeof l !== 'object') return;
+    if (live && (l.v || 0) < (live.v || 0)) return; // an older answer arriving late
+    var changed = !live || JSON.stringify([live.notice || null, live.host || null]) !== JSON.stringify([l.notice || null, l.host || null]);
+    live = l;
+    if (changed && !quiet) liveSubs.forEach(function (f) { try { f(); } catch (e) { console.error(e); } });
+  }
+  function withLive(list) {
+    if (!live) return list;
+    var out = list.filter(function (x) { return String(x.id).charAt(0) !== '_'; });
+    if (live.notice && live.notice.text) out.push({ id: '_notice', data: live.notice });
+    if (live.host) out.push({ id: '_host', data: live.host });
+    return out;
+  }
+  (ROLE === 'crew' ? P.staff : P.guest).on(function (j) { if (j && j.live) setLive(j.live); });
+
   /* ---------- the db surface the app uses ---------- */
   function collection(name) {
     var q = {
       orderBy: function () { return q; }, limit: function () { return q; }, where: function () { return q; },
       onSnapshot: function (cb, err) {
-        if (name === 'menu') return P.menu.on(function (j) { cb(colSnap(j.docs || [])); }, err);
+        if (name === 'menu') {
+          var lastDocs = null, emit = function () { if (lastDocs) cb(colSnap(withLive(lastDocs))); };
+          liveSubs.push(emit);
+          var off = P.menu.on(function (j) { lastDocs = j.docs || []; if (j.live) setLive(j.live, true); emit(); }, err);
+          return function () { off(); liveSubs = liveSubs.filter(function (f) { return f !== emit; }); };
+        }
         if (name === 'sounds') return P.sounds.on(function (j) { cb(colSnap(j.docs || [])); }, err);
         if (name === 'requests') return ROLE === 'crew' ? P.staff.on(function (j) { cb(colSnap(j.requests || [])); }, err) : function () {};
         if (name === 'status') {
@@ -111,13 +135,15 @@
     }
     var base = '/' + col + '/' + encodeURIComponent(id);
     function after() { if (col === 'menu') P.menu.now(); else if (col === 'sounds') P.sounds.now(); else P.staff.now(); }
+    // a notice or host change answers with the new live record: show it at once, no extra round trip
+    function done(j) { if (j && j.live) setLive(j.live); else after(); }
     return {
       id: id,
       onSnapshot: function () { return function () {}; },
       get: function () { return Promise.resolve(docSnap(id, null)); },
-      set: function (d) { return call('PUT', base, d).then(after); },
-      update: function (d) { return call(col === 'menu' ? 'PATCH' : 'PUT', base, d).then(after); },
-      delete: function () { return call('DELETE', base).then(after); }
+      set: function (d) { return call('PUT', base, d).then(done); },
+      update: function (d) { return call(col === 'menu' ? 'PATCH' : 'PUT', base, d).then(done); },
+      delete: function () { return call('DELETE', base).then(done); }
     };
   }
   var db = Object.freeze({ collection: collection, doc: doc });

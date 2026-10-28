@@ -60,12 +60,36 @@ async function editMenu(s, change) {
     const base = cur && cur.data ? cur.data : structuredClone(SEED);
     const next = change(base);
     const res = cur ? await s.setJSON("menu", next, { onlyIfMatch: cur.etag }) : await s.setJSON("menu", next, { onlyIfNew: true });
-    if (res.modified) return next;
+    // older versions of the blobs library return nothing here (and write anyway): that counts as saved
+    if (!res || res.modified !== false) return next;
     await new Promise((r) => setTimeout(r, 120 + Math.random() * 200));
   }
   throw new Error("busy");
 }
 // "_spotlight" was a short-lived extra; if a copy was saved, it is never sent out
+/* "live": the bar's notice and today's host. Kept apart from the (large) menu so posting is one quick
+   write, and sent with every guest and crew poll so phones see a change within seconds. */
+async function readLive(s) {
+  const v = await s.get("live", { type: "json" }).catch(() => null);
+  return v && typeof v === "object" ? v : null;
+}
+async function writeLive(s, change) {
+  let cur = await readLive(s);
+  if (!cur) { // first write: carry over a notice or host that was saved inside the menu before
+    const m = await s.get("menu", { type: "json" }).catch(() => null);
+    cur = { notice: (m && m._notice) || null, host: (m && m._host) || null };
+  }
+  const next = change(Object.assign({ notice: null, host: null }, cur));
+  next.v = Date.now();
+  await s.setJSON("live", next);
+  return next;
+}
+function liveDocs(live) {
+  const out = [];
+  if (live && live.notice && live.notice.text) out.push({ id: "_notice", data: live.notice });
+  if (live && live.host) out.push({ id: "_host", data: live.host });
+  return out;
+}
 const docs = (map) => Object.keys(map).filter((id) => id !== "_spotlight").map((id) => ({ id, data: map[id] }));
 
 async function body(req, limit = MAX_BODY) {
@@ -91,7 +115,11 @@ export default async (req, context) => {
   const s = store();
   try {
     /* ---- public: menu and sounds ---- */
-    if (res === "menu" && !id && m === "GET") return json({ docs: docs(await readMenu(s)) });
+    if (res === "menu" && !id && m === "GET") {
+      const [menu, live] = await Promise.all([readMenu(s), readLive(s)]);
+      if (!live) return json({ docs: docs(menu).filter((d) => d.id !== "_spotlight"), live: null });
+      return json({ docs: docs(menu).filter((d) => d.id.charAt(0) !== "_").concat(liveDocs(live)), live });
+    }
     if (res === "sounds" && !id && m === "GET") {
       const list = await readPrefix(s, "sounds/");
       return json({ docs: list.map((x) => ({ id: x.key.slice(7), data: x.v })) });
@@ -101,14 +129,14 @@ export default async (req, context) => {
     if (res === "guest" && m === "GET") {
       const uid = url.searchParams.get("uid") || "";
       if (!UID.test(uid)) return fail("bad id");
-      const mine = await s.get("requests/" + uid, { type: "json" }).catch(() => null);
+      const [mine, live] = await Promise.all([s.get("requests/" + uid, { type: "json" }).catch(() => null), readLive(s)]);
       const status = {};
       const ids = mine && Array.isArray(mine.reqs) ? mine.reqs.map((r) => r && r.id).filter((x) => ID.test(String(x || ""))) : [];
       await Promise.all(ids.map(async (rid) => {
         const st = await s.get("status/" + rid, { type: "json" }).catch(() => null);
         if (st) status[rid] = st;
       }));
-      return json({ mine: mine || null, status });
+      return json({ mine: mine || null, status, live });
     }
     if (res === "mine" && (m === "PUT" || m === "POST")) {
       const uid = url.searchParams.get("uid") || "";
@@ -128,21 +156,21 @@ export default async (req, context) => {
         const b = await body(req, 2048);
         const text = String(b.text || "").trim().slice(0, 200);
         if (!text) return fail("empty notice");
-        await editMenu(s, (cur) => { cur._notice = { text, at: Date.now() }; return cur; });
-        return json({ ok: true });
+        const live = await writeLive(s, (cur) => { cur.notice = { text, at: Date.now() }; return cur; });
+        return json({ ok: true, live });
       }
-      if (m === "DELETE") { await editMenu(s, (cur) => { delete cur._notice; return cur; }); return json({ ok: true }); }
+      if (m === "DELETE") { const live = await writeLive(s, (cur) => { cur.notice = null; return cur; }); return json({ ok: true, live }); }
     }
     // "Your host today is …" under the review card, set by the crew for each shift
     if (res === "menu" && id === "_host" && m === "PUT") {
       const b = await body(req, 1024);
       const who = String(b.who || "").trim().slice(0, 40);
-      await editMenu(s, (cur) => { cur._host = { who, at: Date.now(), createdAt: 0 }; return cur; });
-      return json({ ok: true });
+      const live = await writeLive(s, (cur) => { cur.host = { who, at: Date.now(), createdAt: 0 }; return cur; });
+      return json({ ok: true, live });
     }
     if (res === "staff" && m === "GET") {
       const now = Date.now();
-      const [reqDocs, stDocs] = await Promise.all([readPrefix(s, "requests/"), readPrefix(s, "status/")]);
+      const [reqDocs, stDocs, live] = await Promise.all([readPrefix(s, "requests/"), readPrefix(s, "status/"), readLive(s)]);
       const requests = [], status = {}, stale = [];
       for (const x of reqDocs) {
         if ((x.v.updatedAt || 0) < now - KEEP) stale.push(x.key); else requests.push({ id: x.key.slice(9), data: x.v });
@@ -152,7 +180,7 @@ export default async (req, context) => {
         if (t && t < now - KEEP) stale.push(x.key); else status[x.key.slice(7)] = x.v;
       }
       if (stale.length) context.waitUntil(Promise.all(stale.slice(0, 50).map((k) => s.delete(k).then(() => cache.delete(k)).catch(() => {}))));
-      return json({ requests, status });
+      return json({ requests, status, live });
     }
     if (res === "status" && id && ID.test(id)) {
       if (m === "PUT") { const b = await body(req, 4096); await s.setJSON("status/" + id, b); return json({ ok: true }); }
