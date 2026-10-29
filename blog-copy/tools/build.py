@@ -349,7 +349,6 @@ def head(title, desc, depth, theme_color="#fff3dc", body_style="", extra_head=""
   <nav aria-label="Main">
     <a href="{up}index.html#tips"><span class="long">Budapest </span>tips</a>
     <a href="{up}index.html#story">My life</a>
-    <a href="{up}table.html">Order</a>
     <a href="{up}index.html#ask">Ask<span class="long"> Arpi</span></a>
     <a href="{up}index.html#guestbook">Guest book</a>
   </nav>
@@ -449,13 +448,6 @@ home = head(HOME_TITLE, HOME_DESC, 0, path="", ld={"@context": "https://schema.o
       </details>
     </div>
   </section>
-
-  <a class="live" href="table.html">
-    <span class="live-dot" aria-hidden="true"></span>
-    <b>LIVE SERVER</b>
-    <span><span class="long">At one of my tables? </span><span class="short">At my table? </span>Order here</span>
-    <span class="arrow" aria-hidden="true">&rarr;</span>
-  </a>
 
   {reach("Say hi, or chip in for Tobi's and my next trip")}
 
