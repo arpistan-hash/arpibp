@@ -99,6 +99,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
 @media (max-width:420px){.hero h1{font-size:36px}.bottle.big{width:84px}.dtitle h3{font-size:21px}}
 @media (min-width:700px){.overlay{align-items:center;padding:24px}.dialog{border-radius:28px;max-height:90vh}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.banner.soft{background:var(--wine-soft);color:var(--ink);border-color:var(--line)}
 </style></head><body><main id="app"></main>
 <script>
 (function () {
@@ -136,6 +137,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
       title: 'Virtual sommelier', entry: function (n) { return 'A few questions, then the right wine from our list of ' + n + '.'; },
       intro: 'Here is what I would pour for you tonight:', more: 'Show me others',
       none: 'Nothing on tonight\'s list fits all of that. Try another answer, or ask your waiter.',
+      close: 'Nothing on tonight\'s list matches every answer, so these are the closest wines we have.',
       foot: 'Tap a wine to read more and add it to your order. Your waiter is happy to advise too.',
       sulph: 'You told us about a sulphite allergy. Every wine contains sulphites, so please check with your waiter first.',
       chipGlass: 'By the glass', chipHu: 'Hungarian', chipNative: 'Hungarian grape', chipRare: 'A rare treat', chipPink: 'Rosé bubbles',
@@ -154,6 +156,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
       title: 'Virtuális sommelier', entry: function (n) { return 'Néhány kérdés, és kiválasztjuk az Önnek való bort a ' + n + ' tételes borlapunkról.'; },
       intro: 'Ezeket tölteném Önnek ma este:', more: 'Mutasson mást',
       none: 'Ma este semmi sem felel meg mindennek a listánkon. Próbáljon más választ, vagy kérdezze a pincért.',
+      close: 'Ma este nincs olyan bor a listánkon, amely mindenre illik, ezért a legközelebbi borainkat mutatjuk.',
       foot: 'Koppintson egy borra a részletekért és a rendeléshez. Pincérünk is szívesen segít.',
       sulph: 'Szulfitallergiát jelzett. Minden bor tartalmaz szulfitot, ezért kérjük, előbb egyeztessen a pincérrel.',
       chipGlass: 'Pohárral', chipHu: 'Magyar', chipNative: 'Magyar fajta', chipRare: 'Ritkaság', chipPink: 'Rozé buborék',
@@ -223,15 +226,15 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
       /* a guest who asks for rosé is also happy with pink bubbles */
       var pinkFizz = want === 'p' && p.c === 's' && /ros[ée]|rozé/i.test(m.name);
       if (want) { if (p.c === want) sc += 6; else if (pinkFizz) { sc += 4; why.push(ST('chipPink')); } else if (relax < 2) return null; else sc -= 5; }
-      if (tb && a.col !== 'sweet' && a.col !== 'rose') { var d = Math.abs(tb - p.b); if (!d) { sc += 3; why.push(sommLbl('body', a.body)); } else if (d === 2) sc -= 3; }
+      if (tb && a.col !== 'sweet' && a.col !== 'rose') { var d = Math.abs(tb - p.b); if (!d) { sc += 3; why.push(sommLbl('body', a.body)); } else if (d === 2) { if (relax < 1) return null; sc -= 3; } }
       (a.notes || []).forEach(function (n) { if (SOMM_NOTES[n] && SOMM_NOTES[n].test(p.t)) { sc += 2; why.push(sommLbl('notes', n)); } });
       if (a.when === 'aperitif') { if (p.c === 's' || p.c === 'p' || (p.c === 'w' && p.b === 1)) { sc += 3; why.push(ST('wAperitif')); } else if (p.c === 'd' || (p.c === 'r' && p.b === 3)) sc -= 3; }
       else if (a.when === 'food') { if ((p.c === 'w' || p.c === 'r') && p.b >= 2) { sc += 2; why.push(ST('wFood')); } }
       else if (a.when === 'celebrate') { if (p.c === 's' || p.x) { sc += (p.c === 's' ? 3 : 0) + (p.x ? 3 : 0); why.push(p.x ? ST('chipRare') : ST('wCelebrate')); } if (/magnum/i.test(m.name) && a.how !== 'glass') sc += 1; }
       else if (a.when === 'after') { if (p.c === 'd' || (p.c === 'r' && p.b === 3)) { sc += p.c === 'd' ? 4 : 2; why.push(ST('wAfter')); } else if (p.c === 's' && p.b === 1) sc -= 1; }
-      if (a.from === 'hu') { if (m.origin === 'HU') { sc += 4; why.push(ST('chipHu')); } else sc -= 3; }
-      else if (a.from === 'native') { if (p.n) { sc += 5; why.push(ST('chipNative')); } else if (m.origin === 'HU') sc += 1; else sc -= 3; }
-      else if (a.from === 'classic') { if (/^(FR|IT|ES)$/.test(m.origin || '')) { sc += 4; why.push(COUNTRY[m.origin][S.lang === 'hu' ? 1 : 0]); } else if (m.origin && m.origin !== 'HU') sc += 2; else sc -= 2; }
+      if (a.from === 'hu') { if (m.origin === 'HU') { sc += 4; why.push(ST('chipHu')); } else if (relax < 1) return null; else sc -= 3; }
+      else if (a.from === 'native') { if (p.n) { sc += 5; why.push(ST('chipNative')); } else if (relax < 1) return null; else if (m.origin === 'HU') sc += 1; else sc -= 3; }
+      else if (a.from === 'classic') { if (/^(FR|IT|ES)$/.test(m.origin || '')) { sc += 4; why.push(COUNTRY[m.origin][S.lang === 'hu' ? 1 : 0]); } else if (relax < 1) return null; else if (m.origin && m.origin !== 'HU') sc += 2; else sc -= 2; }
       /* the icons are for a celebration or a guest who asks for the classics, not a quiet glass */
       if (p.x && a.when !== 'celebrate' && a.from !== 'classic') sc -= 1;
       sc += h01(m.id + '|' + sm.seed) * 1.5;
@@ -241,12 +244,13 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
   function sommPicks() {
     var out = [], keys = {}, cols = {}, anyCol = !SOMM_COL[SM().a.col];
     for (var relax = 0; relax < 3 && out.length < 3; relax++) {
+      if (relax && out.length) break;
       sommRank(relax).forEach(function (x) {
         if (out.length >= 3 || out.some(function (o) { return o.m.id === x.m.id; })) return;
         /* one wine once (not its glass and its bottle), and a mix of colours when the guest left it open */
         var words = x.m.name.toLowerCase().split(/\s+/), key = /^(château|chateau|domaine|st\.?|villa|marquis|marchese|le|la|the|tenuta|bodegas|maison|weingut)$/.test(words[0]) ? words.slice(0, 2).join(' ') : words[0];
         if ((keys[key] && keys[key] === x.p.c) || (anyCol && (cols[x.p.c] || 0) >= 2)) return;
-        keys[key] = x.p.c; cols[x.p.c] = (cols[x.p.c] || 0) + 1; out.push(x);
+        keys[key] = x.p.c; cols[x.p.c] = (cols[x.p.c] || 0) + 1; out.push(x); out.relax = relax;
       });
     }
     return out;
@@ -255,6 +259,8 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
     var sm = SM(), picks = sommPicks();
     if (picks.length < 3 && Object.keys(sm.seen).length) { sm.seen = {}; picks = sommPicks(); }
     picks.forEach(function (x) { sm.seen[x.m.id] = 1; });
+    sm.close = !!picks.relax;
+    var keep = sm.seen; sm.seen = {}; var total = sommRank(0).length; sm.seen = keep; sm.more = !sm.close && total > picks.length;
     sm.res = picks.map(function (x) { return { id: x.m.id, why: x.why.filter(function (w, i) { return x.why.indexOf(w) === i; }).slice(0, 3) }; });
   }
 
@@ -610,11 +616,11 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
     if (sm.res) {
       if (!sm.res.length) h += '<p class="intro">' + esc(ST('none')) + '</p>';
       else {
-        h += '<p class="intro">' + esc(ST('intro')) + '</p><div class="picks">';
+        h += '<p class="intro">' + esc(ST('intro')) + '</p>' + (sm.close ? '<div class="banner soft">' + esc(ST('close')) + '</div>' : '') + '<div class="picks">';
         sm.res.forEach(function (r, i) { var m = wineById(r.id); if (m) h += pickCard(m, r, i); });
         h += '</div><p class="foot">' + esc(ST('foot')) + '</p>';
       }
-      h += '<div class="row"><button class="btn ghost" data-act="restart">' + esc(U('again')) + '</button>' + (sm.res.length ? '<button class="btn" data-act="more">' + esc(ST('more')) + '</button>' : '') + '</div>';
+      h += '<div class="row"><button class="btn ghost" data-act="restart">' + esc(U('again')) + '</button>' + (sm.more ? '<button class="btn" data-act="more">' + esc(ST('more')) + '</button>' : '') + '</div>';
     } else {
       var opts = sommOpts(st), cur = sm.a[st.k], multi = st.multi;
       h += '<section class="card"><div class="qtop">' + glassProgress((idx + 1) / steps.length) + '<div><p class="eyebrow">' + esc(U('step')) + ' ' + (idx + 1) + ' ' + esc(U('of')) + ' ' + steps.length + '</p>' +
