@@ -101,6 +101,34 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 .banner.soft{background:var(--wine-soft);color:var(--ink);border-color:var(--line)}
 .pfoot{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:2px}.price{font-family:var(--display);font-weight:700;font-size:16px;color:var(--g-wine);white-space:nowrap}.price.big{display:inline-block;margin-top:8px;padding:4px 14px;border-radius:999px;background:var(--gold);color:#3E0C1D;font-size:17px}
+.rng{display:block;margin-top:2px;font-size:12.5px;font-weight:600;opacity:.75}.choice-grid .rng{font-size:11.5px}
+.tabs{display:flex;gap:6px;padding:5px;margin-top:-6px;border-radius:999px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);position:sticky;top:8px;z-index:5}
+.tabs button{flex:1;border:0;background:none;padding:10px 12px;border-radius:999px;font-weight:700;font-size:15px;color:var(--muted)}
+.tabs button[aria-selected=true]{background:linear-gradient(135deg,var(--hero1),var(--hero2));color:#fff;box-shadow:0 6px 14px -8px var(--hero2)}
+.factcard{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:22px;background:linear-gradient(135deg,#FFF3D2,#FBE3A4);color:#4A3500;border:1px solid #EBCB72;animation:rise .45s both}
+@media (prefers-color-scheme:dark){.factcard{background:linear-gradient(135deg,#3A2E10,#2E2410);color:#F3DFA6;border-color:#5C4A1C}}
+.factcard .eyebrow{color:inherit;opacity:.75}.fq{font-size:26px}.ftxt{margin:2px 0 0;font-size:14.5px;line-height:1.4}.factcard>div{flex:1}
+.fnext{flex:none;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.65);font-size:20px;color:#4A3500}
+.searchbar{display:flex;align-items:center;gap:10px;padding:0 16px;border-radius:999px;background:var(--surface);border:1.5px solid var(--line);box-shadow:var(--shadow)}
+.searchbar svg{width:22px;height:22px;color:var(--muted);flex:none}.searchbar:focus-within{border-color:var(--gold)}
+.searchbar input{flex:1;min-width:0;border:0;background:none;color:var(--ink);font:inherit;padding:14px 0;outline:none}
+.cats{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none}.cats::-webkit-scrollbar{display:none}
+.cat{flex:none;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 15px;font-weight:700;font-size:14px}
+.cat[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+.count{margin:0;font-size:13px;color:var(--muted)}
+.grp{margin:12px 0 2px;font-family:var(--display);font-size:22px;color:var(--g-wine);display:flex;align-items:baseline;gap:8px}.grp span{font:600 13px system-ui,sans-serif;color:var(--muted)}
+.wlist{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.wrow{display:flex;gap:12px;align-items:center;text-align:left;padding:10px 14px 10px 8px;border-radius:20px;background:var(--surface);border:1px solid var(--line);transition:transform .15s,border-color .15s}
+.wrow:hover{transform:translateY(-2px);border-color:var(--gold)}
+.wthumb{flex:none;width:46px;display:grid;place-items:center}.wthumb .bottle{width:34px;filter:drop-shadow(0 4px 3px rgba(0,0,0,.25))}.wthumb .photo{width:38px}.wthumb .bub{display:none}
+.wbody{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.wn{font-family:var(--display);font-weight:700;font-size:16px;line-height:1.2}
+.wd{font-size:13px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wprice{flex:none;font-family:var(--display);font-weight:700;font-size:14.5px;color:var(--g-wine);text-align:right;max-width:92px}
+.empty{padding:24px 8px;text-align:center;color:var(--muted)}
+.funfact{display:flex;gap:10px;margin:0;padding:12px 14px;border-radius:16px;background:linear-gradient(135deg,#FFF3D2,#FBE3A4);color:#4A3500;border:1px solid #EBCB72;font-size:14.5px}
+@media (prefers-color-scheme:dark){.funfact{background:#2E2410;color:#F3DFA6;border-color:#5C4A1C}}
+.fact.serve{margin-top:4px}
 </style></head><body><main id="app"></main>
 <script>
 (function () {
@@ -561,6 +589,147 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
     '<linearGradient id="shine" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".18" stop-color="#fff" stop-opacity=".42"/><stop offset=".3" stop-color="#fff" stop-opacity="0"/><stop offset=".78" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></linearGradient>' +
     ['s', 'w', 'p', 'r', 'd'].map(function (k) { var t = TINT[k]; return '<linearGradient id="gl-' + k + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + t[0] + '"/><stop offset="1" stop-color="' + t[1] + '"/></linearGradient><linearGradient id="cap-' + k + '" x1="0" x2="1"><stop offset="0" stop-color="' + t[2] + '"/><stop offset=".4" stop-color="' + t[3] + '"/><stop offset="1" stop-color="' + t[2] + '"/></linearGradient>'; }).join('') +
     '</defs></svg>';
+  /* ================= fun facts ================= */
+  var REG_FUN = {
+    tokaj: ['Tokaj\'s cellars are tunnelled into volcanic tuff, and their walls are covered in a velvety black mould that lives on the wine vapour.', 'A tokaji pincéket vulkáni tufába vájták, falukat bársonyos fekete penész fedi, amely a borpárából él.'],
+    eger: ['Eger\'s siege of 1552 is the heart of Géza Gárdonyi\'s novel "Eclipse of the Crescent Moon", which almost every Hungarian has read at school.', 'Eger 1552-es ostroma áll Gárdonyi Géza Egri csillagok című regényének középpontjában, amelyet szinte minden magyar olvasott az iskolában.'],
+    matra: ['Kékes is Hungary\'s highest point at 1,014 m, and the whole range is what is left of a volcano that erupted millions of years ago.', 'A Kékes 1014 méterével az ország legmagasabb pontja, az egész hegység pedig egy évmilliókkal ezelőtt kitört vulkán maradványa.'],
+    bukk: ['The Bükk is a national park with hundreds of caves, and the cellar-dotted hills of Eger lie along its southern edge.', 'A Bükk nemzeti park, több száz barlanggal, déli peremén pedig az Eger pincékkel tarkított dombjai húzódnak.'],
+    somlo: ['Somló is a single volcanic hill that rose out of an ancient sea floor, so the vineyards are ringed by flat farmland.', 'A Somló egyetlen vulkanikus hegy, amely egy ősi tenger fenekéből emelkedett ki, a szőlőket sík szántóföldek övezik.'],
+    pannonhalma: ['The Archabbey\'s monks have been making wine here for around a thousand years, and visitors can tour the cellar and the old abbey library.', 'A főapátság szerzetesei nagyjából ezer éve készítenek itt bort, a látogatók a pincét és a régi apátsági könyvtárat is megnézhetik.'],
+    badacsony: ['"Szürkebarát", the Hungarian name for Pinot Gris, means "grey friar", after the grey robes of the monks who grew it.', 'A „szürkebarát”, a pinot gris magyar neve, a szőlőt termesztő szerzetesek szürke csuhájára utal.'],
+    csopak: ['Lake Balaton is Central Europe\'s largest lake, yet it is so shallow, about 3 m on average, that it warms up like a bath in summer.', 'A Balaton Közép-Európa legnagyobb tava, mégis olyan sekély, átlagosan körülbelül 3 méteres, hogy nyáron fürdőkádként felmelegszik.'],
+    kali: ['Csobánc is a steep volcanic cone crowned by the ruins of a medieval castle, with a view over the Balaton Uplands.', 'A Csobánc meredek vulkanikus kúp, tetején középkori vár romjaival, kilátással a Balaton-felvidékre.'],
+    southbalaton: ['The southern shore is the lake\'s sandy, shallow side, which is why most family beaches are here.', 'A déli part a tó homokos, sekély oldala, ezért található itt a legtöbb családi strand.'],
+    etyek: ['Etyek is nicknamed "Hollywood in Etyek", because a large film studio stands among its vineyards.', 'Etyeket „etyeki Hollywoodnak” is hívják, mert a szőlők között egy nagy filmstúdió áll.'],
+    szekszard: ['The poet Mihály Babits, one of Hungary\'s greatest, was born in Szekszárd and wrote about its hills and wine.', 'Babits Mihály, Magyarország egyik legnagyobb költője Szekszárdon született, és verseiben megénekelte a dombokat és a bort.'],
+    villany: ['Villány is the warmest and sunniest region in Hungary, so its grapes ripen earlier than anywhere else in the country.', 'Villány az ország legmelegebb és legnaposabb borvidéke, ezért itt érik be a szőlő a leghamarabb.'],
+    champagne: ['Many of Champagne\'s cellars are old Roman chalk quarries, cool and damp at about 10 to 12 °C all year round.', 'A champagne-i pincék közül sok egykori római kréta-bánya, egész évben hűvösek és nedvesek, nagyjából 10–12 fokosak.'],
+    sancerre: ['Across the Loire from Sancerre, the village of Pouilly-sur-Loire makes Pouilly-Fumé from the very same grape, Sauvignon Blanc.', 'A Loire túlpartján Pouilly-sur-Loire faluban ugyanabból a szőlőből, sauvignon blanc-ból készítik a Pouilly-Fumé-t.'],
+    chablis: ['The tiny fossil oysters in Chablis\'s soil are a good hint: the wine is a classic match for fresh oysters.', 'A chablis-i talaj apró fosszilis kagylói sokat sejtetnek: a bor klasszikus párja a friss osztrigának.'],
+    cotebeaune: ['Every November the Hospices de Beaune holds a charity wine auction, a tradition that has run since 1859.', 'Minden novemberben jótékonysági borárverést tartanak a beaune-i Hospices-ben, ez a hagyomány 1859 óta él.'],
+    cotenuits: ['The Romanée-Conti vineyard, near Vosne, is just under two hectares, yet its wine is among the most expensive in the world.', 'A Vosne melletti Romanée-Conti szőlő alig két hektáros, a bora mégis a világ legdrágábbjai közé tartozik.'],
+    provence: ['Provence has been making rosé for around 2,600 years, since Greek settlers planted vines near Marseille.', 'Provence-ban nagyjából 2600 éve készítenek rozét, amióta görög telepesek szőlőt ültettek Marseille környékén.'],
+    pauillac: ['The famous 1855 Bordeaux classification has been changed only once: Mouton Rothschild, in Pauillac, was promoted to First Growth in 1973.', 'A híres, 1855-ös bordeaux-i osztályozáson csak egyszer változtattak: a pauillac-i Mouton Rothschild 1973-ban első cru lett.'],
+    margaux: ['Château Palmer is named after the British general Charles Palmer, who bought the estate in 1814.', 'A Château Palmer Charles Palmer brit tábornokról kapta a nevét, aki 1814-ben megvásárolta a birtokot.'],
+    stemilion: ['Saint-Émilion hides an underground church carved out of a single block of limestone, and the town has been UNESCO-listed since 1999.', 'Saint-Émilion alatt egyetlen mészkőtömbből kivájt földalatti templom rejtőzik, a város 1999 óta UNESCO világörökség.'],
+    chateauneuf: ['Bottles from Châteauneuf-du-Pape are embossed with the crossed keys and papal crown, a nod to the popes of Avignon.', 'A châteauneuf-du-pape-i palackokba az avignoni pápákra utaló keresztbe tett kulcsok és pápai korona van dombornyomva.'],
+    rioja: ['Rioja was Spain\'s first region to be awarded the top DOCa quality status, in 1991.', 'Rioja volt Spanyolország első borvidéke, amely 1991-ben megkapta a legmagasabb, DOCa minőségi besorolást.'],
+    ribera: ['Ribera del Duero can see frost as late as May, yet the same vineyards can reach 35 °C in summer.', 'A Ribera del Duero-ban még májusban is lehet fagy, nyáron mégis 35 fok fölé is kúszhat a hőmérséklet ugyanazokon a szőlőkön.'],
+    riasbaixas: ['Many Rías Baixas vines are trained high on granite pergolas, so the grapes hang in the sea breeze, away from the damp ground.', 'Sok Rías Baixas-i tőkét magas gránit lugasokon nevelnek, így a szőlő a tengeri szélben, a nedves talajtól távol lóg.'],
+    chianti: ['Legend says Florence and Siena settled their border by a race between two knights set off at the first crow of a rooster, which is why the black rooster is Chianti Classico\'s symbol.', 'A legenda szerint Firenze és Siena a határt két lovag versenyével döntötte el, amelyet a kakas első kukorékolása indított el, innen a fekete kakas a Chianti Classico jelképe.'],
+    montalcino: ['Brunello was developed in the 19th century by Ferruccio Biondi Santi, who believed in isolating the best Sangiovese clone.', 'A Brunellót a 19. században Ferruccio Biondi Santi dolgozta ki, aki a legjobb sangiovese klónjának kiválasztásában hitt.'],
+    cortona: ['Cortona is the hill town made famous worldwide by the book and film "Under the Tuscan Sun".', 'Cortona az a dombtetői város, amelyet a „Toszkán nap alatt” című könyv és film tett világszerte ismertté.'],
+    bolgheri: ['Bolgheri\'s famous avenue of cypress trees, almost five kilometres long, was inspired by a poem by Giosuè Carducci.', 'Bolgheri híres, majdnem öt kilométeres ciprusfasorát Giosuè Carducci egyik verse ihlette.'],
+    barolo: ['By law, Barolo must age at least 38 months, 18 of them in wood, before it may be sold.', 'A törvény szerint a Barolót legalább 38 hónapig kell érlelni, ebből 18 hónapot fában, mielőtt eladható.'],
+    soave: ['Above the town of Soave stands a medieval castle built by the Scaliger family, who ruled Verona.', 'Soave városa fölött a Veronát uraló Scaliger család építette középkori vár áll.'],
+    mosel: ['The Calmont, near Bremm on the Mosel, is often called Europe\'s steepest vineyard, with slopes of around 65 degrees.', 'A Mosel melletti Bremm közelében lévő Calmontot gyakran Európa legmeredekebb szőlőjének nevezik, lejtése nagyjából 65 fok.'],
+    kamptal: ['Kamptal\'s famous Heiligenstein vineyard is made of "desert sandstone", laid down around 270 million years ago.', 'A Kamptal híres Heiligenstein dűlője „sivatagi homokkőből” áll, amely nagyjából 270 millió éve rakódott le.'],
+    wachau: ['Wachau\'s quality names come from nature: Steinfeder is a feathery grass, Federspiel a falconry term, and Smaragd the emerald lizard that sunbathes on the terraces.', 'A wachaui minőségi elnevezések a természetből erednek: a Steinfeder egy tollas fűféle, a Federspiel solymász kifejezés, a Smaragd pedig a teraszokon napozó smaragdgyík.'],
+    burgenland: ['Burgenland belonged to the Kingdom of Hungary until 1921, which is why Blaufränkisch is known here, as in Hungary, by names like Kékfrankos.', 'Burgenland 1921-ig a Magyar Királysághoz tartozott, ezért ismerik itt is a blaufränkischt, akárcsak Magyarországon, kékfrankos néven.'],
+    marlborough: ['Marlborough grows most of New Zealand\'s wine grapes, and the bay that gave Cloudy Bay its name was named by Captain Cook in 1770.', 'Marlborough termeli az új-zélandi borszőlő nagy részét, a Cloudy Bay nevét adó öblöt pedig Cook kapitány nevezte el 1770-ben.'],
+    napa: ['The 1976 "Judgment of Paris" blind tasting, in which Napa wines beat French ones, put California wine on the world map.', 'Az 1976-os „párizsi ítélet” vakkóstoláson a Napa borai legyőzték a franciákat, és ezzel a kaliforniai bor felkerült a világtérképre.']
+  };
+  var WINE_FUN = {
+    'w-dp1315': 0, 'w-dprose08': 0, 'w-krugcg': 1, 'w-krugrose': 1, 'w-ruinartbdb': 2, 'w-ruinartrose': 2, 'w-bollga15': 3, 'w-moetbi': 4, 'w-moetgv15': 4, 'w-polroger': 5, 'w-polroger-g': 5,
+    'w-comtes12': 6, 'w-opusone': 7, 'w-tignanello': 8, 'w-lynchbages': 9, 'w-comtesse18': 10, 'w-carillon': 11, 'w-alterego': 12, 'w-cloudybay': 13, 'w-murrieta16': 14, 'w-murrieta18-g': 14, 'w-valbuena': 15,
+    'w-kekny23': 16, 'w-kekny24-g': 16, 'w-urban73': 17, 'w-szenttamas46': 17, 'w-szepsyaszu17': 17, 'w-hkadarka': 18, 'w-hkadarka-g': 18, 'w-bonsai': 18
+  };
+  var WINE_FUN_TXT = [
+    ['Dom Pérignon is only ever made as a vintage Champagne: it is released only in years when the harvest is judged good enough.', 'A Dom Pérignon mindig évjáratos pezsgő: csak azokban az években jelenik meg, amikor a szüret elég jónak bizonyul.'],
+    ['Krug Grande Cuvée blends well over a hundred base wines from many different years, and its first fermentation takes place in small oak barrels.', 'A Krug Grande Cuvée több mint száz alapbort házasít sok különböző évjáratból, az első erjesztés kis tölgyfahordókban zajlik.'],
+    ['Founded in 1729, Ruinart is considered the oldest established Champagne house.', 'Az 1729-ben alapított Ruinart a legrégebbi működő pezsgőháznak számít.'],
+    ['Bollinger is the Champagne of James Bond, who has ordered it on screen since the 1970s.', 'A Bollinger James Bond pezsgője, aki az 1970-es évek óta rendeli a filmeken.'],
+    ['Napoleon was a friend of Jean-Rémy Moët and visited the house.', 'Napóleon barátja volt Jean-Rémy Moët-nak, és meglátogatta a pezsgőházat.'],
+    ['Winston Churchill drank Pol Roger for decades, and the house named its top cuvée "Sir Winston Churchill" in his honour.', 'Winston Churchill évtizedeken át Pol Rogert ivott, a pezsgőház pedig legjobb cuvée-jét „Sir Winston Churchill” néven az ő tiszteletére nevezte el.'],
+    ['Comtes de Champagne is made only from Chardonnay and only in the best years, and is named after the medieval Counts of Champagne.', 'A Comtes de Champagne csak chardonnay-ból és csak a legjobb években készül, nevét a középkori champagne-i grófokról kapta.'],
+    ['"Opus One" means "first work" in music, and its first vintage, in 1979, was a joint venture between Napa and Bordeaux.', 'Az „Opus One” a zenében „első művet” jelent, az első, 1979-es évjárat Napa és Bordeaux közös vállalkozása volt.'],
+    ['Tignanello was among the first Super Tuscans: Sangiovese blended with Cabernet, outside the traditional Chianti rules.', 'A Tignanello az első Super Tuscan-ok egyike: sangiovese és cabernet házasítása, a hagyományos Chianti-szabályokon kívül.'],
+    ['Lynch-Bages takes its name from the Irish Lynch family, who owned the estate in the 18th century.', 'A Lynch-Bages az ír Lynch családról kapta a nevét, amely a 18. században birtokolta a szőlőt.'],
+    ['The estate is named after Countess Virginie de Pichon-Longueville, who ran it in the 19th century.', 'A birtokot Virginie de Pichon-Longueville grófnőről nevezték el, aki a 19. században vezette.'],
+    ['Château Angélus is named after the Angelus prayer: from its vineyards you can hear the bells of three churches ringing it.', 'A Château Angélus az Angelus-imáról kapta a nevét: a szőlőiből három templom harangját lehet hallani.'],
+    ['Château Palmer is named after the British general Charles Palmer, who bought the estate in 1814.', 'A Château Palmer Charles Palmer brit tábornokról kapta a nevét, aki 1814-ben megvásárolta a birtokot.'],
+    ['Captain Cook named Cloudy Bay in 1770, and the first Cloudy Bay Sauvignon Blanc appeared in 1985.', 'Cook kapitány 1770-ben nevezte el a Cloudy Bay-t, az első Cloudy Bay sauvignon blanc 1985-ben jelent meg.'],
+    ['Marqués de Murrieta, founded in 1852, is one of Rioja\'s oldest wine estates.', 'A Marqués de Murrieta, amelyet 1852-ben alapítottak, Rioja egyik legrégebbi borászata.'],
+    ['The "5°" in Valbuena 5° stands for the five years the wine ages before release.', 'A Valbuena 5° nevében az „5°” a kibocsátás előtti öt év érlelésre utal.'],
+    ['Kéknyelű, "blue stalk", grows almost nowhere but Badacsony and is one of Hungary\'s rarest grapes.', 'A kéknyelű, vagyis „kék nyelű”, szinte csak Badacsonyban terem, és Magyarország egyik legritkább szőlője.'],
+    ['István Szepsy is often credited with reviving Tokaj\'s dry Furmint and its single-vineyard tradition.', 'Szepsy Istvánt gyakran tartják Tokaj száraz furmintjának és dűlőszelektált hagyományának újjáélesztőjének.'],
+    ['Kadarka came to Hungary from the Balkans and was once the country\'s main red grape. Today it is staging a comeback.', 'A kadarka a Balkánról érkezett Magyarországra, és egykor az ország fő vörös szőlője volt. Ma újra reneszánszát éli.']
+  ];
+  var SERVE = { s: [6, 8], w: [8, 10], p: [8, 10], r: [16, 18], d: [8, 12] };
+  function serveTemp(p) {
+    var t = SERVE[p.c] || [10, 12];
+    if (p.c === 'w' && p.b >= 3) t = [10, 12];
+    if (p.c === 'r' && p.b <= 1) t = [14, 16];
+    return t[0] + '–' + t[1] + ' °C';
+  }
+  function generalFacts(m) {
+    var reg = regionOf(m), p = wineProf(m), txt = m.name + ' ' + (m.desc || ''), tags = {};
+    if (reg === 'tokaj') tags.tokaj = 1;
+    if (m.origin === 'HU') tags.hu = 1;
+    if (p.c === 's') tags.fizz = 1;
+    return WINE_FACTS.filter(function (f) { return tags[f.tag] && (!f.need || f.need.test(txt)); });
+  }
+  /* up to three "did you know" items for one wine: its own story, its region and one general fact */
+  function funFor(m) {
+    var L = S.lang === 'hu' ? 1 : 0, out = [], reg = regionOf(m);
+    if (WINE_FUN[m.id] != null) out.push(WINE_FUN_TXT[WINE_FUN[m.id]][L]);
+    if (reg && REG_FUN[reg]) out.push(REG_FUN[reg][L]);
+    var g = generalFacts(m).filter(function (f) { return out.indexOf(f.t[L]) < 0 && !(REG_FUN[reg] && REG_FUN[reg][L] === f.t[L]); });
+    if (g.length) out.push(g[Math.floor(h01(m.id) * g.length)].t[L]);
+    return out.slice(0, 3);
+  }
+  /* ================= searchable wine list ================= */
+  var LIST_CATS = [['all', 'All', 'Mind'], ['glass', 'By the glass', 'Pohárral'], ['champagne', 'Champagne', 'Champagne'], ['sparkling', 'Sparkling', 'Pezsgő'], ['white', 'White', 'Fehér'], ['rose', 'Rosé', 'Rozé'], ['red', 'Red', 'Vörös'], ['dessert', 'Sweet', 'Édes']];
+  var LS = { q: '', cat: 'all', fact: 0 };
+  function fold(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ő/g, 'o').replace(/ű/g, 'u'); }
+  var SEARCH_CACHE = {};
+  function searchText(m) {
+    if (SEARCH_CACHE[m.id]) return SEARCH_CACHE[m.id];
+    var id = regionOf(m), r = id && REGIONS[id], cc = r ? r.cc : m.origin;
+    var t = [m.name, m.desc, r ? r.n[0] + ' ' + r.n[1] + ' ' + r.g : '', COUNTRY[cc] ? COUNTRY[cc][0] + ' ' + COUNTRY[cc][1] : '', m.cat === 'glass' ? 'glass pohar by the glass' : 'bottle palack'].join(' ');
+    return (SEARCH_CACHE[m.id] = fold(t));
+  }
+  function listWines() {
+    var toks = fold(LS.q).split(/\s+/).filter(Boolean);
+    return S.menu.filter(function (m) {
+      if (m.off || !isWine(m)) return false;
+      if (LS.cat !== 'all' && m.cat !== LS.cat) return false;
+      var t = searchText(m);
+      return toks.every(function (k) { return t.indexOf(k) > -1; });
+    });
+  }
+  function wrow(m) {
+    var reg = regionOf(m), cc = reg ? REGIONS[reg].cc : m.origin;
+    return '<button class="wrow" data-item="' + esc(m.id) + '"><span class="wthumb">' + bottleHTML(m) + '</span><span class="wbody"><span class="wn">' + esc(m.name.replace(/\s*\(glass\)/i, '')) + '</span>' +
+      '<span class="meta">' + flag(cc) + '<span>' + esc(placeLine(m)) + '</span></span><span class="wd">' + esc(m.desc) + '</span></span>' +
+      '<span class="wprice">' + (priceOf(m) ? esc(priceOf(m)) : '') + '</span></button>';
+  }
+  function listResults() {
+    var ws = listWines(), L = S.lang === 'hu' ? 2 : 1;
+    if (!ws.length) return '<p class="empty">' + esc(S.lang === 'hu' ? 'Nincs találat. Próbáljon másik szót, például egy szőlőfajtát, borvidéket vagy országot.' : 'No wines match. Try another word, such as a grape, a region or a country.') + '</p>';
+    var h = '<p class="count">' + ws.length + ' ' + esc(S.lang === 'hu' ? 'bor' : (ws.length === 1 ? 'wine' : 'wines')) + '</p>';
+    LIST_CATS.slice(1).forEach(function (c) {
+      var g = ws.filter(function (m) { return m.cat === c[0]; });
+      if (g.length) h += '<h3 class="grp">' + esc(c[L]) + ' <span>' + g.length + '</span></h3><div class="wlist">' + g.map(wrow).join('') + '</div>';
+    });
+    return h;
+  }
+  function randomFact() {
+    var L = S.lang === 'hu' ? 1 : 0, pool = [];
+    WINE_FACTS.forEach(function (f) { if (!f.need || S.menu.some(function (m) { return isWine(m) && f.need.test(m.name + ' ' + (m.desc || '')); })) pool.push(f.t[L]); });
+    Object.keys(REG_FUN).forEach(function (k) { if (S.menu.some(function (m) { return isWine(m) && regionOf(m) === k; })) pool.push(REG_FUN[k][L]); });
+    return pool.length ? pool[LS.fact % pool.length] : '';
+  }
+  function listHTML() {
+    var L = S.lang === 'hu' ? 2 : 1, hu = S.lang === 'hu';
+    var h = '<section class="factcard"><span class="fq">💡</span><div><p class="eyebrow">' + esc(hu ? 'Tudta?' : 'Did you know?') + '</p><p class="ftxt" id="ftxt">' + esc(randomFact()) + '</p></div><button class="fnext" data-act="fact" aria-label="' + esc(hu ? 'Másik érdekesség' : 'Another fact') + '">↻</button></section>';
+    h += '<div class="searchbar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.500 15.500L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
+      '<input id="wsearch" type="search" autocomplete="off" placeholder="' + esc(hu ? 'Keresés: bor, szőlő, borvidék, ország…' : 'Search a wine, grape, region or country…') + '" value="' + esc(LS.q) + '"></div>';
+    h += '<div class="cats" role="group">' + LIST_CATS.map(function (c) { return '<button class="cat" data-cat="' + c[0] + '" aria-pressed="' + (LS.cat === c[0]) + '">' + esc(c[L]) + '</button>'; }).join('') + '</div>';
+    h += '<div id="wres">' + listResults() + '</div>';
+    return h;
+  }
   /* ================= the page ================= */
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   var UI = {
@@ -610,6 +779,9 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
     } else {
       h += '<p class="area">' + esc(U('noreg')) + ' ' + esc(countryName(dm.origin)) + '.</p>';
     }
+    h += '<div class="fact serve"><span class="fk">' + esc(S.lang === 'hu' ? 'Tálalási hőmérséklet' : 'Serve at') + '</span><span class="fv">' + serveTemp(p) + '</span></div>';
+    var fun = funFor(dm);
+    if (fun.length) h += '<h4 class="sect">' + esc(S.lang === 'hu' ? 'Tudta?' : 'Did you know?') + '</h4>' + fun.map(function (t) { return '<p class="funfact"><span aria-hidden="true">\ud83d\udca1</span><span>' + esc(t) + '</span></p>'; }).join('');
     h += (priceOf(dm) ? '<p class="foot">' + esc(U('vat')) + '</p>' : '') + '<button class="btn wide" data-act="closeD">' + esc(U('close')) + '</button></div></div></div>';
     return h;
   }
@@ -619,6 +791,8 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
     var h = '<header class="hero">' + HEROART + '<div class="herotop"><p class="eyebrow">Lounge · ' + esc(U('lede')) + '</p>' +
       '<div class="lang"><button data-lang="en" aria-pressed="' + (S.lang === 'en') + '">EN</button><button data-lang="hu" aria-pressed="' + (S.lang === 'hu') + '">HU</button></div></div>' +
       '<h1>' + esc(ST('title')) + '</h1><p class="sub">' + esc(ST('entry')(S.menu.filter(isWine).length)) + '</p></header>';
+    h += '<nav class="tabs" role="tablist"><button role="tab" data-tab="quiz" aria-selected="' + (S.tab !== 'list') + '">Sommelier</button><button role="tab" data-tab="list" aria-selected="' + (S.tab === 'list') + '">' + esc(S.lang === 'hu' ? 'Borlap' : 'Wine list') + '</button></nav>';
+    if (S.tab === 'list') h += listHTML(); else {
     h += '<label class="allergy"><input type="checkbox" id="sulph"' + (S.allergies.length ? ' checked' : '') + '> <span>' + esc(U('sulphQ')) + '</span></label>';
     if (S.allergies.indexOf('sulphites') > -1) h += '<div class="banner">⚠️ ' + esc(ST('sulph')) + '</div>';
     if (sm.res) {
@@ -640,6 +814,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
       });
       h += '</div><div class="row">' + (idx > 0 ? '<button class="btn ghost" data-act="back">' + esc(U('back')) + '</button>' : '<span></span>') +
         (multi ? '<button class="btn" data-act="next">' + esc(idx >= steps.length - 1 ? U('show') : U('next')) + '</button>' : '') + '</div></section>';
+    }
     }
     if (detail) { var dm = wineById(detail); if (dm) h += detailHTML(dm); }
     app.innerHTML = h;
@@ -665,6 +840,9 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
         next();
       }
     }
+    else if (b.dataset.tab) { S.tab = b.dataset.tab; scrollTop = 0; }
+    else if (b.dataset.cat) { LS.cat = b.dataset.cat; }
+    else if (b.dataset.act === 'fact') { LS.fact = (LS.fact + 1 + Math.floor(Math.random() * 5)); }
     else if (b.dataset.item) { detail = b.dataset.item; scrollTop = 0; }
     else if (b.dataset.act === 'next') next();
     else if (b.dataset.act === 'back') sm.step = Math.max(0, Math.min(sm.step, sommSteps().length - 1) - 1);
@@ -674,6 +852,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
     else return;
     render();
   });
+  app.addEventListener('input', function (e) { if (e.target.id === 'wsearch') { LS.q = e.target.value; var r = document.getElementById('wres'); if (r) r.innerHTML = listResults(); } });
   app.addEventListener('change', function (e) { if (e.target.id === 'sulph') { S.allergies = e.target.checked ? ['sulphites'] : []; render(); } });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && detail) { detail = null; render(); } });
   document.body.insertAdjacentHTML('afterbegin', DEFS);
