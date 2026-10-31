@@ -141,7 +141,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
       foot: 'Tap a wine to read more and add it to your order. Your waiter is happy to advise too.',
       sulph: 'You told us about a sulphite allergy. Every wine contains sulphites, so please check with your waiter first.',
       chipGlass: 'By the glass', chipHu: 'Hungarian', chipNative: 'Hungarian grape', chipRare: 'A rare treat', chipPink: 'Rosé bubbles',
-      wAperitif: 'Lovely aperitif', wFood: 'Great with food', wCelebrate: 'Made for celebrating', wAfter: 'After dinner',
+      wAperitif: 'Lovely aperitif', wFood: 'Great with food', wHuFood: 'A Hungarian classic with food', wCelebrate: 'Made for celebrating', wAfter: 'After dinner',
       fLabel: 'Wine facts', fHu: 'Hungarian wine', fHero: 'of the bottles on our wine list are Hungarian.',
       fHeroSub: function (hb, nb, hg, ng) { return hb + ' of ' + nb + ' bottles' + (ng ? ' · ' + hg + ' of ' + ng + ' by the glass' : ''); },
       fHeroGlass: 'of our wines by the glass are Hungarian.',
@@ -160,7 +160,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
       foot: 'Koppintson egy borra a részletekért és a rendeléshez. Pincérünk is szívesen segít.',
       sulph: 'Szulfitallergiát jelzett. Minden bor tartalmaz szulfitot, ezért kérjük, előbb egyeztessen a pincérrel.',
       chipGlass: 'Pohárral', chipHu: 'Magyar', chipNative: 'Magyar fajta', chipRare: 'Ritkaság', chipPink: 'Rozé buborék',
-      wAperitif: 'Remek aperitif', wFood: 'Ételhez ideális', wCelebrate: 'Ünnepi pillanatokra', wAfter: 'Vacsora után',
+      wAperitif: 'Remek aperitif', wFood: 'Ételhez ideális', wHuFood: 'Magyar klasszikus ételhez', wCelebrate: 'Ünnepi pillanatokra', wAfter: 'Vacsora után',
       fLabel: 'Borérdekességek', fHu: 'Magyar bor', fHero: 'Ennyi a magyar bor a palackos borlapunkon.',
       fHeroSub: function (hb, nb, hg, ng) { return hb + ' / ' + nb + ' palack' + (ng ? ' · pohárral: ' + hg + ' / ' + ng : ''); },
       fHeroGlass: 'Ennyi a magyar bor a pohárral kapható borok között.',
@@ -235,6 +235,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
       if (a.from === 'hu') { if (m.origin === 'HU') { sc += 4; why.push(ST('chipHu')); } else if (relax < 1) return null; else sc -= 3; }
       else if (a.from === 'native') { if (p.n) { sc += 5; why.push(ST('chipNative')); } else if (relax < 1) return null; else if (m.origin === 'HU') sc += 1; else sc -= 3; }
       else if (a.from === 'classic') { if (/^(FR|IT|ES)$/.test(m.origin || '')) { sc += 4; why.push(COUNTRY[m.origin][S.lang === 'hu' ? 1 : 0]); } else if (relax < 1) return null; else if (m.origin && m.origin !== 'HU') sc += 2; else sc -= 2; }
+      if (a.when === 'food' && a.from === 'hu' && /bikavér|kadarka|kékfrankos/.test(p.t)) { sc += 2; why.push(ST('wHuFood')); }
       /* the icons are for a celebration or a guest who asks for the classics, not a quiet glass */
       if (p.x && a.when !== 'celebrate' && a.from !== 'classic') sc -= 1;
       sc += h01(m.id + '|' + sm.seed) * 1.5;
@@ -257,10 +258,9 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
   }
   function sommGo() {
     var sm = SM(), picks = sommPicks();
-    if (picks.length < 3 && Object.keys(sm.seen).length) { sm.seen = {}; picks = sommPicks(); }
     picks.forEach(function (x) { sm.seen[x.m.id] = 1; });
     sm.close = !!picks.relax;
-    var keep = sm.seen; sm.seen = {}; var total = sommRank(0).length; sm.seen = keep; sm.more = !sm.close && total > picks.length;
+    sm.more = !sm.close && sommRank(0).length > 0;
     sm.res = picks.map(function (x) { return { id: x.m.id, why: x.why.filter(function (w, i) { return x.why.indexOf(w) === i; }).slice(0, 3) }; });
   }
 
