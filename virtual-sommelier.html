@@ -406,11 +406,12 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
     return null;
   }
   /* ================= look and feel: bottles, maps, icons ================= */
-  var PRICES = {};  /* optional: { "w-polroger": 38900, "w-cseri-g": "2 400 Ft" }, a number is shown as Ft with a space between thousands. Prices set on the wine itself (price) win. */
+  var PRICES = {"w-genus":14500,"w-terratartaro":26500,"w-pava":33900,"w-barbar":34900,"w-infusio":35000,"w-taklergrand":48900,"w-ilblu":50900,"w-gereattila":55900,"w-telegramme":58500,"w-cuvee5":59000,"w-comtesse18":65900,"w-tignanello":72500,"w-alterego":78900,"w-carillon":98500,"w-lynchbages":218000,"w-opusone":343000,"w-cuvee7m":46900,"w-sauskamerlotm":73500,"w-valpinot":20500,"w-elodpinot":22900,"w-tolnaypinot":23900,"w-lescras":44500,"w-auxreas":80900,"w-caillerets":114000,"w-tolnayfranc":19000,"w-attilafranc":25000,"w-sauskafranc":36900,"w-sauskacs":39900,"w-solus":40500,"w-desiderio":42500,"w-nag":16900,"w-primarius":25500,"w-ksyrah":45000,"w-chiantiriserva":35500,"w-brunello":45000,"w-barolo":45000,"w-murrieta16":47500,"w-valbuena":109000,"w-szel":15000,"w-angel":27600,"w-hkadarka":18900,"w-bonsai":25900,"w-weninger":16500,"w-zweigelt":18900,"w-losonci":20500,"w-magma":22500,"w-batikereszt":24900,"w-ivanvolgy":24900,"w-merengo":29900,"w-agape16":84000,"w18":19900,"w30":19900,"w-krose19m":54000,"w-kprestige19m":54000,"w-figula":15000,"w-kalikovek":19900,"w-gyorgykovacs":23500,"w-kacsa":17000,"w-omlas":17000,"w-csontos":24000,"w-profundum":26000,"w-uragya":39900,"w-urban73":40000,"w-szenttamas46":67000,"w-barakonyi":20900,"w-barat":25500,"w-bukhars":25000,"w-spiegel13":29800,"w-cseri":14000,"w-prior":16500,"w-bukspring":18500,"w-kislakiriz":21300,"w-busch":21500,"w-brundlmayer":25900,"w-elodchard":20900,"w-matacs":22900,"w-chablis":39500,"w-montillepm":59900,"w-meursault":67500,"w-elodsauv":14500,"w-sancerre":36000,"w-cloudybay":34900,"w-marcellkoves":16500,"w-stamaria":47000,"w-figulakoves":59000,"w-vistamare":66000,"w-zenit":15500,"w-kekny23":18900,"w-juhfark":23500,"w-albarino":25000,"w-soave":27500,"w-prager":41900,"w-3gracia24":18500,"w-stillaaurea":19900,"w-gizellaszam":27900,"w-oremus":54700,"w-barta13":66000,"w-szepsyaszu17":83500,"w-esszencia03":204300,"w-moetgv15":56000,"w-pouillon16":79000,"w-deutzbdb17":97000,"w-billecartnf08":115000,"w-lbmeunier16":124000,"w-bereche15":133000,"w-hemera06":136000,"w-lgd15":139900,"w-bollga15":140000,"w-amour11":151000,"w-abyss17":151000,"w-rare13":154000,"w-dp1315":175000,"w-comtes12":246000,"w-rarerose12":262000,"w-alexandra04":268000,"w-dprose08":298000,"w-egly13":341000,"w-cristal14":389000,"w-crayeres82":409000,"w-cristalrose15":475000,"w-horsserie82":690000,"w-polroger":39500,"w-veuveyl":43000,"w-moetbi":45000,"w-ruinartbdb":67000,"w-krugcg":204000,"w-veuverose":53000,"w-ruinartrose":67000,"w-krugrose":307000,"w-mandois18m":72000,"w-hugotm":74000,"w-piperessm":90000,"w-roed13m":122000,"w-kclassic-g":3990,"w-krose-g":3990,"w-polroger-g":7990,"w-cseri-g":2800,"w-figula-g":3000,"w-kacsa-g":3400,"w-kekny24-g":3800,"w-matacs-g":4600,"w-barat-g":5100,"w-sancerre-g":7200,"w-chablis-g":7900,"w-szel-g":3000,"w-angel-g":5600,"w-genus-g":3100,"w-hkadarka-g":3500,"w-nag-g":3600,"w-valpinot-g":4100,"w-merengo-g":5700,"w-pava-g":6800,"w-murrieta18-g":9500,"w-ilblu-g":10500,"w-3gracia25-g":2900,"w-patszam-g":5980,"w-oremus-g":10990};  /* optional: { "w-polroger": 38900, "w-cseri-g": "2 400 Ft" }, a number is shown as Ft with a space between thousands. Prices set on the wine itself (price) win. */
   function priceOf(m) {
     var v = m.price != null && m.price !== '' ? m.price : PRICES[m.id];
     if (v == null || v === '') return '';
-    return typeof v === 'number' ? String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0') + '\u00a0Ft' : String(v);
+    var unit = m.cat === 'glass' ? ' / ' + (S.lang === 'hu' ? 'pohár' : 'glass') : '';
+    return (typeof v === 'number' ? String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0') + '\u00a0Ft' : String(v)) + unit;
   }
   var PHOTOS = {};  /* optional: { "w-polroger": "data:image/jpeg;base64,..." or a photo URL }. A listed photo replaces the drawn bottle. */
 
@@ -564,9 +565,9 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   var UI = {
     en: { start: 'Start', next: 'Next', show: 'Show my wines', back: 'Back', again: 'Start again', close: 'Close', step: 'Question', of: 'of', sulphQ: 'I have a sulphite allergy', glass: 'by the glass', bottle: 'bottle',
-      pick: 'Top pick', where: 'Where it comes from', region: 'About the region', grapes: 'Grapes', soil: 'Soil', climate: 'Climate', also: 'Also on our list from here', noreg: 'This wine comes from', seeMap: 'See the region', lede: 'Your personal sommelier', hop: 'Tap a wine to see its bottle, map and story.', winesHere: function (n) { return n + (n === 1 ? ' wine' : ' wines') + ' on our list from here'; } },
+      pick: 'Top pick', vat: 'Prices in HUF, VAT included. A 15% service charge is added to the final bill.', where: 'Where it comes from', region: 'About the region', grapes: 'Grapes', soil: 'Soil', climate: 'Climate', also: 'Also on our list from here', noreg: 'This wine comes from', seeMap: 'See the region', lede: 'Your personal sommelier', hop: 'Tap a wine to see its bottle, map and story.', winesHere: function (n) { return n + (n === 1 ? ' wine' : ' wines') + ' on our list from here'; } },
     hu: { start: 'Kezdjük', next: 'Tovább', show: 'Mutasd a borokat', back: 'Vissza', again: 'Újrakezdés', close: 'Bezárás', step: 'Kérdés', of: '/', sulphQ: 'Szulfitallergiám van', glass: 'pohárral', bottle: 'palack',
-      pick: 'Első választás', where: 'Honnan származik', region: 'A borvidékről', grapes: 'Szőlőfajták', soil: 'Talaj', climate: 'Éghajlat', also: 'Még a borlapunkról innen', noreg: 'Ez a bor innen származik:', seeMap: 'A borvidék', lede: 'Az Ön személyes sommelier-je', hop: 'Koppintson egy borra: palack, térkép és történet vár.', winesHere: function (n) { return n + ' bor a borlapunkon innen'; } }
+      pick: 'Első választás', vat: 'Az árak HUF-ban értendők, az áfát tartalmazzák. A végszámlához 15% szervizdíj kerül hozzáadásra.', where: 'Honnan származik', region: 'A borvidékről', grapes: 'Szőlőfajták', soil: 'Talaj', climate: 'Éghajlat', also: 'Még a borlapunkról innen', noreg: 'Ez a bor innen származik:', seeMap: 'A borvidék', lede: 'Az Ön személyes sommelier-je', hop: 'Koppintson egy borra: palack, térkép és történet vár.', winesHere: function (n) { return n + ' bor a borlapunkon innen'; } }
   };
   function U(k) { return UI[S.lang][k]; }
   var app = document.getElementById('app'), detail = null, scrollTop = 0;
@@ -609,7 +610,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
     } else {
       h += '<p class="area">' + esc(U('noreg')) + ' ' + esc(countryName(dm.origin)) + '.</p>';
     }
-    h += '<button class="btn wide" data-act="closeD">' + esc(U('close')) + '</button></div></div></div>';
+    h += (priceOf(dm) ? '<p class="foot">' + esc(U('vat')) + '</p>' : '') + '<button class="btn wide" data-act="closeD">' + esc(U('close')) + '</button></div></div></div>';
     return h;
   }
   function render() {
@@ -625,7 +626,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
       else {
         h += '<p class="intro">' + esc(ST('intro')) + '</p>' + (sm.close ? '<div class="banner soft">' + esc(ST('close')) + '</div>' : '') + '<div class="picks">';
         sm.res.forEach(function (r, i) { var m = wineById(r.id); if (m) h += pickCard(m, r, i); });
-        h += '</div><p class="foot">' + esc(ST('foot')) + '</p>';
+        h += '</div><p class="foot">' + esc(ST('foot')) + '</p><p class="foot">' + esc(U('vat')) + '</p>';
       }
       h += '<div class="row"><button class="btn ghost" data-act="restart">' + esc(U('again')) + '</button>' + (sm.more ? '<button class="btn" data-act="more">' + esc(ST('more')) + '</button>' : '') + '</div>';
     } else {
