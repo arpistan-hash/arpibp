@@ -100,6 +100,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
 @media (min-width:700px){.overlay{align-items:center;padding:24px}.dialog{border-radius:28px;max-height:90vh}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 .banner.soft{background:var(--wine-soft);color:var(--ink);border-color:var(--line)}
+.pfoot{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:2px}.price{font-family:var(--display);font-weight:700;font-size:16px;color:var(--g-wine);white-space:nowrap}.price.big{display:inline-block;margin-top:8px;padding:4px 14px;border-radius:999px;background:var(--gold);color:#3E0C1D;font-size:17px}
 </style></head><body><main id="app"></main>
 <script>
 (function () {
@@ -405,6 +406,12 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
     return null;
   }
   /* ================= look and feel: bottles, maps, icons ================= */
+  var PRICES = {};  /* optional: { "w-polroger": 38900, "w-cseri-g": "2 400 Ft" }, a number is shown as Ft with a space between thousands. Prices set on the wine itself (price) win. */
+  function priceOf(m) {
+    var v = m.price != null && m.price !== '' ? m.price : PRICES[m.id];
+    if (v == null || v === '') return '';
+    return typeof v === 'number' ? String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0') + '\u00a0Ft' : String(v);
+  }
   var PHOTOS = {};  /* optional: { "w-polroger": "data:image/jpeg;base64,..." or a photo URL }. A listed photo replaces the drawn bottle. */
 
   var FLAGS = {
@@ -581,13 +588,13 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
       '<span class="pbody"><span class="pn">' + esc(m.name) + '</span>' +
       '<span class="meta">' + flag(cc) + '<span>' + esc(placeLine(m)) + ' · ' + esc(m.cat === 'glass' ? U('glass') : U('bottle')) + '</span></span>' +
       '<span class="somm-why">' + r.why.map(function (w) { return '<span class="somm-tag">' + esc(w) + '</span>'; }).join('') + '</span>' +
-      '<span class="somm-note">' + esc(m.desc) + '</span><span class="more">' + esc(U('seeMap')) + ' ›</span></span></button>';
+      '<span class="somm-note">' + esc(m.desc) + '</span><span class="pfoot"><span class="more">' + esc(U('seeMap')) + ' ›</span>' + (priceOf(m) ? '<span class="price">' + esc(priceOf(m)) + '</span>' : '') + '</span></span></button>';
   }
   function detailHTML(dm) {
     var L = S.lang === 'hu' ? 1 : 0, reg = regionOf(dm), r = reg && REGIONS[reg], p = wineProf(dm), cc = r ? r.cc : dm.origin;
     var h = '<div class="overlay" data-act="closeD"><div class="dialog" role="dialog" aria-modal="true" aria-label="' + esc(dm.name) + '">';
     h += '<button class="x" data-act="closeD" aria-label="' + esc(U('close')) + '">×</button>';
-    h += '<div class="dhero c-' + p.c + '">' + bottleHTML(dm, true) + '<div class="dtitle"><span class="meta light">' + flag(cc) + '<span>' + esc(placeLine(dm)) + '</span></span><h3>' + esc(dm.name) + '</h3></div></div>';
+    h += '<div class="dhero c-' + p.c + '">' + bottleHTML(dm, true) + '<div class="dtitle"><span class="meta light">' + flag(cc) + '<span>' + esc(placeLine(dm)) + '</span></span><h3>' + esc(dm.name) + '</h3>' + (priceOf(dm) ? '<span class="price big">' + esc(priceOf(dm)) + '</span>' : '') + '</div></div>';
     h += '<div class="dbody"><p class="ddesc">' + esc(dm.desc) + '</p>';
     if (r) {
       var others = Object.keys(REGIONS).filter(function (k) { return k !== reg && REGIONS[k].f === r.f && S.menu.some(function (m) { return !m.off && isWine(m) && regionOf(m) === k; }); });
