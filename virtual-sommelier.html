@@ -1,5 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#7A1F35">
+<meta name="description" content="A virtual sommelier: answer a few questions and get wine suggestions with bottle, region map and fun facts. Browse and search the full wine list.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237A1F35'/%3E%3Cpath d='M20 12h24l-2 16a10 10 0 0 1-20 0z' fill='%23fff' fill-opacity='.25' stroke='%23F3D98B' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M21.5 25h21l-.8 3a9.7 9.7 0 0 1-19.4 0z' fill='%23C2486A'/%3E%3Cpath d='M32 38v14M24 52h16' stroke='%23F3D98B' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
 <title>Virtual sommelier</title><style>
 :root{--bg:#FAF5EE;--surface:#fff;--raised:#fff;--ink:#241A1D;--muted:#6E6266;--line:#E9DFD7;--g-wine:#7A1F35;--wine-soft:#F8ECEF;--brass:#9A7433;--gold:#D7B76A;--accent:#7A1F35;--accent-fg:#fff;--display:Georgia,'Times New Roman',serif;--sea:#DCEAF1;--land:#EFE6D6;--land-hi:#E6C98A;--landline:#C9B999;--river:#9CC3D8;--shadow:0 10px 30px -14px rgba(74,15,34,.45);--hero1:#3E0C1D;--hero2:#7A1F35}
 @media (prefers-color-scheme:dark){:root{--bg:#140F11;--surface:#201A1C;--raised:#2A2124;--ink:#F3ECEE;--muted:#B9ACB0;--line:#3A3034;--g-wine:#EE9AB0;--wine-soft:#2B1B20;--brass:#D2AE6C;--accent:#C2486A;--sea:#1B2A33;--land:#3A3328;--land-hi:#7A6230;--landline:#5A4E3A;--river:#3F6579;--shadow:0 10px 30px -14px rgba(0,0,0,.8);--hero1:#2A0813;--hero2:#5C1729}}
@@ -11,10 +13,10 @@ button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:tra
 button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .hero{position:relative;overflow:hidden;margin:0 -16px;padding:22px 22px 34px;color:#fff;background:linear-gradient(135deg,var(--hero1),var(--hero2) 70%,#A03150);border-radius:0 0 34px 34px;box-shadow:var(--shadow)}
 .hero::after{content:"";position:absolute;inset:auto 0 0 0;height:5px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.8}
-.heroart{position:absolute;right:0;top:0;height:100%;width:100%;pointer-events:none}
+.heroart{position:absolute;right:0;top:0;height:100%;width:58%;max-width:300px;pointer-events:none}
 .herotop{position:relative;display:flex;justify-content:space-between;gap:12px;align-items:center}
 .hero h1{position:relative;margin:30px 0 6px;font-family:var(--display);font-size:42px;line-height:1.02;letter-spacing:-.01em;max-width:11ch;text-shadow:0 2px 14px rgba(0,0,0,.25)}
-.hero .sub{position:relative;margin:0;max-width:30ch;color:#F2DDE3;font-size:15px}
+.hero .sub{position:relative;margin:0;max-width:21ch;color:#F2DDE3;font-size:15px}
 .hero .eyebrow{color:var(--gold)}
 .lang{display:flex;border:1px solid rgba(255,255,255,.4);border-radius:999px;overflow:hidden;flex:none;backdrop-filter:blur(4px);background:rgba(0,0,0,.15)}
 .lang button{border:0;background:none;padding:6px 13px;font-weight:700;font-size:13px;color:#fff}
@@ -129,6 +131,13 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
 .funfact{display:flex;gap:10px;margin:0;padding:12px 14px;border-radius:16px;background:linear-gradient(135deg,#FFF3D2,#FBE3A4);color:#4A3500;border:1px solid #EBCB72;font-size:14.5px}
 @media (prefers-color-scheme:dark){.funfact{background:#2E2410;color:#F3DFA6;border-color:#5C4A1C}}
 .fact.serve{margin-top:4px}
+
+:root{--tab1:#3E0C1D;--tab2:#7A1F35}
+@media (prefers-color-scheme:dark){:root{--tab1:#8E2A47;--tab2:#C2486A}}
+.tabs button[aria-selected=true]{background:linear-gradient(135deg,var(--tab1),var(--tab2))}
+.mapbox{background:var(--sea)}.map{max-height:400px}
+@media (min-width:700px){.hero{margin:16px 0 0;border-radius:34px}.hero h1{font-size:46px}.hero .sub{max-width:34ch}}
+.dialog:focus{outline:none}
 </style></head><body><main id="app"></main>
 <script>
 (function () {
@@ -578,13 +587,13 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
     return h;
   }
   function locatorSafe(regId) { var r = REGIONS[regId]; return (r.ll[0] > 32 || r.ll[0] < -11 || r.ll[1] < 35) ? '' : locatorSVG(regId); }
-  var HEROART = '<svg class="heroart" viewBox="0 0 600 220" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">' +
+  var HEROART = '<svg class="heroart" viewBox="0 0 260 220" preserveAspectRatio="xMaxYMid meet" aria-hidden="true"><g transform="translate(-330 0)">' +
     '<g fill="none" stroke="#D7B76A" stroke-opacity=".45" stroke-width="2.200" stroke-linecap="round"><path d="M430 -10C470 40 400 70 450 120S520 160 560 230"/><path d="M450 120c18-6 34-2 42 8M480 150c14-10 30-10 40-2"/><path d="M455 55c20-8 38-2 46 8"/></g>' +
     '<g fill="#D7B76A" fill-opacity=".28"><path d="M520 30c18-14 40-8 46 8-14 14-38 14-46-8z"/><path d="M400 95c-6-18 8-34 26-30 4 20-8 34-26 30z"/><path d="M530 150c20-12 40-2 42 14-16 12-38 8-42-14z"/></g>' +
     '<g fill="#B23A5A" stroke="#F3D98B" stroke-opacity=".5" stroke-width="1" transform="translate(70 40)"><circle cx="478" cy="78" r="9"/><circle cx="496" cy="82" r="9"/><circle cx="470" cy="96" r="9"/><circle cx="488" cy="100" r="9"/><circle cx="506" cy="100" r="9"/><circle cx="480" cy="118" r="9"/><circle cx="497" cy="120" r="9"/><circle cx="489" cy="136" r="9"/></g>' +
     '<path d="M478 70c4-14 12-20 24-22" stroke="#7BA65A" stroke-width="3" stroke-linecap="round" fill="none" transform="translate(70 40)"/>' +
     '<g transform="translate(445 70) rotate(14) scale(.72)"><path d="M0 0h54l-5 52a22 22 0 0 1-44 0z" fill="#fff" fill-opacity=".14" stroke="#F3D98B" stroke-width="2.400" stroke-linejoin="round"/><path d="M4 38h46l-1.400 14a21 21 0 0 1-43.200 0z" fill="#E7B84B" fill-opacity=".8"/><path d="M27 74v52M10 128h34" stroke="#F3D98B" stroke-width="2.600" stroke-linecap="round"/></g>' +
-    '<g fill="#F3D98B" fill-opacity=".55"><circle cx="470" cy="40" r="3.500"/><circle cx="486" cy="22" r="2.400"/><circle cx="452" cy="28" r="1.800"/><circle cx="245" cy="170" r="3"/><circle cx="262" cy="150" r="2"/></g></svg>';
+    '<g fill="#F3D98B" fill-opacity=".55"><circle cx="470" cy="40" r="3.500"/><circle cx="486" cy="22" r="2.400"/><circle cx="452" cy="28" r="1.800"/><circle cx="245" cy="170" r="3"/><circle cx="262" cy="150" r="2"/></g></g></svg>';
   var DEFS = '<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>' +
     '<linearGradient id="shine" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".18" stop-color="#fff" stop-opacity=".42"/><stop offset=".3" stop-color="#fff" stop-opacity="0"/><stop offset=".78" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></linearGradient>' +
     ['s', 'w', 'p', 'r', 'd'].map(function (k) { var t = TINT[k]; return '<linearGradient id="gl-' + k + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + t[0] + '"/><stop offset="1" stop-color="' + t[1] + '"/></linearGradient><linearGradient id="cap-' + k + '" x1="0" x2="1"><stop offset="0" stop-color="' + t[2] + '"/><stop offset=".4" stop-color="' + t[3] + '"/><stop offset="1" stop-color="' + t[2] + '"/></linearGradient>'; }).join('') +
@@ -739,7 +748,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
       pick: 'Első választás', vat: 'Az árak HUF-ban értendők, az áfát tartalmazzák. A végszámlához 15% szervizdíj kerül hozzáadásra.', where: 'Honnan származik', region: 'A borvidékről', grapes: 'Szőlőfajták', soil: 'Talaj', climate: 'Éghajlat', also: 'Még a borlapunkról innen', noreg: 'Ez a bor innen származik:', seeMap: 'A borvidék', lede: 'Az Ön személyes sommelier-je', hop: 'Koppintson egy borra: palack, térkép és történet vár.', winesHere: function (n) { return n + ' bor a borlapunkon innen'; } }
   };
   function U(k) { return UI[S.lang][k]; }
-  var app = document.getElementById('app'), detail = null, scrollTop = 0;
+  var app = document.getElementById('app'), detail = null, scrollTop = 0, lastDetail = null, opener = null;
   function wineById(id) { return S.menu.filter(function (x) { return x.id === id; })[0]; }
   function countryName(cc) { return COUNTRY[cc] ? COUNTRY[cc][S.lang === 'hu' ? 1 : 0] : (cc || ''); }
   function placeLine(m) { var id = regionOf(m), r = id && REGIONS[id], cc = r ? r.cc : m.origin, c = countryName(cc), n = regionLabel(m); return !r || n.indexOf(c) > -1 || c === n ? n : n + ' · ' + c; }
@@ -818,7 +827,9 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
     }
     if (detail) { var dm = wineById(detail); if (dm) h += detailHTML(dm); }
     app.innerHTML = h;
-    var dlg = app.querySelector('.dialog'); if (dlg) dlg.scrollTop = scrollTop; document.body.classList.toggle('lock', !!detail);
+    var dlg = app.querySelector('.dialog'); if (dlg) { dlg.scrollTop = scrollTop; if (!lastDetail) { var xb = dlg.querySelector('.x'); if (xb) xb.focus({ preventScroll: true }); } }
+    else if (lastDetail && opener) { var ob = app.querySelector('[data-item="' + opener + '"]'); if (ob) ob.focus({ preventScroll: true }); }
+    lastDetail = detail; document.body.classList.toggle('lock', !!detail);
   }
   function next() {
     var sm = SM(), n = sommSteps().length, i = Math.min(sm.step, n - 1);
@@ -843,7 +854,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
     else if (b.dataset.tab) { S.tab = b.dataset.tab; scrollTop = 0; }
     else if (b.dataset.cat) { LS.cat = b.dataset.cat; }
     else if (b.dataset.act === 'fact') { LS.fact = (LS.fact + 1 + Math.floor(Math.random() * 5)); }
-    else if (b.dataset.item) { detail = b.dataset.item; scrollTop = 0; }
+    else if (b.dataset.item) { if (!detail) opener = b.dataset.item; detail = b.dataset.item; scrollTop = 0; }
     else if (b.dataset.act === 'next') next();
     else if (b.dataset.act === 'back') sm.step = Math.max(0, Math.min(sm.step, sommSteps().length - 1) - 1);
     else if (b.dataset.act === 'restart') S.somm = sommNew();
@@ -854,7 +865,16 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
   });
   app.addEventListener('input', function (e) { if (e.target.id === 'wsearch') { LS.q = e.target.value; var r = document.getElementById('wres'); if (r) r.innerHTML = listResults(); } });
   app.addEventListener('change', function (e) { if (e.target.id === 'sulph') { S.allergies = e.target.checked ? ['sulphites'] : []; render(); } });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && detail) { detail = null; render(); } });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && detail) { detail = null; render(); return; }
+    if (e.key === 'Tab' && detail) {
+      var f = app.querySelectorAll('.dialog button'); if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      else if (!app.querySelector('.dialog').contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+    }
+  });
   document.body.insertAdjacentHTML('afterbegin', DEFS);
   render();
 
