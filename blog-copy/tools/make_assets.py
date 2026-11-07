@@ -8,7 +8,7 @@ Run once whenever the illustration changes, then rebuild the pages:
 
 Needs LibreOffice (soffice) to draw the SVG and Pillow to resize and compose.
 Writes into blog-copy/assets/: share.png and icons/ (icon.svg, favicon-32.png, apple-touch-icon.png,
-icon-192.png, icon-512.png, icon-maskable-512.png).
+icon-192.png, icon-512.png, icon-maskable-512.png), plus favicon.ico at the site root.
 """
 import pathlib
 import re
@@ -68,6 +68,8 @@ mask = raster(icon_svg(False, 0.78), 1024, 1024)
 rounded.resize((512, 512), Image.LANCZOS).save(ICONS / "icon-512.png", optimize=True)
 rounded.resize((192, 192), Image.LANCZOS).save(ICONS / "icon-192.png", optimize=True)
 rounded.resize((32, 32), Image.LANCZOS).save(ICONS / "favicon-32.png", optimize=True)
+# Browsers and crawlers still ask for /favicon.ico at the site root.
+rounded.resize((48, 48), Image.LANCZOS).save(ASSETS.parent / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
 full.resize((180, 180), Image.LANCZOS).save(ICONS / "apple-touch-icon.png", optimize=True)
 mask.resize((512, 512), Image.LANCZOS).save(ICONS / "icon-maskable-512.png", optimize=True)
 
