@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Budapest Helper</title>
-<meta name="description" content="Spoken, up-to-date answers for visiting Budapest, with questions answered by the owner or the community.">
+<title>Bud Bud: your Budapest buddy</title>
+<meta name="description" content="Bud Bud is a Budapest buddy: spoken, up-to-date tips and a board to meet fellow tourists.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="top">
-  <h1>Budapest Helper</h1>
+  <h1>Bud Bud <small>your Budapest buddy</small></h1>
   <label class="lang">Voice
     <select id="lang"><option value="en-GB">English</option><option value="hu-HU">Magyar</option></select>
   </label>
@@ -19,6 +19,21 @@
   <input id="search" type="search" placeholder="Search topics…" aria-label="Search topics">
   <p id="prompt" class="prompt"></p>
   <div id="topics" class="topics"></div>
+
+  <section id="board" class="board">
+    <h2>Fellow tourists</h2>
+    <p class="hint">Post a plan and meet people. Meet in public places and tell someone where you're going. Don't post phone numbers, emails or links; private messages are coming later. Posts disappear after your trip.</p>
+    <form id="postForm">
+      <input name="nick" placeholder="Nickname" maxlength="30" required>
+      <select name="topic" id="postTopic" aria-label="Topic"></select>
+      <textarea name="text" rows="3" required maxlength="500" placeholder="Going to Széchenyi on Saturday morning, anyone want to join?"></textarea>
+      <div class="dates"><label>Arriving <input type="date" name="from"></label><label>Leaving <input type="date" name="to"></label></div>
+      <input type="text" name="bot-field" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+      <div class="row"><button type="submit" class="primary">Post</button></div>
+      <p id="postMsg" class="hint" role="status"></p>
+    </form>
+    <div id="posts"></div>
+  </section>
 
   <section id="ask" class="ask">
     <h2>Ask a question</h2>

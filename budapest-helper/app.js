@@ -107,7 +107,72 @@
     r.start();
   });
 
+
+  // ---- Bud Bud board (fellow tourists) ----
+  var BOARD_URL = '/.netlify/functions/board';
+  var ERRORS = {
+    too_fast: 'Slow down a little, try again in 30 seconds.',
+    no_contact_details: 'Please leave out links, emails and phone numbers. Private messages are coming later.',
+    missing_text: 'Please write something.'
+  };
+  document.getElementById('postTopic').innerHTML = '<option value="">Any topic</option>' +
+    topics.map(function (t) { return '<option value="' + esc(t.id) + '">' + esc(t.title) + '</option>'; }).join('');
+  var nickBox = document.querySelector('#postForm [name=nick]');
+  try { nickBox.value = localStorage.getItem('budbud.nick') || ''; } catch (e) {}
+
+  function when(p) {
+    var parts = [];
+    if (p.topic) parts.push(topicTitle(p.topic));
+    if (p.from || p.to) parts.push('in Budapest ' + (p.from || '?') + ' to ' + (p.to || '?'));
+    return parts.join(' · ');
+  }
+
+  function post(body) {
+    return fetch(BOARD_URL, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); });
+  }
+
+  function loadBoard() {
+    var box = document.getElementById('posts');
+    fetch(BOARD_URL, { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
+      var ps = d.posts || [];
+      box.innerHTML = ps.length ? '' : '<p class="hint">No plans yet. Be the first to post one.</p>';
+      ps.forEach(function (p) {
+        var el = document.createElement('article'); el.className = 'post';
+        el.innerHTML = '<p class="who">' + esc(p.nick || 'Visitor') + '</p><p class="meta">' + esc(when(p)) + '</p><p class="txt">' + esc(p.text) + '</p>' +
+          p.replies.map(function (r) { return '<div class="reply"><strong>' + esc(r.nick || 'Visitor') + ':</strong> ' + esc(r.text) + '</div>'; }).join('') +
+          '<form class="replyform"><input placeholder="Reply" maxlength="500" required><button class="primary">Send</button></form>' +
+          '<button type="button" class="linkbtn">Report</button>';
+        el.querySelector('form').addEventListener('submit', function (e) {
+          e.preventDefault();
+          var inp = e.target.querySelector('input'), nick = nickBox.value || prompt('Your nickname?') || '';
+          post({ post: p.id, nick: nick, text: inp.value }).then(function (x) {
+            if (x.ok) loadBoard(); else alert(ERRORS[x.d && x.d.error] || 'Could not send. Please try again.');
+          }).catch(function () { alert('Could not reach the server.'); });
+        });
+        el.querySelector('.linkbtn').addEventListener('click', function () {
+          if (!confirm('Report this post as inappropriate?')) return;
+          post({ report: p.id }).then(function (x) { alert(x.ok ? 'Thanks, we will look at it.' : (ERRORS[x.d && x.d.error] || 'Could not send.')); });
+        });
+        box.appendChild(el);
+      });
+    }).catch(function () { box.innerHTML = '<p class="hint">The board loads once Bud Bud is deployed with the site.</p>'; });
+  }
+
+  document.getElementById('postForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = e.target, msg = document.getElementById('postMsg');
+    try { localStorage.setItem('budbud.nick', f.nick.value); } catch (err) {}
+    msg.textContent = 'Posting…';
+    post({ nick: f.nick.value, topic: f.topic.value, text: f.text.value, from: f.from.value, to: f.to.value, 'bot-field': f['bot-field'].value })
+      .then(function (x) {
+        if (x.ok) { msg.textContent = 'Posted!'; f.text.value = ''; loadBoard(); }
+        else msg.textContent = ERRORS[x.d && x.d.error] || 'Could not post. Please try again.';
+      }).catch(function () { msg.textContent = 'Could not reach the server. This works once Bud Bud is deployed with the site.'; });
+  });
+
   loadAnswers();
+  loadBoard();
   render('');
   promptEl.textContent = 'Tap 🔊 Hear it on any topic, or search above.';
 })();
