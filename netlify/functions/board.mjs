@@ -2,7 +2,9 @@
 // No accounts. Posts expire after the trip ends. Contact details are refused in public posts.
 // GET  /.netlify/functions/board                    -> { posts: [{ id, nick, topic, text, from, to, ts, replies: [{ id, nick, text, ts }] }] } (visible only, newest first)
 // GET  /.netlify/functions/board?key=<key>          -> same, including expired and reported posts (with reports count), for Arpi
-// POST /.netlify/functions/board  { nick?, topic?, text, from?, to?, "bot-field"? } -> { ok, id }
+// POST /.netlify/functions/board  { nick?, topic?, text, from?, to?, time?, lat?, lng?, "bot-field"? } -> { ok, id }
+//   time = "HH:MM" meeting time. lat/lng are snapped here to a ~500 m grid cell (centre stored); the exact point is never saved.
+//   Output posts carry time and cell: [lat, lng] (centre of the grid cell) when shared.
 // POST /.netlify/functions/board  { post: "<id>", nick?, text }                    -> { ok }      (reply)
 // POST /.netlify/functions/board  { report: "<id>" }                               -> { ok }      (3 reports hide a post until Arpi looks)
 // POST /.netlify/functions/board  { key, remove: "<id>" }                          -> { ok }      (deletes a post and its replies)
@@ -27,6 +29,14 @@ const json = (status, body) =>
 const clean = (v, max) => String(v == null ? "" : v).replace(/\s+/g, " ").trim().slice(0, max);
 const isOwner = (key) => !!key && createHash("sha256").update(String(key)).digest("hex") === KEY_SHA256;
 const validId = (id) => /^[0-9]{15}-[0-9a-z]+$/.test(id);
+const validTime = (t) => /^([01]\d|2[0-3]):[0-5]\d$/.test(t);
+// Grid cell of 0.005 deg lat (~555 m) x 0.007 deg lng (~530 m at Budapest's latitude), only inside the Budapest area.
+const snap = (lat, lng) => {
+  lat = Number(lat); lng = Number(lng);
+  if (!Number.isFinite(lat) || !Number.isFinite(lng) || lat < 47.3 || lat > 47.7 || lng < 18.8 || lng > 19.4) return null;
+  const c = (v, step) => Math.round((Math.floor(v / step) * step + step / 2) * 1e5) / 1e5;
+  return [c(lat, 0.005), c(lng, 0.007)];
+};
 const validDate = (d) => /^\d{4}-\d{2}-\d{2}$/.test(d) && !Number.isNaN(Date.parse(d));
 
 // Public text must not carry links or contact details (spam and safety). Private messages are a later step.
@@ -63,7 +73,7 @@ async function readAll(store, all) {
     const reports = (p.rep || []).length;
     const expired = expiresAt(p) < now;
     if (!all && (expired || reports >= HIDE_AT)) return;
-    const post = { id, nick: p.nick || "", topic: p.topic || "", text: p.text, from: p.from || "", to: p.to || "", ts: p.ts, replies: replies[id] || [] };
+    const post = { id, nick: p.nick || "", topic: p.topic || "", text: p.text, from: p.from || "", to: p.to || "", time: p.time || "", cell: p.cell || null, ts: p.ts, replies: replies[id] || [] };
     if (all) { post.reports = reports; post.expired = expired; }
     out.push(post);
   });
@@ -150,8 +160,10 @@ export default async (req, context) => {
     const topic = TOPICS.includes(clean(data.topic, 20)) ? clean(data.topic, 20) : "";
     const from = validDate(clean(data.from, 10)) ? clean(data.from, 10) : "";
     const to = validDate(clean(data.to, 10)) ? clean(data.to, 10) : "";
+    const time = validTime(clean(data.time, 5)) ? clean(data.time, 5) : "";
+    const cell = data.lat != null && data.lng != null ? snap(data.lat, data.lng) : null;
     const id = String(now).padStart(15, "0") + "-" + Math.random().toString(36).slice(2, 8);
-    await store.setJSON("p/" + id, { nick, topic, text, from, to, ts: now });
+    await store.setJSON("p/" + id, { nick, topic, text, from, to, time, ...(cell ? { cell } : {}), ts: now });
     await touch();
     return json(200, { ok: true, id });
   } catch (e) {

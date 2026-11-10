@@ -120,9 +120,15 @@
   var nickBox = document.querySelector('#postForm [name=nick]');
   try { nickBox.value = localStorage.getItem('budbud.nick') || ''; } catch (e) {}
 
+  function osm(lat, lng) { return 'https://www.openstreetmap.org/?mlat=' + lat + '&mlon=' + lng + '#map=16/' + lat + '/' + lng; }
+  var M = window.MEETUP;
+  if (M) document.getElementById('meetup').innerHTML = '<h3>Daily meetup at ' + esc(M.time) + '</h3><p>' + esc(M.place) + '</p><p class="hint">' + esc(M.note) + '</p>' +
+    '<a href="' + osm(M.lat, M.lng) + '" target="_blank" rel="noopener">Open on map</a>';
+
   function when(p) {
     var parts = [];
     if (p.topic) parts.push(topicTitle(p.topic));
+    if (p.time) parts.push('meet ' + p.time);
     if (p.from || p.to) parts.push('in Budapest ' + (p.from || '?') + ' to ' + (p.to || '?'));
     return parts.join(' · ');
   }
@@ -140,6 +146,7 @@
       ps.forEach(function (p) {
         var el = document.createElement('article'); el.className = 'post';
         el.innerHTML = '<p class="who">' + esc(p.nick || 'Visitor') + '</p><p class="meta">' + esc(when(p)) + '</p><p class="txt">' + esc(p.text) + '</p>' +
+          (p.cell ? '<p class="meta"><a href="' + osm(p.cell[0], p.cell[1]) + '" target="_blank" rel="noopener">Rough area (about 500 m)</a></p>' : '') +
           p.replies.map(function (r) { return '<div class="reply"><strong>' + esc(r.nick || 'Visitor') + ':</strong> ' + esc(r.text) + '</div>'; }).join('') +
           '<form class="replyform"><input placeholder="Reply" maxlength="500" required><button class="primary">Send</button></form>' +
           '<button type="button" class="linkbtn">Report</button>';
@@ -164,11 +171,23 @@
     var f = e.target, msg = document.getElementById('postMsg');
     try { localStorage.setItem('budbud.nick', f.nick.value); } catch (err) {}
     msg.textContent = 'Posting…';
-    post({ nick: f.nick.value, topic: f.topic.value, text: f.text.value, from: f.from.value, to: f.to.value, 'bot-field': f['bot-field'].value })
-      .then(function (x) {
+    var base = { nick: f.nick.value, topic: f.topic.value, text: f.text.value, from: f.from.value, to: f.to.value, time: f.time.value, 'bot-field': f['bot-field'].value };
+    var send = function (extra) {
+      post(Object.assign(base, extra || {})).then(function (x) {
         if (x.ok) { msg.textContent = 'Posted!'; f.text.value = ''; loadBoard(); }
         else msg.textContent = ERRORS[x.d && x.d.error] || 'Could not post. Please try again.';
       }).catch(function () { msg.textContent = 'Could not reach the server. This works once Bud Bud is deployed with the site.'; });
+    };
+    if (f.share.checked) {
+      if (!navigator.geolocation) { msg.textContent = 'Location is not available in this browser. Untick "Share my rough area".'; return; }
+      msg.textContent = 'Getting your rough area…';
+      navigator.geolocation.getCurrentPosition(function (p) {
+        // Snap to the ~500 m grid here, so the exact position never leaves the phone (the server snaps again).
+        var snapTo = function (v, step) { return Math.floor(v / step) * step + step / 2; };
+        send({ lat: snapTo(p.coords.latitude, 0.005), lng: snapTo(p.coords.longitude, 0.007) });
+      },
+        function () { msg.textContent = 'Could not get your location. Untick "Share my rough area" to post without it.'; });
+    } else send();
   });
 
   loadAnswers();

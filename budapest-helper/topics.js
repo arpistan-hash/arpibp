@@ -28,3 +28,6 @@ window.TOPICS = [
     text: "The European emergency number is 112, and it works in Budapest. Agree on the price before taking a taxi, or use a ride app. Check restaurant bills for added service charges. Keep your phone and wallet secure on crowded trams and in busy areas."
   }
 ];
+
+// The daily meetup card. Owner: set the real public place and time. Placeholder below.
+window.MEETUP = { time: "18:00", place: "PLACEHOLDER: set a public meeting place", lat: 47.4979, lng: 19.0540, note: "Every day. Just turn up and say hi." };

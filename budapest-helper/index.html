@@ -23,11 +23,14 @@
   <section id="board" class="board">
     <h2>Fellow tourists</h2>
     <p class="hint">Post a plan and meet people. Meet in public places and tell someone where you're going. Don't post phone numbers, emails or links; private messages are coming later. Posts disappear after your trip.</p>
+    <div id="meetup" class="meetup"></div>
     <form id="postForm">
       <input name="nick" placeholder="Nickname" maxlength="30" required>
       <select name="topic" id="postTopic" aria-label="Topic"></select>
       <textarea name="text" rows="3" required maxlength="500" placeholder="Going to Széchenyi on Saturday morning, anyone want to join?"></textarea>
       <div class="dates"><label>Arriving <input type="date" name="from"></label><label>Leaving <input type="date" name="to"></label></div>
+      <div class="dates"><label>Meet at (optional) <input type="time" name="time"></label></div>
+      <label class="check"><input type="checkbox" name="share"> Share my rough area (about 500 m, never my exact spot)</label>
       <input type="text" name="bot-field" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
       <div class="row"><button type="submit" class="primary">Post</button></div>
       <p id="postMsg" class="hint" role="status"></p>

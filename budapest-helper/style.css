@@ -35,3 +35,6 @@ input[name=nick]{width:100%;padding:10px;border:1px solid var(--line);border-rad
 .reply{border-left:3px solid var(--line);padding:2px 10px;margin:6px 0 6px 6px;font-size:.95rem}
 .replyform{display:flex;gap:6px;margin-top:8px}.replyform input{flex:1;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
 .linkbtn{border:0;background:none;color:var(--muted);text-decoration:underline;padding:4px;font-size:.8rem}
+.meetup{background:var(--card);border:2px solid var(--accent);border-radius:12px;padding:10px 14px;margin:10px 0}
+.meetup h3{margin:0 0 2px;font-size:1rem}.meetup p{margin:2px 0}
+.check{display:block;font-size:.88rem;margin:6px 0;color:var(--muted)}
