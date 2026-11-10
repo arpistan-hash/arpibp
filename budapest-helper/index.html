@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bud Bud: your Budapest buddy</title>
 <meta name="description" content="Bud Bud is a Budapest buddy: spoken, up-to-date tips and a board to meet fellow tourists.">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#b5412b">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -59,5 +63,6 @@
 
 <script src="topics.js"></script>
 <script src="app.js"></script>
+<script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});</script>
 </body>
 </html>

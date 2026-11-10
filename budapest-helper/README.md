@@ -16,3 +16,7 @@ Not live yet: Netlify publishes only `blog-copy/`, and functions are built from 
 Next step: private messages (needs a light sign-in, block and report).
 
 The daily 6 PM meetup card is `window.MEETUP` in `topics.js`. Set the real public place before going live.
+
+## Install as an app (PWA)
+`manifest.webmanifest`, `sw.js` and the icons make Bud Bud installable ("Add to Home Screen" on phones, "Install" in Chrome/Edge). The topics work offline; the board and questions need a connection.
+Use relative paths only, so the folder works from any URL path (e.g. `/budbud/`). Bump `CACHE` in `sw.js` when you change cached files.
