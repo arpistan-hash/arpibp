@@ -635,8 +635,13 @@ with open(OUT / "assets" / "table.css", "a", encoding="utf-8") as fh:
              "html[data-theme=light] .tbl-page .tbl-tabs .tab[aria-selected=\"true\"] { background: var(--ink); color: var(--card); border-color: var(--ink); }\n")
 shutil.copytree(ROOT / "assets" / "app", OUT / "assets" / "app", dirs_exist_ok=True)
 (OUT / "netlify" / "functions").mkdir(parents=True, exist_ok=True)
-for f in ("guestbook.mjs", "table.mjs", "ask.mjs", "stats.mjs"):
+for f in ("guestbook.mjs", "table.mjs", "ask.mjs", "stats.mjs", "board.mjs"):
     shutil.copy(ROOT / "netlify" / "functions" / f, OUT / "netlify" / "functions" / f)
+
+# ---------- Bud Bud: the Budapest buddy app (budapest-helper/ in the repo), served at /budbud/ ----------
+(OUT / "budbud").mkdir(parents=True, exist_ok=True)
+for f in ("index.html", "app.js", "topics.js", "style.css", "sw.js", "manifest.webmanifest", "icon.svg", "icon-192.png", "icon-512.png"):
+    shutil.copy(ROOT / "budapest-helper" / f, OUT / "budbud" / f)
 
 # ---------- sitemap and robots, so search engines find every page ----------
 home_mod = max([lastmod("", home)] + [q["lastmod"] for q in posts])
@@ -666,7 +671,7 @@ LASTMOD_FILE.write_text(json.dumps({k: v for k, v in sorted(LASTMOD.items()) if 
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: SAMEORIGIN
-  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Permissions-Policy: camera=(), microphone=(self), geolocation=(self), payment=()
 
 /assets/fonts/*
   Cache-Control: public, max-age=31536000, immutable

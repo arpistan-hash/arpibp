@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bud Bud: your Budapest buddy</title>
+<meta name="description" content="Bud Bud is a Budapest buddy: spoken, up-to-date tips and a board to meet fellow tourists.">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#b5412b">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <h1>Bud Bud <small>your Budapest buddy</small></h1>
+  <label class="lang">Voice
+    <select id="lang"><option value="en-GB">English</option><option value="hu-HU">Magyar</option></select>
+  </label>
+</header>
+
+<main>
+  <input id="search" type="search" placeholder="Search topics…" aria-label="Search topics">
+  <p id="prompt" class="prompt"></p>
+  <div id="topics" class="topics"></div>
+
+  <section id="board" class="board">
+    <h2>Fellow tourists</h2>
+    <p class="hint">Post a plan and meet people. Meet in public places and tell someone where you're going. Don't post phone numbers, emails or links; private messages are coming later. Posts disappear after your trip.</p>
+    <div id="meetup" class="meetup"></div>
+    <form id="postForm">
+      <input name="nick" placeholder="Nickname" maxlength="30" required>
+      <select name="topic" id="postTopic" aria-label="Topic"></select>
+      <textarea name="text" rows="3" required maxlength="500" placeholder="Going to Széchenyi on Saturday morning, anyone want to join?"></textarea>
+      <div class="dates"><label>Arriving <input type="date" name="from"></label><label>Leaving <input type="date" name="to"></label></div>
+      <div class="dates"><label>Meet at (optional) <input type="time" name="time"></label></div>
+      <label class="check"><input type="checkbox" name="share"> Share my rough area (about 500 m, never my exact spot)</label>
+      <input type="text" name="bot-field" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+      <div class="row"><button type="submit" class="primary">Post</button></div>
+      <p id="postMsg" class="hint" role="status"></p>
+    </form>
+    <div id="posts"></div>
+  </section>
+
+  <section id="ask" class="ask">
+    <h2>Ask a question</h2>
+    <p class="hint">Arpi or the community answers. Answered questions appear below.</p>
+    <form id="askForm">
+      <select name="topic" id="askTopic" aria-label="Topic"></select>
+      <textarea name="q" rows="3" required maxlength="500" placeholder="Type or dictate your question"></textarea>
+      <input name="name" placeholder="Your name (optional)" maxlength="60">
+      <input type="text" name="bot-field" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+      <div class="row">
+        <button type="button" id="mic">🎤 Dictate</button>
+        <button type="submit" class="primary">Send</button>
+      </div>
+      <p id="askMsg" class="hint" role="status"></p>
+    </form>
+    <h3>Answered questions</h3>
+    <div id="answers"></div>
+  </section>
+</main>
+
+<script src="topics.js"></script>
+<script src="app.js"></script>
+<script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});</script>
+</body>
+</html>
