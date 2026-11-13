@@ -9,3 +9,79 @@
 
 # bullshittsunami.hu serves the same site as budapesthungry.com (no redirect):
 # add it as a domain on the Netlify project and point its DNS there.
+
+# budbud.hu serves Bud Bud (the app in blog-copy/budbud/) at its root, on this same Netlify site, so the board,
+# the questions and your phone alerts keep working. To launch: add budbud.hu and www.budbud.hu as domains on the
+# Netlify project and point the DNS there. Rules are matched on the host, so the blog domains are not affected.
+# Functions stay at /.netlify/functions/*. Unknown paths on budbud.hu show the blog's pages (404 where none exists).
+[[redirects]]
+  from = "https://www.budbud.hu/*"
+  to = "https://budbud.hu/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://budbud.hu/"
+  to = "/budbud/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://budbud.hu/index.html"
+  to = "/budbud/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://budbud.hu/app.js"
+  to = "/budbud/app.js"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://budbud.hu/topics.js"
+  to = "/budbud/topics.js"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://budbud.hu/style.css"
+  to = "/budbud/style.css"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://budbud.hu/sw.js"
+  to = "/budbud/sw.js"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://budbud.hu/manifest.webmanifest"
+  to = "/budbud/manifest.webmanifest"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://budbud.hu/icon.svg"
+  to = "/budbud/icon.svg"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://budbud.hu/icon-192.png"
+  to = "/budbud/icon-192.png"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://budbud.hu/icon-512.png"
+  to = "/budbud/icon-512.png"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://budbud.hu/robots.txt"
+  to = "/budbud/robots.txt"
+  status = 200
+  force = true

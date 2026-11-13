@@ -640,7 +640,7 @@ for f in ("guestbook.mjs", "table.mjs", "ask.mjs", "stats.mjs", "board.mjs"):
 
 # ---------- Bud Bud: the Budapest buddy app (budapest-helper/ in the repo), served at /budbud/ ----------
 (OUT / "budbud").mkdir(parents=True, exist_ok=True)
-for f in ("index.html", "app.js", "topics.js", "style.css", "sw.js", "manifest.webmanifest", "icon.svg", "icon-192.png", "icon-512.png"):
+for f in ("index.html", "app.js", "topics.js", "style.css", "sw.js", "manifest.webmanifest", "icon.svg", "icon-192.png", "icon-512.png", "robots.txt"):
     shutil.copy(ROOT / "budapest-helper" / f, OUT / "budbud" / f)
 
 # ---------- sitemap and robots, so search engines find every page ----------

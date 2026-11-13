@@ -20,3 +20,9 @@ The daily 6 PM meetup card is `window.MEETUP` in `topics.js`. Set the real publi
 ## Install as an app (PWA)
 `manifest.webmanifest`, `sw.js` and the icons make Bud Bud installable ("Add to Home Screen" on phones, "Install" in Chrome/Edge). The topics work offline; the board and questions need a connection.
 Use relative paths only, so the folder works from any URL path (e.g. `/budbud/`). Bump `CACHE` in `sw.js` when you change cached files.
+
+## Launch on budbud.hu
+The redirect rules in `netlify.toml` and `blog-copy/netlify.toml` serve this app at the root of `budbud.hu` (same Netlify site, so the board and questions keep working). Launch steps:
+1. Register `budbud.hu` with a Hungarian registrar (if not yours yet).
+2. In Netlify: Domain management, add `budbud.hu` (and `www.budbud.hu`) to the project that serves the blog, then use Netlify DNS or the DNS records Netlify shows.
+3. Wait for the HTTPS certificate, then check `https://budbud.hu/`, install it as an app, post on the board, and check `curl -I https://budbud.hu/` shows the Permissions-Policy with geolocation=(self).
