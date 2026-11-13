@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Budapest Childhood</title>
+<meta name="description" content="A walking tour of Budapest told through childhood memories, with photos and GPS.">
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <h1>My Budapest Childhood</h1>
+  <div class="actions">
+    <button id="walkBtn" type="button">Walk mode: off</button>
+    <button id="addBtn" type="button">+ Add memory</button>
+  </div>
+</header>
+
+<main>
+  <div id="map" aria-label="Map of memories"></div>
+
+  <section id="panel" class="panel" aria-live="polite">
+    <div id="nearby" class="nearby" hidden></div>
+    <div id="card"></div>
+    <h2 class="listhead">Stops</h2>
+    <ol id="list" class="list"></ol>
+    <div class="tools">
+      <button id="exportBtn" type="button">Export my stories</button>
+      <label class="filebtn">Import<input id="importFile" type="file" accept="application/json" hidden></label>
+    </div>
+  </section>
+</main>
+
+<dialog id="dlg">
+  <form id="form" method="dialog">
+    <h2>Add a memory</h2>
+    <p class="hint" id="pickHint">Tap the map to set the place, or use “My location”.</p>
+    <button type="button" id="useGps">Use my location</button>
+    <label>Title <input name="title" required placeholder="The department store at Christmas"></label>
+    <label>Place <input name="place" placeholder="Divatcsarnok, Andrássy út"></label>
+    <label>When <input name="era" placeholder="Christmas, 1980s"></label>
+    <label>Your memory <textarea name="text" rows="6" required placeholder="I remember this was a department store…"></textarea></label>
+    <label>Photo (optional) <input name="photo" type="file" accept="image/*"></label>
+    <label>Photo credit <input name="credit" placeholder="Fortepan / 123456 / photographer"></label>
+    <div class="row">
+      <button type="button" id="cancel">Cancel</button>
+      <button type="submit" class="primary">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="vendor/leaflet.js"></script>
+<script src="stories.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
